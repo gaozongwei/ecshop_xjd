@@ -1,0 +1,25 @@
+{if $arr}
+<!-- {foreach from=$arr item=book} -->
+<div class='spp5_box2c clearfix'>
+               <div class='spp5_uboxa' style="width:40%; border:none;">
+             订单号：
+               </div>
+               <div class='spp5_uboxb'>
+               {$book.order_sn}
+               </div>
+           </div>
+	   {if $book.surplus > 0}
+	   <div class='spp5_box2c clearfix'>
+               <div class='spp5_uboxa' style="width:40%; border:none;">
+               余额支付：
+               </div>
+               <div class='spp5_uboxb'>
+               ￥{$book.surplus}
+               </div>
+           </div>
+	   {/if}
+<!-- {/foreach} -->
+</div>
+{else}
+
+{/if}

@@ -1,0 +1,14 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div class="aside-con aside-con1">
+  <div class="aside-tit">
+    <h2>同类品牌</h2>
+  </div>
+  <div class="aside-list">
+    <ul>
+      <?php $GLOBALS['smarty']->assign('get_cat_brands',get_cat_brands($this->_var['goods']['cat_id']));?>
+      <!--{foreach from=$get_cat_brands item=brand_cat name=get_cat_brands}-->
+      <li><a href="brand.php?id={$brand_cat.id}" title="{$brand_cat.name}">{$brand_cat.name}</a></li>
+      <!--{/foreach}-->
+    </ul>
+  </div>
+</div>

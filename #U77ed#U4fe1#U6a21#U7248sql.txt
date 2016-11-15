@@ -1,0 +1,29 @@
+删除掉parent_id为8的所有数据后，执行下面语句
+
+INSERT INTO `ecs_shop_config` ( `id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order` ) VALUES ('801', '8', 'sms_shop_mobile', 'text', '', '', '15652190983', '1');
+INSERT INTO `ecs_shop_config` ( `id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order` ) VALUES  ('802', '8', 'sms_order_placed', 'select', '1,0', '', '1', '3');
+INSERT INTO `ecs_shop_config` ( `id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order` ) VALUES  ('803', '8', 'sms_order_payed', 'select', '1,0', '', '1', '5');
+INSERT INTO `ecs_shop_config` ( `id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order` ) VALUES  ('804', '8', 'sms_order_shipped', 'select', '1,0', '', '1', '9');
+
+
+INSERT INTO `ecs_shop_config` ( `id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order` ) VALUES  ('909', '8', 'sms_register', 'select', '1,0', '', '1', '17');
+
+INSERT INTO `ecs_shop_config` ( `id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order` ) VALUES  ('1025', '8', 'sms_goods_stockout', 'select', '1,0', '', '1', '13');
+INSERT INTO `ecs_shop_config` ( `id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order` ) VALUES  ('1026', '8', 'sms_order_placed_tpl', 'textarea', '', '', '您有一条新订单，订单号为：%s，请注意查看。【%s】', '4');
+INSERT INTO `ecs_shop_config` ( `id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order` ) VALUES  ('1027', '8', 'sms_order_payed_tpl', 'textarea', '', '', '客户已付款，订单号为：%s，请注意查看。【%s】', '6');
+INSERT INTO `ecs_shop_config` ( `id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order` ) VALUES  ('1028', '8', 'sms_sign', 'text', '', '', '68ecshop', '2');
+INSERT INTO `ecs_shop_config` ( `id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order` ) VALUES  ('1029', '8', 'sms_goods_stockout_tpl', 'textarea', '', '', '您登记的商品%s已经到货，您可点击下面链接直接进入商品页面浏览或购买！%s【%s】', '14');
+INSERT INTO `ecs_shop_config` ( `id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order` ) VALUES  ('1030', '8', 'sms_order_pay', 'select', '1,0', '', '1', '7');
+INSERT INTO `ecs_shop_config` ( `id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order` ) VALUES  ('1031', '8', 'sms_order_pay_tpl', 'textarea', '', '', '您已付款，订单号为：%s【%s】', '8');
+INSERT INTO `ecs_shop_config` ( `id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order` ) VALUES  ('1032', '8', 'sms_order_shipped_tpl', 'textarea', '', '', '您的订单已发货，订单号为%s，收货人为%s，收货地址为%s，请注意查收【%s】', '10');
+INSERT INTO `ecs_shop_config` ( `id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order` ) VALUES  ('1033', '8', 'sms_pricecut', 'select', '1,0', '', '1', '11');
+INSERT INTO `ecs_shop_config` ( `id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order` ) VALUES  ('1034', '8', 'sms_pricecut_tpl', 'textarea', '', '', '您关注的商品%s已经降价，您可点击下面链接直接进入商品页面浏览或购买！%s【%s】', '12');
+INSERT INTO `ecs_shop_config` ( `id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order` ) VALUES  ('1035', '8', 'sms_change_password', 'select', '1,0', '', '1', '15');
+INSERT INTO `ecs_shop_config` ( `id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order` ) VALUES  ('1036', '8', 'sms_change_password_tpl', 'textarea', '', '', '您于%s修改了登录密码，密码已修改成功！如果不是您本人操作，请及时联系商城客服。【%s】', '16');
+INSERT INTO `ecs_shop_config` ( `id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order` ) VALUES  ('1037', '8', 'sms_register_tpl', 'textarea', '', '', '您的验证码为：%s【%s】', '18');
+INSERT INTO `ecs_shop_config` ( `id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order` ) VALUES  ('1038', '8', 'sms_user_money_change', 'select', '1,0', '', '1', '19');
+INSERT INTO `ecs_shop_config` ( `id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order` ) VALUES  ('1039', '8', 'sms_use_balance_reduce_tpl', 'textarea', '', '', '您于%s在商城消费%s元，当前余额：%s元。如有疑问，请联系商城客服。【%s】', '20');
+INSERT INTO `ecs_shop_config` ( `id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order` ) VALUES  ('1040', '8', 'sms_deposit_balance_reduce_tpl', 'textarea', '', '', '您于%s在商城申请提现%s元，提现已成功，当前余额：%s元。如有疑问，请联系商城客服。【%s】', '21');
+INSERT INTO `ecs_shop_config` ( `id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order` ) VALUES  ('1041', '8', 'sms_recharge_balance_add_tpl', 'textarea', '', '', '恭喜您，已成功充值%s元，当前余额：%s元。如有疑问，请联系商城客服。【%s】', '22');
+INSERT INTO `ecs_shop_config` ( `id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order` ) VALUES  ('1042', '8', 'sms_admin_operation_tpl', 'textarea', '', '', '商城于%s调节您的余额%s元，当前余额%s元。如有疑问，请联系商城客服。【%s】', '23');
+INSERT INTO `ecs_shop_config` ( `id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order` ) VALUES  ('1043', '8', 'sms_return_goods_tpl', 'textarea', '', '', '您提交的退货申请已成功处理，退回款项：%s元，当前余额：%s元。如有疑问，请联系商城客服。【%s】', '24');

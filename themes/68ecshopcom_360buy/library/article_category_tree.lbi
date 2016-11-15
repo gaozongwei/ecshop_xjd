@@ -1,0 +1,16 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- {if $article_categories} -->
+<div class="article-menu-title main-bg-color">{$lang.article_cat}</div>
+<div class="article-menu">
+	<!--{foreach from=$article_categories item=cat name=cat key=key}-->
+    <div class="article-menu-list sidebar-article-menu {if $smarty.foreach.cat.last}last{/if}">
+    	<h4><b></b><a href="{$cat.url}">{$cat.name|escape:html}</a></h4>
+        <ul>
+            <!--{foreach from=$cat.children item=child name=name key=k}-->
+            <li class="{if $k eq $cat_id}curr{/if} {if $smarty.foreach.name.first}first{/if}"><a href="{$child.url}">{$child.name|escape:html}</a></li>
+            <!--{/foreach}-->
+        </ul>
+    </div>
+	<!-- {/foreach} -->	
+</div>
+<!-- {/if} -->

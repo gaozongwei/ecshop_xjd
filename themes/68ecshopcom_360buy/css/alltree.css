@@ -1,0 +1,254 @@
+@charset "utf-8";
+.margin-w1210 {
+    width: 1210px !important;
+    margin: 10px auto;
+}
+.m{
+    margin-bottom: 10px;
+}
+/*tab-link*/
+#tab-link {
+	height: 30px;
+	padding: 0 20px;
+	margin: 20px 0;
+	border-bottom: 2px solid #c00;
+	overflow: visible;
+}
+#tab-link li {
+	height: 30px;
+	padding-right: 16px;
+	background: url(../images/bg_allsort.jpg) #E4E4E4 no-repeat right -151px;
+	margin-right: 5px;
+	line-height: 30px;
+	font-size: 14px;
+	float: left;
+}
+#tab-link li a {
+	height: 30px;
+	padding-left: 16px;
+	background: url(../images/bg_allsort.jpg) no-repeat 0 -120px;
+	line-height: 30px;
+	display: inline-block;
+}
+#tab-link li.curr {
+	background-position: right -89px;
+}
+#tab-link li.curr a {
+	background-position: 0 -58px;
+	color: #fff;
+}
+/*tab-sort*/
+#tab-sort .i-w {
+	margin-bottom: 10px;
+}
+#tab-sort .text {
+	text-align: center;
+	font-size: 16px;
+	margin: 16px 0 8px;
+}
+#tab-sort ul {
+	width: 1139px;
+	padding: 0 0 16px 71px;
+	overflow: hidden;
+	zoom: 1;
+}
+#tab-sort li {
+	width: 80px;
+	margin: 10px 36px 0 0;
+	height: 32px;
+	line-height: 16px;
+	padding: 6px 10px;
+	border: 1px solid #D1D1D1;
+	text-align: center;
+	background: #F5F5F5;
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#F5F5F5));
+	background: -moz-linear-gradient(top, #ffffff 15%, #F5F5F5 50%, #F0F0F0);
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-moz-box-shadow: 0 0 5px #ddd;
+	-webkit-box-shadow: 0 0 5px #ddd;
+	box-shadow: 0 0 5px #ddd;
+	float: left;
+	overflow: hidden;
+}
+#tab-sort li a {
+	float: none;
+	font-size: 14px;
+	color: #005aa0;
+}
+#tab-sort li.l1 {
+	line-height: 32px;
+}
+/*allsort*/
+#allsort {
+	position: relative;
+	margin-bottom: 10px;
+}
+#allsort .m {
+	width: 595px;
+	border: 1px solid #E9E9E9;
+}
+#allsort .mt {
+	height: 28px;
+	background: url(../images/bg_allsort.jpg) repeat-x 0 0px;
+	border-bottom: 1px solid #E9E9E9;
+	line-height: 28px;
+}
+#allsort .mt h2 {
+	height: 28px;
+	padding: 0 5px 0 20px;
+	background: url(../images/bg_allsort.jpg) no-repeat 0 -28px;
+}
+#allsort .mc {
+	padding: 0 5px;
+}
+#allsort .mc .fore {
+	border-top: none;
+}
+#allsort .current {
+	background: #FFF6F0;
+}
+#allsort dl {
+	width: 575px;
+	padding: 5px;
+	border-top: 1px dotted #ccc;
+	overflow: hidden;
+	line-height: 24px;
+}
+#allsort dt {
+	float: left;
+	width: 55px;
+	padding-right: 10px;
+	font-weight: bold;
+	text-align: right;
+	color: #CC0000;
+}
+#allsort dt a {
+	color: #CC0000;
+}
+#allsort dd {
+	float: left;
+	width: 510px;
+}
+#allsort dd em {
+	float: left;
+}
+#allsort dd a {
+	white-space: nowrap;
+	margin-right: 16px;
+}
+/*品牌列表*/
+#allbrand{
+    overflow: hidden;
+}
+#co-brands{
+	border:1px solid #F3E0BF;
+	background:#FCFAEB;
+	border-radius:3px;
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;	
+}
+#co-brands .mt{
+	height:60px;
+}
+#co-brands h2 {
+    position: relative;
+    width: 80px;
+    height: 30px;
+    padding: 20px 0 10px 60px;
+    font-size: 16px;
+}
+#co-brands .mt h2 b{
+	position: absolute;
+    z-index: 2;
+    top: -1px;
+    left: -1px;
+    display: block;
+    width: 140px;
+    height: 60px;
+    background: url(../images/allbrands.png) no-repeat 0 0;
+}
+#co-brands .mc{
+	padding:10px;	
+}
+.brandslist {
+	overflow:hidden;	
+}
+.brandslist li {
+    width: 198px;
+    padding: 10px 0 0;
+	float:left;
+}
+.brandslist li div {
+    width: 155px;
+    height: 75px;
+    padding: 5px;
+    margin: 0 auto;
+    text-align: center;
+}
+.brandslist .b-img {
+	display:block;
+    height: 46px;
+    padding: 3px 0 5px;
+}
+.brandslist .b-name {
+	display:block;
+    padding-top: 5px;
+}
+#b-allbrand .tab {
+    margin: 15px 0;
+    overflow: hidden;
+}
+#b-allbrand .tab li{
+	width: 88px;
+    height: 64px;
+    line-height: 22px;
+	background: url(../images/allbrands.png) no-repeat 0 -161px;	
+	float:left;
+	margin-right: 14px;
+}	
+#b-allbrand .tab li.curr{
+	height:80px;
+	background: url(../images/allbrands.png) no-repeat 0 -79px;	
+}
+#b-allbrand .tab li.last{
+	margin:0;	
+}
+#b-allbrand .tab li a {
+    display: block;
+    height: 44px;
+    padding: 8px 5px;
+    text-align: center;
+    font-size: 13px;
+}
+#b-allbrand .tab li.curr a {
+    font-weight: bold;
+    color: #fff;
+}
+#b-allbrand .tabcon {
+    position: relative;
+    z-index: 3;
+    border: 1px solid #eee;
+    padding: 0 9px 10px;
+    background: #F9F9F9;
+    zoom: 1;
+}
+#b-allbrand .tabcon ul{
+	overflow:hidden;	
+}
+#b-allbrand .no-brand{
+	padding:30px;
+	font-size:14px;
+	font-weight:bold;
+	text-align:center;
+}
+
+
+
+
+
+
+
+
+

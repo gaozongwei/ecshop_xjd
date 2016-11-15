@@ -1,0 +1,10 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+{if $user_info}
+<a class="sn-login main-color" href="user.php" target="_top">{$user_info.username}</a><em>{$lang.welcome_return}！</em>
+<a class="sn-register" href="user.php?act=logout" target="_top">{$lang.user_logout}</a> 
+{else} 
+<em>{$lang.welcome}!</em>
+<a class="sn-login main-color" href="user.php" target="_top">请登录</a>
+<a class="sn-register" href="register.php" target="_top">免费注册</a> 
+<a class="sn-register" href="mobile/login.php" target="_top">微信登陆</a>
+{/if}

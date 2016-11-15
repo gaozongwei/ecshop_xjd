@@ -1,0 +1,55 @@
+<table cellpadding=4 cellspacing=4 width="100%" style="clear:both;">
+<tr>
+	<td style="text-align:right;width:13%"><font class="main-color">*</font>收件人</td>
+	<td><input type="text" name="consignee" value="{$address.consignee}" class="input_addr2">
+	<div class="required-notice fl"><i class="notice-icon"></i><span class="notice-text reciever-notice"></span></div></td>
+</tr>
+<tr>
+<td style="text-align:right;"><font class="main-color">*</font>所在地区</td>
+<td>
+<input type="hidden" name="country" value="1">
+<select name="province" id="selProvinces" onchange="region.changed(this, 2, 'selCities');" class="select_addr">
+<option value="0">{$lang.please_select}{$name_of_region[1]}</option>
+ <!-- {foreach from=$province_list item=province} -->
+        <option value="{$province.region_id}" {if $address.province eq $province.region_id}selected{/if}>{$province.region_name}</option>
+        <!-- {/foreach} -->
+      </select>
+      <select name="city" id="selCities" onchange="region.changed(this, 3, 'selDistricts');" class="select_addr">
+        <option value="0">{$lang.please_select}{$name_of_region[2]}</option>
+        <!-- {foreach from=$city_list item=city} -->
+        <option value="{$city.region_id}" {if $address.city eq $city.region_id}selected{/if}>{$city.region_name}</option>
+        <!-- {/foreach} -->
+      </select>
+      <select name="district" id="selDistricts" class="select_addr" style="{if !$address.address_id}display:none;{/if}" >
+        <option value="0">{$lang.please_select}{$name_of_region[3]}</option>
+        <!-- {foreach from=$district_list item=district} -->
+        <option value="{$district.region_id}" {if $address.district eq $district.region_id}selected{/if}>{$district.region_name}</option>
+        <!-- {/foreach} -->
+      </select>
+      <div class="required-notice fl"><i class="notice-icon"></i><span class="notice-text address-notice"></span></div>
+</td></tr>
+<tr>
+	<td style="text-align:right;"><font class="main-color">*</font>街道地址</td>
+	<td><input type="text" name="address" class="input_addr1 inputMiddle" value="{$address.address}">
+	<div class="required-notice"><i class="notice-icon"></i><span class="notice-text detail-address-notice"></span></div></td>
+</tr>
+<tr>
+	<td style="text-align:right;">电子邮箱</td>
+	<td><input type="text" name="email" class="input_addr1 inputMiddle" value="{$address.email}"></td>
+</tr>
+<tr>
+	<td style="text-align:right;">邮编</td>
+	<td><input type="text" name="zipcode" class="input_addr3" value="{$address.zipcode}"></td>
+</tr>
+<tr>
+<td style="text-align:right;"><font class="main-color">*</font>手机号码</td>
+<td><input type="text" name="mobile" class="input_addr2 input_addr2_t" value="{$address.mobile}">
+&nbsp;&nbsp;&nbsp;&nbsp;或固定电话 
+<input type="text" name="tel_01" class="input_addr4" value="{$address.tel_array.0}"> - <input type="text" name="tel_02" class="input_addr3" value="{$address.tel_array.1}"> - <input type="text" name="tel_03" class="input_addr4" value="{$address.tel_array.2}"></td></tr>
+<tr><td></td><td><font color=#cccccc style="height:30px;line-height:30px; display:inline-block;">两者至少填写一项</font><div class="required-notice"><i class="notice-icon"></i><span class="notice-text phone-notice"></span></div></td></tr>
+<tr><td></td><td style="padding-top:10px;">
+<input type="hidden" name="address_id" value="{$address.address_id}" >
+<input type="hidden" name="shipping_bian" value="0" >
+<input type="hidden" name="closediv" value="1" >
+<input type="button" class="BonusButton" value=" 确定 " onclick="submitAddress()">&nbsp;&nbsp;<input type="button" class="Button_reset" value=" 取消 " onclick="closePopDiv()"></td></tr>
+</table>

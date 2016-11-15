@@ -1,0 +1,160 @@
+﻿{foreach from=$order_info item=order}
+<!--收货人信息-->
+<div class='spp3_box6 clearfix'>
+      <div class='spp3_box7 clearfix'> </div>
+      <div class='spp_3bxt'>
+    <div class='spp3_box8 clearfix' style="border-top:0">
+          <p class='spp3_text6'> 收货人信息 </p>
+        </div>
+    <table class="shouhuoren">
+          <tr>
+        <td align="right">收货人姓名：</td>
+        <td align="right"><input id="consignee" type="text" value="{$order.consignee}" class="input_style" /></td>
+      </tr>
+          <tr>
+        <td align="right">电子邮件地址：</td>
+        <td><input id="email" type="text" value="{$order.email}"  class="input_style"/></td>
+      </tr>
+          <tr>
+        <td align="right">详细地址：</td>
+        <td><input id="address" type="text" value="{$order.address}"  class="input_style"/></td>
+      </tr>
+          <tr>
+        <td align="right">邮政编码：</td>
+        <td><input id="zipcode" type="text" value="{$order.zipcode}"  class="input_style"/></td>
+      </tr>
+          <tr>
+        <td align="right">手机：</td>
+        <td><input id="mobile" type="text" value="{$order.mobile}"  class="input_style"/></td>
+      </tr>
+        </table>
+  </div>
+      <div id="updataAddress" class="shouhuoren_btn" onclick="orderAddressUpdata()"> 更新收货人信息 </div>
+    </div>
+<!--收货人信息--> 
+
+<div class='spp3_box6 clearfix'>
+
+
+<!--订单状态-->
+<div class='spp_3bxt'>
+      <div class='spp3_box8 clearfix' style="float:none; margin:0 auto; margin-top:0.8em">
+    <p class='spp3_text6' style="width:8%;"> <img src="img/checkbox_on1.png" style=" width:1em; height:1em;"></p>
+    <p class='spp3_text6' style="float:none; width:92%; margin:0 auto;"> 订单状态 </p>
+  </div>
+      <div id="orderGoods" style="padding-top:0.5em">
+	    <div class='spp3_order1 clearfix ub'>
+          <p class='spp3_order1_1'>订单状态：</p>		  
+			<p class='spp3_order1_2'>{$order.order_status}{if $order.order_status == "已确认"}</br>确认于{$order.confirm_time}{/if}</p>
+		  
+        </div>
+    <div class='spp3_order1 clearfix ub'>
+          <p class='spp3_order1_1'>付款状态：</p>		  
+			<p class='spp3_order1_2'>{$order.pay_status}{if $order.pay_status == "已付款"}</br>付款于{$order.pay_time}{/if}</p>	  
+        </div>
+      <div class='spp3_order1 clearfix ub'>
+    <p class='spp3_order1_1'>配送状态：</p>	
+		<p class='spp3_order1_2'>{$order.shipping_status}{if $order.shipping_status == "已发货"}</br>发货于{$order.shipping_time}{/if}</p>
+	
+  </div>
+  </div>
+     
+    </div>
+    <!--订单状态-->
+
+<div  class='spp3_order2'>
+      <div  class='spp3_order2'>
+      <!--去支付-->
+	  
+	  {if $order.pay_status =="已付款"}
+	{elseif $order.order_status == "已取消"}
+	{else}
+	<div onclick="pay({$order.order_sn},{$order.order_amount})" class="shouhuoren_btn"style='background:#EC7676;'>去支付宝支付</div>
+	{/if}
+   <!--去支付-->
+    <!--订单号-->
+    <div  class='spp3_order3'>
+          <div class='spp3_order4 clearfix ub'>
+        <p class='spp3_order2_1'>订单号：</p>
+        <p class='spp3_order2_2'><span class='spp3_textspan1'>{$order.order_sn}</span></p>
+      </div>
+        </div>
+        <!--订单号-->
+</div>
+
+
+        <!--商品详情-->
+    <div id="orderInfo">
+    	 <div class='spp3_order5 clearfix' style=" background:none;">
+		{foreach from=$order_goods item=goods}
+        <div class="spp3_order6 ub" onclick="goods({$goods.goods_id})">
+        	<div class="spp3_order5_2"><img src="http://{$smarty.server.SERVER_NAME}/{$goods.goods_thumb}" style="width:4em; height:4em;"></div>
+            <div class="spp3_order5_3">
+            	<p class="spp3_order5_4">{$goods.goods_name}</p>
+                <p class="spp3_order5_4"><span class="spp3_order_font">价格：{$goods.goods_price}</span>&nbsp;&nbsp;<span class="spp3_order_font">数量：{$goods.goods_number}</span></p>
+                <p class="spp3_order5_4"><span class="spp3_order_font">{$goods.goods_attr}</span>&nbsp;&nbsp;<span class="spp3_order_font"></span></p>
+            </div>
+        </div>
+	{/foreach}
+      </div>
+    </div>
+    <!--商品详情-->
+    <!--订单信息-->
+
+
+          <div class='spp3_order7_1 clearfix ub'>
+        <div class='spp3_order7_2'>订单信息</div>
+        <div class='spp3_order7_3'>
+        <p class='spp3_textqt'>红包支付：￥{$order.bonus}</p>
+        <p class='spp3_textqt'>余额支付：￥{$order.surplus}</p>
+        <p class='spp3_textqt'>积分支付：￥{$order.integral_money}</p>
+        <p class='spp3_textqt'>发票税额：￥{$order.tax}</p>
+        <p class='spp3_textqt'>折扣金额：￥{$order.discount}</p>
+        <p class='spp3_textqt'>运费：￥{$order.shipping_fee}</p>
+        </div>
+        </div>
+    <!--订单信息-->
+	
+	<!--其他信息-->
+        <div class='spp3_order7_1 clearfix ub'>
+		{if $order.inv_type == 'normal_invoice'}
+			<div class='spp3_order7_2'>发票信息</div>
+			<div class='spp3_order7_3'>
+				<p class='spp3_textqt'>发票类型：普通发票</p>
+				<p class='spp3_textqt'>发票抬头：{$order.inv_payee}</p>
+				<p class='spp3_textqt'>发票内容：{$order.inv_content}</p>
+			</div>
+		{elseif $order.inv_type == 'vat_invoice'}
+			<div class='spp3_order7_2'>发票信息</div>
+			<div class='spp3_order7_3'>
+				<p class='spp3_textqt'>发票类型：增值税发票</p>
+				<p class='spp3_textqt'>发票内容：{$order.inv_content}</p>
+				<p class='spp3_textqt'>公司名称：{$order.vat_inv_company_name}</p>
+				<p class='spp3_textqt'>纳税人识别号：{$order.vat_inv_taxpayer_id}</p>
+				<p class='spp3_textqt'>注册地址：{$order.vat_inv_registration_address}</p>
+				<p class='spp3_textqt'>注册电话：{$order.vat_inv_registration_phone}</p>
+				<p class='spp3_textqt'>开户银行：{$order.vat_inv_deposit_bank}</p>
+				<p class='spp3_textqt'>银行账户：{$order.vat_inv_bank_account}</p>
+				<p class='spp3_textqt'>收票人姓名：{$order.inv_consignee_name}</p>
+				<p class='spp3_textqt'>收票人手机：{$order.inv_consignee_phone}</p>
+				<p class='spp3_textqt'>收票人地址：{$order.inv_complete_address}</p>
+			</div>
+		{else}
+			<div class='spp3_order7_2'>没有发票</div>
+		{/if}
+       
+        </div>
+    <!--其他信息-->
+	
+	<!--商品总计-->
+          <div class='spp3_order8'>
+        <p class='spp3_order8_1'><span style="font-size:0.9em;">商品总额：</span><span style="font-size:1.2em;">￥{$order.count_goods_amount}</span></p>
+        <p class='spp3_order8_2'><span style="font-size:0.9em;">应付款：</span><span style="color:#EC7676; font-size:1.5em;">￥{$order.count_amount}</span></p>
+      </div>
+	<!--商品总计-->
+
+  </div>
+    </div>
+		
+</div>
+{/foreach}

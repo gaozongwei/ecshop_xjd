@@ -1,0 +1,151 @@
+<!-- $Id: order_stats.htm 16420 2015-10-21 14:32:57Z langlibin $ -->
+{include file="pageheader_bd.htm"}
+<script type="text/javascript" src="../js/calendar.php?lang={$cfg_lang}"></script>
+<link href="../js/calendar/calendar.css" rel="stylesheet" type="text/css" />
+{insert_scripts files='jquery-1.6.2.min.js,chosen.jquery.min.js,jquery.ztree.all-3.5.min.js,category_selecter.js'}
+
+<div class="main-div">
+    <p style="margin: 10px">{$lang.notice_order_stats}</p>
+</div>
+
+<div class="form-div">
+    <form action="" method="post" id="selectForm" name="selectForm">
+        选择店铺：
+        <select id="sel_shop" name="sel_shop" onchange="change_shop()">
+            <option value="0" {if $sel_shop eq '0'} selected{/if}>整站</option>
+            <option value="1" {if $sel_shop eq '1'} selected{/if}>平台自营</option>
+            <option value="2" {if $sel_shop eq '2'} selected{/if}>第三方店铺</option>
+        </select>
+        <label id="notice"></label>
+        <select id="chzn-select" class="chzn-select" name="supplier_id" style="height:100;">
+            <option value="-1">全部</option>
+            {html_options options=$suppliers_list_name selected=$supplier_id}
+        </select>
+        <br />
+        {$lang.add_time}&nbsp;
+        <input name="start_date" value="{$start_date}" style="width:100px;height:20px;" onclick="return showCalendar(this, '%Y-%m-%d', false, false, this);" />
+        {$lang.to} &nbsp;
+        <input name="end_date" value="{$end_date}" style="width:100px;height:20px;" onclick="return showCalendar(this, '%Y-%m-%d', false, false, this);" />
+        &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="submit" value="{$lang.query}" class="button" />
+    </form>
+</div>
+<div class="main-div">
+    <p style="margin: 10px">
+    <table>
+        <tr>
+            <td><span title="{$lang.notice_order_money}">{$lang.order_money}{$order_money}{$lang.yuan}</span></td>
+            <td><span title="{$lang.notice_order_member}">{$lang.order_member}{$order_member}</span></td>
+            <td><span title="{$lang.notice_order_count}">{$lang.order_count}{$order_count}</span></td>
+            <td><span title="{$lang.notice_order_goods_number}">{$lang.order_goods_number}{$order_goods_number}</span></td>
+        </tr>
+        <tr>
+            <td><span title="{$lang.notice_average_member}">{$lang.average_member}{$average_member}{$lang.yuan}</span></td>
+            <td><span title="{$lang.notice_average_goods}">{$lang.average_goods}{$average_goods}{$lang.yuan}</span></td>
+            <td><span title="{$lang.notice_goods_save}">{$lang.goods_save}{$goods_save}</span></td>
+            <td><span title="{$lang.notice_goods_number}">{$lang.goods_number}{$goods_number}</span></td>
+        </tr>
+        <!--
+        <tr>
+            <td><span title="{$lang.notice_shop_save}">{$lang.shop_save}{$shop_save}</span></td>
+            <td><span title="{$lang.notice_order_peak}">{$lang.order_peak}{$order_peak}</span></td>
+            <td>&nbsp;</td><td>&nbsp;</td>
+            <td>&nbsp;</td><td>&nbsp;</td>
+        </tr>
+        -->
+    </table>
+    </p>
+</div>
+<div class="list-div">
+    <div class="order_count">
+        <p><span class="tab_front">销售走势</span></p>
+        <div style='height:400px;width:90%;margin-left:auto;margin-right:auto;' id='orders_option_div'></div>
+    </div>
+</div>
+<script src='js/echarts-all.js'></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+//        $(".chzn-select").chosen();
+        change_shop();
+    });
+    function change_shop()
+    {
+        if($("#sel_shop").val()==0)
+        {
+            $("#notice").text("平台自营和第三方店铺数据").show();
+            $("#chzn-select").hide();
+        }
+        else if($("#sel_shop").val()==1)
+        {
+            $("#notice").text("平台自营方数据").show();
+            $("#chzn-select").hide();
+        }
+        else
+        {
+            $("#notice").text("").hide();
+            $("#chzn-select").show();
+        }
+    }
+
+    var option = {
+        title : {
+//            text: '',
+//            subtext: ''
+        },
+        tooltip : {
+            trigger: 'axis'
+        },
+        legend: {
+            data:[]
+        },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {show: false}, // 辅助线开关
+                dataView : {show: false, readOnly: false}, // 数据视图
+                magicType : {show: true, type: ['line']}, // 显示折线图
+                restore : {show: true}, // 还原
+                saveAsImage : {show: true} // 保存为图片
+            }
+        },
+        calculable : false,
+        xAxis : [
+            {
+                type : 'category',
+                boundaryGap : false,
+                data : [{$date_arr}]
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                axisLabel : {
+                    formatter: '{value} 元'
+                }
+            }
+        ],
+        series : [
+            {
+                name:'下单金额',
+                type:'line',
+                data:[{$goods_amount_arr}],
+                markPoint : {
+                    data : [
+                        {type : 'max', name: '最大值'},
+                        {type : 'min', name: '最小值'}
+                    ]
+                },
+                markLine : {
+                    data : [
+//                        {type : 'average', name: '平均值'}
+                    ]
+                }
+            }
+        ]
+    };
+    var order_chart = echarts.init(document.getElementById('orders_option_div'));
+    order_chart.setOption(option);
+</script>
+<!-- end 升级 -->
+
+{/literal}
+{include file="pagefooter.htm"}

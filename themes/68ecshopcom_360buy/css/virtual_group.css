@@ -1,0 +1,533 @@
+@charset "utf-8";
+/* CSS Document */
+#filter .order b,.filter-tag .icon,#filter .pagin .icon{
+	background:url(../images/common/common-icon.png) no-repeat;	
+}
+.filter-section{
+	padding:5px 20px;
+	border:1px solid #eee;		
+}
+.filter_item{
+	line-height:22px;
+	padding:10px 0 0 0;	
+	border-bottom:1px dotted #eee;
+}
+.filter_item_city{
+	padding:10px 0;
+	*overflow:hidden;	
+}
+.filter_item .filter_tit{
+	width:55px;
+	height:22px;
+	float:left;
+}
+.filter_item .filter_attrs,.filter_item .city_info_box{
+	width:1113px;
+	float:left;	
+}
+/*当前城市*/
+.filter_item .city_info_box .city_info{
+	display:inline-block;
+	height:22px;
+	line-height:22px;
+	border:1px solid #E31939;
+	cursor:pointer;
+	text-align:center;
+	color:#E31939;
+	float:left;
+	position:relative;
+	z-index:99;
+}
+.filter_item .city_info_box .curr_city{
+	display:inline-block;
+	height:22px;
+	line-height:22px;	
+	padding:0 20px 0 15px;
+	background:url(../images/virtual-group-icon.png) no-repeat right 10px;
+}
+.filter_item .city_info_box .bg_ff{
+	width:100%;
+	height:1px;
+	display:block;
+	background:#fff;
+	position:absolute;
+	bottom:-1px;
+	left:0;
+	display:none;
+	z-index:99;
+}
+.top_city_list{
+	width:330px;
+	height:250px;
+	background:#fff;
+	border:1px solid #E31939;
+	position:absolute;
+	left:-1px;
+	top:22px;
+	display:none;
+	overflow-y: scroll;
+}
+.top_city_list li{
+	line-height:20px;	
+	border-bottom:1px solid #eee;
+	padding:5px 0;
+	overflow:hidden;
+}
+.top_city_list li .city_key {
+    width: 40px;
+	height:16px;
+	line-height:16px;
+	margin:2px 0;
+	border-right:1px dotted #eee;
+}
+.top_city_list li .city_list_a{
+	width:242px;	
+	background:#fff;
+	padding:0 15px;
+}
+.top_city_list li .city_list_a a {
+    float: left;
+    padding-right: 20px;
+	white-space:nowrap; 
+}
+/*分类筛选样式*/
+.filter_item .filter_attrs a{
+	display:inline-block;
+	float:left;
+	padding:0 8px;
+	text-decoration:none;
+	margin:0 10px 10px 0;
+}
+.filter_item .filter_attrs a.curr{
+	background:#E31939;
+	color:#fff;
+}
+.filter_district{
+	display:none;	
+}
+.filter_cat{
+	display:none;	
+}
+.bd_none{
+	border-bottom:none;	
+}
+/*列表排序*/
+#filter {
+    border: 1px solid #EEE;
+    background: #FFF;
+}
+#filter .fore1 {
+    background: #F9F9F9;
+    height: 38px;
+    line-height: 38px;
+    overflow: hidden;
+}
+#filter .order{
+	float:left;	
+	height:38px;
+}
+#filter .order li{
+	float:left;	
+	position:relative;
+}
+#filter .order a{
+	display:block;
+	height:38px;
+	padding:0 18px;
+	border-left: solid 1px #F9F9F9;
+    border-right: solid 1px #F9F9F9;
+	margin-left:-1px;
+}
+#filter .order .first a,#filter .order .curr.first a{
+	margin-left:0;
+	border-left:0;	
+}
+#filter .order .curr a,#filter .order a:hover{
+	position:relative;
+	z-index:1;
+	background:#FFF;	
+	border-color:#eee;
+	color:#E31939;
+}
+#filter .order b{
+	position: relative;
+    top: 3px;
+    right: -1px;
+    width: 14px;
+    height: 14px;
+    overflow: hidden;
+    display: inline-block;	
+	z-index:2;
+}
+#filter .order b.icon-order-DESCending{
+	background-position:2px -147px;
+}
+#filter .order .curr b.icon-order-ASCending{
+	background-position:-23px -169px;	
+}
+#filter .order .curr b.icon-order-DESCending,#filter .order a:hover b.icon-order-DESCending{
+	background-position:-23px -147px;
+}
+.filter-tag{
+    float: left;
+    height: 38px;
+    line-height: 38px;
+    margin-left: 12px;
+    cursor: pointer;
+    color: #666;
+    white-space: nowrap;
+}
+.filter-tag .icon{
+    float: left;
+    margin-top: 13px;
+	width:13px;
+	height:13px;
+	background-position:-26px -12px;	
+}
+.filter-tag:hover .icon,.filter-tag.selected .icon{
+	background-position:-40px -12px;	
+}
+.filter-tag .text{
+	float: left;
+    margin-left: 4px;	
+}
+#filter .pagin {
+    float: right;
+    line-height: 38px;
+    overflow: hidden;
+}
+#filter .pagin{
+	float:right;
+	line-height:38px;	
+	overflow:hidden;
+}
+#filter .pagin .prev,#filter .pagin .next,#filter .pagin .text{
+	float:left;
+	line-height:37px;
+}
+#filter .pagin .prev,#filter .pagin .next{
+	padding:0 15px;	
+	height:38px;
+}
+#filter .pagin .icon{
+	display:inline-block;
+	width:6px;
+	height:9px;
+	margin-top:14px;
+}
+#filter .pagin .prev .prev-btn{
+	background-position:-26px 0;
+}
+#filter .pagin .prev-btn:hover{
+	background-position:-42px 0;	
+}
+#filter .pagin .prev-disabled{
+	background-position:-58px 0;	
+}
+#filter .pagin .next .next-btn{
+	background-position:-74px 0;	
+}
+#filter .pagin .next-btn:hover{
+	background-position:-90px 0;	
+}
+#filter .pagin .next-disabled{
+	background-position:-106px 0;	
+}
+/*商品列表*/
+.product-list{
+    height: auto;
+    z-index: 1;
+    overflow: hidden;
+}
+.product {
+	border: #eee 1px solid;
+	background: #fff;
+	float: left;
+	margin: 27px 27px 0px 0px;
+	overflow: hidden;
+	width: 280px;
+	height: auto;
+}
+.product:hover{
+	border:1px solid #E31939;	
+}
+.product.last{
+	margin-right:0;	
+}
+.product .pic {
+	width:280px;
+	padding:0;
+	z-index: 1;
+	position: relative;
+	height: 280px;
+	text-align: center;
+}
+.product .pic img{
+	display:block;	
+}
+.product .pic .time{
+	width:280px;
+	height:30px;
+	line-height:30px;
+	position:absolute;
+	left:0;
+	bottom:0;	
+	color:#fff;
+	font-size:14px;	
+	z-index:5;
+}
+.product .pic .time .time_tit{
+	display:block;
+	width:80px;
+	height:30px;
+	line-height:30px;
+	float:left;
+	background:#E31939;
+}
+.product .pic .time .settime{
+	width:200px;
+	height:30px;
+	line-height:30px;
+	float:left;
+	background:rgba(0,0,0,.5);
+	filter:progid:DXImageTransform.Microsoft.gradient(startcolorstr=#7F000000, endcolorstr=#7F000000);	
+}
+.row_soldout {
+	width: 280px;
+	height: 280px;
+	overflow: hidden;
+	background: url(../images/soldout.png) no-repeat center center;
+	left: 0;
+	top: 0;
+	position: absolute;
+	z-index: 4;
+}
+.product .title {
+    color: #666;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    text-indent: 0em;
+    padding: 15px 15px 0;
+}
+.product .title1 {
+    height: 35px;
+    overflow: hidden;
+}
+.product .product-price{
+	padding:0px 15px;
+	overflow:hidden;
+}
+.product .product-price .price{
+	color: #E31939;
+	float: left;
+  	height: 40px;
+ 	line-height: 40px;
+	font-size: 20px;
+	font-family: Arial,Helvetica,sans-serif;	
+	font-weight:normal;
+}
+.product .product-price .count{
+	float: right;
+	color: #656565;
+	height: 40px;	
+	line-height: 40px;
+}
+/*店铺列表*/
+.flow-item{
+	float: left;
+	margin:22px 22px 0 0;
+	width: 220px;
+	height: 295px;
+	position: relative;
+	right: 0;
+	top: 0;
+	z-index: 1;
+	overflow: hidden;
+	background: #fff;
+	border:1px solid #eee;
+}
+.flow-item.last{
+	margin-right:0;	
+}
+.flow-item:hover{
+	border:1px solid #E31939;	
+}
+.flow-item img {
+	display: block;
+}
+.flow-title {
+	font-size: 14px;
+	height: 40px;
+	line-height: 40px;
+	overflow: hidden;
+	margin:0 10px;
+	border-bottom:1px solid #eee;
+}
+.flow-address{
+	height:30px;
+	line-height:30px;
+	padding:0 10px 0 26px;
+	background:url(../images/virtual-group-icon.png) no-repeat 6px -28px;
+	color:#E31939;
+}
+/*详情*/
+.detail-all{
+	width:975px;
+	float:left;	
+}
+.detail-tab{
+	height: 35px;
+	line-height: 35px;
+	border-bottom:2px solid #E31939;
+	background:#fff;	
+}
+.detail-tab .tab-a{
+	height:35px;
+	padding:0 45px;
+	float:left;	
+	cursor:pointer;
+	font-size:14px;
+}
+.detail-tab .tab-a.cur{
+	background:#E31939;
+	color:#fff;	
+}
+.goods-detail .detail-title{
+	margin: 0 0 10px 0;
+	padding: 20px 0 10px;
+	border-bottom: 1px solid #eee;
+	color: #333;
+	font-size: 16px;
+}
+.shop-address{
+	margin-bottom: 10px;
+	border-bottom: 1px solid #eee;
+	line-height: 22px;
+	font-size: 12px;
+	color: #333;
+	overflow: hidden;
+}
+.shop-address .shop-map{
+	width:545px;
+	height:400px;	
+}
+.shop-address .shop-detail{
+	width:344px;
+	height:400px;	
+	padding:15px;
+	border-left:1px solid #eee;
+}
+.shop-address .shop-detail .shop-name{
+	font-size:16px;
+	font-weight:bold;
+	height:36px;
+	line-height:36px;	
+}
+.shop-address .shop-detail .shop-item{
+	padding:10px 0 0;	
+	font-size:14px;
+	overflow:hidden;
+}
+.shop-address .shop-detail .shop-item .label-title{
+	width:50px;
+	float:left;
+	height:20px;	
+}
+.shop-address .rank{
+	color:#E31939;
+	padding-left:10px;
+	font-weight:bold;
+}
+.purchase-info table td{
+	padding:10px 15px;	
+	border-bottom:1px solid #eee;
+	font-size:14px;
+	line-height:24px;
+}
+.purchase-info table .td1{
+	width:180px;
+	background:#f7f7f7;
+	font-weight:bold;
+	border-left:1px solid #eee;	
+}
+.purchase-info table .td2{
+	border-right:1px solid #eee;	
+}
+/*详情页右侧推荐商品*/
+.aside-con{
+	width:220px;
+	float:right;	
+}
+.aside-con .aside-tit{
+	height: 38px;
+    line-height: 38px;
+	border:0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 15px;
+    font-size: 16px;	
+	background:#fff;
+}
+.aside-list li{
+	border: 1px solid #eee;
+    margin-bottom: 15px;
+    position: relative;
+}
+.aside-list .p-img,.aside-list .p-img img{
+	width:218px;
+	height:218px;	
+}
+.aside-list .p-price{
+	padding:5px 10px;
+	height:18px;
+	line-height:18px;
+	overflow:hidden;
+}
+.aside-list .p-price .sale-price{
+	float:left;	
+	font-size:18px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:400;
+}
+.aside-list .p-price .market-price,.aside-list .p-price .sale-num{
+	float:right;
+	color:#999;	
+}
+.aside-list .p-name{
+	position:absolute;
+	left:0;
+	bottom:28px;
+	width:100%;
+	padding:5px 0;
+	line-height:20px;
+	overflow:hidden;	
+	max-height:40px;
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled='true', startColorstr='#FFFFFF77', endColorstr='#FFFFFF77');
+    background: rgba(255,255,255,.7);
+	display:none;
+}
+.aside-list .p-name a{
+	display:block;
+	padding:0 10px;	
+	max-height:40px;
+}
+.aside-list li:hover{
+	border:1px solid #E31939;	
+}
+.aside-list li:hover .p-name{
+	display:block;	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

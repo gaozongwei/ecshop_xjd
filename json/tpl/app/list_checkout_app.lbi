@@ -1,0 +1,175 @@
+<!-- {foreach from=$goods_list item=goodsinfo name=glist key=key} -->
+<div class="dian_bg padding1 ub-ac m_t0_8">
+	<div class="ulev-app2 dian_title ub">{$goodsinfo.goodlist[0].seller}</div>	
+	<!-- {foreach from=$goodsinfo.goodlist item=goods name=name} -->
+	<div class="c-wh ub umar-at4 dian_box">
+		<div class="uinn-eo4 ub ub-f1">
+			<div class="uh-app1 uw-app2 mar-ar1 ub-img" style="background-image:url('http://{$smarty.server.SERVER_NAME}/{$goods.goods_thumb}');"></div>
+			<div class=" ub-f1 ulev-1 mar-ar1">
+			<!-- {if $goods.goods_id gt 0 && $goods.extension_code neq 'package_buy'} 商品 -->
+				{$goods.goods_name}<br><br>
+				  <font class="f_color_crg">{$goods.goods_attr|nl2br}</font> 
+				  <!-- {if $goods.parent_id gt 0} 配件 --> 
+				  <span >配件</span> 
+				  <!-- {/if} --> 
+				  <!-- {if $goods.is_gift gt 0} 赠品 --> 
+				  <span>赠品</span> 
+				  <!-- {/if} --> 
+			  <!-- {else} --> 
+			  {$goods.goods_name} 
+			  <!-- {/if} -->
+			</div>
+			
+		</div>
+        <div class="ub-pe t-666666" style="padding-top:0.7em;">
+				<div class="t-gra-48 ufm1 ulev-4">{$goods.formated_goods_price}</div>
+				<div class="ufm1 ulev-4 f_color_crg">x{$goods.goods_number}</div>				
+			</div>
+	</div>
+	<!-- {/foreach} --> 
+	<!-- {if $goodsinfo.zhekou} 优惠活动 -->
+	    <div class="ub ub-pe" style="border-bottom:1px solid rgb(245, 245, 245);">
+		<div class="dian_hd"><!-- {if $goodsinfo.zhekou} -->{$goodsinfo.zhekou.your_discount}<!-- {/if} --></div>
+	    </div>
+	<!-- {/if} -->
+
+	<!-- {if ($allow_use_bonus || $allow_use_integral || $allow_use_surplus) && $goodsinfo.goodlist } 是否使用红包或者积分 -->
+		<div class="ub b_t_xu ub-ac" onclick="showCheckoutOther({$key});">
+        	<div class="jiajian" id="jiajian_{$key}">+</div>
+			<div class="ulev-4">使用店铺优惠券和积分及余额</div>     
+		</div>
+        
+		<div class="c-wh umar-at4 ulev-4 uinn-a1 t-666666" id="jiajian_con_{$key}" style="display:none">
+			<!-- {if $allow_use_bonus} 是否使用优惠券 -->
+			<div class="ub ub-ac">
+				<div class="width5em" style="width:7.5em;">使用店铺优惠券:</div>
+				<select name="bonus[{$key}]" onchange="changeBonus(this.value,{$key})" id="ECS_BONUS_{$key}" >
+					<option value="0" {if $order.bonus_id eq 0}selected{/if}>{$lang.please_select}</option>
+					<!-- {foreach from=$goodsinfo.redbag item=bonus} -->
+					<option value="{$bonus.bonus_id}" {if $order.bonus_id_info[$key] eq $bonus.bonus_id}selected{/if}>{$bonus.type_name}[{$bonus.bonus_money_formated}]</option>
+					<!-- {/foreach} -->
+				</select>
+			</div>
+			<div class="ub ub-ac umar-at4">
+				<input class="otherinput2" name="bonus_sn[{$key}]" id="bonus_sn_{$key}" type="text" value="{if $order.bonus_sn_info[$key]}{$order.bonus_sn_info[$key]}{else}或输入优惠券号{/if}" onfocus="if (value =='或输入优惠券号'){value =''}" onblur="if (value ==''){value='或输入优惠券号'}" />
+		      <input name="validate_bonus" type="button" value="使用" onclick="validateBonus($$('bonus_sn_{$key}').value,{$key})" class="BonusButton" />
+			</div>
+			<!-- {/if} -->
+			<!-- {if $allow_use_integral} 是否使用积分 -->
+			<div class="ub ub-ac umar-at4">
+				 使用积分：<input name="integral[{$key}]"  placeholder="使用积分" type="text" class="otherinput2" style="width:30%; margin-left:0.8em;" id="ECS_INTEGRAL_{$key}" onblur="changeIntegral(this.value,{$key})" value="{$order.integral_info[$key]|default:0}<?php echo $order['integral_info'][0];?>"  /> 可用积分：{$your_integral|default:0}<span id="ECS_INTEGRAL_NOTICE_{$key}" class="notice"></span>
+			</div>
+			<!-- {/if} -->
+			<!-- {if $allow_use_surplus} 是否使用余额 -->
+			<div class="ub ub-ac umar-at4">
+				使用余额：<input name="surplus[{$key}]" type="text" class="otherinput2" style="width:30%; margin-left:0.8em;" id="ECS_SURPLUS_{$key}"  value="{$order.surplus_info[$key]|default:0}" onblur="changeSurplus(this.value,{$key})" {if $disable_surplus}disabled="disabled"{/if} /> 可用余额：{$your_surplus|default:0} <br><span id="ECS_SURPLUS_NOTICE_{$key}" class="notice"></span>
+			</div>
+			<!-- {/if} -->
+		</div>
+	<!-- {/if} -->
+    
+   
+ 
+
+  
+</div>
+<input type='hidden' name='suppid' class="suppid" value='{$key}'>
+<!-- {/foreach} --> 
+
+<!--开发票和缺货处理开始-->
+<div class="dian_bg padding1 ub-ac m_t0_8" style="padding-top:0">
+    	<div class="ub b_t_xu ub-ac" onclick="showCheckoutOther1();">
+        	<div class="jiajian" id="jiajian1">+</div>
+			<div class="ulev-4">开发票</div>     
+		</div>
+        
+		<div class="c-wh umar-at4 ulev-4 uinn-a1 t-666666" id="jiajian_con1" style="display:none">
+			<div class="ub-ac">
+				<div><input name="fapiao" id="fapiao" type="checkbox" value="1" onClick="chkCheckBoxChs()"> 开发票</div>
+                <div class="ub" style="margin-top:0.5em;">
+				<select name="leixing" id="select_1" onChange="open_msg(this.value)" disabled="true">
+					<option value="0">请选择发票类型</option>
+                  	{html_options options=$inv_type_list selected=$order.inv_type}
+				</select>                
+                <select name="cont" id="select_2" disabled="true">
+					<option value="0">请选择发票内容</option>
+					{html_options values=$inv_content_list output=$inv_content_list selected=$order.inv_content}
+				</select> 
+                </div>
+			</div>         
+            <div id="geren" style="display:none">
+            	<div class="ub umar-at4" style="margin-top:1em;">
+                    <div>发票抬头：</div>
+                    <input name="inv_payee" type="radio" value="gerentype" onClick="changeType(this.value)"> 个人
+                    <input name="inv_payee" type="radio" value="danweitype" onClick="changeType(this.value)"> 单位
+					<input type="text" class="otherinput2" id="duanwei" style="display:none; margin-left:0.5em; width:9em;"/>
+                </div>
+				   
+			</div>
+            <div id="msg" style="display:none;">  
+            <div class="ub fapiao_title">公司信息</div>
+           	<div class="ub umar-at4"><div class="width5em">单位名称</div>
+             <input id="vat_inv_company_name" name="vat_inv_company_name"  placeholder="" type="text" class="otherinput2" id="ECS_INTEGRAL_{$key}" value=""  /><span id="ECS_INTEGRAL_NOTICE_{$key}" class="notice"></span>
+			</div>
+            <div class="ub umar-at4"><div class="width5em">纳税人识别号</div>
+             <input id="vat_inv_taxpayer_id" name="vat_inv_taxpayer_id"  placeholder="" type="text" class="otherinput2" id="ECS_INTEGRAL_{$key}"  value=""  /><span id="ECS_INTEGRAL_NOTICE_{$key}" class="notice"></span>
+			</div>
+            <div class="ub umar-at4"><div class="width5em">注册地址</div>
+            <input id="vat_inv_registration_address" name="vat_inv_registration_address"  placeholder="" type="text" class="otherinput2" id="ECS_INTEGRAL_{$key}"  value=""  /><span id="ECS_INTEGRAL_NOTICE_{$key}" class="notice"></span>
+			</div>
+            <div class="ub umar-at4"><div class="width5em">注册电话</div> 
+            <input id="vat_inv_registration_phone" name="vat_inv_registration_phone"  placeholder="" type="text" class="otherinput2" id="ECS_INTEGRAL_{$key}"  value=""  /><span id="ECS_INTEGRAL_NOTICE_{$key}" class="notice"></span>
+			</div>
+            <div class="ub umar-at4"><div class="width5em">开户银行</div>
+            <input id="vat_inv_deposit_bank" name="vat_inv_deposit_bank"  placeholder="" type="text" class="otherinput2" id="ECS_INTEGRAL_{$key}"  value=""  /><span id="ECS_INTEGRAL_NOTICE_{$key}" class="notice"></span>
+			</div>
+			 <div class="ub umar-at4"><div class="width5em">银行账户</div> 
+            <input id="vat_inv_bank_account" name="vat_inv_bank_account"  placeholder="" type="text" class="otherinput2" id="ECS_INTEGRAL_{$key}" value=""  /><span id="ECS_INTEGRAL_NOTICE_{$key}" class="notice"></span>
+			</div>
+            <div class="ub fapiao_title">收票人信息</div>
+            <div class="ub umar-at4"><div class="width5em">收票人姓名</div>
+             <input id="inv_consignee_name" name="inv_consignee_name"  placeholder="" type="text" class="otherinput2" id="ECS_INTEGRAL_{$key}"  value=""  /><span id="ECS_INTEGRAL_NOTICE_{$key}" class="notice"></span>
+			</div>
+            <div class="ub umar-at4"><div class="width5em">收票人手机</div>
+             <input id="inv_consignee_phone" name="inv_consignee_phone"  placeholder="" type="text" class="otherinput2" id="ECS_INTEGRAL_{$key}"  value=""  /><span id="ECS_INTEGRAL_NOTICE_{$key}" class="notice"></span>
+			</div>
+           <div class="ub umar-at4">
+				<div class="width5em">收票人省份</div>
+				<select id="inv_consignee_province" name="inv_consignee_province" onchange="ajax(this,2,this.value);" id="selProvinces"  style="height:25px;border:1px solid #ccc;">
+				<option value="0" >{$lang.please_select}{$name_of_region[1]}</option>
+				 <!-- {foreach from=$province_list item=province} -->
+						<option value="{$province.region_id}"   {if $address.province eq $province.region_id}selected{/if}>{$province.region_name}</option>
+						<!-- {/foreach} -->
+				</select>
+			   <select name="inv_consignee_city" id="selCities" style="border: 1px solid rgb(204, 204, 204); border-image: none; height: 25px;" onchange="ajax(this,3,this.value);">
+				  <option value="0">请选择</option>
+			   </select>
+			   <select  name="inv_consignee_district" id="selDistricts" style="border: 1px solid rgb(204, 204, 204); border-image: none; height: 25px;">
+				  <option value="0">请选择</option>
+			   </select>
+			</div>
+             <div class="ub umar-at4"><div class="width5em">详细地址</div>
+              <input id="inv_consignee_address" name="inv_consignee_address"  placeholder="" type="text" class="otherinput2" id="ECS_INTEGRAL_{$key}"  value=""  /><span id="ECS_INTEGRAL_NOTICE_{$key}" class="notice"></span>
+			</div>
+  </div>
+ 			
+            <div class="ub umar-at4">
+				<!--div class="width5em">缺货处理</div>
+				 {foreach from=$how_oos_list key=how_oos_id item=how_oos_name}
+          <label>
+            <input name="how_oos" type="radio" value="{$how_oos_id}" {if $order.how_oos eq $how_oos_id}checked{/if} onclick="changeOOS(this)" />
+            {$how_oos_name}</label> </br>
+           {/foreach}</td>
+			</div-->
+            <!--div class="ub umar-at4">
+				<div class="width5em">订单附言</div>
+                <textarea id="postscript" name="postscript" cols="" rows="" class="otherinput2" style="height:4em; width:15em">aaaaaa</textarea>
+
+			</div-->
+		
+			
+		</div>
+        </div>
+  </div>      
+        <!--开发票和缺货处理结束-->
+

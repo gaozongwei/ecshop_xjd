@@ -1,0 +1,369 @@
+/*
+$Id: main.css 13991 2008-01-17 06:17:23Z maruitao $
+*/
+.form-div {
+	color: #999999;
+	padding:10px 5px;
+}
+.form-div input[type='text'] {
+	color: #999999;
+}
+.form-div a.button_round {
+	padding: 8px 25px;
+	margin: 5px;
+	border: medium none;
+	background: #00cccc;
+	text-align: center;
+	vertical-align: middle;
+	display: inline-block;
+ *display: inline;
+	border-radius: 3px;
+	cursor: pointer;
+	color: #ffffff;
+	text-decoration: none;
+}
+.form-div a.button_round:hover {
+	color: #FFF;
+	background-color: #AAB2BD;
+}
+.form-div .descript_text{
+	padding:5px 1%;
+}
+.main-div .descript_text{
+	border:none;	
+}
+.form-div .descript_text ul,.form-div .descript_text ul li,.main-div .descript_text ul,.main-div .descript_text ul li{
+	list-style:none;
+	padding:0px;
+	margin:0px;
+}
+.form-div .descript_text a{
+	padding:0px 5px;
+	color: #27A9E3;
+	text-decoration: none;
+}
+.form-div .descript_text span{
+	display:block;
+	height:20px;
+	line-height:20px;
+}
+.form-div .descript_text ul li,.main-div .descript_text ul li{
+	height:20px;
+	line-height:20px;	
+}
+.form-div .descript_text ul li i{
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	margin:0px 3px;
+	background: url(../images/meng.png) no-repeat;
+	vertical-align:middle;
+}
+.list-div table td.store_name{
+	padding-left:5%	;
+}
+.list-div table td.store_name span{
+	font-weight:bold;	
+}
+.list-div table td.store_name i.lll{
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	margin:0px 3px;
+	background: url(../images/meng.png) no-repeat;
+	vertical-align:middle;	
+}
+span.link-span{
+	padding-left:15px;	
+}
+.tabs-nav {
+	height: 42px;
+	border-bottom: solid 1px #00cccc;
+	position: relative;
+	z-index: 1;
+	padding-left: 5px;
+}
+.tabs-nav li {
+	line-height: 36px;
+	text-align: center;
+	display: block;
+	width: auto;
+	height: 36px;
+	float: left;
+	margin: 5px 0 0 15px;
+	border: solid #E7E7E7;
+	border-width: 1px 1px 0 1px;
+	position: relative;
+	z-index: 9;
+	border-radius: 5px 5px 0px 0px;
+	cursor: pointer
+}
+.tabs-nav li.tabs-selected {
+	color: #00cccc;
+	font-weight: 600;
+	line-height: 37px;
+	background: #FFF;
+	height: 37px;
+	border: solid #00cccc;
+	border-width: 1px 1px 0 1px;
+	position: relative;
+	z-index: 10;
+	_margin-bottom: -1px/* IE6 */;
+	border-radius: 5px 5px 0px 0px;
+}
+.tabs-nav li a{
+	padding: 0px 18px;
+	height: 36px;
+	line-height:36px;
+	display:inline-block;
+}
+.list-div table.store_list_header {
+	background: none;
+	margin: 10px auto;
+	border-top: 1px #F7F7F7 solid;
+	border-bottom: 1px #F7F7F7 solid;
+}
+.list-div table.store_list_header th{
+	background: #F7F7F7;
+	height:40px;	
+	line-height: 40px;
+	padding:0px 10px
+}
+.store_list_head .store_left span {
+	float: left;
+	height: 25px;
+	line-height: 25px;
+	margin-right: 20px;
+}
+.store_list_head .store_left {
+	float: left
+}
+.store_list_head .store_right {
+	float: right
+}
+.store_list_head .store_left span .store_checkbox {
+	cursor: pointer;
+}
+.store_list_head .store_left span a.printer {
+	background: #CCD0D9;
+	color: #ffffff;
+	height: 25px;
+	line-height: 25px;
+	padding: 0px 15px;
+	border-radius: 3px;
+	display: inline-block;
+	text-decoration: none;
+}
+.store_list_head .store_right a.numbers {
+	text-decoration: none;
+	margin: 0px 3px;
+	height: 25px;
+	line-height: 25px;
+	padding: 0px 10px;
+	border-radius: 3px;
+	display: inline-block;
+	background:#F96; 
+	color:#ffffff;
+}
+.main-div input[type="text"],.main-div select{
+	margin:5px 0px	;
+	color:#666;	
+}
+.main-div input[type="text"].input_te{
+	min-width: 100px;
+}
+.main-div td a.see,.mydiv td a.see{
+	padding: 0px 5px;
+  	color: #27A9E3;
+  	text-decoration: none;
+}
+.main-div td .descript_text{
+	color: #666;
+	line-height: 1.5em;
+	padding: 0px 5px;
+}
+.main-div table.house {
+	width:550px;	
+}
+span.require-field {
+  margin:0px 5px;
+  font: 12px verdana;
+  color: #FF0000;
+  vertical-align:middle
+}
+input.button{
+	padding: 8px 20px;
+	border-radius:5px;
+	margin:5px;	
+	background: #F96
+}
+.main-div {
+	padding:15px 0px;
+	background:#fff;	
+}
+.main-div table.no_margin{
+	border:none
+}
+.main-div table.no_margin span.join{
+	padding: 0px 4px;
+	height: 20px;
+	line-height: 20px;
+	margin: 5px 0px;
+	display:inline-block;
+	font-weight:600
+}
+.main-div table.no_margin span.notice-span{
+	height:20px;
+	line-height:20px;	
+}
+.mydiv {
+    background: #FFF none repeat scroll 0% 0%;
+    text-align: center;
+    line-height: 40px;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 10000001;
+    width: 750px;
+    height: auto;
+    border: 3px #00cccc solid;
+    padding-bottom: 15px;
+    left: 50%;
+    top: 50%;
+    margin-left: -375px !important;
+    margin-top: -200px !important;
+    position: fixed !important;
+}
+.mydiv .qb_left {
+    float: left;
+    width: 80%;
+    text-align: left;
+    color: #192E32;
+    font-size: 16px;
+    font-weight: 400;
+	height: 35px;
+	line-height: 35px;
+	padding: 0px;
+	margin: 0px;
+	color: #FFF;
+	background: #0CC none repeat scroll 0% 0%;
+}
+.mydiv .qb_left span{
+	margin-left:15px;
+	font-size:12px;	
+}
+.mydiv .qb_right {
+    float: right;
+    width: 20%;
+	text-align:right;
+    height: 35px;
+	line-height: 35px;
+	padding: 0px;
+	margin: 0px;
+	color: #FFF;
+	background: #0CC none repeat scroll 0% 0%;
+}
+.mydiv .qb_right a{
+	color: #FFF;
+	font-size:16px;
+	font-weight:bold;
+}
+.mydiv .yf_demoTab{
+	width:96%;
+	padding:20px 2%;
+}
+.mydiv .yf_demoTab .scroll{
+	max-height:230px;
+	width:100%;
+	display:inline-block;
+	overflow-y:auto;
+}
+.mydiv .yf_demoTab th {
+	padding:5px 0px;
+    line-height: 35px;
+    background: #FBFBFB none repeat scroll 0% 0%;
+}
+.mydiv .yf_demoTab td {
+	font-size:12px;
+	padding:8px 0px;
+    border-bottom: 1px solid #E7E7E7;
+}
+.mydiv1 {
+    width: 500px;
+    margin-left: -250px !important;
+}
+.mydiv1 textarea{
+	padding:5px;
+	resize: none;
+	margin-bottom:20px;
+}
+/*Ó¶½ðÄ£¿é*/
+.list-div .rebate-detaile {
+	height: 130px;
+	margin: 0px -10px 10px -20px;
+}
+.list-div .rebate-detaile .rebate_item {
+	width: 31.25%;
+	float: left;
+	margin-left: 1.8%;
+}
+.list-div .rebate-detaile .item-hd {
+	height: 70px;
+	padding:30px 0px;
+	border-radius:5px;
+}
+.list-div .rebate-detaile .item-hd p {
+	color: #fff;
+	text-align: center;
+	font-size: 18px;
+	font-family: "Î¢ÈíÑÅºÚ";
+	margin:0px;
+	height:30px;
+	line-height:30px;
+}
+.list-div .rebate_shop-item .item-hd {
+	background-color: #00cccc;
+}
+.list-div .rebate_goods-item .item-hd {
+	background-color: #3399ff;
+}
+.list-div .rebate_order-item .item-hd {
+	background-color: #ff9966;
+}
+.form-div a.rebate_time {
+	padding: 7px 15px;
+	margin:6px 5px;
+	border: medium none;
+	text-align: center;
+	vertical-align: middle;
+	display: inline-block;
+ *display: inline;
+	border-radius: 3px;
+	cursor: pointer;
+	color: #999999;
+	text-decoration: none;
+}
+.form-div a.rebate_time.cur{
+	background: #00cccc;
+	color:#ffffff;
+}
+.form-div a.rebate_time:hover {
+	color: #FFFFFF;
+	background-color: #AAB2BD;
+}
+.list-div td.add{
+	color: #27A9E3;
+}
+.list-div td.dec{
+	color: #FF9966;
+}
+.form-div .descript_text td.rebate_price{
+	color: #F96;
+	font-size:14px;
+	font-weight:400
+}
+.form-div .descript_text td.rebate_price span{
+	font-weight:bold;
+}
+.form-div .descript_text td.rebate_price_t{
+	border-left: 1px solid #E5E5E5;
+}

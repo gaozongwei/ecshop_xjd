@@ -1,0 +1,59 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<form id="formCart" name="formCart" method="post" action="flow.php" >
+	<span class="cart_num">{$str}</span>
+	<div class="sidebar-cart-box">
+        <h3 class="sidebar-panel-header">
+            <a href="javascript:;" class="title"><i class="cart-icon"></i><em class="title">购物车</em></a>
+            <span class="close-panel"></span>
+        </h3>
+        <div class="cart-panel-main">
+            <div class="cart-panel-content">
+                <!-- {if $goods} -->
+                <div class="cart-list">
+                    {foreach from=$goods item=goods name=goods}
+                    <div class="cart-item">
+                        <div class="item-goods">
+                            <span class="p-img"><a href="{$goods.url}"><img src="{if $goods.goods_thumb eq 'package_img'}themes/68ecshopcom_360buy/images/jmpic/ico_cart_package.gif{else}{$goods.goods_thumb}{/if}" width="50" height="50" alt="{$goods.short_name}"></a></span>
+                        <div class="p-name"><a href="{$goods.url}" title="{$goods.short_name}">{$goods.short_name}</a></div>
+                        <div class="p-price"><strong>{$goods.goods_price}</strong>×{$goods.goods_number}</div>
+                        <a href="javascript:;" class="p-del" onClick="deleteCartGoods({$goods.rec_id})">删除</a>
+                        </div>
+                    </div>
+                    {/foreach}
+                </div>
+                <!--{else}-->
+                <div class="tip-box">
+                  <i class="tip-icon"></i>
+                  <div class="tip-text">您的购物车里什么都没有哦<br/><a class="main-color" href="./">再去看看吧</a></div>
+                </div>
+                <!--{/if}-->
+            </div>
+        </div>
+        <!-- {if $goods} -->
+        <div class="cart-panel-footer">
+            <div class="cart-footer-checkout">
+                <div class="number"><strong class="count">{$str}</strong>件商品</div>
+                <div class="sum">共计：<strong class="total">{$zj.goods_price}</strong></div>
+                <a class="btn" href="flow.php" target="_blank">去购物车结算</a>
+            </div>
+        </div>
+        <!--{/if}-->
+    </div>
+<script type="text/javascript">
+function deleteCartGoods(rec_id){
+	Ajax.call('delete_cart_goods.php', 'id='+rec_id, deleteCartGoodsResponse, 'POST', 'JSON');
+}
+
+/**
+ * 接收返回的信息
+ */
+function deleteCartGoodsResponse(res){
+  if (res.error){
+    alert(res.err_msg);
+  }else{
+      $('.ECS_CARTINFO').html(res.content);
+	  $('.cart-panel-content').height($(window).height()-90);
+  }
+}
+</script> 
+</form>

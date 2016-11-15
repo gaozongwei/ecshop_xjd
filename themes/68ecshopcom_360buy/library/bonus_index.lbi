@@ -1,0 +1,40 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript">
+	   	function fun(type_id, no_have_val)
+	   	{
+	  	no_have = (typeof(no_have_val) == "undefined" ? 0 : no_have_val)
+	 	 Ajax.call('user.php?act=user_bonus', 'id=' + type_id + '&no_have=' + no_have, collectResponse, 'GET', 'JSON');
+		}
+		function collectResponse(result)
+		{
+			alert(result.message);	
+		}
+</script>
+<!--{if $row}-->
+<div class="bonusimg-box">
+      <div class="bonusimg-desc"></div>
+      <div class="bonusimg">
+        <ul class="bonusimg-main">
+          	<!--{foreach from=$row item=row name=row}--> 
+    		<!--{if $row.send_start_date<$time && $row.send_end_date>$time}--> 
+            <li><a href="javascript:;" onclick="fun({$row.type_id})"><img src="data/bonusimg/{$row.bonus_code}" /> </a></li>
+          	<!--{/if}--> 
+    		<!--{/foreach}-->
+        </ul>
+        <a href="javascript:void(0)" class="bonusimg-prev">&lt;</a>
+        <a href="javascript:void(0)" class="bonusimg-next">&gt;</a>
+      </div>
+    </div>
+    <script type="text/javascript">
+$(function(){
+	$('.bonusimg').hover(function(){
+		if($('.bonusimg-main li').length > 4){
+			$('.bonusimg-prev,.bonusimg-next').fadeTo('fast',0.4);	
+		}
+		},function(){
+			$('.bonusimg-prev,.bonusimg-next').fadeTo('fast',0);
+	})
+	Move(".bonusimg-next",".bonusimg-prev",".bonusimg-main",".bonusimg","4");
+})
+</script>
+<!--{/if}-->

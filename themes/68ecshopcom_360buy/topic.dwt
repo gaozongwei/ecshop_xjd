@@ -1,0 +1,213 @@
+{* TitlePicWidth: 980 *}
+{* TitlePicHeight: 54 *}
+
+{* 说明：$title_pic，分类标题图片地址； *}
+{* 说明：$base_style，基本风格样式颜色； *}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$topic.title}_{$page_title}</title>
+<!-- TemplateEndEditable -->
+<!-- TemplateBeginEditable name="head" -->
+<!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+{if $topic.css neq ''}
+<style type="text/css">
+{
+$topic.css
+}
+</style>
+{/if}
+<script type="text/javascript" src="themes/68ecshopcom_360buy/js/jquery-1.9.1.min.js" ></script>
+{insert_scripts files='jquery.json.js,transport.js'}
+{insert_scripts files='common.js'}
+</head>
+<body>
+<script type="text/javascript" src="themes/68ecshopcom_360buy/js/base-2011.js"></script> 
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<style type="text/css">
+body{
+	background:{$base_style};
+	margin:0 auto;
+}
+a:hover{color:#F52648; text-decoration:none}
+#product-intro{text-align:center}
+.topicwidth{ width:1210px;margin:0 auto;}
+.topic_con{width:100%;margin:0px auto;padding:10px 0px;}
+.topic_con .box{width:1210px;margin:0 auto}
+.topic_con .box h3.mod1tit{width:1210px;height:35px;line-height:35px;margin:0px auto;font-size:22px; margin-top:10px;  color:#646464; font-weight:200; position:relative; text-align:left;}
+.topic_con .box h3.mod1tit .line{ position:absolute; top:0; left:0; width:1210px; height:28px; border-bottom:1px solid #ddd; overflow:hidden; z-index:1;}
+.topic_con .box h3.mod1tit span{background:{$base_style}; position:relative; z-index:2; padding:0 5px 0 0;color:#fff;}
+.top_center{padding: 0 0px 16px;overflow: hidden; text-align:left}
+h6{
+font-family:"黑体";
+background:url({$title_pic}) repeat-x 0 0;
+text-align:left;
+height:38px;
+line-height:38px;
+padding-left:20px;
+font-weight:200;
+font-size:18px;
+color:#fff;
+}
+.topic_con .goodsItem{
+	width:265px;
+	height:361px;
+	padding:10px;
+	float:left;
+	margin-right:20px;
+	margin-top:20px;
+	background:#fff;
+	display: inline-block;
+	overflow:hidden;
+	position:relative;
+	border:#eee 1px solid;
+}
+.topic_con .goodsItem:hover{
+	border:1px solid #fff;	
+}
+.topic_con .goodsItem a.goodsimg{
+	width:100%;
+	height:371px;
+	display: inline-block;
+	position:absolute;
+	top:0px;
+	left:0px;
+	text-align:center;
+	padding-top:10px;
+}	
+.topic_con .goodsItem a	img{
+	max-width:265px;
+	max-height:265px
+}
+.topic_con .goodsItem p.name{
+	position:absolute;
+	top:274px;
+	left:0px;
+	width:265px;
+	padding:10px;
+    height:44px;
+	line-height: 22px;
+    overflow: hidden;
+}
+.topic_con .goodsItem p.name a{color:#666; font-size:14px;}
+.topic_con .goodsItem p.name font{float:right;margin-right:10px;color:#E31939;font-size:20px}
+.goodsItem .imgbox{
+	width:170px;
+	overflow:hidden;
+}
+.topic_con .goodsItem .buy3{
+    padding: 0px 10px;
+    width: 265px;	
+	position:absolute;
+	left:0;
+	top:338px;
+	overflow:hidden;
+} 
+.topic_con .goodsItem .buy3 .n-price{
+    float: left;
+    height: 40px;
+    line-height: 40px;
+    font-size: 22px;
+    color: #E31939;
+    font-family: Arial,Helvetica,sans-serif;	
+}
+.topic_con .goodsItem .buy3 .n-price .yp{
+	color: #929292;
+    font-size: 12px;
+	padding-left:5px;	
+}
+.topic_con .goodsItem .buy3 .on_buy{
+	float: right;
+    height: 40px;
+    line-height: 40px;	
+}
+.topic_con .goodsItem .buy3 .on_buy a{
+	padding: 5px 10px;
+    background: #E31939;
+    color: #fff;
+    text-decoration: none;	
+}
+</style>
+<div id="product-intro" > {if $topic.htmls eq ''} 
+  <script language="javascript">
+	var topic_width  = "1210";
+	var topic_height = "485";
+	var img_url      = "{$topic.topic_img}";
+	
+	if (img_url.indexOf('.swf') != -1)
+	{
+		document.write('<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" width="'+ topic_width +'" height="'+ topic_height +'">');
+		document.write('<param name="movie" value="'+ img_url +'"><param name="quality" value="high">');
+		document.write('<param name="menu" value="false"><param name=wmode value="opaque">');
+		document.write('<embed src="'+ img_url +'" wmode="opaque" menu="false" quality="high" width="'+ topic_width +'" height="'+ topic_height +'" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" wmode="transparent"/>');
+		document.write('</object>');
+	}
+	else
+	{
+		document.write('<img class=topicwidth width="' + topic_width + '" height="' + topic_height + '" border="0" src="' + img_url + '">');
+	}
+  </script> 
+  {else}
+  {$topic.htmls}
+  {/if}
+  
+  {if $topic.intro neq ''}
+  {$topic.intro} <br />
+  <br />
+  {/if} 
+  
+  <!-- {if $topic.title_pic eq ''} --> 
+  <!-- {foreach from=$sort_goods_arr item=sort key=sort_name name=sort_name} -->
+  <div class="topic_con">
+    <div class="box">
+      <h3 class="mod1tit"><div class="line"></div><span>{$sort_name}</span></h3>
+      <div class="top_center"> 
+        <!-- {foreach from=$sort item=goods name=name} -->
+        <div class="goodsItem" {if $smarty.foreach.name.iteration mod 4 eq 0}style="margin-right:0px;"{/if}> <a href="{$goods.url}"  title="{$goods.goods_style_name|escape:html}" class="goodsimg" target="_blank"><img src="{$goods.original_img}" alt="{$goods.name|escape:html}" class="goodsimg" /></a><br />
+          <p class="name"> <a href="{$goods.url}" title="{$goods.goods_style_name|escape:html}">{$goods.goods_name}</a></p>
+          <div class="buy3">
+            <div class="n-price"><!-- {if $goods.promote_price neq ""} -->{$goods.promote_price}<!-- {else}-->{$goods.shop_price}<!--{/if}--><del class="yp">{$goods.market_price}</del></div>
+            <div class="on_buy"><a href="{$goods.url}" target="_blank">立即抢购</a></div>
+          </div>
+          <div style="height:0px; line-height:0px; clear:both;"></div>
+        </div>
+        <!--{/foreach}--> 
+      </div>
+    </div>
+  </div>
+  <!--{/foreach}--> 
+  <!-- {else} --> 
+  
+  <!-- {foreach from=$sort_goods_arr item=sort key=sort_name} -->
+  <div class="topic_con">
+    <div class="box">
+      <h6>{$sort_name}</h6>
+      <div class="top_center"> 
+        <!-- {foreach from=$sort item=goods name=name} -->
+        <div class="goodsItem" {if $smarty.foreach.name.iteration mod 4 eq 0}style="margin-right:0px;"{/if}> <a href="{$goods.url}"  title="{$goods.goods_style_name|escape:html}" class="goodsimg" target="_blank"><img src="{$goods.original_img}" alt="{$goods.name|escape:html}" class="goodsimg" /></a><br />
+          <p class="name"> <a href="{$goods.url}" title="{$goods.goods_style_name|escape:html}">{$goods.goods_style_name|truncate:10}</a></p>
+          <div class="buy3">
+            <div class="n-price"><!-- {if $goods.promote_price neq ""} -->{$goods.promote_price}<!-- {else}-->{$goods.shop_price}<!--{/if}--><del class="yp">{$goods.market_price}</del></div>
+            <div class="on_buy"><a href="{$goods.url}" target="_blank">立即抢购</a></div>
+          </div>
+          <div style="height:0px; line-height:0px; clear:both;"></div>
+        </div>
+        <!--{/foreach}--> 
+      </div>
+    </div>
+  </div>
+  <!--{/foreach}--> 
+  <!-- {/if} --> 
+</div>
+<div class="site-footer">
+  <div class="footer-related"> <!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem --> </div>
+</div>
+</body>
+</html>

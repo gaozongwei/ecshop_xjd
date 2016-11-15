@@ -1,0 +1,183 @@
+<!-- $Id: distrib_goods_list.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+
+
+
+{if $full_page}
+
+{include file="pageheader.htm"}
+
+{insert_scripts files="../js/utils.js,listtable.js"}
+
+<div class="form-div">
+
+  <form action="javascript:searchGoods()" name="searchForm">
+  <img src="images/icon_search.gif" width="26" height="22" border="0" alt="SEARCH" />
+	{$lang.supplier}
+	<select name="supplier_id">
+    	<option value="">所有商家</option>
+		<option value="0">{$lang.self_sale}</option>
+    	{foreach from=$supplier_list item=list}
+    	<option value="{$list.supplier_id}">{$list.supplier_name}</option>
+    	{/foreach}
+	</select>
+    &nbsp;{$lang.label_goods_name} &nbsp;<input type="text" name="keyword" size="20" /> <input type="submit" value="{$lang.button_search}" class="button"/>
+
+  </form>
+
+</div>
+
+<form method="post" action="distrib_goods.php" name="listForm">
+
+<!-- start distrib_goods list -->
+
+<div class="list-div" id="listDiv">
+
+{/if}
+
+
+
+  <table cellpadding="3" cellspacing="1">
+
+    <tr>
+
+      <th>
+		<input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox">
+        <a href="javascript:listTable.sort('id'); ">{$lang.record_id}</a>{$sort_act_id}
+
+      </th>
+      <th>{$lang.supplier}</th>
+
+      <th><a href="javascript:listTable.sort('goods_name'); ">{$lang.goods_name}</a>{$sort_goods_name}</th>
+
+      <th><a href="javascript:listTable.sort('end_time'); ">{$lang.end_date}</a>{$sort_end_time}</th>
+
+      <th>{$lang.distrib_money}</a></th>
+
+      <th>{$lang.distrib_percent}</th>
+
+      <th>{$lang.handler}</th>
+
+    </tr>
+
+
+
+    {foreach from=$distrib_goods_list item=list}
+
+    <tr>
+
+      <td align="center"><input type="checkbox" name="checkboxes[]" value="{$list.id}" />{$list.id}</td>
+      
+      <td align="center">{if $list.supplier}{$list.supplier}{else}{$lang.self_sale}{/if}</td>
+
+      <td align="center">{$list.goods_name|escape:html}</td>
+
+      <td align="center">{if $list.distrib_time eq 0}永久分销{else}{$list.end_time}{/if}</td>
+
+
+
+      <td align="center">{if $list.distrib_type eq 1}{$list.distrib_money}{else}0{/if}</td>
+
+      <td align="center">{if $list.distrib_type eq 2}{$list.distrib_money}%{else}0{/if}</td>
+
+      <td align="center">
+
+        <a href="distrib_goods.php?act=edit&amp;id={$list.id}" title="{$lang.edit}"><img src="images/icon_edit.gif" border="0" height="16" width="16" /></a>
+
+        <a href="distrib_goods.php?act=del&amp;id={$list.id}" title="{$lang.remove}"><img src="images/icon_drop.gif" border="0" height="16" width="16" /></a>
+
+      </td>
+
+    </tr>
+
+    {foreachelse}
+
+    <tr><td class="no-records" colspan="10">{$lang.no_records}</td></tr>
+
+    {/foreach}
+
+  </table>
+
+
+
+  <table cellpadding="4" cellspacing="0">
+
+    <tr>
+	  <td>
+      <input type="hidden" name="act" value="batch_remove" />
+      <input type="submit" id="btnSubmit" value="{$lang.button_remove}" disabled="true" class="button" />
+      </td>
+      <td align="right">{include file="page.htm"}</td>
+
+    </tr>
+
+  </table>
+
+
+
+{if $full_page}
+
+</div>
+
+<!-- end distrib_goods list -->
+
+</form>
+
+
+
+<script type="text/javascript" language="JavaScript">
+
+<!--
+
+  listTable.recordCount = {$record_count};
+
+  listTable.pageCount = {$page_count};
+
+
+
+  {foreach from=$filter item=item key=key}
+
+  listTable.filter.{$key} = '{$item}';
+
+  {/foreach}
+
+
+
+  {literal}
+
+  onload = function()
+
+  {
+
+    document.forms['searchForm'].elements['keyword'].focus();
+
+
+
+    startCheckOrder();
+
+  }
+
+
+  function searchGoods()
+ {
+
+    listTable.filter['keyword'] = Utils.trim(document.forms['searchForm'].elements['keyword'].value);
+
+    listTable.filter['supplier_id'] = document.forms['searchForm'].elements['supplier_id'].value;
+
+    listTable.filter['page'] = 1;
+
+    listTable.loadList();
+
+}
+
+  {/literal}
+
+//-->
+
+</script>
+
+
+
+{include file="pagefooter.htm"}
+
+{/if}

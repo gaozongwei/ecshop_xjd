@@ -1,0 +1,25 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- {if $new_goods} -->
+<div class="tabs-panel sale-goods-list">
+  <ul>
+    <!--{foreach from=$new_goods item=goods name=index_goods}--> 
+    {if $smarty.foreach.index_goods.iteration < 6}
+    <li>
+      <dl>
+        <dt class="goods-name"> <a target="_blank" href="{$goods.url}" title="{$goods.name|escape:html}">{$goods.short_name}</a> </dt>
+        <dd class="goods-thumb"> <a target="_blank" href="{$goods.url}" title="{$goods.name|escape:html}"> <img data-original="{$goods.thumb}" src="themes/68ecshopcom_360buy/images/loading.gif" alt="{$goods.name|escape:html}"> </a> </dd>
+        <dd class="goods-price"> 商城价： <em> 
+          <!-- {if $goods.promote_price neq ""} --> 
+          {$goods.promote_price} 
+          <!-- {else}--> 
+          {$goods.shop_price} 
+          <!--{/if}--> 
+          </em> </dd>
+      </dl>
+    </li>
+    {/if} 
+    <!--{/foreach}-->
+  </ul>
+</div>
+<!-- {/if} --> 
+

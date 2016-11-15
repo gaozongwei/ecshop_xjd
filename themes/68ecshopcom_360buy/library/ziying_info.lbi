@@ -1,0 +1,56 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div id="shop-info">
+  <dl class="shop-title">
+    <dt><span>平台自营</span></dt>
+  </dl>
+  <div class="shop-info-detail">
+      <div class="blank10"></div>
+      <dl>
+        <dt>商家名称：</dt>
+        <dd>{$shop_name}</dd>
+      </dl>
+      <!-- 邮件{if $service_email} -->
+      <dl>
+        <dt>客服邮件：</dt>
+        <dd>{$service_email}</dd>
+      </dl>
+      <!-- 结束邮件{/if} -->
+      <!-- 客服电话{if $service_phone} -->
+      <dl>
+        <dt>客服电话：</dt>
+        <dd>{$service_phone}</dd>
+      </dl>
+      <!-- 结束客服电话{/if} -->
+      <dl>
+        <dt>所在地区：</dt>
+        <dd>{$shop_address}</dd>
+      </dl>
+      <ul class="service-promise">
+        <li class="service-promise1"><a href="javascript:;" title="货到付款"></a></li>
+        <li class="service-promise2"><a href="javascript:;" title="正品保障"></a></li>
+        <li class="service-promise3" style="margin:0;"><a href="javascript:;" title="当天配送"></a></li>
+      </ul>
+      <div id="enter-shop"> 
+        <div class="shop-customer clearfix">
+            <!-- QQ 号码 {foreach from=$qq item=im} -->
+            <!-- {if $im} -->
+            <a class="btn-customer" href="http://wpa.qq.com/msgrd?V=1&amp;uin={$im}&amp;Site={$shop_name}&amp;Menu=yes" target="_blank" title="点击这里联系我">
+                <i><img src="http://wpa.qq.com/pa?p=1:{$im}:4" height="16" border="0" alt="QQ" /></i>联系QQ
+            </a>
+            <!-- {/if} -->
+            <!-- {/foreach} 结束QQ号码 -->
+            <!-- 淘宝旺旺 {foreach from=$ww item=im} -->
+            <!-- {if $im} -->
+            <a class="btn-customer btn-customer-ww" href="http://amos1.taobao.com/msg.ww?v=2&uid={$im|escape:u8_url}&s=2" target="_blank">
+                <i><img src="http://amos1.taobao.com/online.ww?v=2&uid={$im|escape:u8_url}&s=2" width="16" height="16" border="0" alt="淘宝旺旺" /></i>联系旺旺
+            </a>
+            <!-- {/if} -->
+            <!--{/foreach} 结束淘宝旺旺 -->
+        </div>
+        <div id="attention-shop">
+            <p>扫一扫，手机访问微商城</p>
+            <img src="erweima_supplier.php?sid=0" width="120" height="120" />
+        </div>
+      </div>
+	</div>
+</div>

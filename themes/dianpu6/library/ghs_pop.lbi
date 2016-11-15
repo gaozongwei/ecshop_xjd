@@ -1,0 +1,70 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!--登录-->
+<div class="pop-mask"></div>
+<div class="pop-main pop-login">
+  <div class="pop-header"> <span>您尚未登录</span><a class="pop-close" href="javascript:;" title="关闭"></a></div>
+  <div class="pop-con">
+    <form name="formLogin" action="user.php" method="post" onSubmit="return user_login();">
+      <div class="form">
+      	<div class="mt">
+        	<h2>用户登陆</h2><a href="register.php" class="right_register main-color"><span class="text">立即注册</span><i class="icon"></i></a>
+        </div>
+        <div class="mc">
+        	<div class="msg-wrap">
+            	<div class="msg-error">
+                	<i class="msg-icon"></i><span id="msg-error-text" class="msg-error-text"></span>
+                </div>
+            </div>
+        	<div class="item item-name">
+            	<i class="icon"></i>
+                <input name="username" id="username" type="text" class="text" value="" tabindex="1" placeholder="手机号/用户名/邮箱"/>
+            </div>
+            <div class="item item-password">
+                <i class="icon"></i>
+                <input type="password" name="password" id="password" class="text" value="" tabindex="2" placeholder="密码"/>
+            </div>
+            <!-- 判断是否启用验证码{if $enabled_captcha} -->
+            <div class="item item-authcode" id="o-authcode">
+            	<div class="item-detail fl">
+                    <i class="icon"></i>
+                    <input type="text" id="authcode" name="captcha" class="text text-1" tabindex="3" placeholder="验证码"/>
+                </div>
+                <label class="img fl">
+                    <img src="captcha.php?is_login=1&{$rand}" alt="captcha" style="vertical-align: middle;cursor: pointer;" onClick="this.src='captcha.php?is_login=1&'+Math.random()" />
+                </label>
+            </div>
+            <!--{/if}-->
+            <div class="safety" id="autoentry">
+                <input type="checkbox" value="1" name="remember" id="remember" class="checkbox"/>
+                <label for="remember" class="mar-b">请保存我这次的登录信息</label>
+                <a class="forget_password fr" href="findPwd.php">忘记密码？</a> 
+            </div>
+            <div class="login-btn">
+              <input type="hidden" name="act" value="act_login" />
+              <input type="hidden" name="back_act"  value=''/>
+              <input type="submit" name="submit" class="btn-img" id="loginsubmit" value="立即登录" />
+            </div>
+            <div class="item-coagent">
+		    	<a href="user.php?act=oath&type=weixin"><i class="weixin"></i>微信</a>
+            	<a href="user.php?act=oath&type=qq"><i class="qq"></i>QQ</a>
+            	<a href="user.php?act=oath&type=weibo"><i class="sina"></i>新浪</a>
+            	<a href="user.php?act=oath&type=alipay" class="last"><i class="alipay"></i>支付宝</a>
+            </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!--提示文字-->
+<div class="pop-mask"></div>
+<div class="pop-main pop-compare-small">
+	<div class="pop-header">
+    	<span>温馨提示</span>
+        <a class="pop-close" href="javascript:;" title="关闭"></a>
+    </div>
+    <div class="pop-con">
+    	<i class="pop-icon"></i>
+        <p class="pop-text"></p>
+        <a href="javascript:;" class="cancel-btn">确定</a>
+    </div>
+</div>

@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<meta name="renderer" content="webkit" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$page_title}</title>
+<!-- TemplateEndEditable -->
+<!-- TemplateBeginEditable name="head" -->
+<!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link rel="alternate" type="application/rss+xml" title="RSS|{$page_title}" href="{$feed_url}" />
+<link rel="stylesheet" type="text/css" href="themes/68ecshopcom_360buy/css/index.css" />
+<script type="text/javascript" src="themes/68ecshopcom_360buy/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="themes/68ecshopcom_360buy/js/jump.js"></script>
+<script type="text/javascript" src="themes/68ecshopcom_360buy/js/tab.js"></script>
+<script type="text/javascript" src="themes/68ecshopcom_360buy/js/jquery-lazyload.js" ></script>
+<script type="text/javascript">
+var compare_no_goods = "{$lang.compare_no_goods}";
+var btn_buy = "{$lang.btn_buy}";
+var is_cancel = "{$lang.is_cancel}";
+var select_spe = "{$lang.select_spe}";
+</script>
+{insert_scripts files='jquery.json.js,transport.js'}
+{insert_scripts files='common.js,index.js'}
+</head>
+<body>{insert name='add_url_uid'}
+	<!-- #BeginLibraryItem "/library/page_header_index.lbi" --><!-- #EndLibraryItem -->
+    <div class="banner">
+		<!-- #BeginLibraryItem "/library/index_ad.lbi" --><!-- #EndLibraryItem -->
+        <div class="right-sidebar">
+			<!-- #BeginLibraryItem "/library/recommend_right_promotion.lbi" --><!-- #EndLibraryItem -->	
+            <div class="proclamation">
+					<ul class="tabs-nav">
+                    	<li class="tabs-selected">
+							<h3>商城公告</h3>
+						</li>
+						<li>
+							<h3>招商入驻</h3>
+						</li>
+					</ul>
+                    <!-- TemplateBeginEditable name="首页主广告右侧公告" -->
+<!-- #BeginLibraryItem "/library/cat_articles.lbi" --><!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+					<div class="tabs-panel tabs-hide">
+						<a href="apply_index.php" title="申请商家入驻；已提交申请，可查看当前审核状态。" class="store-join-btn" target="_blank">&nbsp;</a>
+						<a href="supplier" target="_blank" class="store-join-help">
+							<i class="icon-cog"></i>
+							登录商家管理中心
+						</a>
+					</div>
+			</div>
+        </div>
+    </div>
+    <!-- #BeginLibraryItem "/library/index_ad_groups.lbi" --><!-- #EndLibraryItem -->
+    <div class="w1210 store-wall">
+		<a class="store-wall-title" href="stores.php" title="前往店铺街">店铺街<span>推荐店铺</span></a>
+        <div class="store-wall-content">
+			<div class="store-wall-ad">
+				<!-- TemplateBeginEditable name="首页店铺展示广告" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" --><!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+			</div>
+			<div id="index-store" class="store-wall-con">
+                {insert name='supplier_list'}
+            </div>
+		</div>
+	</div>
+    <div class="w1210 index-sale">
+			<!-- #BeginLibraryItem "/library/stores_tab.lbi" --><!-- #EndLibraryItem -->
+			<!-- #BeginLibraryItem "/library/recommend_promotion.lbi" --><!-- #EndLibraryItem -->
+			<!-- #BeginLibraryItem "/library/recommend_hot_sale.lbi" --><!-- #EndLibraryItem -->
+			<!-- #BeginLibraryItem "/library/recommend_hot.lbi" --><!-- #EndLibraryItem -->
+			<!-- #BeginLibraryItem "/library/recommend_best.lbi" --><!-- #EndLibraryItem -->
+			<!-- #BeginLibraryItem "/library/recommend_new.lbi" --><!-- #EndLibraryItem -->					
+	</div>
+    <div class="w1210 floor-list">
+			<div class="floor"></div>
+			<!-- TemplateBeginEditable name="商品分类楼层" -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/cat_goods.lbi" --><!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+	</div>
+    <script type="text/javascript" src="themes/68ecshopcom_360buy/js/indexPrivate.min.js"></script>
+    <!-- #BeginLibraryItem "/library/right_sidebar.lbi" --><!-- #EndLibraryItem -->
+    <!-- #BeginLibraryItem "/library/page_footer_index.lbi" --><!-- #EndLibraryItem -->
+    <!-- #BeginLibraryItem "/library/arrive_notice.lbi" --><!-- #EndLibraryItem -->
+    <!-- #BeginLibraryItem "/library/left_sidebar.lbi" --><!-- #EndLibraryItem -->
+</body>
+<script type="text/javascript" src="themes/68ecshopcom_360buy/js/home_index.js"></script>
+<script type="text/javascript">
+	$(".brand-con").hover(function(){
+		var num = $(this).find("li").length;
+		if(num > 10){
+			$(this).find(".brand-btn").fadeTo('fast',0.4);	
+		}
+	},
+	function(){
+		$(this).find(".brand-btn").fadeTo('fast',0);	
+	})
+
+</script>
+</html>

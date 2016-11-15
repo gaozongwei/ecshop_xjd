@@ -1,0 +1,85 @@
+<form action="flow.php" method="post" name="theForm" id="theForm" action="flow.php">
+{include file='app/address_checkout_app.lbi'}
+{include file='app/list_checkout_app.lbi'}
+
+
+<!--{if $total.real_goods_count neq 0}-->
+<div class="dian_bg padding1 ub-ac m_t0_8">
+	<div class="ulev-app2 dian_title ub" style="background-image:url(img/checkout_icon2.png)">配送方式</div>	
+     <div class="c-wh umar-at4 p-left-1 t-666666 ulev-4">
+         
+     <!-- {foreach from=$shipping_list item=shipping} 循环配送方式 -->
+     {if $shipping.shipping_code neq 'pups'}
+          
+		   <div class="ps_h">
+			{if $order.shipping_id == $shipping.shipping_id}
+            <label class="ub ub-ac">
+				<input style="display:none" name="shipping" type="radio" value="{$shipping.shipping_id}" id="shipping_{$shipping.shipping_id}"  supportCod="{$shipping.support_cod}" insure="{$shipping.insure}" onclick="selectShipping(this)" supoortPickup="{$shipping.support_pickup}" checked=true  />
+                
+            	<div class="radio_style radio_on">{$shipping.shipping_name}</div>
+            </label>
+			{else}
+			<label  class="ub ub-ac">
+				<input style="display:none" name="shipping" type="radio" value="{$shipping.shipping_id}" id="shipping_{$shipping.shipping_id}"  supportCod="{$shipping.support_cod}" insure="{$shipping.insure}" onclick="selectShipping(this)" supoortPickup="{$shipping.support_pickup}"  />
+                
+            	<div class="radio_style radio_off">{$shipping.shipping_name}</div>
+            </label>
+			{/if}
+         </div>
+     {/if}
+     <!-- {/foreach} -->
+	<div class="ub ub-ac" style="border-top:1px solid #EEEEEE; padding-top:0.5em;">
+      <div class="ub-f1"></div>
+      <div class="ub-pe" style="margin-right:0.5em;">
+	<input name="need_insure" id="ECS_NEEDINSURE" type="checkbox"  onclick="selectInsure(this.checked)" value="1" {if $order.need_insure}checked="true"{/if} {if $insure_disabled}disabled="true"{/if}  />
+                {$lang.need_insure}
+                </div>
+	</div>
+     </div>
+</div>
+<!--{else}-->
+            
+<input name = "shipping" type="radio" value = "-1" checked="checked"  style="display:none"/>
+
+<!--{/if}-->
+
+<div id="supplier_shipping">
+
+
+</div>
+	
+ <div class="dian_bg padding1 ub-ac m_t0_8">
+    <div class="ulev-app2 dian_title ub" style="background-image:url(img/checkout_icon3.png)">支付方式</div>	
+     <div class="c-wh umar-at4 p-left-1 t-666666 ulev-4">
+     <!-- {foreach from=$payment_list name="payment_list" item=payment} -->
+      {if $payment.pay_code eq 'alipay' || $payment.pay_code eq 'cod' || $payment.pay_code eq 'balance'  || $payment.pay_code eq 'ChinaPay'}
+          <div class="ps_h" id="{$payment.pay_code}">
+           <label class="ub ub-ac">
+           <input type="radio" style="display:none" isCod="{$payment.is_cod}" isPickup="{$payment.is_pickup}" onclick="selectPayment(this)"   name="payment" value="{$payment.pay_id}" id="payment_{$payment.pay_id}" class="option-input radio"/>   		<div class="radio_style radio_on">{$payment.pay_name}</div>
+           </label>
+          </div>
+       {/if}
+     <!-- {/foreach} -->
+     </div>
+</div>
+
+											
+<div id="all_total">{include file='app/order_total_app.lbi'}</div>			
+
+<div class="checkout_order ub ub-ac" onClick="checkOrderForm($$('theForm'))">
+
+       <div class="ub-f1">
+        总金额： <font class="f4_b" style="font-size:1.4em;font-family:微软雅黑; color:#d00000">{$total.amount_formated}</font>
+      {if $is_group_buy}<br />
+      {$lang.notice_gb_order_amount}{/if}
+      <!--{if $total.exchange_integral }消耗积分--><br />
+        {$lang.notice_eg_integral}<font class="f4_b">{$total.exchange_integral}</font>
+        <!--{/if}-->
+        </div>
+        <div ontouchstart="zy_touch('btn-act')" class="ub-pe btn_tijiao" id="subdone"><span>提交订单</span></div>
+        </div>
+
+<div id="subdonetj"></div>
+<input type="hidden" name="step" value="done" />
+</form>
+

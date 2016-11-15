@@ -1,0 +1,19 @@
+<!-- {if $goods_list} -->
+<!--{foreach from=$goods_list item=goods}-->
+<div class="good_box">
+  <div class="img_box">
+  <img alt="{$goods.goods_thumb}" src="http://{$smarty.server.SERVER_NAME}/{$goods.goods_thumb}" onclick="goods({$goods.goods_id})" />
+  <div class="tiao ub ub-ac">
+     <span class="baizi1">
+     <!-- {if $goods.promote_price neq ""} -->
+	  {$goods.promote_price}
+     <!-- {else}-->
+	  {$goods.shop_price}
+     <!--{/if}-->
+     </span>                    
+  </div>
+  </div>
+  <div class="goods_name">{$goods.name}</div>
+</div>
+{/foreach}
+<!-- {/if} -->

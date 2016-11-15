@@ -1,0 +1,77 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div class="user-box">
+  <div class="user-joinin"> {insert name='member_info1'}
+    <dl>
+      <dt>欢迎来到 B2B2C 商城</dt>
+      <dd> 若您还没有填写入驻申请资料<br>
+        请点击“<a href="{if !$smarty.session.user_id >0}javascript:;{else}apply.php{/if}">我要入驻</a>”进行入驻资料填写</dd>
+      <dd>若您的店铺还未开通<br>
+        请通过“<a href="{if !$smarty.session.user_id >0}javascript:;{else}apply.php{/if}">查看入驻进度</a>”了解店铺开通的最新状况 </dd>
+    </dl>
+    <div class="bottom"><a href="{if !$smarty.session.user_id >0}javascript:;{else}apply.php{/if}" target="_blank">我要入驻</a><a href="{if !$smarty.session.user_id >0}javascript:;{else}apply.php{/if}" target="_blank">查看入驻进度</a></div>
+  </div>
+</div>
+<!--登陆弹框-->
+<div class="pop-mask"></div>
+<div class="pop-main pop-login">
+  <div class="pop-header"> <span>您尚未登录</span><a class="pop-close" href="javascript:;" title="关闭"></a></div>
+  <div class="pop-con">
+    <form name="formLogin" action="user.php" method="post" onSubmit="return user_login();">
+      <div class="form">
+      	<div class="mt">
+        	<h2>用户登陆</h2><a href="register.php" class="right_register main-color"><span class="text">立即注册</span><i class="icon"></i></a>
+        </div>
+        <div class="mc">
+        	<div class="msg-wrap">
+            	<div class="msg-error">
+                	<i class="msg-icon"></i><span id="msg-error-text" class="msg-error-text"></span>
+                </div>
+            </div>
+        	<div class="item item-name">
+            	<i class="icon"></i>
+                <input name="username" id="username" type="text" class="text" value="" tabindex="1" placeholder="手机号/用户名/邮箱"/>
+            </div>
+            <div class="item item-password">
+                <i class="icon"></i>
+                <input type="password" name="password" id="password" class="text" value="" tabindex="2" placeholder="密码"/>
+            </div>
+            <!-- 判断是否启用验证码{if $enabled_captcha} -->
+            <div class="item item-authcode" id="o-authcode">
+            	<div class="item-detail fl">
+                    <i class="icon"></i>
+                    <input type="text" id="authcode" name="captcha" class="text text-1" tabindex="3" placeholder="验证码"/>
+                </div>
+                <label class="img fl">
+                    <img src="captcha.php?is_login=1&{$rand}" alt="captcha" style="vertical-align: middle;cursor: pointer;" onClick="this.src='captcha.php?is_login=1&'+Math.random()" />
+                </label>
+            </div>
+            <!--{/if}-->
+            <div class="safety" id="autoentry">
+                <input type="checkbox" value="1" name="remember" id="remember" class="checkbox"/>
+                <label for="remember" class="mar-b">请保存我这次的登录信息</label>
+                <a class="forget_password fr" href="findPwd.php">忘记密码？</a> 
+            </div>
+            <div class="login-btn">
+              <input type="hidden" name="act" value="act_login" />
+              <input type="hidden" name="back_act"  value=''/>
+              <input type="submit" name="submit" class="btn-img" id="loginsubmit" value="立即登录" />
+            </div>
+            <div class="item-coagent">
+		    	<a href="user.php?act=oath&type=weixin"><i class="weixin"></i>微信</a>
+            	<a href="user.php?act=oath&type=qq"><i class="qq"></i>QQ</a>
+            	<a href="user.php?act=oath&type=weibo"><i class="sina"></i>新浪</a>
+            	<a href="user.php?act=oath&type=alipay" class="last"><i class="alipay"></i>支付宝</a>
+            </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+{if !$smarty.session.user_id >0}
+//点击用户图标弹出登录框
+$('.user-joinin a').click(function(){
+	$('.pop-login,.pop-mask').show();
+})
+{/if}
+</script>

@@ -1,0 +1,17 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!--{if $helps}-->
+<div class="left-con">
+  <div class="article-menu">
+    <!-- {foreach from=$helps item=help_cat name=name key=key} -->
+    <div class="article-menu-list {if $key eq $cat_id}curr{/if} {if $smarty.foreach.name.last}last{/if}">
+      <h4><b></b>{$help_cat.cat_name}</h4>
+      <ul {if $key eq $cat_id}class="curr"{/if}>
+        <!-- {foreach from=$help_cat.article item=item name=name1} -->
+        <li class="{if $smarty.foreach.name1.first}first{/if} {if $item.title eq $article.title}curr{/if}"><a href="help.php?id={$item.article_id}" target="_self">{$item.short_title}</a></li>
+        <!-- {/foreach} -->
+      </ul>
+    </div>
+    <!-- {/foreach} -->
+  </div>
+</div>
+<!--{/if}-->

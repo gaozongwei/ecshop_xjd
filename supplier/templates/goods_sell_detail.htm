@@ -1,0 +1,113 @@
+<!-- $Id: goods_sell_detail.htm 2015-10-22 14:45:21Z langlibin $ -->
+
+{if $full_page}
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+<script type="text/javascript" src="../js/calendar.php?lang={$cfg_lang}"></script>
+<link href="../js/calendar/calendar.css" rel="stylesheet" type="text/css" />
+<div id="tabbar-div">
+    <p>
+        <span class="tab-back" onclick="javascript:location.href='goods_stats.php'">{$lang.sell_list}</span>
+        <span class="tab-front" onclick="javascript:location.href='goods_sell_detail.php'">{$lang.sell_detail}</span>
+        <span class="tab-back" onclick="javascript:location.href='goods_purchase_rate.php'">{$lang.purchase_rate}</span>
+    </p>
+</div>
+<div class="main-div">
+    <p style="margin: 10px">{$lang.notice_goods_status}</p>
+</div>
+
+<div class="form-div">
+    <form action="javascript:searchSellDetail(1)" name="searchForm">
+        {$lang.add_time}&nbsp;
+        <input name="start_date" value="{$start_date}" style="width:100px;height:20px;" onclick="return showCalendar(this, '%Y-%m-%d', false, false, this);" />
+        {$lang.to} &nbsp;
+        <input name="end_date" value="{$end_date}" style="width:100px;height:20px;" onclick="return showCalendar(this, '%Y-%m-%d', false, false, this);" />
+        <!-- 分类 -->
+        <select name="cat_id"><option value="0">所有分类</option>{$cat_list}</select>
+        <!-- 品牌 -->
+        <select name="brand_id"><option value="0">所有品牌</option>{html_options options=$brand_list}</select>
+        &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="submit" value="{$lang.query}" class="button" />
+        <input type="button" name="export" value="{$lang.batch_export}" class="button" onclick="batch_export()" />
+    </form>
+</div>
+
+<form method="post" action="" name="listForm" onsubmit="">
+    <div class="list-div" id="listDiv">
+        {/if}
+        <table cellpadding="3" cellspacing="1">
+            <tr>
+                <th>{$lang.goods_name}</th>
+                <th>{$lang.order_sn}</th>
+                <th><a href="javascript:listTable.sort('sells_count'); ">{$lang.sells_count}</a>{$sort_sells_count}</th>
+                <th><a href="javascript:listTable.sort('goods_price'); ">{$lang.sells_price}</a>{$sort_goods_price}</th>
+                <th><a href="javascript:listTable.sort('add_time'); ">{$lang.add_date}</a>{$sort_add_time}</th>
+            </tr>
+
+            {foreach from=$sell_list item=item name=name}
+            <tr>
+                <td>{$item.goods_name}</td>
+                <td>{$item.order_sn}</td>
+                <td>{$item.sells_count}</td>
+                <td>{$item.goods_price}</td>
+                <td>{$item.add_time}</td>
+            </tr>
+            {foreachelse}
+            <tr><td class="no-records" colspan="10">{$lang.no_records}</td></tr>
+            {/foreach}
+        </table>
+        <table cellpadding="4" cellspacing="0">
+            <tr>
+                <td align="right">{include file="page.htm"}</td>
+            </tr>
+        </table>
+        {if $full_page}
+    </div>
+</form>
+
+<script type="text/javascript" language="JavaScript">
+    listTable.recordCount = {$record_count};
+    listTable.pageCount = {$page_count};
+
+    {foreach from=$filter item=item key=key}
+    listTable.filter.{$key} = '{$item}';
+    {/foreach}
+
+    {literal}
+
+    $(document).ready(function(){
+        $("#brand_id").chosen();
+    });
+
+    /* 搜索商品销售明细 */
+    function searchSellDetail(date_type)
+    {
+    	if (typeof(date_type) == "undefined")
+    	{
+    		date_type = 0;
+    	}
+        listTable.filter.start_date = Utils.trim(document.forms['searchForm'].elements['start_date'].value);
+        listTable.filter.end_date = Utils.trim(document.forms['searchForm'].elements['end_date'].value);
+        listTable.filter.cat_id = Utils.trim(document.forms['searchForm'].elements['cat_id'].value);
+        listTable.filter.brand_id = Utils.trim(document.forms['searchForm'].elements['brand_id'].value);
+        listTable.filter.page = 1;
+        listTable.filter.date_type = date_type;
+        listTable.loadList();
+    }
+
+    function batch_export()
+    {
+        // 开始日期
+        var start_date = Utils.trim(document.forms['searchForm'].elements['start_date'].value);
+        // 终了日期
+        var end_date = Utils.trim(document.forms['searchForm'].elements['end_date'].value);
+        var cat_id = Utils.trim(document.forms['searchForm'].elements['cat_id'].value);
+        var brand_id = Utils.trim(document.forms['searchForm'].elements['brand_id'].value);
+
+        return location.href='goods_sell_detail.php?act=export&start_date='+
+                start_date+'&end_date='+end_date+'&cat_id='+cat_id+'&brand_id='+brand_id;
+    }
+
+    {/literal}
+</script>
+{include file="pagefooter.htm"}
+{/if}

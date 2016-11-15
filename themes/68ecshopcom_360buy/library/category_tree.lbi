@@ -1,0 +1,28 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<?php
+	$GLOBALS['smarty']->assign('categories', get_categories_tree(0)); // 分类树
+?>
+<div class="aside-con category">
+	<h2 class="aside-tit">全部分类</h2>
+	<!--{foreach from=$categories item=cat name=cat}-->
+    <div class="item <!-- {if $cat.id eq $category} -->curr<!--{/if}--> <!--{if $smarty.foreach.cat.last}-->last<!--{/if}-->">
+      <h3 <!--{if $smarty.foreach.cat.last}-->class="last"<!--{/if}-->><a href="{$cat.url}">{$cat.name|escape:html}</a><i></i></h3>
+      <ul <!--{if $smarty.foreach.cat.last}-->class="last"<!--{/if}--> style="<!-- {if $cat.id eq $category} -->display:block;<!--{/if}-->">
+        <!--{foreach from=$cat.cat_id item=child}-->
+        <li <!--{if $smarty.foreach.child.last}-->class="last"<!--{/if}-->><a href="{$child.url}">{$child.name|escape:html}</a></li>
+        <!--{/foreach}-->
+      </ul>
+    </div>
+    <!--{/foreach}--> 
+</div>
+<script type="text/javascript">
+$(function(){
+	if($('.category .item.curr').length == 0){
+		$('.category .item').eq(0).addClass('curr').find('ul').show();
+	}
+	$('.category .item h3').click(function(){
+		$(this).parents('.item').toggleClass('curr').find('ul').slideToggle();
+		$(this).parents('.item').siblings('.item').removeClass('curr').find('ul').slideUp();
+	})
+})
+</script>

@@ -1,0 +1,97 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<form name="selectPageForm" action="{$smarty.server.PHP_SELF}" method="get">
+  <!-- {if $pager.styleid eq 0 } -->
+  <div class="page">
+    <div class="page-wrap fr">
+    	<div class="page-num fl">
+        	<a class="num prev"  href="{$pager.page_prev}">
+            	<i class="icon"></i>
+                <i>上一页</i>
+            </a>
+        	<a class="num next" href="{$pager.page_next}">
+                <i>下一页</i>
+            	<i class="icon"></i>
+            </a> 
+        </div>
+    	
+		<!--{foreach from=$pager.search key=key item=item}--> 
+		{if $key eq 'keywords'}
+		<input type="hidden" name="{$key}" value="{$item|escape:decode_url}" />
+		{else}
+		<input type="hidden" name="{$key}" value="{$item}" />
+		{/if} 
+		<!--{/foreach}-->
+		<select name="page" id="page" onchange="selectPage(this)">
+        {html_options options=$pager.array selected=$pager.page}
+		</select>
+    </div>
+  </div>
+  <!--{else}-->
+  <!-- {if $pager.page_count neq 1} -->
+  <div class="page">
+    <div class="page-wrap fr"> 
+    	<div class="page-num fl">
+        	<!--{if $pager.page_prev}-->
+			<a class="num prev" href="{$pager.page_prev}">
+            	<i class="icon"></i>
+                <i>上一页</i>
+            </a>
+            <!--{else}-->
+            <span class="num prev disabled">
+            	<i class="icon"></i>
+                <i>上一页</i>
+            </span>
+            <!--{/if}-->
+			<!-- {if $pager.page_count neq 1} --> 
+			<!--{foreach from=$pager.page_number key=key item=item}--> 
+			<!-- {if $pager.page eq $key} --> 
+			<span class="num curr">{$key}</span> 
+			<!-- {else} --> 
+			<a class="num" href="{$item}">{$key}</a> 
+			<!-- {/if} --> 
+			<!--{/foreach}--> 
+			<!-- {/if} --> 
+            <!--{if $pager.page_next}-->
+			<a class="num next" href="{$pager.page_next}">
+                <i>下一页</i>
+            	<i class="icon"></i>
+            </a>
+            <!--{else}-->
+            <span class="num next disabled">
+                <i>下一页</i>
+            	<i class="icon"></i>
+            </span>
+            <!--{/if}-->
+        </div>
+      
+      <div class="total">共 {$pager.page_count} 页<!-- {if $pager.page_kbd} --> ，<!--{/if}--></div>
+      <!-- {if $pager.page_kbd} --> 
+      <div class="form fl"> 
+      <span class="text">到第</span>
+      <!--{foreach from=$pager.search key=key item=item}--> 
+      {if $key eq 'keywords'}
+      <input type="hidden" name="{$key}" value="{$item|escape:decode_url}" />
+      {else}
+      <input type="hidden" name="{$key}" value="{$item}" />
+      {/if} 
+      <!--{/foreach}--> 
+      <kbd style="float:left;">
+      <input type="text" name="page" onkeydown="if(event.keyCode==13)selectPage(this)" size="3" class="input"/>
+      </kbd>
+      <span class="text">页</span>
+      </div> 
+      <!-- {/if} --> 
+    </div>
+  </div>
+  <!--{/if}-->
+  <!-- {/if} -->
+</form>
+<script type="Text/Javascript" language="JavaScript">
+<!--
+{literal}
+function selectPage(sel){
+  sel.form.submit();
+}
+{/literal}
+//-->
+</script> 

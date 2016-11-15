@@ -1,0 +1,156 @@
+<!-- $Id: goods_purchase_rate.htm 2015-10-23 08:45:21Z langlibin $ -->
+
+{if $full_page}
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+<script type="text/javascript" src="../js/calendar.php?lang={$cfg_lang}"></script>
+<link href="../js/calendar/calendar.css" rel="stylesheet" type="text/css" />
+<link href="styles/zTree/zTreeStyle.css" rel="stylesheet" type="text/css" />
+<link href="styles/chosen/chosen.css" rel="stylesheet" type="text/css">
+{insert_scripts files='jquery-1.6.2.min.js,chosen.jquery.min.js,jquery.ztree.all-3.5.min.js,category_selecter.js'}
+<div id="tabbar-div">
+    <p>
+        <span class="tab-back" onclick="javascript:location.href='goods_stats.php'">{$lang.sell_list}</span>
+        <span class="tab-back" onclick="javascript:location.href='goods_sell_detail.php'">{$lang.sell_detail}</span>
+        <span class="tab-front" onclick="javascript:location.href='goods_purchase_rate.php'">{$lang.purchase_rate}</span>
+    </p>
+</div>
+<div class="main-div">
+    <p style="margin: 10px">{$lang.notice_goods_status}</p>
+</div>
+
+<div class="form-div">
+    <form action="javascript:searchPurchaseRate()" name="searchForm">
+        选择店铺：
+        <select id="sel_shop" name="sel_shop" onchange="change_shop()">
+            <option value="0" {if $sel_shop eq '0'} selected{/if}>整站</option>
+            <option value="1" {if $sel_shop eq '1'} selected{/if}>平台自营</option>
+            <option value="2" {if $sel_shop eq '2'} selected{/if}>第三方店铺</option>
+        </select>
+        <label id="notice"></label>
+        <select id="supplier_id" class="chzn-select" name="supplier_id" style="height:100;">
+            <option value="0">全部</option>
+            {html_options options=$suppliers_list_name selected=$supplier_id}
+        </select>
+        <br />
+        {$lang.add_time}&nbsp;
+        <input name="start_date" value="{$start_date}" style="width:100px;height:20px;" onclick="return showCalendar(this, '%Y-%m-%d', false, false, this);" />
+        {$lang.to} &nbsp;
+        <input name="end_date" value="{$end_date}" style="width:100px;height:20px;" onclick="return showCalendar(this, '%Y-%m-%d', false, false, this);" />
+        {$lang.goods_category}&nbsp;
+        <input type="text" id="cat_name" name="cat_name" nowvalue="{$goods_cat_name}" value="{$goods_cat_name}" >
+        <input type="hidden" id="cat_id" name="cat_id" value="{$goods_cat_id}">
+        {$lang.goods_brand}&nbsp;
+        <select class="chzn-select" name="brand_id" id="brand_id">
+            <option value="0">所有品牌</option>
+            {html_options options=$brand_list}
+        </select>
+        &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="submit" value="{$lang.query}" class="button" />
+        <input type="button" name="export" value="{$lang.batch_export}" class="button" onclick="batch_export()" />
+    </form>
+</div>
+
+<form method="post" action="" name="listForm" onsubmit="">
+    <div class="list-div" id="listDiv">
+        {/if}
+        <table cellpadding="3" cellspacing="1">
+            <tr>
+                <th>{$lang.goods_name}</th>
+                <th><a href="javascript:listTable.sort('click_count'); ">{$lang.click_count}</a>{$sort_click_count}</th>
+                <th><a href="javascript:listTable.sort('purchase_number'); ">{$lang.buy_times}</a>{$sort_purchase_number}</th>
+                <th><a href="javascript:listTable.sort('purchase_rate'); ">{$lang.visit_buy}</a>{$sort_purchase_rate}</th>
+            </tr>
+
+            {foreach from=$purchase item=item}
+            <tr>
+                <td>{$item.goods_name}</td>
+                <td>{$item.click_count}</td>
+                <td>{$item.purchase_number}</td>
+                <td>{$item.purchase_rate}%</td>
+            </tr>
+            {foreachelse}
+            <tr><td class="no-records" colspan="10">{$lang.no_records}</td></tr>
+            {/foreach}
+        </table>
+        <table cellpadding="4" cellspacing="0">
+            <tr>
+                <td align="right">{include file="page.htm"}</td>
+            </tr>
+        </table>
+        {if $full_page}
+    </div>
+</form>
+
+<script type="text/javascript" language="JavaScript">
+    listTable.recordCount = {$record_count};
+    listTable.pageCount = {$page_count};
+
+    {foreach from=$filter item=item key=key}
+    listTable.filter.{$key} = '{$item}';
+    {/foreach}
+
+    {literal}
+
+    /* 搜索商品销售明细 */
+    function searchPurchaseRate()
+    {
+        listTable.filter.start_date = Utils.trim(document.forms['searchForm'].elements['start_date'].value);
+        listTable.filter.end_date = Utils.trim(document.forms['searchForm'].elements['end_date'].value);
+        listTable.filter.sel_shop = Utils.trim(document.forms['searchForm'].elements['sel_shop'].value);
+        listTable.filter.supplier_id = Utils.trim(document.forms['searchForm'].elements['supplier_id'].value);
+        listTable.filter.cat_id = Utils.trim(document.forms['searchForm'].elements['cat_id'].value);
+        listTable.filter.brand_id = Utils.trim(document.forms['searchForm'].elements['brand_id'].value);
+        listTable.filter.page = 1;
+        listTable.loadList();
+    }
+
+    function batch_export()
+    {
+        // 开始日期
+        var start_date = Utils.trim(document.forms['searchForm'].elements['start_date'].value);
+        // 终了日期
+        var end_date = Utils.trim(document.forms['searchForm'].elements['end_date'].value);
+        var sel_shop = Utils.trim(document.forms['searchForm'].elements['sel_shop'].value);
+        var supplier_id = Utils.trim(document.forms['searchForm'].elements['supplier_id'].value);
+        var cat_id = Utils.trim(document.forms['searchForm'].elements['cat_id'].value);
+        var brand_id = Utils.trim(document.forms['searchForm'].elements['brand_id'].value);
+
+        return location.href='goods_purchase_rate.php?act=export&start_date='+start_date+'&end_date='+
+                end_date+'&sel_shop='+sel_shop+'&supplier_id='+supplier_id+'&cat_id='+cat_id+'&brand_id='+brand_id;
+    }
+
+    $(document).ready(function(){
+        change_shop();
+        $("#brand_id").chosen();
+    });
+
+    function change_shop()
+    {
+        if($("#sel_shop").val()==0)
+        {
+            $("#notice").text("平台自营和第三方店铺数据").show();
+            $("#supplier_id").hide();
+        }
+        else if($("#sel_shop").val()==1)
+        {
+            $("#notice").text("平台自营方数据").show();
+            $("#supplier_id").hide();
+        }
+        else
+        {
+            $("#notice").text("").hide();
+            $("#supplier_id").show();
+        }
+    }
+
+    $().ready(function(){
+        // $("#cat_name")为获取分类名称的jQuery对象，可根据实际情况修改
+        // $("#cat_id")为获取分类ID的jQuery对象，可根据实际情况修改
+        // "{$goods_cat_id}"为被选中的商品分类编号，无则设置为null或者不写此参数或者为空字符串
+        $.ajaxCategorySelecter($("#cat_name"), $("#cat_id"), "{$goods_cat_id}");
+    });
+
+    {/literal}
+</script>
+{include file="pagefooter.htm"}
+{/if}

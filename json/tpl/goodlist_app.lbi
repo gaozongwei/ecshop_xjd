@@ -1,0 +1,35 @@
+{if $goods_list}
+<!-- {foreach from=$goods_list item=good name=name key=fk} -->
+{if $fk==0 }
+    <div class="ub main_topbox" onclick="goods({$good.goods_id})">
+	<div class="main_topbox1">
+	<img src="http://{$smarty.server.SERVER_NAME}/{$good.goods_thumb}" class="img">
+	</div>
+	<div class="main_topbox2">{$good.goods_name}</div>
+	<div class="main_topbox3">{$good.shop_price}frfrf</div>
+    </div>
+{/if}
+    <div class="main_middlebox" onclick="goods({$good.goods_id})">
+    <div class="main_middlebox1">{$good.shopname}</div>
+	<div class="main_middlebox2">{$good.goods_name}</div>
+	<div class="main_middlebox3">{$good.promote_price}</div>
+    </div>
+<!-- {/foreach} -->
+{else}
+<div class="ub main_middlebox">
+	暂无相关商品
+    </div>
+{/if}
+
+<style>
+			.btn{opacity:0.5;}
+			.main_topbox { height:7em; background:#fff; border-bottom:1px #D7D8DB solid; position:relative;}
+			.main_topbox1{ float:left;}
+			.main_topbox1 .img{background:#999; width:5.5em; height:5.5em; margin:0.7em 0.6em;}
+			.main_topbox2{ float:left; width:68%; padding-top:2em; color:#3E3F41; font-size:1em;}
+			.main_topbox3{ width:68%; height:1.2em; background:url(img/barcode_daosanjiao.png) no-repeat; position:absolute; bottom:-1.15em; left:12%; background-size:1.1em;}
+			.main_middlebox { height:5.2em; border-bottom:1px #D7D8DB solid; width:100%; background:url(img/icon_right.png) no-repeat 96% center; padding-left:3%; background-size:0.6em;}
+			.main_middlebox1{width:100%; height:2em; line-height:2em; font-weight:bold; color:#3E3F41; font-size:1.2em;}
+			.main_middlebox2{ float:left; width:75%; height:2.2em; line-height:2.2em; overflow:hidden; font-weight: normal; margin-right:1%; color:#8c8c8c; font-size:1.1em;}
+			.main_middlebox3{ float:left; width:24%; height:2.2em; line-height:2.2em; color:#CE3B40; font-size:1.1em; padding-right:6%;}
+		</style>

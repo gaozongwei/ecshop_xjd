@@ -1,0 +1,36 @@
+<ul id="fullScreenSlides" class="full-screen-slides">
+  <!--{foreach from=$flash name=myflash item=flash}-->
+  <li style=" background:url({$flash.src}) center no-repeat;{if !$smarty.foreach.myflash.first}display: none; {else} display:list-item{/if}"> 
+  	<a href="{$flash.url}" target="_blank" title="{$flash.title}">&nbsp;</a> 
+  </li>
+  <!--{/foreach}-->
+</ul>
+<ul class="full-screen-slides-pagination">
+	<!--{foreach from=$flash name=myflash item=flash}-->
+	<li {if $smarty.foreach.myflash.first}class="current"{/if}><a href="javascript:;">{$smarty.foreach.myflash.iteration}</a></li>
+    <!--{/foreach}-->
+</ul>
+<div class="focus-trigeminy">
+  <div class="carousel">
+    <ul class="box">
+        <?php
+		 $GLOBALS['smarty']->assign('index_lit_img1',get_advlist('首页幻灯片-小图下',6));
+		?>
+        <!--{foreach from=$index_lit_img1 item=ad name=index_image}--> 
+        <li><a href="{$ad.url}" target="_blank" title="{$ad.name}"><img src="{$ad.image}"  alt="{$ad.name}" /></a> </li>
+        <!--{/foreach}-->
+    </ul>
+  </div>
+  <a href="javascript:void(0);" class="prev" title="上一个">&lt;</a>
+  <a href="javascript:void(0);" class="next" title="下一个">&gt;</a>
+</div>
+<script type="text/javascript">
+$(function(){
+	$('.focus-trigeminy').hover(function(){
+			$('.prev,.next').fadeTo('fast',0.4);
+		},function(){
+			$('.prev,.next').fadeTo('fast',0);
+	})
+	Move(".next",".prev",".box",".focus-trigeminy","3");
+})
+</script>

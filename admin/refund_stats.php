@@ -1,0 +1,385 @@
+<?php
+/**
+ * ECSHOP 售后统计：退款统计
+ * ============================================================================
+ * 版权所有 2005-2015 秦皇岛商之翼网络科技有限公司，并保留所有权利。
+ * 网站地址: http://www.68ecshop.com/
+ * ----------------------------------------------------------------------------
+ * 这不是一个自由软件！您只能在不用于商业目的的前提下对程序代码进行修改和
+ * 使用；不允许对程序代码以任何形式任何目的的再发布。
+ * ============================================================================
+ * $Author: langlibin $
+ * $Id: refund_stats.php 2015-10-24 16:00:08Z langlibin $
+ */
+
+define('IN_ECS', true);
+
+require(dirname(__FILE__) . '/includes/init.php');
+require_once(ROOT_PATH . 'languages/' .$_CFG['lang']. '/admin/statistic.php');
+require_once(ROOT_PATH . 'languages/' .$_CFG['lang']. '/admin/supplier_order.php');
+
+$smarty->assign('lang', $_LANG);
+
+// act操作项的初始化
+if (empty($_REQUEST['act']))
+{
+    $_REQUEST['act'] = 'list';
+}
+else
+{
+    $_REQUEST['act'] = trim($_REQUEST['act']);
+}
+// 第几周
+$smarty->assign('week_num', '0');
+
+// 时间参数
+if (isset($_REQUEST['stats_type']))
+{
+    $stats_type = $_REQUEST['stats_type'];
+    if ($stats_type == 1)
+    {
+        $dropweek = $_REQUEST['dropweek'];
+        $dropweek_arr = explode(' ', $dropweek);
+        $start_date = strtotime($dropweek_arr[0]);
+        $end_date = strtotime($dropweek_arr[1]);
+        $week_num = $dropweek_arr[2];
+        $smarty->assign('stats_type', '1');
+        // 第几周
+        $smarty->assign('week_num', $week_num);
+    }
+    else
+    {
+        $year = $_REQUEST['year'];
+        $month = $_REQUEST['month'];
+        $allday = date('t', strtotime("$year-$month"));
+        $start_date = strtotime($year . '-' . $month . '-1');
+        $end_date = strtotime($year . '-' . $month. '-' . $allday);
+        $smarty->assign('stats_type', '2');
+    }
+    $smarty->assign('year', $_REQUEST['year']);
+    $smarty->assign('month', $_REQUEST['month']);
+}
+else
+{
+    $year = date('Y');
+    $month = date('m');
+    $allday = date('t');
+    $start_date = strtotime($year . '-' . $month . '-1');
+    $end_date = strtotime($year . '-' . $month. '-' . $allday);
+    $smarty->assign('year', $year);
+    $smarty->assign('month', $month);
+}
+
+// 店铺参数
+$sel_shop = isset($_REQUEST['sel_shop']) && !empty($_REQUEST['sel_shop']) ? $_REQUEST['sel_shop'] : 0;
+// 取得入驻商id
+if ($sel_shop == 2)
+{
+    $supplier_id = $_REQUEST['supplier_id'];
+}
+else
+{
+    $supplier_id = 0;
+}
+
+$supplier_list_name = array();
+$sql_supplier = "SELECT supplier_id, supplier_name FROM "
+    . $GLOBALS['ecs']->table("supplier") . " WHERE status = '1' ORDER BY supplier_id";
+$res_supplier = $db->query($sql_supplier);
+while($row_supplier = $db->fetchRow($res_supplier))
+{
+    $supplier_list_name[$row_supplier['supplier_id']] = $row_supplier['supplier_name'];
+}
+
+/*------------------------------------------------------ */
+//--退款统计
+/*------------------------------------------------------ */
+if ($_REQUEST['act'] == 'list')
+{
+    admin_priv('after_sells_stats');
+    // 查询条件
+    $where = ' WHERE b.add_time >=' . $start_date . ' AND b.add_time <=' . $end_date;
+    // 按店铺查询
+    if($sel_shop == 1)
+    {
+        // 平台方
+        $where .= ' AND b.supplier_id = 0';
+    }
+    elseif($sel_shop == 2)
+    {
+        // 入驻商
+        if(($supplier_id == 0))
+        {
+            // 所有入驻商
+            $where .= ' AND b.supplier_id <> 0';
+        }
+        else
+        {
+            $where .= ' AND b.supplier_id = ' . $supplier_id;
+        }
+    }
+    $sql = "SELECT FLOOR((b.add_time - $start_date) / (24 * 3600)) date, SUM(b.refund_money_2) refund_money FROM "
+        . $ecs->table('back_order') . ' b ' . $where . ' AND b.back_type = 4 GROUP BY date ORDER BY date';
+    // 退款金额统计
+    $result = $db->getAll($sql);
+    foreach($result as $key=>$value)
+    {
+        $result[$key]['date_arr'] = date('Ymd', $start_date + $value['date'] * 86400);
+    }
+
+    // 取得日期、赋初始值
+    $date_arr = get_date_arr($start_date, $end_date);
+    // 赋值
+    foreach($result as $value)
+    {
+        $date_arr[$value['date_arr']] = $value['refund_money'];
+    }
+    // 取得图表数据
+    foreach($date_arr as $key => $value)
+    {
+        $date .= $key . ',';
+        $refund_money .= $value . ',';
+    }
+
+    // 取得退款信息
+    $result = get_result_list($start_date, $end_date, $sel_shop, $supplier_id);
+
+    $smarty->assign('ur_here', $_LANG['report_after_sell']);
+    // 开始时间
+    $smarty->assign('start_date', local_date($_CFG['date_format'], $start_date));
+    // 终了时间
+    $smarty->assign('end_date', local_date($_CFG['date_format'], $end_date));
+    $smarty->assign('full_page', 1);
+    $smarty->assign('refund_info', $result['item']);
+    $smarty->assign('filter', $result['filter']);
+    $smarty->assign('record_count', $result['record_count']);
+    $smarty->assign('page_count', $result['page_count']);
+    // 走势图横坐标
+    $smarty->assign('date', $date);
+    // 走势图纵坐标
+    $smarty->assign('refund_money', $refund_money);
+    // 入驻商
+    $smarty->assign('suppliers_list_name', $supplier_list_name);
+    // 选择店铺
+    $smarty->assign('sel_shop', $sel_shop);
+    // 第三方店铺
+    $smarty->assign('supplier_id', $supplier_id);
+
+    assign_query_info();
+    $smarty->display('refund_stats.htm');
+}
+
+/*------------------------------------------------------ */
+//-- 翻页，排序
+/*------------------------------------------------------ */
+elseif ($_REQUEST['act'] == 'query')
+{
+    admin_priv('after_sells_stats');
+    $result = get_result_list($start_date, $end_date, $sel_shop, $supplier_id);
+
+    $smarty->assign('refund_info', $result['item']);
+    $smarty->assign('filter', $result['filter']);
+    $smarty->assign('record_count', $result['record_count']);
+    $smarty->assign('page_count', $result['page_count']);
+
+    $sort_flag = sort_flag($result['filter']);
+    $smarty->assign($sort_flag['tag'], $sort_flag['img']);
+
+    make_json_result($smarty->fetch('refund_stats.htm'), '',
+        array('filter' => $result['filter'], 'page_count' => $result['page_count']));
+}
+
+/*------------------------------------------------------ */
+//-- 批量导出数据
+/*------------------------------------------------------ */
+elseif ($_REQUEST['act'] == 'export')
+{
+    admin_priv('after_sells_stats');
+    // 查询条件
+    $where = ' WHERE b.add_time >=' . $start_date . ' AND b.add_time <=' . $end_date;
+    // 按店铺查询
+    if($sel_shop == 1)
+    {
+        // 平台方
+        $where .= ' AND b.supplier_id = 0';
+    }
+    elseif($sel_shop == 2)
+    {
+        // 入驻商
+        if(($supplier_id == 0))
+        {
+            // 所有入驻商
+            $where .= ' AND b.supplier_id <> 0';
+        }
+        else
+        {
+            $where .= ' AND b.supplier_id = ' . $supplier_id;
+        }
+    }
+    // 查询
+    $result = $db->getAll(
+        "SELECT o.order_sn, b.back_id, b.goods_name, u.user_name, b.add_time, "
+        . ' b.refund_money_2, b.status_back, b.back_type, b.status_refund FROM ' . $GLOBALS['ecs']->table('order_info') . ' o, '
+        . $GLOBALS['ecs']->table('users') . ' u, ' . $GLOBALS['ecs']->table('back_order') . ' b ' . $where
+        . ' AND o.order_id = b.order_id AND b.user_id = u.user_id AND b.back_type = 4 ORDER BY order_sn DESC'
+    );
+    foreach ($result AS $key => $value)
+    {
+        $result[$key]['add_time'] = local_date('Y-m-d G:i:s', $value['add_time']);
+        $result[$key]['status_back_val'] =
+            $GLOBALS['_LANG']['bos'][(($value['back_type'] == 4) ? $value['back_type'] : $value['status_back'])] . "-"
+            . (($value['back_type'] == 3) ? "申请维修" : $GLOBALS['_LANG']['bps'][$value['status_refund']]);
+    }
+
+    // 引入phpexcel核心类文件
+    require_once ROOT_PATH . '/includes/phpexcel/Classes/PHPExcel.php';
+    // 实例化excel类
+    $objPHPExcel = new PHPExcel();
+    // 操作第一个工作表
+    $objPHPExcel->setActiveSheetIndex(0);
+    // 设置sheet名
+    $objPHPExcel->getActiveSheet()->setTitle('退款统计');
+    // 设置表格宽度
+    $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
+    $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(15);
+    $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(50);
+    $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+    $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(20);
+    $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(15);
+    $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(20);
+    // 列名表头文字加粗
+    $objPHPExcel->getActiveSheet()->getStyle('A1:G1')->getFont()->setBold(true);
+    // 列表头文字居中
+    $objPHPExcel->getActiveSheet()->getStyle('A1:G1')->getAlignment()
+        ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+    // 列名赋值
+    $objPHPExcel->getActiveSheet()->setCellValue('A1', '订单编号');
+    $objPHPExcel->getActiveSheet()->setCellValue('B1', '退款编号');
+    $objPHPExcel->getActiveSheet()->setCellValue('C1', '商品名称');
+    $objPHPExcel->getActiveSheet()->setCellValue('D1', '买家会员名');
+    $objPHPExcel->getActiveSheet()->setCellValue('E1', '申请时间');
+    $objPHPExcel->getActiveSheet()->setCellValue('F1', '退款金额');
+    $objPHPExcel->getActiveSheet()->setCellValue('G1', '退款状态');
+
+    // 数据起始行
+    $row_num = 2;
+    // 向每行单元格插入数据
+    foreach($result as $value)
+    {
+        // 设置所有垂直居中
+        $objPHPExcel->getActiveSheet()->getStyle('A' . $row_num . ':' . 'E' . $row_num)->getAlignment()
+            ->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+        // 设置价格为数字格式
+        $objPHPExcel->getActiveSheet()->getStyle('F' . $row_num )->getNumberFormat()
+            ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+        // 设置单元格数值
+        $objPHPExcel->getActiveSheet()->setCellValueExplicit('A' . $row_num, $value['order_sn'], PHPExcel_Cell_DataType::TYPE_STRING);
+        $objPHPExcel->getActiveSheet()->setCellValue('B' . $row_num, $value['back_id']);
+        $objPHPExcel->getActiveSheet()->setCellValue('C' . $row_num, $value['goods_name']);
+        $objPHPExcel->getActiveSheet()->setCellValue('D' . $row_num, $value['user_name']);
+        $objPHPExcel->getActiveSheet()->setCellValue('E' . $row_num, $value['add_time']);
+        $objPHPExcel->getActiveSheet()->setCellValue('F' . $row_num, $value['refund_money_2']);
+        $objPHPExcel->getActiveSheet()->setCellValue('G' . $row_num, $value['status_back_val']);
+        $row_num++;
+    }
+    $outputFileName = '退款统计_' . time() . '.xls';
+    $xlsWriter = new \PHPExcel_Writer_Excel5($objPHPExcel);
+    header("Content-Type: application/force-download");
+    header("Content-Type: application/octet-stream");
+    header("Content-Type: application/download");
+    header('Content-Disposition:inline;filename="' . $outputFileName . '"');
+    header("Content-Transfer-Encoding: binary");
+    header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+    header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+    header("Pragma: no-cache");
+    $xlsWriter->save("php://output");
+    echo file_get_contents($outputFileName);
+}
+
+/**
+ * 分页获取退款信息列表
+ *
+ * @return array
+ */
+function get_result_list($start_date, $end_date, $sel_shop, $supplier_id)
+{
+    $result = get_filter();
+    if($result === false)
+    {
+        $filter = array();
+        $filter['start_date'] = empty($_REQUEST['start_date']) ? $start_date : $_REQUEST['start_date'];
+        $filter['end_date'] = empty($_REQUEST['end_date']) ? $end_date : $_REQUEST['end_date'];
+        $filter['sel_shop'] = empty($_REQUEST['sel_shop']) ? $sel_shop : $_REQUEST['sel_shop'];
+        $filter['supplier_id'] = empty($_REQUEST['supplier_id']) ? $supplier_id : $_REQUEST['supplier_id'];
+
+        // 查询条件
+        $where = ' WHERE b.add_time >=' . $filter['start_date'] . ' AND b.add_time <=' . $filter['end_date'];
+        // 按店铺查询
+        if($filter['sel_shop'] == 1)
+        {
+            // 平台方
+            $where .= ' AND b.supplier_id = 0';
+        }
+        elseif($filter['sel_shop'] == 2)
+        {
+            // 入驻商
+            if(($filter['supplier_id'] == 0))
+            {
+                // 所有入驻商
+                $where .= ' AND b.supplier_id <> 0';
+            }
+            else
+            {
+                $where .= ' AND b.supplier_id = ' . $filter['supplier_id'];
+            }
+        }
+        $sql = "SELECT COUNT(*) FROM " . $GLOBALS['ecs']->table('back_order') . ' b ' . $where . ' AND b.back_type = 4';
+        $filter['record_count'] = $GLOBALS['db']->getOne($sql);
+
+        /* 分页大小 */
+        $filter = page_and_size($filter);
+
+        /* 查询 */
+        $sql = "SELECT o.order_sn, b.back_id, b.goods_name, u.user_name, b.add_time, "
+            . ' b.refund_money_2, b.status_back, b.back_type, b.status_refund FROM ' . $GLOBALS['ecs']->table('order_info') . ' o, '
+            . $GLOBALS['ecs']->table('users') . ' u, ' . $GLOBALS['ecs']->table('back_order') . ' b ' . $where
+            . ' AND o.order_id = b.order_id AND b.user_id = u.user_id AND b.back_type = 4 ORDER BY order_sn DESC'
+            . " LIMIT " . $filter['start'] . ", $filter[page_size]";
+
+        set_filter($filter, $sql);
+    }
+    else
+    {
+        $sql = $result['sql'];
+        $filter = $result['filter'];
+    }
+    $list = $GLOBALS['db']->getAll($sql);
+    foreach ($list AS $key => $value)
+    {
+        $list[$key]['add_time'] = local_date('Y-m-d G:i:s', $value['add_time']);
+        $list[$key]['status_back_val'] =
+            $GLOBALS['_LANG']['bos'][(($value['back_type'] == 4) ? $value['back_type'] : $value['status_back'])] . "-"
+            . (($value['back_type'] == 3) ? "申请维修" : $GLOBALS['_LANG']['bps'][$value['status_refund']]);
+    }
+
+    $arr = array(
+        'item' => $list, 'filter' => $filter, 'page_count' => $filter['page_count'], 'record_count' => $filter['record_count']
+    );
+
+    return $arr;
+}
+
+/* 取得搜索范围内的日期并赋初始值 */
+function get_date_arr($dt_start, $dt_end)
+{
+    $date_arr = array();
+    do {
+        // 将 Timestamp 转成 ISO Date 输出
+        $date_arr[date('Ymd', $dt_start)] = 0;
+        // 重复 Timestamp + 1 天(86400), 直至大于结束日期中止
+    } while (($dt_start += 86400) <= $dt_end);
+    return $date_arr;
+}
+
+?>

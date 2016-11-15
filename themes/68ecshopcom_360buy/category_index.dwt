@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$page_title}</title>
+<!-- TemplateEndEditable -->
+<!-- TemplateBeginEditable name="head" -->
+<!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link rel="stylesheet" type="text/css" href="themes/68ecshopcom_360buy/css/{$cat_style}" />
+<script type="text/javascript" src="themes/68ecshopcom_360buy/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="themes/68ecshopcom_360buy/js/jquery-lazyload.js" ></script>
+{insert_scripts files='jquery.json.js,transport.js'}
+{insert_scripts files='common.js'}
+</head>
+<body>{insert name='add_url_uid'}
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<div class="first-show clearfix"> <!-- #BeginLibraryItem "/library/ad.lbi" --><!-- #EndLibraryItem -->
+  <div class="w1210 clearfix">
+    <div class="main-nav">
+      <div class="float-list"> 
+        <!--{foreach from=get_categories_tree(0) item=cat name=cat0}--> 
+        <!--{if $current_cat_pr_id eq $cat.id}--> 
+        <!--{foreach from=$cat.cat_id item=child name=namechild}-->
+        <dl>
+          <dt> <strong><a href="{$child.url}">{$child.name|escape:html}</a></strong>
+            <p> 
+              <!--{foreach from=$child.cat_id item=childer}--> 
+              <a href="{$childer.url}" class="" title="{$childer.name}">{$childer.name}</a> 
+              <!--{/foreach}--> 
+            </p>
+            <b class="arrow-right">&gt;</b> </dt>
+          <dd style="top: 0px; min-height:108px;">
+            <ul class="secondlist">
+              <li> <strong style="background-position: -464px -80px;"><a href="{$child.url}">{$child.name|escape:html}</a></strong>
+                <div class="float-list-cont"> 
+                  <!--{foreach from=$child.cat_id item=childer}--> 
+                  <a href="{$childer.url}" class="" title="{$childer.name}">{$childer.name}</a> 
+                  <!--{/foreach}--> 
+                </div>
+              </li>
+            </ul>
+          </dd>
+        </dl>
+        <!--{/foreach}--> 
+        <!--{/if}--> 
+        <!--{/foreach}--> 
+      </div>
+    </div>
+  </div>
+  <div class="image-box1">
+    <?php
+             $GLOBALS['smarty']->assign('index_image1',get_advlist('频道页-分类ID'.$GLOBALS['smarty']->_var['category'].'-图片1', 1));
+             $GLOBALS['smarty']->assign('index_image2',get_advlist('频道页-分类ID'.$GLOBALS['smarty']->_var['category'].'-图片2', 1));
+             $GLOBALS['smarty']->assign('index_image3',get_advlist('频道页-分类ID'.$GLOBALS['smarty']->_var['category'].'-图片3', 1));
+		?>
+    {foreach from=$index_image1 item=ad name=index_image}<a href="{$ad.url}" target="_blank"> <img src="themes/68ecshopcom_360buy/images/loading.gif" data-original="{$ad.image}"  height="187" width="510"></a>{/foreach}
+    {foreach from=$index_image2 item=ad name=index_image}<a href="{$ad.url}" target="_blank"><img src="themes/68ecshopcom_360buy/images/loading.gif" data-original="{$ad.image}" height="187" width="340"></a>{/foreach}
+    {foreach from=$index_image3 item=ad name=index_image}<a href="{$ad.url}" target="_blank" class="last"> <img src="themes/68ecshopcom_360buy/images/loading.gif" data-original="{$ad.image}"  height="187" width="340"></a>{/foreach} </div>
+</div>
+{foreach  from=$childcat_goods item=cat name=name}
+<div class="floor-wrapper">
+  <div class="mt">
+    <h2>{$smarty.foreach.name.iteration}F<span>{$cat.cat_name}</span></h2>
+    <a href="{$cat.url}" target="_blank" class="category-more">更多 <i>&gt;</i></a>
+  </div>
+  <script type="text/javascript"> 
+$(document).ready(function(){ 
+$(".itemOuter .itemWrapper").mouseover(function(){ 
+$(this).addClass("itemWrapper_hover"); 
+}); 
+$(".itemOuter .itemWrapper").mouseout(function(){ 
+$(this).removeClass("itemWrapper_hover"); 
+}); 
+}); 
+</script>
+  <div class="floor-content">
+  	{foreach  from=$cat.children  name="cat_children"  item=catgoods}
+    <div class="item" id="li_{$catgoods.goods_id}">
+      <div class="item-inner">
+      	<a class="add-cart" href="javascript:addToCart({$catgoods.goods_id})" title="加入购物车"></a>
+        <a href="{$catgoods.url}" title='{$catgoods.goods_name|escape:html}' target="_blank" class="item-img">
+        	<img data-original="{$catgoods.goods_thumb}" src="themes/68ecshopcom_360buy/images/loading.gif"  class="pic_img_{$catgoods.goods_id}" height="160" width="160">
+        </a>
+        <p class="item-name"><a href="{$catgoods.url}" title="{$catgoods.goods_name|escape:html}" target="_blank">{$catgoods.goods_name}</a></p>
+      	<div class="item-price">
+        	<span class="sale-price main-color">{if $catgoods.promote_price > 0}{$catgoods.promote_price}{else}{$catgoods.shop_price}{/if}</span>
+      	</div>
+      </div>
+    </div>
+    {/foreach}
+  </div>
+</div>
+{/foreach}
+<div class="blank"></div>
+<!-- #BeginLibraryItem "/library/arrive_notice.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/right_sidebar.lbi" --><!-- #EndLibraryItem -->
+<div class="site-footer">
+  <div class="footer-related"> 
+    <!-- #BeginLibraryItem "/library/help.lbi" --><!-- #EndLibraryItem --> 
+    <!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem --> 
+  </div>
+</div>
+<script type="text/javascript">
+$("img").lazyload({
+    effect       : "fadeIn",
+	 skip_invisible : true,
+	 failure_limit : 20
+});
+</script> 
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!-- $Id: shop_sell_area_list_stats.htm 2015-10-29 20:45:21Z langlibin $ -->
+{if $full_page}
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+{insert_scripts files="../js/region.js"}
+<script type="text/javascript" src="../js/calendar.php?lang={$cfg_lang}"></script>
+<link href="../js/calendar/calendar.css" rel="stylesheet" type="text/css" />
+<div id="tabbar-div">
+    <p>
+        <span class="tab-back" onclick="javascript:location.href='shop_added_stats.php'">新增店铺</span>
+        <span class="tab-back" onclick="javascript:location.href='shop_hot_sell_stats.php'">热卖排行</span>
+        <span class="tab-back" onclick="javascript:location.href='shop_sell_count_stats.php'">销售统计</span>
+        <span class="tab-front" onclick="javascript:location.href='shop_sell_area_list_stats.php'">区域分布</span>
+    </p>
+</div>
+<div class="main-div">
+    <p style="margin: 10px">
+        列表展示了店铺分类下到某个时间为止（默认为当前时间）开店数量在各省级地区的分布情况<br />
+    </p>
+</div>
+<div class="form-div">
+    <form action="javascript:searchAreaStats()" name="searchForm">
+        截止时间
+        <input name="end_date" id="end_date" value="{$end_date}" style="width:100px;height:20px;" onclick="return showCalendar(this, '%Y-%m-%d', false, false, this);" />
+        <select name="area_type" id="area_type" onchange="sel_area()">
+            <option value="0">按省统计</option>
+            <option value="1">按市统计</option>
+            <option value="2">按区/县统计</option>
+        </select>
+        <select name="province" id="selProvinces" onchange="region.changed(this, 2, 'selCities')">
+            <option value="0">{$lang.select_please}</option>
+            {foreach from=$province_list item=province}
+            <option value="{$province.region_id}"{if $province_id eq $province.region_id}selected="selected"{/if}>{$province.region_name}</option>
+            {/foreach}
+        </select>
+        <select name="city" id="selCities">
+            <option value="0">{$lang.select_please}</option>
+            {foreach from=$city_list item=city}
+            <option value="{$city.region_id}"{if $city_id eq $city.region_id}selected="selected"{/if}>{$city.region_name}</option>
+            {/foreach}
+        </select>
+        <input type="submit" value="{$lang.button_search}" class="button" />
+    </form>
+</div>
+<form method="post" action="" name="listForm" onsubmit="">
+    <div class="list-div" id="listDiv">
+        {/if}
+
+        <table cellpadding="3" cellspacing="1">
+            <tr>
+                <th>序号</th>
+                <th>省份</th>
+                <th>市</th>
+                <th>区/县</th>
+                <th>{$lang.handler}</th>
+            </tr>
+
+            {foreach from=$result_list item=item}
+            <tr>
+                <td align="center">{$item.no}</td>
+                <td align="center">{$item.province_name}</td>
+                <td align="center">{$item.city_name}</td>
+                <td align="center">{$item.district_name}</td>
+                <td align="center"><a href="javascript:;" onclick="detail({$item.province},{$item.city},{$item.district})">查看</a></td>
+            </tr>
+            {foreachelse}
+            <tr><td class="no-records" colspan="10">{$lang.no_records}</td></tr>
+            {/foreach}
+        </table>
+
+        <table cellpadding="4" cellspacing="0">
+            <tr>
+                <td align="right">{include file="page.htm"}</td>
+            </tr>
+        </table>
+
+        {if $full_page}
+    </div>
+</form>
+
+<script type="text/javascript" language="JavaScript">
+    listTable.recordCount = {$record_count};
+    listTable.pageCount = {$page_count};
+
+    {foreach from=$filter item=item key=key}
+    listTable.filter.{$key} = '{$item}';
+    {/foreach}
+    {literal}
+
+    region.isAdmin = true;
+
+    function searchAreaStats()
+    {
+        listTable.filter.end_date = Utils.trim(document.forms['searchForm'].elements['end_date'].value);
+        listTable.filter.area_type = Utils.trim(document.forms['searchForm'].elements['area_type'].value);
+        listTable.filter.province = Utils.trim(document.forms['searchForm'].elements['province'].value);
+        listTable.filter.city = Utils.trim(document.forms['searchForm'].elements['city'].value);
+        listTable.filter.page = 1;
+        listTable.loadList();
+    }
+    // 选择区域
+    function sel_area()
+    {
+        if($("#area_type").val() == 0)
+        {
+            $("#selProvinces").hide();
+            $("#selCities").hide();
+        }
+        else if($("#area_type").val() == 1)
+        {
+            $("#selProvinces").show();
+            $("#selCities").hide();
+        }
+        else
+        {
+            $("#selProvinces").show();
+            $("#selCities").show();
+        }
+    }
+    sel_area();
+
+    function detail(province, city, district)
+    {
+        var area_type = $("#area_type").val();
+        var end_date = $("#end_date").val();
+        window.location.href="shop_sell_area_detail_stats.php?act=list&area_type="+
+                area_type+"&end_date="+end_date+"&province="+province+"&city="+city+"&district="+district;
+    }
+    {/literal}
+</script>
+{include file="pagefooter.htm"}
+{/if}

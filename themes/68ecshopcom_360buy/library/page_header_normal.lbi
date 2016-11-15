@@ -1,0 +1,200 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="themes/68ecshopcom_360buy/css/68ecshop_common.css" />
+<script language="javascript"> 
+<!--
+/*屏蔽所有的js错误*/
+function killerrors() { 
+return true; 
+} 
+window.onerror = killerrors; 
+//-->
+</script>
+<script type="text/javascript" src="themes/68ecshopcom_360buy/js/page.js"></script>
+<script type="text/javascript" src="themes/68ecshopcom_360buy/js/bubbleup.js"></script>
+{include file='library/user_header.lbi'}
+<div class="header">
+	<div class="w1210">
+  		<div class="mall-logo"> <a href="./"><img src="../images/logo.gif" width="250" /></a> </div>
+  		<div class="mall-logo-right"> <a href="#" target="_blank"></a> </div>
+  		<div class="mall-search">
+    <div id="search-tips" style="display:none;"></div>
+    <form class="mallSearch-form" method="get" name="searchForm" id="searchForm" action="search.php" onSubmit="return checkSearchForm()">
+      <input type='hidden' name='type' id="searchtype" value="{$smarty.request.type|default:0}">
+      <div class="mallSearch-input">
+        <ul class="search-type">
+          <li {if $smarty.request.type ==0}class="cur"{/if} num="0">宝贝<i class="icon-down"></i></li>
+          <li {if $smarty.request.type ==1}class="cur"{/if} num="1">店铺<i class="icon-down"></i></li>
+        </ul>
+        <div class="s-combobox">
+          <div class="s-combobox-input-wrap">
+            <input aria-haspopup="true" role="combobox" class="s-combobox-input" name="keywords" id="keyword" tabindex="9" accesskey="s" onkeyup="STip(this.value, event);" autocomplete="off"  value="{if $search_keywords}{$search_keywords|escape}{else}请输入关键词{/if}" onFocus="if(this.value=='请输入关键词'){this.value='';}else{this.value=this.value;}" onBlur="if(this.value=='')this.value='请输入关键词'" type="text">
+          </div>
+        </div>
+        <input type="submit" value="搜索" class="button main-bg-color"  >
+      </div>
+    </form>
+    <ul class="hot-query" >
+      {foreach from=$searchkeywords item=val name=name}
+      <li {if $smarty.foreach.name.first}style="border-left: none;"{/if}> <a href="search.php?keywords={$val|escape:url}" title="{$val}">{$val}</a> </li>
+      {/foreach}
+    </ul>
+  </div>
+  		{include file='library/user_header_right.lbi'}
+	</div>
+</div>
+<div class="all-nav all-nav-border">
+  <div class="w1210">
+      <div class="home-category fl"  onmouseover="_show_(this)" onmouseout="_hide_(this)"> 
+        <a href="catalog.php" class="menu-event main-bg-color" title="查看全部商品分类">全部商品分类<i></i></a> 
+        <div class="expand-menu all-cat main-bg-color"> 
+        <!--{foreach from=get_categories_tree(0) item=cat name=cat0}-->
+        <div class="list">
+          <dl class="cat">
+            <dt class="cat-name"> <a href="{$cat.url}" target="_blank" title="进入{$cat.name}频道">{$cat.name}</a> </dt>
+            <i>&gt;</i>
+          </dl>
+          <div class="categorys">
+            <div class="item-left fl"> 
+              
+              <!-- {foreach from=$cat.cat_id item=childs name=name} --> 
+              <!-- {foreach from=get_child_tree_best($GLOBALS['smarty']->_var['childs']['id']) item=child_best name=child_best} --> 
+              <!--{if $child_best.url }-->
+             
+              <div class="item-channels">
+                <div class="channels"> <a href="{$child_best.url}" target="_blank" title="{$child_best.name|escape:html}">{$child_best.name|escape:html}<i>&gt;</i></a> </div>
+              </div>
+              
+              <!--{/if}--> 
+              <!-- {/foreach} --> 
+              <!-- {/foreach} -->
+              <div class="subitems"> 
+                <!--{foreach from=$cat.cat_id item=child name=namechild}-->
+                <dl class="fore1">
+                  <dt> <a href="{$child.url}" target="_blank" title="{$child.name|escape:html}">{$child.name|escape:html}<i>&gt;</i></a> </dt>
+                  <dd> 
+                    <!--{foreach from=$child.cat_id item=childer name=childername}--> 
+                    <a href="{$childer.url}" target="_blank" title="{$childer.name|escape:html}">{$childer.name|escape:html}</a> 
+                    <!--{/foreach}--> 
+                  </dd>
+                </dl>
+                <!--{/foreach}--> 
+              </div>
+            </div>
+            <div class="item-right fr">
+              <div class="item-brands">
+                <div class="brands-inner"> 
+                  <!--{foreach from=get_brands1($GLOBALS['smarty']->_var['cat']['id']) item=bchilder name=bchilder}--> 
+                  {if $smarty.foreach.bchilder.iteration < 9} <a href="{$bchilder.url}" class="img-link" target="_blank" title="{$bchilder.brand_name|escape:html}"> <img src="data/brandlogo/{$bchilder.brand_logo}" width="90" height="36" /> </a> {/if} 
+                  <!--{/foreach}--> 
+                </div>
+              </div>
+              <?php
+                 $cat_info = get_cat_info_ex($GLOBALS['smarty']->_var['cat']['id']);
+            
+                $GLOBALS['smarty']->assign('index_image',get_advlist('导航菜单-分类ID'.$cat_info['cat_id'].'-促销专题', 2));
+                  ?>
+              <!-- {if $index_image} -->
+              <div class="item-promotions"> {foreach from=$index_image item=ad name=index_image} <a href="{$ad.url}" class="img-link" target="_blank"><img src="{$ad.image}"  width="182" /></a> {/foreach} </div>
+              <!-- {/if} --> 
+            </div>
+          </div>
+        </div>
+        <!--{/foreach}--> 
+      </div>
+      </div>
+      <div class="allnav fl" id="nav">
+        <ul>
+          <li><a class="nav" href="index.php" title="首页">首页</a></li>
+          <!-- {foreach name=nav_middle_list from=$navigator_list.middle item=nav } -->
+          <li><a class="nav {if $nav.active eq 1}current{/if}" href="{$nav.url}" title="{$nav.name}" {if $nav.opennew eq 1}target="_blank" {/if}>{$nav.name}</a></li>
+          <!-- {/foreach} -->
+        </ul>
+      </div>
+  </div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+{literal}
+function checkSearchForm()
+{
+    if(document.getElementById('keyword').value)
+    {
+	var frm  = document.getElementById('searchForm');
+	var type = parseInt(document.getElementById('searchtype').value);
+	frm.action = type==0 ? 'search.php' : 'stores.php';
+        return true;
+    }
+    else
+    {
+	alert("请输入关键词！");
+        return false;
+    }
+}
+
+function myValue1()
+{
+	document.getElementById('keyword').value = "请输入商品名称或编号...";
+}
+
+function myValue2()
+{
+	document.getElementById('keyword').value = "";
+}
+{/literal}
+//]]>
+$('.search-type li').click(function() {
+    $(this).addClass('cur').siblings().removeClass('cur');
+    $('#searchtype').val($(this).attr('num'));
+});
+$(function(){
+	//图片放大效果
+    $(".header-right img").bubbleup({scale:100});
+	
+	//头部搜索
+	$('.search-type').hover(function(){
+		$(this).css({"height":"auto","overflow":"visible"});
+	},function(){
+		$(this).css({"height":32,"overflow":"hidden"});
+	});
+	
+});
+
+function _show_(h, b) {
+	if (!h) {
+		return
+	}
+	if (b && b.source && b.target) {
+		var d = (typeof b.source == "string") ? M.$("#" + b.source) : b.source;
+		var e = (typeof b.target == "string") ? M.$("#" + b.target) : b.target;
+		if (d && e && !e.isDone) {
+			e.innerHTML = d.value;
+			d.parentNode.removeChild(d);
+			if (typeof b.callback == "function") {
+				b.callback()
+			}
+			e.isDone = true
+		}
+	}
+	M.addClass(h, "hover");
+	if (b && b.isLazyLoad && h.isDone) {
+		var g = h.find("img");
+		for (var a = 0, c = g.length; a < c; a++) {
+			var f = g[a].getAttribute("data-src_index_menu");
+			if (f) {
+				g[a].setAttribute("src", f);
+				g[a].removeAttribute("data-src_index_menu")
+			}
+		}
+		h.isDone = true
+	}
+}
+function _hide_(a) {
+	if (!a) {
+		return
+	}
+	if (a.className.indexOf("hover") > -1) {
+		M.removeClass(a, "hover")
+	}
+}
+</script>
+<script type="text/javascript" src="themes/68ecshopcom_360buy/js/nav.js"></script>

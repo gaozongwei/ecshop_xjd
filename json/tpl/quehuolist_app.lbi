@@ -1,0 +1,30 @@
+{if $booking}
+<!-- {foreach from=$booking item=book} -->
+		<div class='order_top ub'>
+        	<div class="order_h1">{$book.booking_time}</div>
+				<div class="order_zhuangtai" onclick="delquehuo({$book.rec_id})">删除</div>
+        </div>
+        <div class="order_bottom">
+                <div class="order_bottom1 ub" onclick="goods({$book.goods_id})";>
+                <div class="order_img"><img src="http://{$smarty.server.SERVER_NAME}/{$book.goods_thumb}"></div>
+                <div class="order_content">
+                    <h2>{$book.goods_name}</h2>
+                    <p class="order_shuxing"><span>店铺信息：{$book.supplier_name}</span><span></span></p>
+                    <p class="order_shuxing" style="border-bottom:1px #e3e3e3 solid; padding-bottom:1em;"><span>处理备注：{$book.goods_desc}</span></p>                 
+                </div>            
+                </div>
+                <div class="order_xiangqing ub ub-ac ub-pc">
+                    <p class="kong"></p>
+                     <p class="money">订购数量：{$book.goods_number}</p>
+                     <p class="xiangqing"><span></span></p>
+                     </div>
+            </div>
+<!-- {/foreach} -->
+
+{else}
+{if $page==1}
+<div class="no_msg">
+您还没有登记记录哦！
+</div>
+{/if}
+{/if}

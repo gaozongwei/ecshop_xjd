@@ -1,0 +1,130 @@
+<script>
+function payment_alipay_bank(){
+	document.getElementById('alipay_bank_input').checked=true;
+}
+function clear_radio_alipay_bank(){
+	var x=document.getElementsByName("www_68ecshop_com_bank");  
+	for(var i=0;i<x.length;i++){ 
+		if (x[i].checked==true){
+			x[i].checked=false;
+		}
+	}
+}
+</script>
+<ul>
+<li>
+<label for="ICBCB2C">
+<input type="radio" onclick="payment_alipay_bank();" name="www_68ecshop_com_bank" value="ICBCB2C" id="ICBCB2C">
+        <img  src="images/alipay_bank_www_ecshop68_com/10.gif" align="absmiddle">
+</label>
+</li>
+<li>
+	<label for="CMB">
+        <input type="radio" onclick="payment_alipay_bank();" name="www_68ecshop_com_bank" value="CMB" id="CMB">
+        <img src="images/alipay_bank_www_ecshop68_com/17.gif" align="absmiddle">
+    </label>
+</li>
+<li>
+	<label for="CCB">
+        <input type="radio" onclick="payment_alipay_bank();" name="www_68ecshop_com_bank" value="CCB" id="CCB">
+        <img src="images/alipay_bank_www_ecshop68_com/2.gif" align="absmiddle">
+    </label>
+</li>
+<li>
+	<label for="ABC">
+        <input type="radio" onclick="payment_alipay_bank();" name="www_68ecshop_com_bank" value="ABC" id="ABC">
+        <img src="images/alipay_bank_www_ecshop68_com/1.gif" align="absmiddle">
+    </label>
+</li>
+<li>
+	<label for="COMM">
+        <input type="radio" onclick="payment_alipay_bank();" name="www_68ecshop_com_bank" value="COMM" id="COMM">
+        <img src="images/alipay_bank_www_ecshop68_com/5.gif" align="absmiddle">
+    </label>
+</li>
+<li>
+	<label for="CMBC">
+        <input type="radio" onclick="payment_alipay_bank();" name="www_68ecshop_com_bank" value="CMBC" id="CMBC">
+        <img src="images/alipay_bank_www_ecshop68_com/4.gif" align="absmiddle">
+    </label>
+</li>
+<li>
+	<label for="BOCB2C">
+        <input type="radio" onclick="payment_alipay_bank();" name="www_68ecshop_com_bank" value="BOCB2C" id="BOCB2C">
+        <img src="images/alipay_bank_www_ecshop68_com/19.gif" align="absmiddle">
+    </label>
+</li>
+<li>
+	<label for="CITIC">
+        <input type="radio" onclick="payment_alipay_bank();" name="www_68ecshop_com_bank" value="CITIC" id="CITIC">
+        <img src="images/alipay_bank_www_ecshop68_com/7.gif" align="absmiddle">
+    </label>
+</li>
+<li>
+	<label for="CEB-DEBIT">
+        <input type="radio" onclick="payment_alipay_bank();" name="www_68ecshop_com_bank" value="CEB-DEBIT" id="CEB-DEBIT">
+        <img src="images/alipay_bank_www_ecshop68_com/3.gif" align="absmiddle">
+    </label>
+</li>
+<li>
+	<label for="CIB">
+        <input type="radio" onclick="payment_alipay_bank();" name="www_68ecshop_com_bank" value="CIB" id="CIB">
+        <img src="images/alipay_bank_www_ecshop68_com/27.gif" align="absmiddle">
+    </label>
+</li>
+<li>
+	<label for="SDB">
+        <input type="radio" onclick="payment_alipay_bank();" name="www_68ecshop_com_bank" value="SDB" id="SDB">
+        <img src="images/alipay_bank_www_ecshop68_com/8.gif" align="absmiddle">
+    </label>
+</li>
+<li>
+	<label for="GDB">
+        <input type="radio" onclick="payment_alipay_bank();" name="www_68ecshop_com_bank" value="GDB" id="GDB">
+        <img src="images/alipay_bank_www_ecshop68_com/6.gif" align="absmiddle">
+    </label>
+</li>
+<li>
+	<label for="BJBANK">
+        <input type="radio" onclick="payment_alipay_bank();" name="www_68ecshop_com_bank" value="BJBANK" id="BJBANK">
+        <img src="images/alipay_bank_www_ecshop68_com/11.gif" align="absmiddle">
+    </label>
+</li>
+<li>
+	<label for="SPDB">
+        <input type="radio" onclick="payment_alipay_bank();" name="www_68ecshop_com_bank" value="SPDB" id="SPDB">
+        <img src="images/alipay_bank_www_ecshop68_com/12.gif" align="absmiddle">
+    </label>
+</li>
+<li>
+	<label for="SHBANK">
+        <input type="radio" onclick="payment_alipay_bank();" name="www_68ecshop_com_bank" value="SHBANK" id="SHBANK">
+        <img src="images/alipay_bank_www_ecshop68_com/20.gif" align="absmiddle">
+    </label>
+</li>
+<li>
+	<label for="PSBC-DEBIT">
+		<input type="radio" onclick="payment_alipay_bank();" name="www_68ecshop_com_bank" value="PSBC-DEBIT" id="PSBC-DEBIT">
+        <img align="absmiddle" src="images/alipay_bank_www_ecshop68_com/29.gif">
+	</label>
+</li>
+<li>
+	<label for="SPABANK">
+    	<input type="radio" onclick="payment_alipay_bank();" name="www_68ecshop_com_bank" value="SPABANK" id="SPABANK">
+        <img align="absmiddle" src="images/alipay_bank_www_ecshop68_com/18.gif">
+    </label>
+</li>
+<li>
+	<label for="HZCBB2C">
+        <input type="radio" onclick="payment_alipay_bank();" name="www_68ecshop_com_bank" value="HZCBB2C" id="HZCBB2C">
+        <img align="absmiddle" src="images/alipay_bank_www_ecshop68_com/26.gif">
+    </label>
+</li>
+<li>
+	<label for="NBBANK">
+        <input type="radio" onclick="payment_alipay_bank();" name="www_68ecshop_com_bank" value="NBBANK" id="NBBANK">
+        <img align="absmiddle" src="images/alipay_bank_www_ecshop68_com/21.gif">
+    </label>
+</li>
+
+</ul>

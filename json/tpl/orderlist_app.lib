@@ -1,0 +1,40 @@
+﻿{if $order_list}
+<!-- {foreach from=$order_list item=order name=name key=fk} -->
+
+   		<div  class='order_top ub'>
+        	<div class="order_h1">{$order.order_sn}</div>
+			{if $order.order_status == "未确认"}
+				<div id="order_zhuangtai" class="order_zhuangtai" onclick="canncelOrder('{$order.order_sn}')">取消订单</div>
+			{elseif $order.shipping_status == "已发货"}
+				<div id="order_zhuangtai" class="order_zhuangtai" onclick="confirmReceipt('{$order.order_sn}')">确认收货</div>
+			{elseif $order.shipping_status == "已收货"}
+				<div class="order_zhuangtai">已完成</div>
+			{elseif $order.order_status == "已分单" && $order.pay_status == "未付款"}
+				<div class="order_zhuangtai" onclick="order('{$order.order_id}')">去付款</div>
+			{else}
+				<div id="order_zhuangtai" class="order_zhuangtai" >{$order.order_status}</div>
+			{/if}
+        </div>
+        <div class="order_bottom" onclick="order('{$order.order_id}')">
+		{foreach from=$order.xiang item=goods}
+        	<div class="order_bottom1 ub">
+        	<div class="order_img"><img src="http://{$smarty.server.SERVER_NAME}/{$goods.goods_thumb}"></div>
+            <div class="order_content">
+            	<h2>{$goods.goods_name}</h2>
+                <p class="order_shuxing"><span>{$goods.goods_attr}</span><span></span></p>
+                <p class="order_shuxing" style="border-bottom:1px #e3e3e3 solid; padding-bottom:1em;"><span>价格：￥{$goods.goods_price}</span>&nbsp;&nbsp;&nbsp;<span>数量：{$goods.goods_number}</span></p>
+                 
+            </div>            
+            </div>
+			 {/foreach}
+            <div class="order_xiangqing ub ub-ac ub-pc">
+            	<p class="kong"></p>
+                 <p class="money">商品总额：￥{$order.goods_amount}</p>
+                 <p class="xiangqing"><span class="xiangqing1" onclick="order('{$order.order_id}')">订单详情</span></p>
+                 </div>
+        </div>
+       
+<!-- {/foreach} -->
+{else}
+0
+{/if}

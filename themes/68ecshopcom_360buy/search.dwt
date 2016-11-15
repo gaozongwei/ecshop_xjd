@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$page_title}</title>
+<!-- TemplateEndEditable -->
+<!-- TemplateBeginEditable name="head" -->
+<!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link rel="stylesheet" type="text/css" href="themes/68ecshopcom_360buy/css/category.css" />
+<script type="text/javascript" src="themes/68ecshopcom_360buy/js/jquery-1.9.1.min.js" ></script>
+<script type="text/javascript" src="themes/68ecshopcom_360buy/js/jquery-lazyload.js" ></script>
+{insert_scripts files='jquery.json.js,transport.js'}
+{insert_scripts files='utils.js,common.js,global.js'}
+</head>
+<body>
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<div class="blank"></div>
+<div class="w1210">
+	<!-- #BeginLibraryItem "/library/ur_here.lbi" --><!-- #EndLibraryItem --> 
+    <div class="content-wrap category-wrap clearfix">
+    	<!--左侧 start-->
+    	<div class="aside">
+        	<span class="slide-aside"></span>
+            <div class="aside-inner">
+            	<!-- #BeginLibraryItem "/library/category_tree.lbi" --><!-- #EndLibraryItem -->
+                <!-- #BeginLibraryItem "/library/top10.lbi" --><!-- #EndLibraryItem -->
+            </div>
+        </div>
+        <!--左侧 end-->
+        <!--右侧 start-->
+        <div class="main">
+        	<!-- {if isset($goods_list)} -->
+            <div id="filter">
+            	<div class="fore1">
+                	<dl class="order">
+                        <dd class="first <!--{if $pager.search.sort == 'goods_id'}-->curr<!--{/if}-->">
+                        	<a href="search.php?{foreach from=$pager.search key=key item=item}{if $key neq "sort" and $key neq "order"}{$key}={$item}&{/if}{/foreach}page={$pager.page}&sort=goods_id&order={if $pager.search.order eq 'DESC'}ASC{else}DESC{/if}#list">上架<b class="icon-order-{if $pager.search.sort == 'goods_id'}{$pager.search.order}{else}DESC{/if}ending"></b></a></dd>
+                        <dd class="<!--{if $pager.search.sort == 'shop_price'}-->curr<!--{/if}-->">
+                        	<a href="search.php?{foreach from=$pager.search key=key item=item}{if $key neq "sort" and $key neq "order"}{$key}={$item}&{/if}{/foreach}page={$pager.page}&sort=shop_price&order={if $pager.search.order eq 'DESC'}ASC{else}DESC{/if}#list">价格<b class="icon-order-{if $pager.search.sort == 'shop_price'}{$pager.search.order}{else}DESC{/if}ending"></b></a>
+                        </dd>
+            			<dd  class="<!-- {if $pager.search.sort == 'last_update'} -->curr<!-- {/if} -->">
+                        	<a href="search.php?{foreach from=$pager.search key=key item=item}{if $key neq "sort" and $key neq "order"}{$key}={$item}&{/if}{/foreach}page={$pager.page}&sort=last_update&order={if $pager.search.order eq 'DESC'}ASC{else}DESC{/if}#list">更新<b class="icon-order-{if $pager.search.sort == 'last_update'}{$pager.search.order}{else}DESC{/if}ending"></b></a> 
+                        </dd>
+            			<dd  class="<!-- {if $pager.search.sort == 'click_count'} -->curr<!-- {/if} -->">
+                        	<a href="search.php?{foreach from=$pager.search key=key item=item}{if $key neq "sort" and $key neq "order"}{$key}={$item}&{/if}{/foreach}page={$pager.page}&sort=click_count&order={if $pager.search.order eq 'DESC'}ASC{else}DESC{/if}#list">人气<b class="icon-order-{if $pager.search.sort == 'click_count'}{$pager.search.order}{else}DESC{/if}ending"></b></a>
+                        </dd>
+                    </dl>
+                    <div class="pagin"> 
+                        <!-- {if $pager.page_prev} --> 
+                        <a href="{$pager.page_prev}" class="prev"><span class="icon prev-btn"></span></a> 
+                        <!-- {else} --> 
+                        <a class="prev"><span class="icon prev-disabled"></span></a> 
+                        <!-- {/if} --> 
+                        <span class="text"><font class="main-color">{$pager.page}</font>/{$pager.page_count}</span> 
+                        <!-- {if $pager.page_next} --> 
+                        <a href="{$pager.page_next}" class="next"><span class="icon next-btn"></span></a> 
+                        <!-- {else} --> 
+                        <a class="next"><span class="icon next-disabled"></span></a> 
+                        <!-- {/if} --> 
+					</div>
+                    <div class="total">共<span class="main-color">{$pager.record_count}</span>个商品</div>
+                </div>
+            </div>
+            <!--{if $goods_list}-->
+            <form action="compare.php" method="post" name="compareForm" id="compareForm" onsubmit="return compareGoods(this);">
+                {* 代码增加_start  By www.68ecshop.com *}
+                {if $beizhuxinxi_www_68ecshop_com}
+                <div style="width:100%;height:50px;margin:10px 0;overflow:hidden;text-align:center;"> {$beizhuxinxi_www_68ecshop_com} </div>
+                {/if}
+                {* 代码增加_end  By www.68ecshop.com *}
+                <ul class="list-grid clearfix">
+                	<!--{foreach from=$goods_list item=goods name=name}--> 
+                    <!-- {if $goods.goods_id} -->
+                    <li id="li_{$goods.goods_id}" class="item{if $smarty.foreach.name.iteration % 4 eq 0} last{/if}">
+                      <div class="item-con"> 
+                        <div class="item-tag-box">
+                          <!-- {if $goods.is_hot eq 1} --><div class="item-tag"><span>爆款</span><i></i></div><!-- {elseif $goods.is_best eq 1} --><div class="item-tag"><span>精品</span><i></i></div><!-- {elseif $goods.is_new eq 1} --><div class="item-tag"><span>新品</span><i></i></div><!--{/if}-->
+                        </div>
+                        <div class="item-pic">
+                        	<a href="{$goods.url}" title="{$goods.name|escape:html}" target="_blank">
+                            	<img data-original="{$goods.goods_thumb}" src="themes/68ecshopcom_360buy/images/loading.gif" title="{$goods.name|escape:html}" class="pic_img_{$goods.goods_id}">
+                            </a>
+                        </div>
+                        <!--{if $goods.goods_number eq 0}--><a href="{$goods.url}" target="_blank" class="shop-over"></a><!-- {/if} -->
+                        <div class="item-info">
+                        	<div class="item-price">
+                                <em class="sale-price main-color" title="本店价：<!--{if $goods.promote_price neq ""}-->{$goods.promote_price}<!--{else}-->{$goods.shop_price}<!--{/if}-->"><!--{if $goods.promote_price neq ""}-->{$goods.promote_price}<!--{else}-->{$goods.shop_price}<!--{/if}--></em>
+                                <em class="sale-count">已售{$goods.count}件</em>
+                            </div>
+                          	<div class="item-name">
+                            	<a href="{$goods.url}" target="_blank" title="{$goods.goods_name|escape:html}">{$goods.goods_name_www_68ecshop_com}</a>
+                            </div>
+                            <div class="item-operate">
+                                <a class="operate-btn compare-btn" data-goods="{$goods.goods_id}" data-type="{$goods.type}" onclick="Compare.add({$goods.goods_id},'{$goods.goods_name|escape:"html"}','{$goods.type}', '{$goods.goods_thumb}', '{if $smarty.session.user_name}{if $goods.is_promote and $goods.gmt_end_time }{$goods.promote_price}{else}{$goods.shop_price_formated} {/if}{else}{$goods.market_price}{/if}')"><i></i>对比</a>
+                                <a id="collect_{$goods.goods_id}" href="javascript:collect({$goods.goods_id}); re_collect({$goods.goods_id})" class="operate-btn collet-btn {if $goods.is_collet eq 1}curr{/if}"><i></i>收藏</a>
+                                <a href="{$goods.url}#os_pinglun" target="_blank" class="operate-btn comment-btn"><i></i>{$goods.comment_count}</a> 
+                                <!--{if $goods.goods_number eq 0}-->
+                                <a href="javascript:tell_me({$goods.goods_id});" class="add-cart tell-me" title="到货通知"></a>
+                                <!--{else}-->
+                                <a href="javascript:addToCart({$goods.goods_id});" class="add-cart" title="加入购物车"></a>
+                                <!--{/if}-->
+                            </div>
+                        </div>
+                      </div>
+                    </li>
+                    <!--{/if}--> 
+                    <!--{/foreach}-->
+                </ul>
+            </form>
+            <!-- #BeginLibraryItem "/library/pages.lbi" --><!-- #EndLibraryItem --> 
+            <script type="text/javascript">
+			{foreach from=$lang.compare_js item=item key=key}
+			var {$key} = "{$item}";
+			{/foreach}
+	
+									{foreach from=$lang.compare_js item=item key=key}
+			{if $key neq 'button_compare'}
+			var {$key} = "{$item}";
+			{else}
+			var button_compare = '';
+			{/if}
+			{/foreach}
+	
+	
+			var compare_no_goods = "{$lang.compare_no_goods}";
+			window.onload = function()
+			{
+			  Compare.init();
+			  fixpng();
+			}
+			var btn_buy = "{$lang.btn_buy}";
+			var is_cancel = "{$lang.is_cancel}";
+			var select_spe = "{$lang.select_spe}";
+			</script>
+            <!--{else}-->
+            <div class="tip-box">
+              <i class="tip-icon"></i>
+              <div class="tip-text">{$lang.no_search_result}</div>
+            </div>
+            <!--{/if}-->
+            <!--{/if}-->
+        </div>
+        <!--右侧 end-->
+    </div>
+    <!-- #BeginLibraryItem "/library/history.lbi" --><!-- #EndLibraryItem -->
+</div>
+<div class="blank"></div>
+<!-- #BeginLibraryItem "/library/arrive_notice.lbi" --><!-- #EndLibraryItem -->
+<!-- 代码增加_end  By  www.68ecshop.com -->
+<script type="text/javascript" src="{$option.static_path}js/compare.js"></script>
+<script type="text/javascript" src="{$option.static_path}js/json2.js"></script>
+<script>
+$(document).ready(function(e) {
+	Compare.init();
+	
+});
+</script>
+<div id="compareBox">
+  <div class="menu">
+    <ul>
+      <li class="current" data-value='compare'>对比栏</li>
+      <li data-value='history'>最近浏览</li>
+    </ul>
+    <a class="hide-compare" href="javascript:;" title="隐藏"></a>
+    <div style="clear:both"></div>
+  </div>
+  <div id="compareList"></div>
+  <div id="historyList" style="display:none;">
+  	<span id="sc-prev" class="sc-prev scroll-btn"></span><span id="sc-next" class="sc-next scroll-btn"></span>
+    <div class="scroll_wrap">{insert name='history_list'}</div>
+  </div>
+</div>
+<!-- 代码增加_end  By  www.68ecshop.com -->
+<script>
+re_collect();
+
+function re_collect(id){
+  goods_id = (typeof(id) == "undefined" ? 0 : id);
+  Ajax.call('user.php?act=re_collect', 'id=' + goods_id, re_collectResponse, 'GET', 'JSON');
+}
+
+function re_collectResponse(result){
+  if (result.goods_id > 0){
+    document.getElementById("collect_" + result.goods_id).className = (result.is_collect == 1 ? "operate-btn collet-btn curr" : "operate-btn collet-btn");
+  }else{
+    $("a[id^='collect_']").className = "operate-btn collet-btn";
+    for(i = 0; i < result.is_collect.length; i++){
+      document.getElementById("collect_" + result.is_collect[i]).className = "operate-btn collet-btn curr";
+    }
+  }
+}
+
+var skuIds = [];
+$('ul.list-h li[sku]').each(function(i){
+    skuIds.push($(this).attr('sku'));
+})
+
+$("img").lazyload({
+    effect       : "fadeIn",
+	 skip_invisible : true,
+	 failure_limit : 20
+});
+
+$(function(){
+	{if !$smarty.session.user_id >0}
+	$('.item-operate .collet-btn').click(function(){
+		$('.pop-login,.pop-mask').show();	
+	})
+	{/if}
+	var scroll_height = $('#filter').offset().top;
+	$(window).scroll(function(){
+		var this_scrollTop = $(this).scrollTop();
+		if(this_scrollTop > scroll_height){
+			$('#filter').addClass('filter-fixed').css({'left':($(window).width()-$('.filter-fixed').outerWidth())/2});
+		}else{
+			$('#filter').removeClass('filter-fixed').css('left','');	
+		}
+	})	
+})
+</script>
+<!-- #BeginLibraryItem "/library/right_sidebar.lbi" --><!-- #EndLibraryItem -->
+<div class="site-footer">
+    <div class="footer-related">
+  		<!-- #BeginLibraryItem "/library/help.lbi" --><!-- #EndLibraryItem -->
+  		<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+  </div>
+</div>
+<script type="text/javascript" src="themes/68ecshopcom_360buy/js/compare.js"></script> 
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$page_title}</title>
+<!-- TemplateEndEditable -->
+<!-- TemplateBeginEditable name="head" -->
+<!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link rel="stylesheet" href="themes/68ecshopcom_360buy/css/auction.css">
+<script type="text/javascript" src="themes/68ecshopcom_360buy/js/jquery-1.9.1.min.js" ></script>
+<script type="text/javascript" src="themes/68ecshopcom_360buy/js/slide.js"></script>
+{* 包含脚本文件 *}
+{insert_scripts files='common.js,transport.js'}
+</head>
+<body>
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<div id="maincontent">
+	<div class="element pict main">
+            <!-- TemplateBeginEditable name="拍卖列表banner广告1" -->
+    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+    
+    {insert name='ads' id=$ads_id num=$ads_num}
+     <!-- #EndLibraryItem -->
+    <!-- TemplateEndEditable -->
+        </div>
+    <div class="element pict">
+        <!-- TemplateBeginEditable name="拍卖列表banner广告2" -->
+    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+    
+    {insert name='ads' id=$ads_id num=$ads_num}
+     <!-- #EndLibraryItem -->
+    <!-- TemplateEndEditable -->
+        </div>
+    <div class="element pict">
+            <!-- TemplateBeginEditable name="拍卖列表banner广告3" -->
+    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+    
+    {insert name='ads' id=$ads_id num=$ads_num}
+     <!-- #EndLibraryItem -->
+    <!-- TemplateEndEditable -->
+        </div>
+    <div class="element pict">
+        <!-- TemplateBeginEditable name="拍卖列表banner广告4" -->
+    <!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+    
+    {insert name='ads' id=$ads_id num=$ads_num}
+     <!-- #EndLibraryItem -->
+    <!-- TemplateEndEditable -->
+        </div>
+    <div class="element navi left"><img src="images/left.png" alt="left"></div>
+    <div class="element navi right"><img src="images/right.png" alt="right"></div>
+</div>
+<div class="margin-w1210 clearfix">
+	<!-- #BeginLibraryItem "/library/ur_here.lbi" --><!-- #EndLibraryItem -->
+ 	<!-- {if $auction_list} 如果有拍卖活动 --> 
+  	<div class="auction-list">
+      <h2>全部拍卖</h2>
+      <ul class="clearfix">
+      <!-- {foreach from=$auction_list item=auction name=name} 循环拍卖活动开始 -->
+  		<li {if $smarty.foreach.name.iteration mod 5 eq 1}class="auction-list-1"{/if}>
+        	<a href="{$auction.url}" target="_blank" class="auction-pic">
+            	<img class="err-product" src="{$auction.goods_thumb}" width="220" height="220">
+            </a>
+          	<div class="auction-cont">
+            	<a class="auction-name" target="_blank" href="{$auction.url}">{$auction.goods_name|truncate:26}</a>
+            	<div class="auction-price">当前价：<span>{$auction.formated_current_price}</span></div>
+                <div class="goods-source"><a href="supplier.php?suppId={$auction.supplier_id}" target="_blank" title="商品来源">{$auction.suppliername}</a></div>
+            	<a target="_blank" href="{$auction.url}" class="bid-btn">我要出价</a>
+          	</div>
+        </li>
+        <!--{/foreach}--> 
+  	  </ul>
+    </div>
+ 	<!-- {/if} --> 
+ 	<!-- #BeginLibraryItem "/library/pages.lbi" --><!-- #EndLibraryItem --> 
+</div>
+<!-- #BeginLibraryItem "/library/right_sidebar.lbi" --><!-- #EndLibraryItem -->
+<div class="site-footer">
+    <div class="footer-related">
+  		<!-- #BeginLibraryItem "/library/help.lbi" --><!-- #EndLibraryItem -->
+  		<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+  </div>
+</div>
+</body>
+</html>

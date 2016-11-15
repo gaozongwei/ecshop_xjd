@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$page_title}</title>
+<!-- TemplateEndEditable -->
+<!-- TemplateBeginEditable name="head" -->
+<!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link rel="stylesheet" type="text/css" href="themes/68ecshopcom_360buy/css/package.css" />
+<script type="text/javascript" src="themes/68ecshopcom_360buy/js/jquery-1.9.1.min.js" ></script>
+{insert_scripts files='jquery.json.js,transport.js'}
+{insert_scripts files='common.js'}
+</head>
+<body>
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<div class="margin-w1210 clearfix">
+  	<!-- #BeginLibraryItem "/library/ur_here.lbi" --><!-- #EndLibraryItem -->
+    <div class="box spc-main">
+      <!-- {foreach from=$list item=val name=name} --> 
+       <a name="{$val.act_id}"></a>
+      <div class="floor" id="floor{$val.act_id}">
+        <div class="title main-color">
+            <span class="floor-name">{$val.act_name}</span>
+        </div>
+      	<div class="content">
+          <div class="item-container">
+            <div class="item clearfix">
+              <div class="goods-count icon">此套装：{$val.goods_list_count}件</div>
+              <div class="item-l fl">
+                <div class="stage">
+                  <table >
+                    <tbody>
+                      <tr>
+                      <!-- {foreach from=$val.goods_list item=goods name=name} --> 
+                        <td>
+                          <div class="img"> 
+                        	<a href="goods.php?id={$goods.goods_id}" title="{$goods.goods_name}" target="_blank"> 
+                            	<img src="{$goods.goods_thumb}" alt="{$goods.goods_name}" /> 
+                            </a> 
+                          </div>
+                          <p class="info1"> 
+                            <a href="goods.php?id={$goods.goods_id}" title="{$goods.goods_name}" target="_blank">{$goods.goods_name|truncate:10}</a><br>
+                            <span class="gray"></span><span class="yen main-color"> <!-- {if $rank_prices} -->{$goods.rank_price}<!-- {else} -->{$goods.shop_price}<!-- {/if} --> </span><span class="num yen">X {$goods.goods_number}</span>
+                          </p>
+                        </td>
+                        <td {if $smarty.foreach.name.last}style="display:none"{/if}><span class="plus icon"></span></td>
+                      <!-- {/foreach} -->
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="item-r fr">
+                <div class="fl"> <span class="equal icon"></span> </div>
+                <div class="fr">
+                  <h4><a title="{$val.act_name}" target="_blank">{$val.act_name}</a></h4>
+                  <p> 
+                    <span class="main-color">套装价：</span><br>
+                    <span class="main-color yen"><span class="price">{$val.package_price}</span></span> <br>
+                    <del class="yen gray">{$val.subtotal}</del><br>
+                    <span class="save-icon icon"></span><span class="yen main-color">{$val.saving}</span> 
+                  </p>
+                  <a href="javascript:addPackageToCart({$val.act_id})" title="{$val.act_name}" target="_self" class="buy-icon main-bg-color">立即购买</a> </div>
+              </div>
+            </div>
+            <div class="desc">
+            	<table width="100%" border="0" cellpadding="5" cellspacing="1">
+                	<tr>
+          				<th width="8%">起始时间：</th>
+          				<td>{$val.start_time}&nbsp;~&nbsp;{$val.end_time}</td>
+        			</tr>
+                    <tr>
+          				<th>简单描述：</th>
+          				<td>{$val.act_desc}</td>
+        			</tr>
+                </table>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- {/foreach} --> 
+    </div>
+</div>
+<!-- #BeginLibraryItem "/library/right_sidebar.lbi" --><!-- #EndLibraryItem -->
+<div class="site-footer">
+    <div class="footer-related">
+  		<!-- #BeginLibraryItem "/library/help.lbi" --><!-- #EndLibraryItem -->
+  		<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+  </div>
+</div>
+</body>
+</html>

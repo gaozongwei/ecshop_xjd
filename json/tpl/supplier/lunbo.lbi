@@ -1,0 +1,6 @@
+{if $lunbo}
+{foreach from=$lunbo item=lun}
+<li><a target="_blank" href="#"><img src="http://{$smarty.server.SERVER_NAME}/{$lun}"></a></li>
+
+{/foreach}
+{/if}

@@ -1,0 +1,57 @@
+<script type="text/javascript" src="js/mobile.js"></script>
+<script>
+;(function($){
+	Zepto(function($)
+	{
+		init_swipe();
+		$.zcontent.add_success(init_swipe);
+	})
+	
+	function init_swipe()
+	{
+		{foreach from=$status_list item=screen key=scr_key}
+		$('#status_list_{$scr_key}').swipeLeft(function()
+		{
+			$('#status_list_{$scr_key}').slideLeftOut(200,{literal}function(){{/literal}$('#status_list_{if $scr_key gte $status_scr_count}1{else}<?php echo ($this->_var['scr_key']+1); ?>{/if}').slideLeftIn(200)});
+		})
+		$('#status_list_{$scr_key}').swipeRight(function()
+		{
+			$('#status_list_{$scr_key}').slideRightOut(200,{literal}function(){{/literal}$('#status_list_{if $scr_key eq 1}{$status_scr_count}{else}<?php echo ($this->_var['scr_key']-1); ?>{/if}').slideRightIn(200)});
+		})
+		{/foreach}
+	}
+})(Zepto)
+function change_status(status)
+{
+	$.zcontent.set('composite_status',status);
+        $.zcontent.set('page',1);
+	search();
+}
+</script>
+<ul class="order_listtop">
+<!--{foreach from=$status_list item=screen key=scr_key name=screen}-->
+ <!--{if $smarty.foreach.screen.iteration eq 1}-->
+ <!--{foreach name=status_list from=$screen item=status_name key=status_id}-->
+ <li onclick="change_status('{$status_id}')"><a {if $filter.composite_status eq $status_id }class="on"{/if}>{$status_name}</a>
+<!-- {/foreach} -->
+  <!--{/if}-->
+<!--{/foreach}-->
+<li class="more_status_list" onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a>更多状态<i class="menu"></i></a></li>
+</ul>
+<!--更多状态弹出层-->
+<div class="more_status_nav hid" id="menu">
+        <div class="Triangle">
+          <h2></h2>
+        </div>
+        <ul>
+		<!--{foreach from=$status_list item=screen key=scr_key name=screen}-->
+		 <!--{if $smarty.foreach.screen.iteration>1}-->
+		 <!--{foreach name=status_list from=$screen item=status_name key=status_id}-->
+                 <!--{if $status_name eq '待收货' || $status_name eq '已完成' || $status_name eq '取消'}-->
+          <li><a href="javascript:change_status('{$status_id}')">{$status_name}</a></li>
+          <!--{/if}-->
+		  <!--{/foreach}-->
+ 		 <!--{/if}-->
+		<!--{/foreach}--> 
+        </ul>
+      </div>

@@ -1,0 +1,29 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div class="message-list">
+	<h3 class="message-tit">{$lang.message_board}</h3>
+    <div class="message-detail">
+    	<!--{foreach name=message_lists from=$msg_lists key=key item=msg}-->
+    	<div class="item">
+        	<div class="user-info">
+            	<span class="u-name fl"><i>用户：</i>{$msg.user_name}<!-- {if $msg.user_name eq ''} -->{$lang.anonymous}<!-- {/if} --></span>
+                <span class="u-date fl">{$msg.msg_time}</span>
+                <!-- {if $msg.comment_rank gt 0} --><span class="stars stars{$msg.comment_rank} fr"></span><!-- {/if} -->
+            </div>
+            <dl class="title">
+            	<dt>{$msg.msg_type}：</dt>
+                <dd><!-- {if $msg.id_value gt 0} --><a href="{$msg.goods_url}" target="_blank" title="{$msg.goods_name}">{$msg.goods_name}</a><!-- {/if} -->{$msg.msg_title}</dd>
+            </dl>
+            <dl class="content">
+            	<dt>内容：</dt>
+                <dd>{$msg.msg_content}</dd>
+            </dl>
+      		<!-- {if $msg.re_content} -->
+            <dl class="re-content">
+            	<dt>{$lang.shopman_reply}：</dt>
+                <dd>{$msg.re_content}</dd>
+            </dl>
+      		<!-- {/if} -->
+        </div>
+        <!--{/foreach}-->
+    </div>
+</div>

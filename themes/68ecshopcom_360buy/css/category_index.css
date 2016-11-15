@@ -1,0 +1,290 @@
+@charset "utf-8";
+/* CSS Document */
+/*侧面分类*/
+.first-show {
+	clear: both;
+}
+.main-nav {
+	width: 210px;
+	z-index: 7;
+	margin-top: -450px;
+}
+.float-list {
+    width: 210px;
+    height: auto;
+    background: #f9f9f9;
+}
+.float-list dl {
+	position: relative;
+	z-index: 7;
+	clear: both;
+	width: 210px;
+	cursor: pointer;
+	filter: alpha(Opacity=90);
+	opacity:0.9;
+}
+.float-list dl dt {
+	display: inline;
+	position: relative;
+	float: left;
+	width: 198px;
+	border: 1px solid #eee;
+	border-top: none;
+	line-height: 22px;
+	overflow: hidden;
+	text-align: left;
+	padding: 15px 0px 8px 10px;
+	background: #f9f9f9;
+}
+
+.float-list dl dt.hover {
+	background-color: #fff;
+	width: 200px;
+	z-index: 7;
+	border: 1px solid #eee;
+	border-right: none;
+	border-left: 2px solid #E31939;
+	padding-left: 9px;
+	padding-top: 14px;
+}
+.float-list dl dt.hover .arrow-right {
+	top: 14px;
+	right: 17px;
+}
+.float-list dl dt strong {
+	float: left;
+	width: 208px;
+	height: 18px;
+	overflow: hidden;
+	margin: 0 0 4px;
+}
+.float-list dl dt strong a {
+	color: #333;
+	font-size: 14px;
+	line-height: 18px;
+}
+.float-list dl dt .arrow-right{
+	display:block;
+    height: 12px;
+	position: absolute;
+    top: 15px;
+    right: 15px;
+	font: 700 12px/18px simsun;
+}
+.float-list dl dt p {
+	clear: both;
+	height: 44px;
+	overflow: hidden;
+	font-size: 12px;
+}
+.float-list dl dt p a {
+	white-space: nowrap;
+	height:22px;
+	line-height:22px;
+	display:inline-block;
+	margin-right: 13px;
+	float: left;
+}
+.float-list dl dd {
+    display: none;
+    position: absolute;
+    left: 210px;
+    width: 650px;
+    background: #fff;
+    border: 1px solid #eee;
+    z-index: 6;
+}
+.float-list dl dd a {
+	color: #666;
+	white-space: nowrap; /*禁止文字自动换行*/
+}
+.float-list dl dd .secondlist {
+    float: left;
+    width: 610px;
+    padding: 0 20px;
+    font-size: 12px;
+}
+.float-list dl dd .secondlist li {
+    width: 610px;
+    padding: 10px 0;
+    line-height: 22px;
+    overflow: hidden;
+}
+.float-list dl dd .secondlist li strong {
+    float: left;
+    width: 70px;
+    font-weight: 400;
+    text-align: left;
+}
+.float-list dl dd .secondlist li strong a {
+    padding: 0;
+    color: #444;
+    font-size: 14px;
+}
+.float-list dl dd .secondlist li .float-list-cont {
+    float: left;
+    width: 540px;
+}
+.float-list dl dd .secondlist li .float-list-cont a {
+    float: left;
+	padding-right:13px;
+}
+
+/*banner*/
+.category-banner{
+	position: relative;
+	height: 450px;
+	zoom: 1;
+	width: 100%;
+	overflow: hidden;	
+}
+.category-banner .banner-panel{
+	height:450px;
+	overflow:hidden;	
+}
+.category-banner .banner-panel li{
+	width:100%;
+	height:450px;	
+}
+.category-banner .banner-panel li a{
+	display:block;
+	width:100%;
+	height:450px;
+}
+.category-banner .banner-extra{
+	width:100%;
+	position:absolute;
+	bottom:15px;	
+	text-align:center;
+}
+.category-banner .banner-extra span{
+	display:inline-block;
+    height: 20px;
+    width: 20px;
+    margin-left: 10px;
+    color: #fff;
+    cursor: pointer;
+	background:#000;
+	filter:alpha(opacity=60);
+	opacity:.6;
+	border-radius:50%;
+	-webkit-border-radius:50%;
+	-moz-border-radius:50%;
+}
+.category-banner .banner-extra span.curr{
+	background:#09ABA8;	
+}
+
+/*广告*/
+.image-box1{
+	width: 1210px;
+	height: 187px;
+	margin: 0px auto;
+	padding-top: 10px;
+	overflow: hidden;	
+}
+.image-box1 a {
+	display: inline;
+	float: left;
+	margin: 0 10px 0 0;
+}
+.image-box1 a.last{
+	margin:0;	
+}
+
+/*分类楼层*/
+.floor-wrapper{
+	width: 1210px;
+    margin: 15px auto;
+    clear: both;	
+}
+.floor-wrapper .mt{
+	height: 55px;
+    line-height: 55px;
+    border-bottom: 2px #bbb solid;	
+}
+.floor-wrapper .mt h2 {
+    height: 55px;
+    line-height: 55px;
+    font-size: 24px;
+    float: left;
+}
+.floor-wrapper .mt a.category-more {
+    float: right;
+    line-height: 75px;
+    margin-right: 10px;
+}
+.floor-wrapper .mt a.category-more i{
+	font: 700 12px/75px simsun;	
+}
+.floor-wrapper .floor-content{
+	clear: both;
+    width: 1220px;
+    min-height: 281px;
+    margin-right: -10px;	
+}
+.floor-wrapper .floor-content .item{
+	width: 232px;
+    overflow: hidden;
+    margin-right: 10px;
+    margin-top: 10px;
+    float: left;
+    display: inline;
+    position: relative;	
+	border:1px solid #fff;
+}
+.floor-wrapper .item .item-inner{
+	width: 200px;
+    border: 1px solid #eee;
+    text-align: center;
+    overflow: hidden;
+	padding:15px;
+}
+.floor-wrapper .item .item-img {
+    display: block;
+    height: 180px;
+    text-align: center;
+}
+.floor-wrapper .item .item-img img {
+	display:block;
+    margin: 0 auto;
+}
+.floor-wrapper .item .item-name{
+    height: 40px;
+	line-height:20px;
+    overflow: hidden;
+    font-size: 12px;
+    color: #333;	
+	text-align:left;
+}
+.floor-wrapper .item .item-price{
+	display: block;
+    height: 20px;
+    line-height: 20px;
+    padding: 15px 0 0;
+    overflow: hidden;	
+	text-align:left;
+}
+.floor-wrapper .item .item-price .sale-price{
+	font-size: 20px;
+    font-weight: 400;
+    font-family: Arial, Helvetica, sans-serif;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 70px;
+    float: left;
+    overflow: hidden;	
+}
+.floor-wrapper .item .add-cart{
+	background:url(../images/common/common-icon.png) no-repeat;
+	display: block;
+    width: 30px;
+    height: 30px;
+    background-position: -165px 0;
+    position: absolute;
+    right:15px;
+    bottom:14px;	
+}
+.floor-wrapper .floor-content .item:hover,.floor-wrapper .floor-content .item:hover .item-inner{
+	border:1px solid #E31939;	
+}

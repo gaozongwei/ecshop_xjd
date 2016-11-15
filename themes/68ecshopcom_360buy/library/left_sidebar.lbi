@@ -1,0 +1,14 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div class="elevator">
+	<div class="elevator-floor">
+		{foreach from=$cat_goods_list item=item name=loop key=key}
+		<a class="smooth" href="javascript:;">
+			<b class="fs">{$smarty.foreach.loop.iteration}F</b>
+			<em class="fs-name">{$item.ext_info.short_name}</em>
+			{if $smarty.foreach.loop.last == false}
+			<i class="fs-line"></i>
+			{/if}
+		</a>
+		{/foreach}
+	</div>
+</div>

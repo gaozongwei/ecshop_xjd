@@ -1,0 +1,60 @@
+<!-- $Id: shop_sell_area_detail_stats.htm 2015-10-30 13:54:21Z langlibin $ -->
+{if $full_page}
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+{insert_scripts files="../js/region.js"}
+<script type="text/javascript" src="../js/calendar.php?lang={$cfg_lang}"></script>
+<link href="../js/calendar/calendar.css" rel="stylesheet" type="text/css" />
+<div id="tabbar-div">
+    <p>
+        <span class="tab-back" onclick="javascript:location.href='shop_added_stats.php'">新增店铺</span>
+        <span class="tab-back" onclick="javascript:location.href='shop_hot_sell_stats.php'">热卖排行</span>
+        <span class="tab-back" onclick="javascript:location.href='shop_sell_count_stats.php'">销售统计</span>
+        <span class="tab-front" onclick="javascript:location.href='shop_sell_area_list_stats.php'">区域分布</span>
+    </p>
+</div>
+<div class="list-div" id="orders_amount_div">
+    <div class="order_count">
+        <p><span class="tab_front">店铺详细</span></p>
+    </div>
+</div>
+<form method="post" action="" name="listForm" onsubmit="">
+    <div class="list-div" id="listDiv">
+        {/if}
+        <table cellpadding="3" cellspacing="1">
+            <tr>
+                <th>店铺名称</th>
+                <th>店主账号</th>
+                <th>所属等级</th>
+                <th>开店时间</th>
+            </tr>
+            {foreach from=$result_list item=item}
+            <tr>
+                <td align="center">{$item.supplier_name}</td>
+                <td align="center">{$item.user_name}</td>
+                <td align="center">{$item.rank_name}</td>
+                <td align="center">{$item.add_time}</td>
+            </tr>
+            {foreachelse}
+            <tr><td class="no-records" colspan="10">{$lang.no_records}</td></tr>
+            {/foreach}
+        </table>
+        <table cellpadding="4" cellspacing="0">
+            <tr>
+                <td align="right">{include file="page.htm"}</td>
+            </tr>
+        </table>
+        {if $full_page}
+    </div>
+</form>
+
+<script type="text/javascript" language="JavaScript">
+    listTable.recordCount = {$record_count};
+    listTable.pageCount = {$page_count};
+
+    {foreach from=$filter item=item key=key}
+    listTable.filter.{$key} = '{$item}';
+    {/foreach}
+</script>
+{include file="pagefooter.htm"}
+{/if}

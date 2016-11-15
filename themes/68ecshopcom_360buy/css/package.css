@@ -1,0 +1,168 @@
+@charset "utf-8";
+/* CSS Document */
+.margin-w1210 {
+	width: 1210px !important;
+	margin: 10px auto;
+}
+.spc-main {
+}
+.spc-main .floor {
+	margin: 0
+}
+.spc-main .floor .title {
+	padding: 0 0 3px 5px;
+}
+.spc-main .floor .title .floor-name {
+	vertical-align: top;
+	display: inline-block;
+	height: 45px;
+	line-height: 45px;
+	font-size: 20px;
+	font-family: "微软雅黑";
+	font-weight: bold
+}
+.spc-main .floor .content {
+	background: none repeat scroll 0% 0% #FFF;
+}
+.spc-main .icon {
+	background: url(../images/package.png) no-repeat 0 0
+}
+.spc-main .item {
+	position: relative;
+	margin: 0 auto;
+	height: 250px;
+	border: 1px solid #f2f2f2;
+	border-bottom: 1px dotted #dddddd;
+	width: 1200px
+}
+.spc-main .item-container .desc {
+	border: 1px solid #f2f2f2;
+	border-top: none;
+	width: 1170px;
+	margin: 0 auto;
+	padding: 15px;
+	text-indent: 20px;
+	line-height: 2em;
+	background: #F8F8F8;
+	color: #6D6D6D;
+}
+.spc-main .item-container {
+	padding: 0 0px 0px 0px;
+}
+.spc-main .item-l {
+	width: 999px;
+	height: 250px;
+	background: #f8f8f8
+}
+.spc-main .item-r {
+	width: 200px;
+	height: 250px;
+	background: #fef8ec;
+	border-left: #f2f2f2 1px solid
+}
+.spc-main .item .goods-count {
+	position: absolute;
+	width: 93px;
+	height: 28px;
+	left: 0;
+	margin: 10px 0 0 -6px;
+	background-position: 0 0;
+	line-height: 22px;
+	text-align: center;
+	color: #fff;
+	font-family: "微软雅黑";
+	font-size: 13px
+}
+.spc-main .item .stage {
+	width: 945px;
+	margin: 40px 27px 0;
+	overflow: hidden;
+}
+.spc-main .item .stage td {
+	vertical-align: top;
+}
+.spc-main .item .stage .img {
+	width: 147px;
+	height: 147px
+}
+.spc-main .item .stage .img img {
+	width: 147px;
+	height: 147px
+}
+.spc-main .item .stage .info1 {
+	width: 147px;
+	padding-top: 10px;
+	line-height: 20px;
+	text-align: center
+}
+.spc-main .item .stage .plus {
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	margin: 64px 12px 0;
+	background-position: -61px -30px;
+}
+.spc-main .item .item-l .fl, .spc-main .item .item-l .fr {
+	position: absolute;
+	display: block;
+	width: 16px;
+	height: 33px;
+	left: 0;
+	margin-top: 54px;
+	cursor: pointer
+}
+.spc-main .item .item-l .fl {
+	margin-left: 6px;
+	background-position: -98px 0
+}
+.spc-main .item .item-l .fr {
+	margin-left: 716px;
+	background-position: -114px 0
+}
+.spc-main .item .item-r .equal {
+	display: inline-block;
+	width: 15px;
+	height: 9px;
+	font-size: 0;
+	margin: 104px 18px 0;
+	background-position: -78px -33px
+}
+.spc-main .item .item-r .fr {
+	width: 124px;
+	padding: 40px 20px 0 0
+}
+.spc-main .item .item-r h4 {
+	font-size: 14px;
+	font-family: "Microsoft Yahei";
+	font-weight: normal;
+	margin: 3px 0px
+}
+.spc-main .item .item-r p {
+	line-height: 1.5em
+}
+.spc-main .item .item-r p span {
+	margin: 3px 0px
+}
+.spc-main .item .item-r .price {
+	font-size: 20px;
+	font-family: "Microsoft Yahei"
+}
+.spc-main .item .item-r .save-icon {
+	display: inline-block;
+	width: 61px;
+	height: 14px;
+	margin-right: 2px;
+	background-position: 0 -29px;
+	vertical-align: middle
+}
+.spc-main .item .item-r .buy-icon {
+	display: inline-block;
+	width: 122px;
+	height: 35px;
+	line-height: 35px;
+	margin-top: 10px;
+	color: #fff;
+	text-align: center;
+	font-size: 14px;
+}
+

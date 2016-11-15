@@ -1,0 +1,226 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<?php
+$GLOBALS['smarty']->assign('cat_recommend_type',get_cat_recommend_type($GLOBALS['smarty']->_var['goods_cat']['id']));
+?>
+
+<div class="floor" floor="{$sort_order}" color="{$ext_info.cat_color}">
+		<div class="floor-layout">
+			<?php
+	 		$GLOBALS['smarty']->assign('index_image3',get_advlist('首页-分类ID'.$GLOBALS['smarty']->_var['goods_cat']['id'].'通栏广告', 1));
+	 		?>
+			{foreach from=$index_image3 item=ad name=index_image}
+			<a href="{$ad.url}" target="_blank" class="banner-ad">
+				<img src="{$ad.image}" alt="" height="100" width="1210">
+			</a>
+			{/foreach}
+			<div class="floor-con">
+				<div class="floor-title">
+					<h2>
+						<span> {$sort_order}F </span>
+						<a href="{$goods_cat.url}" target="_blank">{$goods_cat.name|escape:html}</a>
+					</h2>
+                    <ul class="floor-tabs-nav">
+						<li class="floor-tabs-selected">
+							<h3 style="border-color: {$ext_info.cat_color} {$ext_info.cat_color} #fff; color: {$ext_info.cat_color};">精挑细选</h3>
+						</li>
+						<?php
+						$GLOBALS['smarty']->assign('child_cat',get_child_cat($GLOBALS['smarty']->_var['goods_cat']['id'], 3));
+						?>
+						<!--{foreach from=$child_cat item=cat_item name=child_cat}-->
+						<li class="">
+							<h3>{$cat_item.name|escape:html}</h3>
+						</li>
+						<!--{/foreach}-->
+					</ul>
+				</div>
+                <script type="text/javascript">
+				$(function() {
+					var sWidth = $("#focus_{$goods_cat.id}").width(); //获取焦点图的宽度（显示面积）
+					var len = $("#focus_{$goods_cat.id} ul li").length; //获取焦点图个数
+					var index = 0;
+					var picTimer;
+				     //以下代码添加数字按钮和按钮后的半透明条，还有上一页、下一页两个按钮
+					var btn = "<div class='btn'>";
+				
+					for(var i=0; i < len; i++) {
+						btn += "<span></span>";
+					}
+					btn += "</div>";
+					$("#focus_{$goods_cat.id}").append(btn);
+					$("#focus_{$goods_cat.id} .btnBg").css("opacity",0.5);
+				
+					//为小按钮添加鼠标滑入事件，以显示相应的内容
+					$("#focus_{$goods_cat.id} .btn span").css("opacity",0.3).mouseover(function() {
+						index = $("#focus_{$goods_cat.id} .btn span").index(this);
+						showPics(index);
+					}).eq(0).trigger("mouseover");
+				
+					//本例为左右滚动，即所有li元素都是在同一排向左浮动，所以这里需要计算出外围ul元素的宽度
+					$("#focus_{$goods_cat.id} ul").css("width",sWidth * (len));
+					
+					//鼠标滑上焦点图时停止自动播放，滑出时开始自动播放
+					$("#focus_{$goods_cat.id}").hover(function() {
+						clearInterval(picTimer);
+					},function() {
+						picTimer = setInterval(function() {
+							showPics(index);
+							index++;
+							if(index == len) {index = 0;}
+						},3000); //此4000代表自动播放的间隔，单位：毫秒
+					}).trigger("mouseleave");
+					
+					//显示图片函数，根据接收的index值显示相应的内容
+					function showPics(index) { //普通切换
+						var nowLeft = -index*sWidth; //根据index值计算ul元素的left值
+						$("#focus_{$goods_cat.id} ul").stop(true,false).animate({"left":nowLeft},300);
+						$("#focus_{$goods_cat.id} .btn span").stop(true,false).animate({"opacity":"0.3"},300).eq(index).stop(true,false).animate({"opacity":"0.7"},300); //为当前的按钮切换到选中的效果
+					}
+				});
+				
+				</script>
+                <div class="floor-content">
+                	<div class="floor-left" style="border-top: 1px {$ext_info.cat_color} solid;">
+                    	<?php
+						$GLOBALS['smarty']->assign('index_image',get_advlist('首页-分类ID'.$GLOBALS['smarty']->_var['goods_cat']['id'].'-左侧图片', 3));
+	 					?>
+						<!-- {if $index_image} -->
+                        <div id="focus_{$goods_cat.id}" class="floor-banner">
+                        	<ul>
+                            {foreach from=$index_image item=ad name=index_image}
+                            	<li>
+                                	<a href="{$ad.url}" target="_blank"><img data-original="{$ad.image}" src="themes/68ecshopcom_360buy/images/loading.gif" width="270" height="475" /></a>
+                                </li>
+                            {/foreach}
+                            </ul>
+                        </div>
+                        <!-- {else} -->
+                        <div id="focus_{$goods_cat.id}" class="floor-banner">
+                        	<ul>
+                            	<li>
+                                	<a href="javascript:;" target="_self"><img data-original="themes/68ecshopcom_360buy/images/default-img.jpg" src="themes/68ecshopcom_360buy/images/loading.gif" width="270" height="475" /></a>
+                                </li>
+                            </ul>
+                        </div>
+						<!-- {/if} -->
+          
+						<ul class="floor-words">
+							<?php
+            				$ii = 0;
+							$GLOBALS['smarty']->assign('child_cat_hot',get_hot_cat_tree($GLOBALS['smarty']->_var['goods_cat']['id'], 3));
+	    					?>
+							<!--{foreach from=$child_cat_hot item=cat name=name1}-->
+							<!--{foreach from=$cat.child item=cat_child name=name}-->
+							<?php
+	        				$ii = $ii + 1;
+							$GLOBALS['smarty']->assign('ii', $ii);
+							?>
+							<!--{if  $ii < 9 }-->
+							<li>
+                            	<a href="{$cat_child.url}" title="{$cat_child.name|escape:html}">
+									{$cat_child.name|escape:html}
+								</a>
+                            </li>
+							<!-- {/if} -->
+							<!--{/foreach}-->
+							<!--{/foreach}-->
+						</ul>
+                    </div>
+                    <div class="floor-right">
+                    	<!-- 颜色 -->
+							<div class="floor-tabs-panel" style="border-top: 1px {$ext_info.cat_color} solid;">
+								<?php
+		 						$GLOBALS['smarty']->assign('best_goods', get_cat_recommend_goods('best', get_children($GLOBALS['smarty']->_var['goods_cat']['id']), 8));
+								?>
+								<!--{foreach from=$best_goods item=goods name=cat_item_goods}-->
+								<div class="goods" id="li_{$goods.id}" {if $smarty.foreach.cat_item_goods.iteration % 4 == 0}style="width: 234px"{/if}>
+									<div class="wrap">
+										<a target="_blank" href="{$goods.url}" title="{$goods.name|escape:html}">
+											<img data-original="{$goods.thumb}" src="themes/68ecshopcom_360buy/images/loading.gif" alt="{$goods.name|escape:html}" height="140" width="140" class="pic_img_{$goods.id}">
+										</a>
+										<p class="title">
+											<a target="_blank" href="{$goods.url}" title="{$goods.name|escape:html}">{$goods.short_style_name}</a>
+										</p>
+										<p class="price">
+											<span>
+												<!-- {if $goods.promote_price neq ""} -->
+												{$goods.promote_price}
+												<!-- {else}-->
+												{$goods.shop_price}
+												<!--{/if}-->
+											</span>
+										</p>
+										<a class="add-cart" onclick="addToCart({$goods.id})" title="加入购物车"></a>
+									</div>
+								</div>
+								<!--{/foreach}-->
+							</div>
+							<!--{foreach from=$child_cat item=cat_item name=child_cat}-->
+							<?php
+							$GLOBALS['smarty']->assign('child_cat_index', $child_cat_index);
+							?>
+							<!-- 颜色 -->
+							<div class="floor-tabs-panel floor-tabs-hide" style="border-top: 1px {$ext_info.cat_color} solid;">
+                           
+								<ul>
+									<?php
+									$GLOBALS['smarty']->assign('new_goods', get_cat_recommend_goods('new', get_children($GLOBALS['smarty']->_var['cat_item']['id']), 8));
+									?>
+									<!--{foreach from=$new_goods item=goods name=goods}-->
+									<div class="goods" id="li_{$goods.id}" {if $smarty.foreach.goods.iteration % 4 == 0}style="width: 234px"{/if}>
+										<div class="wrap">
+											<a target="_blank" href="{$goods.url}" title="{$goods.name|escape:html}">
+												<img data-original="{$goods.thumb}" src="themes/68ecshopcom_360buy/images/loading.gif" alt="{$goods.name|escape:html}" height="140" width="140" class="pic_img_{$goods.id}">
+											</a>
+											<p class="title">
+												<a target="_blank" href="{$goods.url}" title="{$goods.name|escape:html}">{$goods.short_style_name}</a>
+											</p>
+											<p class="price">
+												<span class="j_CurPrice">
+													<!-- {if $goods.promote_price neq ""} -->
+													{$goods.promote_price}
+													<!-- {else}-->
+													{$goods.shop_price}
+													<!--{/if}-->
+												</span>
+											</p>
+											<a class="add-cart" onclick="addToCart({$goods.id})" title="加入购物车"></a>
+										</div>
+									</div>
+									<!--{/foreach}-->
+								</ul>
+							</div>
+							<!--{/foreach}-->
+                    </div>
+                </div>
+                <?php
+					$GLOBALS['smarty']->assign('catbrand',get_cat_brands($GLOBALS['smarty']->_var['goods_cat']['id'], 14));
+	    		?>
+                <!-- {if $catbrand} -->
+                <div class="floor-brand">
+					<div class="tabs-brand">
+							<div class="brand">
+								<div class="brand-con">
+									<ul class="yyyy_{$goods_cat.id}"  style="position: absolute; width: 1210px; height: 40px; top: 0px; left: 1px;">
+										{foreach from=$catbrand item=item name=catbrand}
+										<li {if $smarty.foreach.catbrand.first}class="fore1"{/if}>
+											<a href="{$item.url}" target="_blank" title="{$item.name|escape:html}">
+												<img width="100" height="40" src="themes/68ecshopcom_360buy/images/loading.gif"  data-original="data/brandlogo/{$item.logo}" alt="{$item.name|escape:html}">
+											</a>
+										</li>
+										{/foreach}
+									</ul>
+									<div class="brand-btn">
+										<a class="brand-left right_{$goods_cat.id}" href="javascript:void(0)">&lt;</a>
+										<a class="brand-right left_{$goods_cat.id}" href="javascript:void(0)">&gt;</a>
+									</div>
+								</div>
+							</div>
+						<script type="text/javascript">
+						Move(".left_{$goods_cat.id}",".right_{$goods_cat.id}",".yyyy_{$goods_cat.id}",".brand","10");
+						</script>
+					</div>
+				</div>
+                <!-- {/if} -->
+			</div>
+		</div>
+</div>

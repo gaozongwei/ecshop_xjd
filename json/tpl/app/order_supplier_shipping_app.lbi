@@ -1,0 +1,14 @@
+<div class="dian_bg padding1 ub-ac m_t0_8 ulev-4" >
+<div class="ulev-app2 dian_title ub" style="background:none; font-weight:lighter">配送说明</div>	
+	<div class="c-wh umar-at4 uinn-a1 t-666666">
+		<div class="ub ub-ac ps_h">
+		<label><font class="blue">快递运输：</font>  其中{if $total.supplier_goodsnumber.1}<font style="color:#ff3300;font-weight:bold;">{$total.supplier_goodsnumber.1}</font> 件商品由第三方为您配送 {/if} {if $total.supplier_goodsnumber.0}<font style="color:#ff3300;font-weight:bold;">{$total.supplier_goodsnumber.0}</font> 件商品由本网站为您配送{/if}
+</label>
+		</div>
+	{foreach from=$total.supplier_shipping item=supp_ship}
+	<div class="ub ub-ac ps_h">
+		{$supp_ship.supplier_name}&nbsp;&nbsp;&nbsp;&nbsp;运费：&nbsp;&nbsp;{$supp_ship.formated_shipping_fee}
+	</div>
+	{/foreach}
+</div>
+</div>

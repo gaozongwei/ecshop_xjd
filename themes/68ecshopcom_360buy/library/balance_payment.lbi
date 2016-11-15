@@ -1,0 +1,9 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div id="popup_window" style="width:250px;height:auto;margin-left:-125px;margin-top:-75px;left:50%;top:50%;position:fixed;background-color:lightgrey;display:none;z-index:9999;">
+  <label style="width:80%;float:left;font-size:1.3em;margin:5px 10px;height:20px;">请输入余额支付密码:</label>
+  <input id="surplus_password_input1" type="password" style='float:left;margin:5px 10px;width:230px;background-color:white;height:30px;border:none;'/>
+  <label id="surplus_label2" style="width:80%;float:left;font-size:1.3em;display:none;margin:5px 10px;height:20px;">请确认余额支付密码</label>
+  <input id="surplus_password_input2" type="password" style='float:left;margin:5px 10px;width:230px;background-color:white;height:30px;border:none;display:none;'/>
+  <input class='bnt_blue_1' type="button" onclick="end_input_surplus()" value="确定" style="float:left;margin:5px 10px;height:30px;"/>
+  <input class='bnt_blue_1' type="button" onclick="cancel_input_surplus()" value="取消" style="float:right;margin:5px 10px;height:30px;"/>
+</div>

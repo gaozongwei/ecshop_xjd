@@ -1,0 +1,398 @@
+<!-- $Id: sell_stats.htm 16420 2015-10-23 13:16:57Z langlibin $ -->
+{include file="pageheader_bd.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+{insert_scripts files="../js/region.js"}
+<script type="text/javascript" src="../js/calendar.php?lang={$cfg_lang}"></script>
+<link href="../js/calendar/calendar.css" rel="stylesheet" type="text/css" />
+<div id="tabbar-div">
+    <p>
+        <span class="tab-back" onclick="javascript:location.href='sell_stats.php'">{$lang.sales_statistics}</span>
+        <span class="tab-front" onclick="javascript:location.href='sell_area_stats.php'">{$lang.area_analyse}</span>
+    </p>
+</div>
+<div class="main-div"><p style="margin: 10px">{$lang.notice_sell_area_stats}</div>
+
+<div class="form-div">
+    <form action="sell_area_stats.php" method="post" id="selectForm" name="selectForm">
+        <select name="stats_type" id="stats_type" onchange="week()">
+            <option value="1" {if $stats_type eq '1'}selected{/if}>按周统计</option>
+            <option value="2" {if $stats_type neq '1'}selected{/if}>按月统计</option>
+        </select>
+        <select name="year" id="year" onchange="week()"></select>
+        <select name="month" id="month" onchange="week()"></select>
+        <select name="dropweek" id="dropweek" {if $stats_type neq '1'}style="display: none"{/if}></select>
+        <select name="status" id="status">
+            <option value="-1">{$lang.select_please}</option>
+            {html_options options=$status_list selected=$status}
+        </select>
+        <br />
+        <select name="area_type" id="area_type" onchange="sel_area()">
+            <option value="0">按省统计</option>
+            <option value="1">按市统计</option>
+            <option value="2">按区/县统计</option>
+        </select>
+        <select name="province" id="selProvinces" onchange="region.changed(this, 2, 'selCities')">
+            <option value="0">{$lang.select_please}</option>
+            {foreach from=$province_list item=province}
+            <option value="{$province.region_id}"{if $province_id eq $province.region_id}selected="selected"{/if}>{$province.region_name}</option>
+            {/foreach}
+        </select>
+        <select name="city" id="selCities">
+            <option value="0">{$lang.select_please}</option>
+            {foreach from=$city_list item=city}
+            <option value="{$city.region_id}"{if $city_id eq $city.region_id}selected="selected"{/if}>{$city.region_name}</option>
+            {/foreach}
+        </select>
+        &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="submit" value="{$lang.query}" class="button" />
+    </form>
+</div>
+<div id="tabbar-div2">
+    <p>
+        <span class="tab-front" id="tab1">下单会员数</span>
+        <span class="tab-back" id="tab2">下单金额</span>
+        <span class="tab-back" id="tab3">下单量</span>
+    </p>
+</div>
+<div class="list-div" id="list_div1">
+    <div class="order_count">
+        <p><span class="tab_front">地区排行</span></p>
+        <div style='height:400px;width:90%;margin-left:auto;margin-right:auto;' id='option_div1'></div>
+    </div>
+</div>
+<div class="list-div" id="list_div2">
+    <div class="order_count">
+        <p><span class="tab_front">地区排行</span></p>
+        <div style='height:400px;width:90%;margin-left:auto;margin-right:auto;' id='option_div2'></div>
+    </div>
+</div>
+<div class="list-div" id="list_div3">
+    <div class="order_count">
+        <p><span class="tab_front">地区排行</span></p>
+        <div style='height:400px;width:90%;margin-left:auto;margin-right:auto;' id='option_div3'></div>
+    </div>
+</div>
+<script type="text/javascript" language="JavaScript">
+    var date = new Date();
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+
+    for (i = 0; i < 10; i++) {
+        var oP = document.createElement("option");
+        var oText = document.createTextNode(y);
+        oP.appendChild(oText);
+        oP.setAttribute("value", y);
+        if(y == '{$year}')
+        {
+            oP.setAttribute("selected", "selected")
+        }
+        document.getElementById('year').appendChild(oP);
+        y = y - 1;
+    };
+    var j = 1;
+    for (i = 1; i < 13; i++) {
+        var month = document.createElement("option");
+        var monthText = document.createTextNode(j);
+        month.appendChild(monthText);
+        month.setAttribute("value", j);
+        if (j == {$month})
+        {
+            month.setAttribute("selected", "selected");
+        }
+        document.getElementById('month').appendChild(month);
+        j = j + 1;
+    };
+
+    var week_num = {$week_num};
+    //绑定周
+    function week()
+    {
+        if($("#stats_type").val()==2)
+        {
+            $("#dropweek").hide();
+            return;
+        }
+        $("#dropweek").show();
+        var text = $("#year").val() + '-' + $("#month").val();
+        var ymd = text.substring(0, 4) + "-" + text.substring(5, 7) + "-1";
+        var week = new Date(Date.parse(ymd.replace(/\-/g, "/")));
+        var w = week.toString().substring(0, 3);
+        var yymm = new Date(text.substring(0, 4), text.substring(5, 7), 0);
+        var day = yymm.getDate();
+        var dd = 1;
+        switch (w) {
+            case "Mon": dd = 0; break;
+            case "Tue": dd = 1; break;
+            case "Wed": dd = 2; break;
+            case "Thu": dd = 3; break;
+            case "Fri": dd = 4; break;
+            case "Sat": dd = 5; break;
+            case "Sun": dd = 6; break;
+        }
+        var aw = 5;
+        if (day == 28 && dd == 0) {
+            aw = 4;
+        }
+        var i = 1;
+        $("#dropweek").empty();
+        for (var i = 0; i < aw; i++) {
+            var start = i * 7 + 1 - dd;
+            var end = i * 7 + 7 - dd;
+            if (start < 1) {
+                start = 1;
+            }
+            if (end > day) {
+                end = day;
+            }
+            var str = ("第" + (i + 1) + "周 <" + text.substring(5, 7) + "月" + start + "号—" + text.substring(5, 7) + "月" + end + "号>").toString();
+            var val = $("#year").val() + '-' + text.substring(5, 7) + '-' + start + ' ' + $("#year").val() + '-' + text.substring(5, 7) + '-' + end + ' ' + i;
+            $("#dropweek").append("<option value='" + val + "'>" + str + "</option>");
+        }
+        $('#dropweek')[0].selectedIndex = week_num;
+
+        var itme = $("#dropweek").find("option:selected").text();
+        $("#txtweek:text").val(itme.toString());
+    }
+    // 执行
+    week();
+
+    // 选择区域
+    function sel_area()
+    {
+        if($("#area_type").val() == 0)
+        {
+            $("#selProvinces").hide();
+            $("#selCities").hide();
+        }
+        else if($("#area_type").val() == 1)
+        {
+            $("#selProvinces").show();
+            $("#selCities").hide();
+        }
+        else
+        {
+            $("#selProvinces").show();
+            $("#selCities").show();
+        }
+    }
+    sel_area();
+</script>
+<script src='js/echarts-all.js'></script>
+<script>
+    region.isAdmin = true;
+    var option1 = {
+        title : {
+//            text: '某地区蒸发量和降水量',
+//            subtext: '纯属虚构'
+        },
+        tooltip : {
+            trigger: 'axis'
+        },
+        legend: {
+            data:['']
+        },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {show: false},
+                dataView : {show: false, readOnly: false},
+                magicType : {show: true, type: ['bar']},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        xAxis : [
+            {
+                type : 'category',
+                data : [{$area1}]
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                axisLabel : {
+                    formatter: '{value} 个'
+                }
+            }
+        ],
+        series : [
+            {
+                name:'下单会员数',
+                type:'bar',
+                data:[{$data1}],
+                markPoint : {
+                    data : [
+//                        {name : '年最高', value : 182.2, xAxis: 7, yAxis: 183, symbolSize:18},
+//                        {name : '年最低', value : 2.3, xAxis: 11, yAxis: 3}
+                    ]
+                },
+                markLine : {
+                    data : [
+//                        {type : 'average', name : '平均值'}
+                    ]
+                }
+            }
+        ]
+    };
+    var option2 = {
+        title : {
+//            text: '某地区蒸发量和降水量',
+//            subtext: '纯属虚构'
+        },
+        tooltip : {
+            trigger: 'axis'
+        },
+        legend: {
+            data:['']
+        },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {show: false},
+                dataView : {show: false, readOnly: false},
+                magicType : {show: true, type: ['bar']},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        xAxis : [
+            {
+                type : 'category',
+                data : [{$area2}]
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                axisLabel : {
+                    formatter: '{value} 元'
+                }
+            }
+        ],
+        series : [
+            {
+                name:'下单金额',
+                type:'bar',
+                data:[{$data2}],
+                markPoint : {
+                    data : [
+//                        {name : '年最高', value : 182.2, xAxis: 7, yAxis: 183, symbolSize:18},
+//                        {name : '年最低', value : 2.3, xAxis: 11, yAxis: 3}
+                    ]
+                },
+                markLine : {
+                    data : [
+//                        {type : 'average', name : '平均值'}
+                    ]
+                }
+            }
+        ]
+    };
+    var option3 = {
+        title : {
+//            text: '某地区蒸发量和降水量',
+//            subtext: '纯属虚构'
+        },
+        tooltip : {
+            trigger: 'axis'
+        },
+        legend: {
+            data:['']
+        },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {show: false},
+                dataView : {show: false, readOnly: false},
+                magicType : {show: true, type: ['bar']},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        xAxis : [
+            {
+                type : 'category',
+                data : [{$area3}]
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                axisLabel : {
+                    formatter: '{value} 件'
+                }
+            }
+        ],
+        series : [
+            {
+                name:'下单量',
+                type:'bar',
+                data:[{$data3}],
+                markPoint : {
+                    data : [
+//                        {name : '年最高', value : 182.2, xAxis: 7, yAxis: 183, symbolSize:18},
+//                        {name : '年最低', value : 2.3, xAxis: 11, yAxis: 3}
+                    ]
+                },
+                markLine : {
+                    data : [
+//                        {type : 'average', name : '平均值'}
+                    ]
+                }
+            }
+        ]
+    };
+    var order_chart1 = echarts.init(document.getElementById('option_div1'));
+    order_chart1.setOption(option1);
+    var order_chart2 = echarts.init(document.getElementById('option_div2'));
+    order_chart2.setOption(option2);
+    var order_chart3 = echarts.init(document.getElementById('option_div3'));
+    order_chart3.setOption(option3);
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#selCities").hide();
+        $("#selDistricts").hide();
+        $("#list_div2").hide();
+        $("#list_div3").hide();
+        $("#tab1").hover(function(){
+            $("#list_div1").show();
+            $("#list_div2").hide();
+            $("#list_div3").hide();
+            $("#tab1").addClass('tab-front');
+            $("#tab1").removeClass('tab-back');
+            $("#tab2").addClass('tab-back');
+            $("#tab2").removeClass('tab-front');
+            $("#tab3").addClass('tab-back');
+            $("#tab3").removeClass('tab-front');
+        });
+        $("#tab2").hover(function(){
+            $("#list_div1").hide();
+            $("#list_div2").show();
+            $("#list_div3").hide();
+            $("#tab1").addClass('tab-back');
+            $("#tab1").removeClass('tab-front');
+            $("#tab2").addClass('tab-front');
+            $("#tab2").removeClass('tab-back');
+            $("#tab3").addClass('tab-back');
+            $("#tab3").removeClass('tab-front');
+        });
+        $("#tab3").hover(function(){
+            $("#list_div1").hide();
+            $("#list_div2").hide();
+            $("#list_div3").show();
+            $("#tab1").addClass('tab-back');
+            $("#tab1").removeClass('tab-front');
+            $("#tab2").addClass('tab-back');
+            $("#tab2").removeClass('tab-front');
+            $("#tab3").addClass('tab-front');
+            $("#tab3").removeClass('tab-back');
+        });
+    });
+
+</script>
+{/literal}
+{include file="pagefooter.htm"}

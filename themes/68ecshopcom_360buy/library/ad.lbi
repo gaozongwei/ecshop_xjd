@@ -1,0 +1,13 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div class="category-banner">
+  <ul class="banner-panel">
+    <!--{foreach from=$flash_img_list item=fimg name=flash_img_list}-->
+    <li><a href="{$fimg.img_link}" style="background:url({$fimg.img_url}) center top"></a></li>
+    <!--{/foreach}-->
+  </ul>
+  <div class="banner-extra">
+  	<!--{foreach from=$flash_img_list item=fimg name=flash_img_list}-->
+    <span <!--{if $smarty.foreach.flash_img_list.first}-->class="curr"<!--{/if}-->></span>
+    <!--{/foreach}-->
+  </div>
+</div>

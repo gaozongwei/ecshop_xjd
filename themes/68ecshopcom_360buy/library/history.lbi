@@ -1,0 +1,66 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div class="browse-history">
+	<div class="browse-history-tab clearfix">
+    	<!--{if $cainixihuan}-->
+    	<span class="tab-span main-color">猜你喜欢</span>
+		<!--{/if}-->
+        <span class="tab-span">浏览历史</span>
+        <div class="browse-history-line main-bg-color"></div>
+        <div class="browse-history-other">
+        	<!--{if $cainixihuan}-->
+        	<a href="javascript:;" class="history-recommend-change"><i class="icon"></i><em class="text">换一批</em></a>
+            <!--{/if}-->
+        	<a onclick="clear_history()" href="javascript:void(0);" class="clear_history <!--{if $cainixihuan}-->none<!--{/if}-->"><i class="icon"></i><em class="text">清空</em></a>
+        </div>
+    </div>
+    <div class="browse-history-con">
+    	<div class="browse-history-inner">
+        	<!--{if $cainixihuan}-->
+            <ul class="recommend-panel">
+                <!--{foreach from=$cainixihuan item=goods}-->
+                <li>
+                    <div class="p-img"><a target="_blank" title="{$goods.goods_name}" href="{$goods.url}"><img alt="{$goods.goods_name}" src="{$goods.goods_thumb}"></a></div>
+                    <div class="p-name"><a target="_blank" title="{$goods.goods_name}" href="{$goods.url}">{$goods.goods_name}</a></div>
+                  	<div class="p-comm">
+                    	<span class="p-price main-color">{$goods.shop_price}</span>
+                        <a class="p-comm-num" target="_blank" href="{$goods.url}">评论：{$goods.evaluation}</a>
+                    </div>
+                </li>
+                <!--{/foreach}-->
+            </ul>
+            <!--{/if}-->
+            <ul id="history_list" class="history-panel <!--{if $cainixihuan}-->none<!--{/if}-->">
+                {insert name='history'}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+function clear_history(){
+	Ajax.call('user.php', 'act=clear_history',clear_history_Response, 'GET', 'TEXT',1,1);
+}
+function clear_history_Response(res){
+	document.getElementById('history_list').innerHTML = '{$lang.no_history}';
+}
+if($('.browse-history-con li').length == 0){
+	$('.browse-history').addClass('none');	
+}
+$('.browse-history .browse-history-tab .tab-span').mouseover(function(){
+	$(this).addClass('main-color').siblings('.tab-span').removeClass('main-color');
+	$('.browse-history-line').stop().animate({'left':$(this).position().left,'width':$(this).outerWidth()},500);
+	$('.browse-history-other').find('a').eq($(this).index()).removeClass('none').siblings('a').addClass('none');
+	$('.browse-history-inner ul').eq($(this).index()).removeClass('none').siblings('ul').addClass('none');
+})
+var history_num = 0;
+var history_li = $('.browse-history .recommend-panel li');
+var history_slide_w = history_li.outerWidth()*6;
+var history_slide_num = Math.ceil(history_li.length/6);
+$('.browse-history .history-recommend-change').click(function(){
+	history_num++;
+	if(history_num > (history_slide_num-1)){
+		history_num = 0;	
+	}
+	$('.browse-history .recommend-panel').css({'left':-history_num*history_slide_w});
+})
+</script> 

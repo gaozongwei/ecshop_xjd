@@ -1,0 +1,17 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<?php
+ $GLOBALS['smarty']->assign('index_ad_groups',get_advlist('首页生活的橱窗',5));
+?>
+<!--{if index_ad_groups}-->
+<div class="w1210 ad-groups">
+    <div class="mc">
+      <div class="sc-list">
+        <!--{foreach from=$index_ad_groups item=ad}--> 
+        <div class="item w-bg">
+          <a class="s-img" target="_blank" href="{$ad.url}"><img width="242px" height="350px" src="{$ad.image}" /></a> 
+        </div>
+        <!--{/foreach}-->
+      </div>
+    </div>
+</div>
+<!--{/if}-->

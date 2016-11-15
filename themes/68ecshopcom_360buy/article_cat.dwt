@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$page_title}</title>
+<!-- TemplateEndEditable -->
+<!-- TemplateBeginEditable name="head" -->
+<!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link rel="stylesheet" type="text/css" href="themes/68ecshopcom_360buy/css/article.css" />
+<script type="text/javascript" src="themes/68ecshopcom_360buy/js/jquery-1.9.1.min.js"></script>
+{insert_scripts files='jquery.json.js,transport.js'}
+{insert_scripts files='common.js'}
+</head>
+<body>
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem --> 
+<div class="w1210">
+    <div class="blank"></div>
+    <!-- #BeginLibraryItem "/library/ur_here.lbi" --><!-- #EndLibraryItem -->
+    <div class="clearfix">
+        <div class="right-con">
+        	<div class="right-inner">
+                <div class="mod-tit">
+                    {$lang.article_list}
+                    <div class="article-search">
+                        <form action="{$search_url}" name="search_form" method="post">
+                          <input name="keywords" type="text" id="requirement" size="40" value="{$search_value}" class="input"/>
+                          <input name="id" type="hidden" value="{$cat_id}" />
+                          <input name="cur_url" id="cur_url" type="hidden" value="" />
+                          <input type="submit" value="{$lang.button_search}" class="btn" />
+                        </form>
+                    </div>
+                </div>
+                <!--{if $artciles_list}-->
+                <div class="article-list">
+                	<table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                          <th>{$lang.article_title}</th>
+                          <th>{$lang.article_author}</th>
+                          <th>{$lang.article_add_time}</th>
+                        </tr>
+                        <!-- {foreach from=$artciles_list item=article} -->
+                        <tr>
+                          <td><a style="text-decoration:none" href="{$article.url}" title="{$article.title|escape:html}" class="f6">{$article.short_title}</a></td>
+                          <td align="center">{$article.author}</td>
+                          <td align="center">{$article.add_time}</td>
+                        </tr>
+                        <!-- {/foreach} -->
+                    </table>
+                </div>
+                <!--{else}-->
+                <div class="notice-noresult clearfix">
+                    <div class="noresult-con">
+                		<i class="noresult-icon"></i>
+                        <p class="noresult-text">抱歉，没有找到相关的文章</p>
+                        <a class="main-btn" href="javascript:window.history.back(-1);">点击返回上一步</a>
+                    </div>
+                </div>
+                <!--{/if}-->
+            </div>
+            <div class="blank15"></div>
+            <!--{if $artciles_list}-->
+            <!-- #BeginLibraryItem "/library/pages.lbi" --><!-- #EndLibraryItem --> 
+            <!--{/if}-->
+        </div>
+        <div class="left-con"> 
+            <!-- #BeginLibraryItem "/library/article_category_tree.lbi" --><!-- #EndLibraryItem --> 
+            <!-- TemplateBeginEditable name="左边广告区域" --> <!-- TemplateEndEditable --> 
+        </div>
+    </div>
+</div>
+<div class="site-footer">
+  <div class="footer-related"> 
+    <!-- #BeginLibraryItem "/library/help.lbi" --><!-- #EndLibraryItem --> 
+    <!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem --> 
+  </div>
+</div>
+</body>
+<script type="text/javascript">
+document.getElementById('cur_url').value = window.location.href;
+</script>
+</html>

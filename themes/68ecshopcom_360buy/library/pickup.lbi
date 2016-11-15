@@ -1,0 +1,26 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div class="ziti_list">
+    {foreach from=$pinfo item=value key=key}
+    <table class="ztd" width="100%" cellpadding="0" cellspacing="0" border="0" id="txt{$key}" style="display:{if $key == $district}{else}{/if}">
+        {foreach from=$value.info item=info key=k}
+        <tr>
+            <td width=15% align=right>{if $k == 0}选择自提点：{else}&nbsp;{/if}</td>
+            <td width=85% >
+                <table width="100%"  border="0" cellpadding="2" cellspacing="0">
+                    <tr>
+                        <td width="25%"><span class="ziti_name {if $info.id == $selectid}site-in-short{/if}" onclick="select_point(this,{$info.id})">{$info.shop_name}<b></b></span></td>
+                        <td width="42%">{$info.address}</td>
+                        <td width="15%">{$info.contact}</td>
+                        <td width="18%">{$info.phone}</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        {/foreach}
+    </table>
+    {/foreach}
+</div>
+<div class="ziti_btn">
+    <input type="hidden" id='s_pid' value='{$selectid}'>
+    <input type="button" name="button" class="bnt_blue_1" value="保存自提点" onclick="save_point({$suppid})" />
+</div>

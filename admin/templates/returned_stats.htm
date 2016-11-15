@@ -1,0 +1,283 @@
+<!-- $Id: returned_stats.htm 2015-10-25 16:10:21Z langlibin $ -->
+{if $full_page}
+{include file="pageheader_bd.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+<script type="text/javascript" src="../js/calendar.php?lang={$cfg_lang}"></script>
+
+<div id="tabbar-div">
+    <p>
+        <span class="tab-back" id="general-tab" onclick="javascript:location.href='refund_stats.php'">{$lang.refund_stats}</span>
+        <span class="tab-front" id="area-tab" onclick="javascript:location.href='returned_stats.php'">{$lang.returned_stats}</span>
+        <span class="tab-back" id="from-tab"  onclick="javascript:location.href='repair_stats.php'">{$lang.repair_status}</span>
+    </p>
+</div>
+<div class="main-div">
+    <p style="margin: 10px">{$lang.notice_returned_stats}</p>
+</div>
+
+<div class="form-div">
+    <form action="returned_stats.php" name="searchForm">
+        选择店铺：
+        <select id="sel_shop" name="sel_shop" onchange="change_shop()">
+            <option value="0" {if $sel_shop eq '0'} selected{/if}>整站</option>
+            <option value="1" {if $sel_shop eq '1'} selected{/if}>平台自营</option>
+            <option value="2" {if $sel_shop eq '2'} selected{/if}>第三方店铺</option>
+        </select>
+        <label id="notice"></label>
+        <select id="supplier_id" class="chzn-select" name="supplier_id" style="height:100;">
+            <option value="0">全部</option>
+            {html_options options=$suppliers_list_name selected=$supplier_id}
+        </select>
+        <br />
+        <select name="stats_type" id="stats_type" onchange="week()">
+            <option value="1" {if $stats_type eq '1'}selected{/if}>按周统计</option>
+            <option value="2" {if $stats_type neq '1'}selected{/if}>按月统计</option>
+        </select>
+        <select name="year" id="year" onchange="week()"></select>
+        <select name="month" id="month" onchange="week()"></select>
+        <select name="dropweek" id="dropweek" {if $stats_type neq '1'}style="display: none"{/if}></select>
+        <input name="btn_search" type="submit" value="{$lang.button_search}" class="button" />
+        <input type="button" name="export" value="{$lang.batch_export}" class="button" onclick="batch_export()" />
+    </form>
+</div>
+<div class="list-div">
+    <div class="order_count">
+        <p><span class="tab_front">退货金额统计</span></p>
+        <div style='height:400px;width:90%;margin-left:auto;margin-right:auto;' id='returned_option_div'></div>
+    </div>
+</div>
+
+<form method="post" action="" name="listForm" onsubmit="">
+    <div class="list-div" id="listDiv">
+        {/if}
+        <table cellpadding="3" cellspacing="1">
+            <tr>
+                <th>{$lang.order_sn}</th>
+                <th>{$lang.returned_sn}</th>
+                <th>{$lang.goods_name}</th>
+                <th>{$lang.user_name}</th>
+                <th>{$lang.apply_time}</th>
+                <th>{$lang.back_amount}</th>
+                <th>{$lang.returned_status}</th>
+            </tr>
+
+            {foreach from=$returned_info item=item}
+            <tr>
+                <td>{$item.order_sn}</td>
+                <td>{$item.back_id}</td>
+                <td>{$item.goods_name}</td>
+                <td>{$item.user_name}</td>
+                <td>{$item.add_time}</td>
+                <td>{$item.refund_money_2}</td>
+                <td>{$item.status_back_val}</td>
+            </tr>
+            {foreachelse}
+            <tr><td class="no-records" colspan="10">{$lang.no_records}</td></tr>
+            {/foreach}
+        </table>
+
+        <table cellpadding="4" cellspacing="0">
+            <tr>
+                <td align="right">{include file="page.htm"}</td>
+            </tr>
+        </table>
+
+        {if $full_page}
+    </div>
+</form>
+
+<script type="text/javascript" language="JavaScript">
+    var date = new Date();
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+
+    for (i = 0; i < 10; i++) {
+        var oP = document.createElement("option");
+        var oText = document.createTextNode(y);
+        oP.appendChild(oText);
+        oP.setAttribute("value", y);
+        if(y == '{$year}')
+        {
+            oP.setAttribute("selected", "selected")
+        }
+        document.getElementById('year').appendChild(oP);
+        y = y - 1;
+    };
+    var j = 1;
+    for (i = 1; i < 13; i++) {
+        var month = document.createElement("option");
+        var monthText = document.createTextNode(j);
+        month.appendChild(monthText);
+        month.setAttribute("value", j);
+        if (j == {$month})
+        {
+            month.setAttribute("selected", "selected");
+        }
+        document.getElementById('month').appendChild(month);
+        j = j + 1;
+    };
+</script>
+<script type="text/javascript" language="JavaScript">
+    listTable.recordCount = {$record_count};
+    listTable.pageCount = {$page_count};
+
+    {foreach from=$filter item=item key=key}
+    listTable.filter.{$key} = '{$item}';
+    {/foreach}
+    {literal}
+
+    // 批量导出数据
+    function batch_export()
+    {
+        var stats_type = Utils.trim(document.forms['searchForm'].elements['stats_type'].value);
+        var year = Utils.trim(document.forms['searchForm'].elements['year'].value);
+        var month = Utils.trim(document.forms['searchForm'].elements['month'].value);
+        var dropweek = Utils.trim(document.forms['searchForm'].elements['dropweek'].value);
+        // 店铺
+        var sel_shop = Utils.trim(document.forms['searchForm'].elements['sel_shop'].value);
+        // 入驻商
+        var supplier_id = Utils.trim(document.forms['searchForm'].elements['supplier_id'].value);
+
+        return location.href='returned_stats.php?act=export&stats_type='+
+                stats_type+'&year='+year+'&month='+month+'&dropweek='+dropweek+'&sel_shop='+sel_shop+'&supplier_id='+supplier_id;
+    }
+
+    var week_num = {$week_num};
+    //绑定周
+    function week()
+    {
+        if($("#stats_type").val()==2)
+        {
+            $("#dropweek").hide();
+            return;
+        }
+        $("#dropweek").show();
+        var text = $("#year").val() + '-' + $("#month").val();
+        var ymd = text.substring(0, 4) + "-" + text.substring(5, 7) + "-1";
+        var week = new Date(Date.parse(ymd.replace(/\-/g, "/")));
+        var w = week.toString().substring(0, 3);
+        var yymm = new Date(text.substring(0, 4), text.substring(5, 7), 0);
+        var day = yymm.getDate();
+        var dd = 1;
+        switch (w) {
+            case "Mon": dd = 0; break;
+            case "Tue": dd = 1; break;
+            case "Wed": dd = 2; break;
+            case "Thu": dd = 3; break;
+            case "Fri": dd = 4; break;
+            case "Sat": dd = 5; break;
+            case "Sun": dd = 6; break;
+        }
+        var aw = 5;
+        if (day == 28 && dd == 0) {
+            aw = 4;
+        }
+        var i = 1;
+        $("#dropweek").empty();
+        for (var i = 0; i < aw; i++) {
+            var start = i * 7 + 1 - dd;
+            var end = i * 7 + 7 - dd;
+            if (start < 1) {
+                start = 1;
+            }
+            if (end > day) {
+                end = day;
+            }
+            var str = ("第" + (i + 1) + "周 <" + text.substring(5, 7) + "月" + start + "号—" + text.substring(5, 7) + "月" + end + "号>").toString();
+            var val = $("#year").val() + '-' + text.substring(5, 7) + '-' + start + ' ' + $("#year").val() + '-' + text.substring(5, 7) + '-' + end + ' ' + i;
+            $("#dropweek").append("<option value='" + val + "'>" + str + "</option>");
+        }
+        $('#dropweek')[0].selectedIndex = week_num;
+
+        var itme = $("#dropweek").find("option:selected").text();
+        $("#txtweek:text").val(itme.toString());
+    }
+    // 执行
+    week();
+    $(document).ready(function(){
+        change_shop();
+    });
+    function change_shop()
+    {
+        if($("#sel_shop").val()==0)
+        {
+            $("#notice").text("平台自营和第三方店铺数据").show();
+            $("#supplier_id").hide();
+        }
+        else if($("#sel_shop").val()==1)
+        {
+            $("#notice").text("平台自营方数据").show();
+            $("#supplier_id").hide();
+        }
+        else
+        {
+            $("#notice").text("").hide();
+            $("#supplier_id").show();
+        }
+    }
+    {/literal}
+</script>
+
+<script src='js/echarts-all.js'></script>
+<script>
+    var option = {
+        title : {
+//            text: '',
+//            subtext: ''
+        },
+        tooltip : {
+            trigger: 'axis'
+        },
+        legend: {
+            data:[]
+        },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {show: false}, // 辅助线开关
+                dataView : {show: false, readOnly: false}, // 数据视图
+                magicType : {show: true, type: ['line']}, // 显示折线图
+                restore : {show: true}, // 还原
+                saveAsImage : {show: true} // 保存为图片
+            }
+        },
+        calculable : false,
+        xAxis : [
+            {
+                type : 'category',
+                boundaryGap : false,
+                data : [{$date}]
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                axisLabel : {
+                    formatter: '{value} 元'
+                }
+            }
+        ],
+        series : [
+            {
+                name:'退款金额',
+                type:'line',
+                data:[{$refund_money}],
+                markPoint : {
+                    data : [
+                        {type : 'max', name: '最大值'},
+                        {type : 'min', name: '最小值'}
+                    ]
+                },
+                markLine : {
+                    data : [
+//                        {type : 'average', name: '平均值'}
+                    ]
+                }
+            }
+        ]
+    };
+    var order_chart = echarts.init(document.getElementById('returned_option_div'));
+    order_chart.setOption(option);
+</script>
+{include file="pagefooter.htm"}
+{/if}

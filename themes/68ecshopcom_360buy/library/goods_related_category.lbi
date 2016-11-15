@@ -1,0 +1,17 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div class="aside-con aside-con1">
+  <div class="aside-tit">
+    <h2>相关分类</h2>
+  </div>
+  <div class="aside-list">
+    <ul>
+      <?php
+             $parent_cat_id = get_parent_cat_id($GLOBALS['smarty']->_var['goods']['cat_id']);
+             $GLOBALS['smarty']->assign('child_cat',get_child_cat($parent_cat_id));
+              ?>
+      <!--{foreach from=$child_cat item=cat name=child_cat}-->
+      <li><a href="{$cat.url}" title="{$cat.name|escape:html}">{$cat.name|truncate:6}</a></li>
+      <!--{/foreach}-->
+    </ul>
+  </div>
+</div>

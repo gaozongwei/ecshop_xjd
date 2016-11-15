@@ -1,0 +1,134 @@
+<!-- $Id: user_area_stats.htm 2015-11-05 08:39:21Z langlibin $ -->
+{if $full_page}
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+{insert_scripts files="../js/region.js"}
+<script type="text/javascript" src="../js/calendar.php?lang={$cfg_lang}"></script>
+<link href="../js/calendar/calendar.css" rel="stylesheet" type="text/css" />
+<div id="tabbar-div">
+    <p>
+        <span class="tab-back" onclick="javascript:location.href='user_added_stats.php'">新增会员</span>
+        <span class="tab-back" onclick="javascript:location.href='user_analysis_order_count.php'">会员分析</span>
+        <span class="tab-back" onclick="javascript:location.href='user_analysis_scale.php'">会员规模分析</span>
+        <span class="tab-front" onclick="javascript:location.href='user_area_stats.php'">区域分布</span>
+    </p>
+</div>
+<div class="main-div">
+    <p style="margin: 10px">
+        1、符合以下任何一种条件的订单即为有效订单：1、采用在线支付方式支付并且已付款；2、采用货到付款方式支付并且交易已完成<br />
+        2、点击列表上方的“导出数据”，将列表数据导出为Excel文件<br />
+    </p>
+</div>
+<div class="form-div">
+    <form action="javascript:searchAreaStats()" name="searchForm">
+        <select name="area_type" id="area_type" onchange="sel_area()">
+            <option value="0">按省统计</option>
+            <option value="1">按市统计</option>
+            <option value="2">按区/县统计</option>
+        </select>
+        <select name="province" id="selProvinces" onchange="region.changed(this, 2, 'selCities')">
+            <option value="0">{$lang.select_please}</option>
+            {foreach from=$province_list item=province}
+            <option value="{$province.region_id}"{if $province_id eq $province.region_id}selected="selected"{/if}>{$province.region_name}</option>
+            {/foreach}
+        </select>
+        <select name="city" id="selCities">
+            <option value="0">{$lang.select_please}</option>
+            {foreach from=$city_list item=city}
+            <option value="{$city.region_id}"{if $city_id eq $city.region_id}selected="selected"{/if}>{$city.region_name}</option>
+            {/foreach}
+        </select>
+        <input type="submit" value="{$lang.button_search}" class="button" />
+        <input type="button" value="导出数据" class="button" onclick="batch_export()" />
+    </form>
+</div>
+<form method="post" action="" name="listForm" onsubmit="">
+    <div class="list-div" id="listDiv">
+        {/if}
+
+        <table cellpadding="3" cellspacing="1">
+            <tr>
+                <th>省份</th>
+                <th>市</th>
+                <th>区/县</th>
+                <th>下单会员数</th>
+                <th>下单金额</th>
+                <th>下单量</th>
+            </tr>
+
+            {foreach from=$result_list item=item}
+            <tr>
+                <td align="center">{$item.province_name}</td>
+                <td align="center">{$item.city_name}</td>
+                <td align="center">{$item.district_name}</td>
+                <td align="center">{$item.user_count}</td>
+                <td align="center">{$item.goods_amount}</td>
+                <td align="center">{$item.order_count}</td>
+            </tr>
+            {foreachelse}
+            <tr><td class="no-records" colspan="10">{$lang.no_records}</td></tr>
+            {/foreach}
+        </table>
+
+        <table cellpadding="4" cellspacing="0">
+            <tr>
+                <td align="right">{include file="page.htm"}</td>
+            </tr>
+        </table>
+
+        {if $full_page}
+    </div>
+</form>
+
+<script type="text/javascript" language="JavaScript">
+    listTable.recordCount = {$record_count};
+    listTable.pageCount = {$page_count};
+
+    {foreach from=$filter item=item key=key}
+    listTable.filter.{$key} = '{$item}';
+    {/foreach}
+    {literal}
+
+    region.isAdmin = true;
+
+    function searchAreaStats()
+    {
+        listTable.filter.area_type = Utils.trim(document.forms['searchForm'].elements['area_type'].value);
+        listTable.filter.province = Utils.trim(document.forms['searchForm'].elements['province'].value);
+        listTable.filter.city = Utils.trim(document.forms['searchForm'].elements['city'].value);
+        listTable.filter.page = 1;
+        listTable.loadList();
+    }
+    // 选择区域
+    function sel_area()
+    {
+        if($("#area_type").val() == 0)
+        {
+            $("#selProvinces").hide();
+            $("#selCities").hide();
+        }
+        else if($("#area_type").val() == 1)
+        {
+            $("#selProvinces").show();
+            $("#selCities").hide();
+        }
+        else
+        {
+            $("#selProvinces").show();
+            $("#selCities").show();
+        }
+    }
+    sel_area();
+
+    function batch_export()
+    {
+        var area_type = Utils.trim(document.forms['searchForm'].elements['area_type'].value);
+        var province = Utils.trim(document.forms['searchForm'].elements['province'].value);
+        var city = Utils.trim(document.forms['searchForm'].elements['city'].value);
+        return location.href='user_area_stats.php?act=export&area_type='+area_type+'&province='+province+'&city='+city;
+    }
+
+    {/literal}
+</script>
+{include file="pagefooter.htm"}
+{/if}

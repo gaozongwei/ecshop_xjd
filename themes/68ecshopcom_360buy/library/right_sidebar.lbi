@@ -1,0 +1,349 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+{insert_scripts files='user.js'}
+<div class="right-sidebar-con">
+	<div class="right-sidebar-main">
+        <div class="right-sidebar-panel">
+            <div id="quick-links" class="quick-links">
+            	<ul>
+                    <li class="quick-area quick-login">
+                        <a href="javascript:;" class="quick-links-a"><i class="setting"></i></a>
+                        <div class="sidebar-user quick-sidebar">
+                        	<i class="arrow-right"></i>
+                            <div class="sidebar-user-info">
+                            	{if !$smarty.session.user_id >0 }
+                                <div class="user-pic">
+                                	<div class="user-pic-mask"></div>
+                                    <img src="themes/68ecshopcom_360buy/images/people.gif" />
+                                </div>
+                                <p>你好！请<a href="javascript:;" class="quick-login-a main-color">登录</a>|<a href="register.php" class="main-color">注册</a></p>
+                                {else}
+                                <div class="user-have-login">
+                                	<div class="user-pic">
+                                        <div class="user-pic-mask"></div>
+                                        <!--{if $smarty.session.headimg}-->
+                                        <img src="{$smarty.session.headimg}" />
+                                        <!--{else}-->
+                                        <img src="themes/68ecshopcom_360buy/images/people.gif" />
+                                        <!--{/if}-->
+                                    </div>
+                                    <div class="user-info">
+                                    	<p>用户名：{$smarty.session.user_name}</p>
+                                        <p>级　别：{$smarty.session.user_rank_name}</p>
+                                    </div>
+                                </div>
+                                <p class="mt10">
+                                	<a class="btn order-btn" href="user.php?act=order_list">订单中心</a>
+									<a class="btn account-btn" href="user.php?act=account_detail">帐户中心</a>
+                                </p>
+                                {/if}
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sidebar-tabs">
+                    	<a href="javascript:void(0);" class="mpbtn_bonus quick-links-a"><i class="bonus"></i></a>
+                        <div class="popup">
+                            <font>领红包再购物</font>
+                            <i class="arrow-right"></i>
+                        </div>
+                    </li>
+                    <li class="sidebar-tabs">
+                        <div class="cart-list quick-links-a" id="collectBox">
+                            <i class="cart"></i>
+                            <div class="span">购物车</div>
+                            <span class="ECS_CARTINFO">{insert name='cart_info'}</span>
+                        </div>
+                    </li>
+                    <li class="sidebar-tabs">
+                        <a href="javascript:void(0);" class="mpbtn_history quick-links-a"><i class="history"></i></a>
+                        <div class="popup">
+                            <font id="mpbtn_histroy">我看过的</font>
+                            <i class="arrow-right"></i>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="user.php?act=follow_shop" target="_blank" class="mpbtn_stores quick-links-a"><i class="stores"></i></a>
+                        <div class="popup">
+                            我关注的店铺
+                            <i class="arrow-right"></i>
+                        </div>
+                    </li>
+                    <li id="collectGoods">
+                        <a href="user.php?act=collection_list" target="_blank" class="mpbtn_collect quick-links-a"><i class="collect"></i></a>
+                        <div class="popup">
+                            我的收藏
+                            <i class="arrow-right"></i>
+                        </div>
+                    </li>
+                    <!--{if $compare_btn}-->
+                    <li>
+                        <a href="javascript:;" class="mpbtn-contrast quick-links-a"><i class="contrast"></i></a>
+                        <div class="popup">
+                            对比商品
+                            <i class="arrow-right"></i>
+                        </div>
+                    </li>
+                    <!--{/if}-->
+                </ul>
+            </div>
+            <div class="quick-toggle">
+            	<ul>
+                    <li class="quick-area">
+                    	<a class="quick-links-a" href="javascript:;"><i class="customer-service"></i></a>
+                        <div class="sidebar-service quick-sidebar">
+                        	<i class="arrow-right"></i>
+                            {insert name='customer_service'}
+                        </div>
+                    </li>
+                    <li class="quick-area">
+                    	<a class="quick-links-a" href="javascript:;"><i class="qr-code"></i></a>
+                        <div class="sidebar-code quick-sidebar">
+                        	<i class="arrow-right"></i>
+                            <img src="themes/68ecshopcom_360buy/images/weixin.jpg"/>
+                        </div>
+                    </li>
+                    <li class="returnTop">
+                        <a href="javascript:;" class="return_top quick-links-a"><i class="top"></i></a>
+                        <div class="popup">
+                        	返回顶部
+                        	<i class="arrow-right"></i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="">
+        	<!--红包 start-->
+            <div class="right-sidebar-panels">
+            	<h3 class="sidebar-panel-header">
+                    <a href="javascript:;" class="title"><i class="bonus-icon"></i><em class="title">红包</em></a>
+                    <span class="close-panel"></span>
+                </h3>
+                <div class="bonus-panel-main">
+                    <div class="bonus-panel-content">
+                    	<script type="text/javascript">
+						function fun(type_id, no_have_val){
+							no_have = (typeof(no_have_val) == "undefined" ? 0 : no_have_val)
+							Ajax.call('user.php?act=user_bonus', 'id=' + type_id + '&no_have=' + no_have, bounsResponse, 'GET', 'JSON');
+						}
+						function bounsResponse(result){
+							$('.pop-compare,.pop-mask').show();
+							$('.pop-compare .pop-text').html(result.message);
+							$('.pop-compare').css({'top':($(window).height()-$('.pop-compare').height())/2});
+						}
+						</script>
+						<!--{if $online_bonus}-->
+						<div class="bonus-list">
+							<!--{foreach from=$online_bonus item=row name=row}--> 
+							<!--{if $row.send_start_date<$time && $row.send_end_date>$time}--> 
+							<div class="bonus-item">
+							   <a href="javascript:;" onclick="fun({$row.type_id})">
+                               	<div class="bonus-info">
+                                	<i class="bonus-icon"></i>
+                                	<p class="bonus-name">{$row.type_name}</p>
+                                    <p class="bonus-price"><i>¥</i>{$row.type_money}<span class="fr bonus-btn">点击领取</span></p>
+                                </div>
+                               </a> 
+							</div>
+							<!--{/if}-->
+							<!--{/foreach}-->
+						</div>
+						<!--{else}-->
+						<div class="tip-box">
+						  <i class="tip-icon"></i>
+						  <div class="tip-text">暂时还没有红包~~<br/><a class="main-color" href="./">先去逛逛吧</a></div>
+						</div>
+						<!--{/if}-->
+                    </div>
+                </div>
+            </div>
+            <!--红包 end-->
+        	<!--购物车 start-->
+        	<div class="ECS_CARTINFO right-sidebar-panels">{insert name='cart_info'}</div>
+        	<!--购物车 end-->
+            <!--浏览历史 start-->
+        	<div class="right-sidebar-panels">
+				<h3 class="sidebar-panel-header">
+                	<a href="javascript:;" class="title"><i></i><em class="title">我的足迹</em></a>
+                    <span class="close-panel"></span>
+                </h3>
+          		<div class="sidebar-panel-main">
+            		<div class="sidebar-panel-content">
+              			<div class="history-panel">
+              				<ul>
+                				{insert name='history'}
+                			</ul>
+     		  			</div>
+            		</div>
+          		</div>
+        	</div>
+        	<!--浏览历史 end-->
+        </div>
+    </div>
+</div>
+<!--文字提示框-->
+<div class="pop-main pop-compare">
+	<div class="pop-header">
+    	<span>温馨提示</span>
+        <a class="pop-close" href="javascript:;" title="关闭"></a>
+    </div>
+    <div class="pop-con">
+    	<i class="pop-icon"></i>
+        <p class="pop-text"></p>
+        <a href="javascript:;" class="pop-sure main-bg-color">确定</a><a href="javascript:;" class="cancel-btn none">取消</a>
+    </div>
+</div>
+<!--文字提示弹框 小-->
+<!--文字提示框 小-->
+<div class="pop-main pop-compare-small">
+	<div class="pop-header">
+    	<span>温馨提示</span>
+        <a class="pop-close" href="javascript:;" title="关闭"></a>
+    </div>
+    <div class="pop-con">
+    	<i class="pop-icon"></i>
+        <p class="pop-text"></p>
+        <a href="javascript:;" class="cancel-btn">关闭</a>
+    </div>
+</div>
+<!--成功弹框-->
+<div id="tell-me-result" class="tell-me-form" style="display:none;">
+	<div class="pop-header"><span>温馨提示</span><a href="javascript:closeDiv1()" title="关闭" class="tell-me-close"></a></div>
+    <div class="tell-me-content">
+    	<div class="tell-me-result">
+            <div class="result-icon"></div>
+            <div class="result-text">
+            	<div class="title"></div>
+                <div class="bottom">
+                	<span onclick="javascript:closeDiv1();" class="cancel-btn">关闭</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--登陆弹框-->
+<div class="pop-mask"></div>
+<div class="pop-main pop-login">
+  <div class="pop-header"> <span>您尚未登录</span><a class="pop-close" href="javascript:;" title="关闭"></a></div>
+  <div class="pop-con">
+    <form name="formLogin" action="user.php" method="post" onSubmit="return user_login();">
+      <div class="form">
+      	<div class="mt">
+        	<h2>用户登陆</h2><a href="register.php" class="right_register main-color"><span class="text">立即注册</span><i class="icon"></i></a>
+        </div>
+        <div class="mc">
+        	<div class="msg-wrap">
+            	<div class="msg-error">
+                	<i class="msg-icon"></i><span id="msg-error-text" class="msg-error-text"></span>
+                </div>
+            </div>
+        	<div class="item item-name">
+            	<i class="icon"></i>
+                <input name="username" id="username" type="text" class="text" value="" tabindex="1" placeholder="手机号/用户名/邮箱"/>
+            </div>
+            <div class="item item-password">
+                <i class="icon"></i>
+                <input type="password" name="password" id="password" class="text" value="" tabindex="2" placeholder="密码"/>
+            </div>
+            <!-- 判断是否启用验证码{if $enabled_captcha} -->
+            <div class="item item-authcode" id="o-authcode">
+            	<div class="item-detail fl">
+                    <i class="icon"></i>
+                    <input type="text" id="authcode" name="captcha" class="text text-1" tabindex="3" placeholder="验证码"/>
+                </div>
+                <label class="img fl">
+                    <img src="captcha.php?is_login=1&{$rand}" alt="captcha" style="vertical-align: middle;cursor: pointer;" onClick="this.src='captcha.php?is_login=1&'+Math.random()" />
+                </label>
+            </div>
+            <!--{/if}-->
+            <div class="safety" id="autoentry">
+                <input type="checkbox" value="1" name="remember" id="remember" class="checkbox"/>
+                <label for="remember" class="mar-b">请保存我这次的登录信息</label>
+                <a class="forget_password fr" href="findPwd.php">忘记密码？</a> 
+            </div>
+            <div class="login-btn">
+              <input type="hidden" name="act" value="act_login" />
+              <input type="hidden" name="back_act"  value=''/>
+              <input type="submit" name="submit" class="btn-img" id="loginsubmit" value="立即登录" />
+            </div>
+            <div class="item-coagent">
+		    	<a href="user.php?act=oath&type=weixin"><i class="weixin"></i>微信</a>
+            	<a href="user.php?act=oath&type=qq"><i class="qq"></i>QQ</a>
+            	<a href="user.php?act=oath&type=weibo"><i class="sina"></i>新浪</a>
+            	<a href="user.php?act=oath&type=alipay" class="last"><i class="alipay"></i>支付宝</a>
+            </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script type="text/javascript">	
+$(window).scroll(function(){ 
+	if($(this).scrollTop() > $(window).height() ){ 
+		$('.returnTop').show();
+	}else{ 
+		$('.returnTop').hide();
+	} 
+}) 
+$('.cart-panel-content').height($(window).height()-90);
+$('.bonus-panel-content').height($(window).height()-40);
+$(".returnTop").click(function(){
+	$('body,html').animate({scrollTop:0},800);
+	return false;
+});
+{if !$smarty.session.user_id >0}
+//点击用户图标弹出登录框
+$('.quick-login .quick-links-a,.quick-login .quick-login-a,.customer-service-online a').click(function(){
+	$('.pop-login,.pop-mask').show();
+})
+{/if}
+$('.quick-area').hover(function(){
+	$(this).find('.quick-sidebar').toggle();
+})
+//移动图标出现文字
+$(".right-sidebar-panel li").mouseenter(function(){
+	$(this).children(".popup").stop().animate({left:-92,queue:true});
+	$(this).children(".popup").css("visibility","visible");
+	$(this).children(".ibar_login_box").css("display","block");
+});
+$(".right-sidebar-panel li").mouseleave(function(){
+	$(this).children(".popup").css("visibility","hidden");
+	$(this).children(".popup").stop().animate({left:-121,queue:true});
+	$(this).children(".ibar_login_box").css("display","none");
+});
+//点击购物车、用户信息以及浏览历史事件
+$('.sidebar-tabs').click(function(){
+	if($('.right-sidebar-main').hasClass('right-sidebar-main-open')&&$(this).hasClass('current')){
+		$('.right-sidebar-main').removeClass('right-sidebar-main-open');
+		$(this).removeClass('current');
+		$('.right-sidebar-panels').eq($(this).index()-1).removeClass('animate-in').addClass('animate-out').css('z-index',1);
+	}else{
+		$(this).addClass('current').siblings('.sidebar-tabs').removeClass('current');
+		$('.right-sidebar-main').addClass('right-sidebar-main-open');
+		$('.right-sidebar-panels').eq($(this).index()-1).addClass('animate-in').removeClass('animate-out').css('z-index',2).siblings('.right-sidebar-panels').removeClass('animate-in').addClass('animate-out').css('z-index',1);
+	}
+});
+$(".right-sidebar-panels").on('click', '.close-panel', function () {
+	$('.sidebar-tabs').removeClass('current');
+	$('.right-sidebar-main').removeClass('right-sidebar-main-open');
+	$('.right-sidebar-panels').removeClass('animate-out');
+});
+$(document).click(function(e){ 
+	var target = $(e.target); 
+	if(target.closest('.right-sidebar-con').length == 0){ 
+		$('.right-sidebar-main').removeClass('right-sidebar-main-open');
+		$('.sidebar-tabs').removeClass('current');
+		$('.right-sidebar-panels').removeClass('animate-in').addClass('animate-out').css('z-index',1);
+	} 
+}) 
+
+$('.pop-login').css('top',($(window).height()-$('.pop-login').height())/2);
+$('.pop-close').click(function(){
+	$('.pop-main,.pop-mask').hide();
+	$('form[name="formLogin"]').find('.msg-wrap').css('visibility','hidden');
+	$('.pop-login .item,.pop-login .item-detail').removeClass('item-error');
+	$('.pop-login .text').val('');
+})
+$('.pop-login .item .text').focus(function(){
+	$(this).addClass('')	
+})
+</script>

@@ -1,0 +1,120 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+/* focus */
+html { overflow:-moz-scrollbars-vertical; }
+#focus {
+	height: 480px;
+	overflow: hidden;
+	position: relative;
+}
+#focus ul {
+	height: 480px;
+	position: absolute;
+}
+#focus ul li {
+	float: left;
+	overflow: hidden;
+	position: relative;
+	background:#fff;
+}
+#focus ul li a{
+	display:block;
+	width:100%;
+	height:100%;	
+}
+#focus ul li div {
+	position: absolute;
+	overflow: hidden;
+}
+#focus .btnBg {
+	width:100%;
+	position: absolute;
+	height: 20px;
+	left: 0;
+	bottom: 0;
+}
+#focus .btn {
+	position: absolute;
+	height: 18px;
+	bottom: 10px;
+	left:50%;
+	overflow:hidden;
+}
+#focus .btn span {
+	display: block; 
+	float:left;
+	background: #eee; 
+	border: 1px rgba(255,255,255,0.5) solid; 
+	width: 10px; 
+	height: 10px; 
+	border-radius: 10px; 
+	margin-right: 5px; 
+	text-indent:-9999px; 
+	overflow:hidden; 
+	cursor:pointer
+}
+#focus .btn span.on {
+	background: #fff;
+}
+</style>
+{insert_scripts files='jquery.js'} 
+<div id="focus"></div>
+<script type="text/javascript">
+$(function() {
+	var sWidth = $("#focus").width(); 
+	var len = $("#focus ul li").length; 
+	var index = 0;
+	var picTimer;
+	var btn = "<div class='btnBg'></div><div class='btn'>";
+	for(var i=0; i < len; i++) {
+		var n=i+1;
+		btn += "<span>"+n+"</span>";
+	}
+	btn += "</div>";
+	$("#focus").append(btn);
+	$("#focus .btnBg").css("opacity",0.5);
+	$("#focus .btn").css("marginLeft",-$('#focus .btn').width());
+	$("#focus .btn span").eq(0).addClass('on');
+	$("#focus .btn span").mouseover(function() {
+		index = $("#focus .btn span").index(this);
+		showPics(index);
+	}).eq(0).trigger("mouseout");
+	$("#focus ul").css("width",sWidth * (len));
+	$("#focus").hover(function() {
+		clearInterval(picTimer);
+	},function() {
+		picTimer = setInterval(function() {
+			showPics(index);
+			index++;
+			if(index == len) {index = 0;}
+		},4000);
+	}).trigger("mouseleave");
+	
+	function showPics(index) { 
+		var nowLeft = -index*sWidth; 
+		$("#focus ul").stop(true,false).animate({"left":nowLeft},300); 
+		$("#focus .btn span").stop(true,false).removeClass('on').eq(index).stop(true,false).addClass('on'); 
+	}
+});
+
+</script>
+<script type="text/javascript">
+  var swf_width=document.body.offsetWidth;
+  var swf_height=480;	
+</script> 
+<script type="text/javascript" src="data/flashdata/{$flash_theme}/data.js"></script> 
+<script type="text/javascript">
+var picss = new Array();
+var linkss = new Array();
+var textss = new Array();
+picss = pics.split("|");
+linkss = links.split("|");
+textss = texts.split("|");
+var picstr = '<ul>';
+$.each(picss, function (index, tx) { 
+	picstr += '<li style="background:url('+tx+') no-repeat center top;width:'+swf_width+'px; height:'+swf_height+'px;"><a href="'+decodeURIComponent(linkss[index])+'" target="_blank" title="'+textss[index]+'"></a></li>';
+});
+picstr += '</ul>';
+$('#focus').css('width',swf_width);
+document.getElementById('focus').innerHTML = picstr;
+</script> 

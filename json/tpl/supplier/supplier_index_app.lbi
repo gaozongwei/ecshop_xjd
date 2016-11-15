@@ -1,0 +1,76 @@
+<!-- {if $best_goods} -->
+         <div class="index_good_title">精品推荐</div>
+            <div class="index_goods_box uh">
+	    <!--{foreach from=$best_goods item=bestgoods}-->
+               <div class="good_box">
+                  <div class="img_box">
+                  <img alt="{$bestgoods.thumb}" src="http://{$smarty.server.SERVER_NAME}/{$bestgoods.thumb}" onclick="goods({$bestgoods.id})" />
+                  <div class="tiao ub ub-ac">
+                     <span class="baizi1">
+		     <!-- {if $bestgoods.promote_price neq ""} -->
+			  {$bestgoods.promote_price}
+		     <!-- {else}-->
+			  {$bestgoods.shop_price}
+		     <!--{/if}-->
+	             </span>                    
+                  </div>
+                  </div>
+                  <div class="goods_name">{$bestgoods.name}</div>
+                 
+               </div> 
+	    {/foreach}
+        <div class="clear" style="clear:both; width:100%; height:1px;"></div>
+        </div>
+            </div>
+<!-- {/if} -->
+
+
+<!-- {if $hot_goods} -->
+	<div class="index_good_title">热销商品</div>
+	    <div class="index_goods_box uh">
+	    <!--{foreach from=$hot_goods item=bestgoods}-->
+               <div class="good_box">
+                  <div class="img_box">
+                  <img alt="{$bestgoods.thumb}" src="http://{$smarty.server.SERVER_NAME}/{$bestgoods.thumb}" onclick="goods({$bestgoods.id})" />
+                  <div class="tiao ub ub-ac">
+                     <span class="baizi1">
+		     <!-- {if $bestgoods.promote_price neq ""} -->
+			  {$bestgoods.promote_price}
+		     <!-- {else}-->
+			  {$bestgoods.shop_price}
+		     <!--{/if}-->
+	             </span>                    
+                  </div>
+                  </div>
+                  <div class="goods_name">{$bestgoods.name}</div>
+                 
+               </div> 
+	    {/foreach}
+        <div class="clear" style="clear:both; width:100%; height:1px;"></div>
+        </div>
+            </div>
+<!-- {/if} -->
+
+<!-- {if $new_goods} -->
+	<div class="index_good_title">新品上市</div>
+	    <div class="index_goods_box uh">
+	    <!--{foreach from=$new_goods item=bestgoods}-->
+               <div class="good_box">
+                  <div class="img_box">
+                  <img alt="{$bestgoods.thumb}" src="http://{$smarty.server.SERVER_NAME}/{$bestgoods.thumb}" onclick="goods({$bestgoods.id})" />
+                  <div class="tiao ub ub-ac">
+                     <span class="baizi1">
+		     <!-- {if $bestgoods.promote_price neq ""} -->
+			  {$bestgoods.promote_price}
+		     <!-- {else}-->
+			  {$bestgoods.shop_price}
+		     <!--{/if}-->
+	             </span>                    
+                  </div>
+                  </div>
+                  <div class="goods_name">{$bestgoods.name}</div>                
+               </div> 
+	    {/foreach}
+        <div class="clear" style="clear:both; width:100%; height:1px;"></div>
+            </div>
+<!-- {/if} -->

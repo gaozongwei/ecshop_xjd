@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$page_title}</title>
+<!-- TemplateEndEditable -->
+<!-- TemplateBeginEditable name="head" -->
+<!-- TemplateEndEditable -->
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link rel="Stylesheet" type="text/css" href="themes/68ecshopcom_360buy/css/alltree.css" />
+<script type="text/javascript" src="themes/68ecshopcom_360buy/js/jquery-1.9.1.min.js"></script>
+{insert_scripts files='jquery.json.js,transport.js'}
+{insert_scripts files='common.js'}
+</head>
+<body>
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<div class="blank"></div>
+<div class="margin-w1210">
+  <ul id="tab-link">
+    <li class="curr"><a href="catalog.php">全部商品分类</a></li>
+    <li><a href="brand.php">全部品牌</a></li>
+    <li><a href="search.php">全部商品</a></li>
+  </ul>
+  <!--tab end--> 
+</div>
+<?php
+$GLOBALS['smarty']->assign('categories',       get_categories_tree(0)); // 分类树
+?>
+<div class="margin-w1210" id="tab-sort">
+  <div class="i-w">
+    <div class="text">更多特价产品，请进入以下二级频道页面</div>
+    <ul>
+      <!--{foreach from=$categories item=cat name=categories}-->
+      <li><a href="{$cat.url}" title="{$cat.name}">{$cat.name|truncate:8}</a></li>
+      <!--{/foreach}-->
+    </ul>
+  </div>
+</div>
+<div class="margin-w1210 clearfix" id="allsort">
+  <div class="fl"> 
+    <!--{foreach from=$categories item=cat name=categories}--> 
+    <!-- {if $smarty.foreach.categories.iteration % 2 eq 1} -->
+    <div class="m">
+      <div class="mt">
+        <h2><a href="{$cat.url}">{$cat.name|escape:html}</a></h2>
+      </div>
+      <div class="mc"> 
+        <!--{foreach from=$cat.cat_id item=child name=cat_cat_id}-->
+        <dl {if $smarty.foreach.cat_cat_id.iteration eq 1}class="fore"{/if}>
+          <dt><a href="{$child.url}">{$child.name|escape:html}</a></dt>
+          <dd> 
+            <!--{foreach from=$child.cat_id item=childer}--> 
+            <em><a href="{$childer.url}">{$childer.name|escape:html}</a></em> 
+            <!--{/foreach}--> 
+          </dd>
+        </dl>
+        <!--{/foreach}--> 
+      </div>
+    </div>
+    <!-- {/if} --> 
+    <!--{/foreach}--> 
+  </div>
+  <!--fl end-->
+  <div class="fr"> 
+    <!--{foreach from=$categories item=cat name=categories}--> 
+    <!-- {if $smarty.foreach.categories.iteration % 2 eq 0} -->
+    <div class="m">
+      <div class="mt">
+        <h2><a href="{$cat.url}">{$cat.name|escape:html}</a></h2>
+      </div>
+      <div class="mc"> 
+        <!--{foreach from=$cat.cat_id item=child name=cat_cat_id}-->
+        <dl {if $smarty.foreach.cat_cat_id.iteration eq 1}class="fore"{/if}>
+          <dt><a href="{$child.url}">{$child.name|escape:html}</a></dt>
+          <dd> 
+            <!--{foreach from=$child.cat_id item=childer}--> 
+            <em><a href="{$childer.url}">{$childer.name|escape:html}</a></em> 
+            <!--{/foreach}--> 
+          </dd>
+        </dl>
+        <!--{/foreach}--> 
+      </div>
+    </div>
+    <!-- {/if} --> 
+    <!--{/foreach}--> 
+  </div>
+  <!--fr end--> 
+</div>
+<div class="site-footer">
+  <div class="footer-related"> <!-- #BeginLibraryItem "/library/help.lbi" --><!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem --> </div>
+</div>
+</body>
+</html>

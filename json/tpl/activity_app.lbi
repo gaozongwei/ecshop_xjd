@@ -1,0 +1,79 @@
+<!-- {foreach from=$list item=val name=val} -->
+<div class="activity_img">
+	<img src="http://{$smarty.server.SERVER_NAME}/{$val.logo|default:images/ceshi.jpg}"/>
+	<div class="activ_title ub ub-ac">
+		{$val.act_name}【{$val.act_type}<!-- {if $val.act_type ne $lang.fat_goods} -->{$val.act_type_ext}<!-- {/if} -->】
+	</div>
+</div>
+    
+<table class="zebra">  
+	<thead>  
+		<tr>  
+			<th colspan="2">{$val.shop_name|default:网站自营}</th>        
+		</tr>  
+	</thead>  
+	<!-- {if $val.gift} -->
+	<tfoot>  
+		<tr>  
+			<td colspan="2">
+			<!-- {foreach from=$val.gift item=goods} -->
+				<div class="activ_goods">
+					<img src="http://{$smarty.server.SERVER_NAME}/{$goods.thumb}" title="{$goods.name}" onclick="goods({$goods.id})" />
+					<div class="wenzi ub ub-ac ub-pc"><!-- {if $goods.price > 0} --> 
+                              {$goods.price}{$lang.unit_yuan} 
+                              <!-- {else} --> 
+                              {$lang.for_free} 
+                              <!-- {/if} --></div>
+				</div>
+			<!-- {/foreach} -->
+			</td> 
+		</tr>  
+	</tfoot>  
+	<!-- {/if} -->
+	<tr>
+		<td>开始时间</td>
+		<td>{$val.start_time}</td>
+	</tr>
+	<tr>
+		<td>结束时间</td>
+		<td>{$val.end_time}</td>
+	</tr>
+	<tr>  
+		<td>金额上限</td>  
+		<td><!-- {if $val.max_amount > 0} --> 
+                        {$val.max_amount} 
+                        <!-- {else} --> 
+                        不限
+                        <!-- {/if} --></td>  
+	</tr>  
+	<tr>  
+		<td>金额下限</td>  
+		<td><!-- {if $val.min_amount > 0} --> 
+                        {$val.min_amount} 
+                        <!-- {else} --> 
+                        不限
+                        <!-- {/if} --></td>  
+	</tr>  
+	<tr>  
+		<td>优惠会员等级</td>  
+		<td><!-- {foreach from=$val.user_rank item=user} --> 
+                        {$user} 
+                        <!-- {/foreach} --></td>  
+	</tr>  
+	<tr>  
+		<td>优惠范围</td>  
+		<td> {$val.act_range} 
+                        <!-- {if $val.act_range ne $lang.far_all} --> 
+                        :
+                        <!-- {foreach from=$val.act_range_ext item=ext} --> 
+                        <span class="f_user_info" onclick="localStorage.attr=0;pgourl('{$ext.name}','{$ext.id}')"><u>{$ext.name}</u></span>
+                        <!-- {/foreach} --> 
+                        <!-- {/if} --></td>  
+	</tr>  
+	<tr>  
+		<td>优惠方式</td>  
+		<td> {$val.act_type}<!-- {if $val.act_type ne $lang.fat_goods} -->{$val.act_type_ext}<!-- {/if} --></td>  
+	</tr>  
+
+</table>
+<!-- {/foreach} -->

@@ -1,0 +1,22 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--{if $top_goods}-->
+<div class="aside-con">
+	<h2 class="aside-tit">销量排行榜</h2>
+    <ul class="aside-list">
+		<!-- {foreach from=$top_goods item=goods name=top_goods}-->
+		<li>
+        	<div class="p-img">
+            	<a target="_blank" title="{$goods.name|escape:html}" href="{$goods.url}"><img alt="{$goods.goods_name|escape:html}" data-original="{$goods.thumb}" src="themes/68ecshopcom_360buy/images/loading.gif" /></a> 
+            </div>
+            <div class="p-name">
+                <a target="_blank" title="{$goods.name|escape:html}" href="{$goods.url}">{$goods.goods_name}</a>
+            </div>
+            <div class="p-price">
+                <span class="sale-price main-color">{$goods.price}</span>
+                <span class="sale-num">销量: {$goods.count}</span>
+            </div>
+      </li>
+      <!-- {/foreach} -->
+	</ul>
+</div>
+<!--{/if}-->

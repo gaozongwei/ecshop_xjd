@@ -1,0 +1,156 @@
+<!-- $Id: shop_hot_sell_stats.htm 14216 2015-10-29 13:57:21Z langlibin $ -->
+{include file="pageheader_bd.htm"}
+<script type="text/javascript" src="../js/calendar.php?lang={$cfg_lang}"></script>
+<link href="../js/calendar/calendar.css" rel="stylesheet" type="text/css" />
+{insert_scripts files="../js/utils.js,listtable.js"}
+{insert_scripts files='jquery-1.6.2.min.js,chosen.jquery.min.js'}
+<div id="tabbar-div">
+    <p>
+        <span class="tab-back" onclick="javascript:location.href='shop_added_stats.php'">新增店铺</span>
+        <span class="tab-front" onclick="javascript:location.href='shop_hot_sell_stats.php'">热卖排行</span>
+        <span class="tab-back" onclick="javascript:location.href='shop_sell_count_stats.php'">销售统计</span>
+        <span class="tab-back" onclick="javascript:location.href='shop_sell_area_list_stats.php'">区域分布</span>
+    </p>
+</div>
+<div class="main-div">
+    <p style="margin: 10px">
+        1、符合以下任何一种条件的订单即为有效订单：1）采用在线支付方式支付并且已付款；2）采用货到付款方式支付并且交易已完成<br />
+        2、“店铺热卖TOP榜”展示了时间段内店铺有效订单的订单数量和订单总金额的前15名店铺<br />
+        3、“店铺热卖飙升榜”展示了时间段内店铺有效订单的订单数量和订单总金额增长率高的前15名店铺<br />
+    </p>
+</div>
+<div class="form-div">
+    <form action="shop_hot_sell_stats.php" method="post" id="searchForm" name="searchForm">
+        <select name="stats_type" id="stats_type" onchange="week()">
+            <option value="0" {if $stats_type eq '0'}selected{/if}>按日统计</option>
+            <option value="1" {if $stats_type eq '1'}selected{/if}>按周统计</option>
+            <option value="2" {if $stats_type eq '2'}selected{/if}>按月统计</option>
+        </select>
+        <input name="date" id="date" value="{$date}" style="width:100px;height:20px;" onclick="return showCalendar(this, '%Y-%m-%d', false, false, this);" />
+        <select name="year" id="year" onchange="week()"></select>
+        <select name="month" id="month" onchange="week()"></select>
+        <select name="dropweek" id="dropweek" {if $stats_type neq '1'}style="display: none"{/if}></select>
+        &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="submit" value="{$lang.query}" class="button" />
+    </form>
+</div>
+<div class="list-div" id="listDiv">
+    <table cellpadding="3" cellspacing="1">
+        <tr>
+            <th>序号</th>
+            <th>店铺名称</th>
+            <th>下单金额</th>
+            <th>下单量</th>
+        </tr>
+        {foreach from=$shop_hot_sell item=item}
+        <tr>
+            <td>{$item.no}</td>
+            <td>{$item.shop_name}</td>
+            <td>{$item.goods_amount}</td>
+            <td>{$item.goods_count}</td>
+        </tr>
+        {foreachelse}
+        <tr><td class="no-records" colspan="10">{$lang.no_records}</td></tr>
+        {/foreach}
+    </table>
+</div>
+
+<script type="text/javascript" language="JavaScript">
+    var date = new Date();
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+
+    for (i = 0; i < 10; i++) {
+        var oP = document.createElement("option");
+        var oText = document.createTextNode(y);
+        oP.appendChild(oText);
+        oP.setAttribute("value", y);
+        if(y == '{$year}')
+        {
+            oP.setAttribute("selected", "selected")
+        }
+        document.getElementById('year').appendChild(oP);
+        y = y - 1;
+    };
+    var j = 1;
+    for (i = 1; i < 13; i++) {
+        var month = document.createElement("option");
+        var monthText = document.createTextNode(j);
+        month.appendChild(monthText);
+        month.setAttribute("value", j);
+        if (j == {$month})
+        {
+            month.setAttribute("selected", "selected");
+        }
+        document.getElementById('month').appendChild(month);
+        j = j + 1;
+    };
+
+    var week_num = {$week_num};
+    //绑定周
+    function week()
+    {
+        if($("#stats_type").val()==0)
+        {
+            $("#date").show();
+            $("#year").hide();
+            $("#month").hide();
+            $("#dropweek").hide();
+            return;
+        }
+        else if($("#stats_type").val()==2)
+        {
+            $("#date").hide();
+            $("#year").show();
+            $("#month").show();
+            $("#dropweek").hide();
+            return;
+        }
+        $("#date").hide();
+        $("#year").show();
+        $("#month").show();
+        $("#dropweek").show();
+        var text = $("#year").val() + '-' + $("#month").val();
+        var ymd = text.substring(0, 4) + "-" + text.substring(5, 7) + "-1";
+        var week = new Date(Date.parse(ymd.replace(/\-/g, "/")));
+        var w = week.toString().substring(0, 3);
+        var yymm = new Date(text.substring(0, 4), text.substring(5, 7), 0);
+        var day = yymm.getDate();
+        var dd = 1;
+        switch (w) {
+            case "Mon": dd = 0; break;
+            case "Tue": dd = 1; break;
+            case "Wed": dd = 2; break;
+            case "Thu": dd = 3; break;
+            case "Fri": dd = 4; break;
+            case "Sat": dd = 5; break;
+            case "Sun": dd = 6; break;
+        }
+        var aw = 5;
+        if (day == 28 && dd == 0) {
+            aw = 4;
+        }
+        var i = 1;
+        $("#dropweek").empty();
+        for (var i = 0; i < aw; i++) {
+            var start = i * 7 + 1 - dd;
+            var end = i * 7 + 7 - dd;
+            if (start < 1) {
+                start = 1;
+            }
+            if (end > day) {
+                end = day;
+            }
+            var str = ("第" + (i + 1) + "周 <" + text.substring(5, 7) + "月" + start + "号—" + text.substring(5, 7) + "月" + end + "号>").toString();
+            var val = $("#year").val() + '-' + text.substring(5, 7) + '-' + start + ' ' + $("#year").val() + '-' + text.substring(5, 7) + '-' + end + ' ' + i;
+            $("#dropweek").append("<option value='" + val + "'>" + str + "</option>");
+        }
+        $('#dropweek')[0].selectedIndex = week_num;
+
+        var itme = $("#dropweek").find("option:selected").text();
+        $("#txtweek:text").val(itme.toString());
+    }
+    // 执行
+    week();
+</script>
+
+{include file="pagefooter.htm"}

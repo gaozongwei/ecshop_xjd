@@ -1,0 +1,301 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$page_title}</title>
+<!-- TemplateEndEditable -->
+<!-- TemplateBeginEditable name="head" -->
+<!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link rel="stylesheet" type="text/css" href="themes/68ecshopcom_360buy/css/article.css" />
+<script type="text/javascript" src="themes/68ecshopcom_360buy/js/jquery-1.9.1.min.js"></script>
+{insert_scripts files='jquery.json.js,transport.js'}
+{insert_scripts files='common.js'}
+</head>
+<body>
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<div class="article-box clearfix">
+  <div id="focus">
+    <div class="slider">
+      <div class="slider-panel"> <!-- #BeginLibraryItem "/library/ar_ad.lbi" --><!-- #EndLibraryItem --> </div>
+      <div class="slider-extra"> <a class="curr" href="javascript:;">1</a> <a href="javascript:;">2</a> <a href="javascript:;">3</a> <a href="javascript:;">4</a> <a href="javascript:;">5</a> </div>
+    </div>
+  </div>
+  <div class="focus-today">
+    <h3></h3>
+    <!--{foreach from=$article_top item=article}-->
+    <div class="focus-news">
+      <h4>{$article.title}</h4>
+      <p class="k_h"><a href="{$article.url}" target="_blank">{$article.content|truncate:60}</a> </p>
+      <p><a href="{$article.url}" class="red" target="_blank">【详细阅读】</a></p>
+    </div>
+    <!-- {/foreach} -->
+    <ul class="allList bodertop mt10">
+      <!--{foreach from=$article_top1 item=article}-->
+      <li><a class="kind" href="{$article.cat_url}" target="_blank">{$article.cat_name}</a><span>|</span><a href="{$article.url}" target="_blank" title="{$article.title}">{$article.title}</a></li>
+      <!-- {/foreach} -->
+    </ul>
+    <ul class="allList bodertop mt10">
+      <!--{foreach from=$article_top2 item=article}-->
+      <li><a class="kind" href="{$article.cat_url}" target="_blank">{$article.cat_name}</a><span>|</span><a href="{$article.url}" target="_blank" title="{$article.title}">{$article.title}</a></li>
+      <!-- {/foreach} -->
+    </ul>
+  </div>
+  <div class="page-side">
+    <div class="side-con"> 
+      <!--{foreach from=$article_right1 item=article name=name}--> 
+      <!--{if $smarty.foreach.name.iteration <=1 }-->
+      <div class="title"><a class="more" href="{$article.cat_url}"></a>{$article.cat_name}</div>
+      <!--{/if}--> 
+      <!-- {/foreach} -->
+      <ul class="body">
+        <!--{foreach from=$article_right1 item=article name=name}--> 
+        <!--{if $smarty.foreach.name.iteration lt 11}-->
+        <li>
+          <span class="icon <!--{if $smarty.foreach.name.iteration lt 4 }-->curr<!--{/if}--> ">{$smarty.foreach.name.iteration}</span><a href="{$article.url}" target="_blank" title="{$article.title}">{$article.title|truncate:16}</a>
+        </li>
+        <!--{/if}-->
+        <!-- {/foreach} --> 
+      </ul>
+    </div>
+    <div class="pic Right"> 
+      <!--{foreach from=$article_imgad1 item=articleimg name=name}--> 
+      <a href="{$articleimg.url}" target="_blank" title="{$articleimg.title}"><img src="{$articleimg.img.0}" width="273" height="110"></a> 
+      <!-- {/foreach} --> 
+    </div>
+  </div>
+</div>
+<div class="article-box home-ad">
+  <div class="ad-list"><!-- #BeginLibraryItem "/library/ar_ad_mid.lbi" --><!-- #EndLibraryItem --></div>
+</div>
+<div class="article-box clearfix">
+  <div class="main-con"> <!-- #BeginLibraryItem "/library/article_tit1.lbi" --><!-- #EndLibraryItem -->
+    <div class="body">
+      <div class="first"> 
+        <!--{foreach from=$article_left1_cat1 item=article name=name}--> 
+        <!--{if $smarty.foreach.name.iteration <=1 }-->
+        <div class="head"> <span><a href="{$article.cat_url}" target="_blank">{$article.cat_name}</a></span>
+          <a class="head-more" href="{$article.cat_url}" target="_blank">更多</a>
+        </div>
+        <!--{/if}--> 
+        <!-- {/foreach} -->
+        <ul class="allList">
+          <!--{foreach from=$article_left1_cat1 item=article}-->
+          <li><a class="kind" href="{$article.cat_url}" target="_blank" title="{$article.cat_name}">{$article.cat_name}</a><span>|</span><a href="{$article.url}" target="_blank" title="{$article.title}">{$article.title}</a></li>
+          <!-- {/foreach} -->
+        </ul>
+      </div>
+      <div class="first"> 
+        <!--{foreach from=$article_left1_cat2 item=article name=name}--> 
+        <!--{if $smarty.foreach.name.iteration <=1 }-->
+        <div class="head"> <span><a href="{$article.cat_url}" target="_blank">{$article.cat_name}</a></span>
+          <a class="head-more" href="{$article.cat_url}" target="_blank">更多</a>
+        </div>
+        <!--{/if}--> 
+        <!-- {/foreach} -->
+        <ul class="allList">
+          <!--{foreach from=$article_left1_cat2 item=article}-->
+          <li><a class="kind" href="{$article.cat_url}" target="_blank" title="{$article.cat_name}">{$article.cat_name}</a><span>|</span><a href="{$article.url}" target="_blank" title="{$article.title}">{$article.title}</a></li>
+          <!-- {/foreach} -->
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="page-side">
+    <div class="side-con"> 
+      <!--{foreach from=$article_right2 item=article name=name}--> 
+      <!--{if $smarty.foreach.name.iteration <=1 }-->
+      <div class="title"><a class="more" href="{$article.cat_url}"></a>{$article.cat_name}</div>
+      <!--{/if}--> 
+      <!-- {/foreach} -->
+      <ul class="body">
+        <!--{foreach from=$article_right2 item=article name=name}--> 
+        <!--{if $smarty.foreach.name.iteration lt 11 }-->
+        <li>
+          <span class="icon <!--{if $smarty.foreach.name.iteration lt 4}-->curr<!--{/if}-->">{$smarty.foreach.name.iteration}</span><a href="{$article.url}" target="_blank" title="{$article.title}">{$article.title|truncate:20}</a>
+        </li>
+        <!--{/if}--> 
+        <!-- {/foreach} --> 
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="article-box"> 
+	<div class="article-img-box">
+        <!--{foreach from=$article_imgtit1 item=article}-->
+        <div class="sec-title-1">
+            <a class="more" href="{$article.cat_url}">更多&gt;&gt;</a>
+            <h3>{$article.cat_name}</h3>
+        </div>
+        <!-- {/foreach} -->
+        <ul>
+            <!--{foreach from=$article_img1 item=articleimg name=name}--> 
+            <!--{if $smarty.foreach.name.iteration <=1 }-->
+            <li class="focus">
+              <p><a href="{$articleimg.url}"><img class="view" alt="{$articleimg.title}" src="{if $articleimg.img.0}{$articleimg.img.0}{else}themes/68ecshopcom_360buy/images/article_img.jpg{/if}"></a></p>
+              <p><a class="txt" title="{$articleimg.title}" target="_blank"
+          href="{$articleimg.url}">{$articleimg.title|truncate:10}</A></P>
+            </li>
+            <!--{/if}--> 
+            <!-- {/foreach} --> 
+            <!--{foreach from=$article_img1 item=articleimg name=name}--> 
+            <!-- {if $smarty.foreach.name.iteration>1}-->
+            <li>
+              <p><a href="{$articleimg.url}" target="_blank"><img class="view" alt="{$articleimg.title}" src="{if $articleimg.img.0}{$articleimg.img.0}{else}themes/68ecshopcom_360buy/images/article_img.jpg{/if}"></a></p>
+              <p><a class="txt" title="{$articleimg.title}" target="_blank"
+          href="{$articleimg.url}">{$articleimg.title|truncate:10}</a></p>
+            </li>
+            <!--{/if}--> 
+            <!-- {/foreach} -->
+		</ul>
+  	</div>
+</div>
+<div class="article-box clearfix">
+  <div class="main-con"> <!-- #BeginLibraryItem "/library/article_tit2.lbi" --><!-- #EndLibraryItem -->
+    <div class="body">
+      <div class="first"> 
+        <!--{foreach from=$article_left2_cat1 item=article name=name}--> 
+        <!--{if $smarty.foreach.name.iteration <=1 }-->
+        <div class="head"> <span><a href="{$article.cat_url}" target="_blank">{$article.cat_name}</a></span>
+          <a class="head-more" href="{$article.cat_url}" target="_blank">更多</a>
+        </div>
+        <!--{/if}--> 
+        <!-- {/foreach} -->
+        <ul class="allList">
+          <!--{foreach from=$article_left2_cat1 item=article}-->
+          <li><a class="kind" href="{$article.cat_url}" target="_blank" title="{$article.cat_name}">{$article.cat_name}</a><span>|</span><a href="{$article.url}" target="_blank" title="{$article.title}">{$article.title}</a></li>
+          <!-- {/foreach} -->
+        </ul>
+      </div>
+      <div class="first"> 
+        <!--{foreach from=$article_left2_cat2 item=article name=name}--> 
+        <!--{if $smarty.foreach.name.iteration <=1 }-->
+        <div class="head"> <span><a href="{$article.cat_url}" target="_blank">{$article.cat_name}</a></span>
+          <a class="head-more" href="{$article.cat_url}" target="_blank">更多</a>
+        </div>
+        <!--{/if}--> 
+        <!-- {/foreach} -->
+        <ul class="allList">
+          <!--{foreach from=$article_left2_cat2 item=article}-->
+          <li><a class="kind" href="{$article.cat_url}" target="_blank" title="{$article.cat_name}">{$article.cat_name}</a><span>|</span><a href="{$article.url}" target="_blank" title="{$article.title}">{$article.title}</a></li>
+          <!-- {/foreach} -->
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="page-side">
+    <div class="side-con"> 
+      <!--{foreach from=$article_right3 item=article name=name}--> 
+      <!--{if $smarty.foreach.name.iteration <=1 }-->
+      <div class="title"><a class="more" href="{$article.cat_url}"></a>{$article.cat_name}</div>
+      <!--{/if}--> 
+      <!-- {/foreach} -->
+      <ul class="body">
+        <!--{foreach from=$article_right3 item=article name=name}--> 
+        <!--{if $smarty.foreach.name.iteration lt 11 }-->
+        <li>
+          <span class="icon <!--{if $smarty.foreach.name.iteration lt 4}-->curr<!--{/if}-->">{$smarty.foreach.name.iteration}</span><a href="{$article.url}" target="_blank" title="{$article.title}">{$article.title|truncate:20}</a>
+        </li>
+        <!--{/if}--> 
+        <!-- {/foreach} --> 
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="article-box article-img-box1"> 
+  <!--{foreach from=$article_imgtit2 item=article}-->
+  <div class="sec-title-1">
+    <a class="more" target="_blank" href="{$article.cat_url}">更多&gt;&gt;</a>
+    <h3>{$article.cat_name}</h3>
+  </div>
+  <!-- {/foreach} -->
+  <ul>
+    <!--{foreach from=$article_img2 item=articleimg name=name}-->
+    <li <!--{if $smarty.foreach.name.first}-->class="first"<!--{/if}-->>
+      <p><a href="{$articleimg.url}" target="_blank"><img class="view" 
+  alt="{$articleimg.title}" src="{if $articleimg.img.0}{$articleimg.img.0}{else}themes/68ecshopcom_360buy/images/article_img.jpg{/if}"></a></p>
+      <p><a class="txt" title="{$articleimg.title}" target="_blank" href="{$articleimg.url}">{$articleimg.title|truncate:10}</a></p>
+    </li>
+    <!-- {/foreach} -->
+  </ul>
+</div>
+<div class="article-box clearfix">
+  <div class="main-con"> <!-- #BeginLibraryItem "/library/article_tit3.lbi" --><!-- #EndLibraryItem -->
+    <div class="body">
+      <div class="first"> 
+        <!--{foreach from=$article_left3_cat1 item=article name=name}--> 
+        <!--{if $smarty.foreach.name.iteration <=1 }-->
+        <div class="head"> <span><a href="{$article.cat_url}" target="_blank">{$article.cat_name}</a></span>
+          <a class="head-more" href="{$article.cat_url}" target="_blank">更多</a>
+        </div>
+        <!--{/if}--> 
+        <!-- {/foreach} -->
+        <ul class="allList">
+          <!--{foreach from=$article_left3_cat1 item=article}-->
+          <li><a class="kind" href="{$article.cat_url}" target="_blank" title="{$article.cat_name}">{$article.cat_name}</a><span>|</span><a href="{$article.url}" target="_blank" title="{$article.title}">{$article.title}</a></li>
+          <!-- {/foreach} -->
+        </ul>
+      </div>
+      <div class="first"> 
+        <!--{foreach from=$article_left3_cat2 item=article name=name}--> 
+        <!--{if $smarty.foreach.name.iteration <=1 }-->
+        <div class="head"> <span><a href="{$article.cat_url}" target="_blank">{$article.cat_name}</a></span>
+          <a class="head-more" href="{$article.cat_url}" target="_blank">更多</a> 
+        </div>
+        <!--{/if}--> 
+        <!-- {/foreach} -->
+        <ul class="allList">
+          <!--{foreach from=$article_left3_cat2 item=article}-->
+          <li><a class="kind" href="{$article.cat_url}" target="_blank" title="{$article.cat_name}">{$article.cat_name}</a><span>|</span><a href="{$article.url}" target="_blank" title="{$article.title}">{$article.title}</a></li>
+          <!-- {/foreach} -->
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="page-side">
+    <div class="side-con"> 
+      <!--{foreach from=$article_right4 item=article name=name}--> 
+      <!--{if $smarty.foreach.name.iteration <=1 }-->
+      <div class="title"><a class="more" href="{$article.cat_url}"></a>{$article.cat_name}</div>
+      <!--{/if}--> 
+      <!-- {/foreach} -->
+      <ul class="body">
+        <!--{foreach from=$article_right4 item=article name=name}--> 
+        <!--{if $smarty.foreach.name.iteration lt 11}-->
+        <li>
+        	<span class="icon <!--{if $smarty.foreach.name.iteration lt 4}-->curr<!--{/if}-->">{$smarty.foreach.name.iteration}</span><a href="{$article.url}" target="_blank" title="{$article.title}">{$article.title|truncate:16}</a>
+        </li>
+        <!--{/if}--> 
+        <!-- {/foreach} --> 
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="article-img-box1 article-box"> 
+  <!--{foreach from=$article_imgtit3 item=article}-->
+  <div class="sec-title-1">
+    <a class="more" href="{$article.cat_url}" target="_blank">更多&gt;&gt;</a>
+    <h3>{$article.cat_name}</h3>
+  </div>
+  <!-- {/foreach} -->
+  <ul>
+    <!--{foreach from=$article_img3 item=articleimg name=name}-->
+    <li <!--{if $smarty.foreach.name.first}-->class="first"<!--{/if}-->>
+      <p><a href="{$articleimg.url}" target="_blank"><img class="view" alt="{$articleimg.title}" src="{if $articleimg.img.0}{$articleimg.img.0}{else}themes/68ecshopcom_360buy/images/article_img.jpg{/if}"></a></p>
+      <p><a class="txt" title="{$articleimg.title}" target="_blank" href="{$articleimg.url}">{$articleimg.title|truncate:10}</a></p>
+    </li>
+    <!-- {/foreach} -->
+  </ul>
+</div>
+<div class="site-footer">
+  <div class="footer-related"> 
+    <!-- #BeginLibraryItem "/library/help.lbi" --><!-- #EndLibraryItem --> 
+    <!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem --> 
+  </div>
+</div>
+</body>
+</html>

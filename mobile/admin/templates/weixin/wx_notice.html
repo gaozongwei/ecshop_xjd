@@ -1,0 +1,139 @@
+{include file="pageheader.htm"}
+
+{insert_scripts files="../js/utils.js,listtable.js"}
+
+
+
+<form name="theForm" method="post" action="weixin.php?act=notice" enctype="multipart/form-data">
+
+  <table width="100%" cellpadding="3" cellspacing="1">
+
+  <tbody>
+
+ <tr>
+
+    <td class="label">下单微信提醒 :</td>
+
+    <td><input type="radio" name="buynotice" value="1" {if $buynotice eq 1}checked{/if} />开启<input type="radio" name="buynotice" value="0" {if $buynotice eq 0}checked{/if} />关闭</td>
+
+  </tr>
+
+  <tr>
+
+    <td class="label">下单微信内容 :</td>
+
+    <td><textarea name="buymsg" rows="5" cols="40">{$buymsg}</textarea></td>
+
+  </tr>
+
+ <tr>
+
+    <td class="label">发货微信提醒 :</td>
+
+    <td><input type="radio" name="sendnotice" value="1" {if $sendnotice eq 1}checked{/if} />开启<input type="radio" name="sendnotice" value="0" {if $sendnotice eq 0}checked{/if} />关闭</td>
+
+  </tr>
+
+  <tr>
+
+    <td class="label">发货微信内容 :</td>
+
+    <td><textarea name="sendmsg" rows="5" cols="40">{$sendmsg}</textarea><br/>(可用变量：order_sn 订单号，shoping_code 快递号 shoping_type 快递类型)</td>
+
+  </tr>
+  
+  <tr>
+
+    <td class="label">每次/每天分享得收益 :</td>
+
+    <td><input type="radio" name="is_everyday" value="1" {if $is_everyday eq 1}checked{/if} />每天<input type="radio" name="is_everyday" value="0" {if $is_everyday eq 0}checked{/if} />每次</td>
+
+  </tr>
+  
+  <tr>
+
+    <td class="label">分享朋友圈图标 :</td>
+
+    <td><input type="file" name="weixin_logo"  />{if $weixin_logo}&nbsp;&nbsp;&nbsp;&nbsp;<b style="color:#F00;">已上传</b>{/if}</td>
+
+  </tr>
+  
+  <tr>
+
+    <td class="label">分享朋友得收益 :</td>
+
+    <td><input type="radio" name="is_pengyou" value="1" {if $is_pengyou eq 1}checked{/if} />开启<input type="radio" name="is_pengyou" value="0" {if $is_pengyou eq 0}checked{/if} />关闭</td>
+
+  </tr>
+    <tr>
+
+    <td class="label">分享朋友每天收益次数 :</td>
+
+    <td><textarea name="pengyou_times" rows="1" cols="40">{$pengyou_times}</textarea></td>
+
+  </tr>
+  <tr>
+
+    <td class="label">分享朋友得余额(元) :</td>
+
+    <td><textarea name="pengyou_money" rows="1" cols="40">{$pengyou_money}</textarea></td>
+
+  </tr>
+  <tr>
+
+    <td class="label">分享朋友得积分(分) :</td>
+
+    <td><textarea name="pengyou_point" rows="1" cols="40">{$pengyou_point}</textarea></td>
+
+  </tr>
+
+    <td class="label">分享朋友圈得收益 :</td>
+
+    <td><input type="radio" name="is_pengyouquan" value="1" {if $is_pengyouquan eq 1}checked{/if} />开启<input type="radio" name="is_pengyouquan" value="0" {if $is_pengyouquan eq 0}checked{/if} />关闭</td>
+
+  </tr>
+    
+  <tr>
+
+    <td class="label">分享朋友圈每天收益次数 :</td>
+
+    <td><textarea name="pengyouquan_times" rows="1" cols="40">{$pengyouquan_times}</textarea></td>
+
+  </tr>
+  <tr>
+  <tr>
+
+    <td class="label">分享朋友圈得余额(元) :</td>
+
+    <td><textarea name="pengyouquan_money" rows="1" cols="40">{$pengyouquan_money}</textarea></td>
+
+  </tr>
+  <tr>
+
+    <td class="label">分享朋友圈得积分(分) :</td>
+
+    <td><textarea name="pengyouquan_point" rows="1" cols="40">{$pengyouquan_point}</textarea></td>
+
+  </tr>
+  
+  <tr>
+
+    <td colspan="2" align="center">
+
+      <input type="submit" value="{$lang.button_submit}" class="button" />
+
+    <input type="reset" value="{$lang.button_reset}" class="button" />
+
+    </td>
+
+  </tr>
+
+</tbody></table>
+
+</form>
+
+
+
+{/literal}
+
+{include file="pagefooter.htm"}

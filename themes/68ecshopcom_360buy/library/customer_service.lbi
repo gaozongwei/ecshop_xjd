@@ -1,0 +1,16 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 在线聊天 -->
+<div class="customer-service customer-service-online">
+    <a target="_self" href="{if $smarty.session.user_id >0}javascript:chat_online();{else}javascript:;{/if}" alt="点击这里给我发消息" title="点击这里给我发消息"><span class="icon-online"></span>在线客服</a>
+</div>
+{foreach from=$customer item=customer name=customer}
+{if $customer.cus_type eq 0}
+<div class="customer-service">
+    <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$customer.cus_no}&site=qq&menu=yes" alt="点击这里给我发消息" title="点击这里给我发消息"><span class="icon-qq"></span>{$customer.cus_name}</a>
+</div>
+{else}
+<div class="customer-service">
+    <a target="_blank" href="http://amos1.taobao.com/msg.ww?v=2&uid={$customer.cus_no}&s=2" alt="点击这里给我发消息" title="点击这里给我发消息"><span class="icon-ww"></span>{$customer.cus_name}</a>
+</div>
+{/if}
+{/foreach}

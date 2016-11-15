@@ -1,0 +1,26 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- {if $bought_goods} -->
+<div class="aside-con collect" style="height:auto;">
+	<div class="aside-tit">
+    	<h2>购买了该商品的用户还购买了</h2>
+    </div>
+    <div class="aside-list colList">
+      <div class="clock colFrame" style="height:auto;">
+        <ul style="height:auto;">
+          <!--{foreach from=$bought_goods item=bought_goods_data name=bought_goods}-->
+          <li class="fore {if $smarty.foreach.bought_goods.first}fore1{/if}" >
+            <div class="p-img"><a target="_blank" title="{$bought_goods_data.goods_name|escape:html}" href="{$bought_goods_data.url}"><img width="100" height="100" alt="" src="{$bought_goods_data.goods_thumb}" /></a> 
+            </div>
+            <div class="rate"><a target="_blank" title="{$bought_goods_data.goods_name|escape:html}" href="{$bought_goods_data.url}">{$bought_goods_data.short_name|truncate:12}</a></div>
+            <div class="p-price"><strong class="main-color"><!-- {if $bought_goods.promote_price neq ""} -->{$bought_goods_data.promote_price}<!-- {else}-->{$bought_goods_data.shop_price}<!--{/if}--></strong></div>
+          </li>
+          {if !$smarty.foreach.bought_goods.last}
+          <div class="blank5"></div>
+          {/if} 
+          <!-- {/foreach} -->
+        </ul>
+      </div>
+    </div>
+</div>
+<!-- {/if} --> 
+
