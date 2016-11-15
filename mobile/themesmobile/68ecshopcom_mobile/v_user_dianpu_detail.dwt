@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<title>修改店铺信息</title>
+<!--v_shop.css-->
+<link href="themesmobile/68ecshopcom_mobile/css/v_user.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<!--header-->
+<div class="top">
+<dl>
+<dt><a href="javascript:history.back(-1)"></a></dt>
+<dd>修改店铺信息</dd>
+</dl>
+</div>
+<form action="v_user_dianpu_detail.php" method="post" name="theForm" onsubmit="return sub_dianpu(this)">
+<!--修改店铺名称-->
+<div class="main" style=" padding-bottom:20px;">
+<dl class="modify">
+<dt><span>店铺名称</span><input type="text" name="dianpu_name" size="20" value="{$dianpu.dianpu_name}"></dt>
+<dd></dd>
+</dl>
+<dl class="modify">
+<dt><span>店铺简介</span><textarea name="dianpu_desc" cols=40 rows=4>{$dianpu.dianpu_desc}</textarea></dt>
+<dd></dd>
+</dl>
+<dl class="modify">
+<dt><span>联系手机</span><input type="text" name="phone" size="20" value="{$dianpu.phone}"></dt>
+<dd></dd>
+</dl>
+<dl class="modify">
+<dt><span>客服微信</span><input type="text" name="wechat" size="20" value="{$dianpu.wechat}"></dt>
+<dd></dd>
+</dl>
+<dl class="modify">
+<dt><span>客服QQ</span><input type="text" name="qq" size="20" value="{$dianpu.qq}"></dt>
+<dd></dd>
+</dl>
+<dl class="modify">
+<dt><span>小店位置</span><textarea name="address" cols=40 rows=4>{$dianpu.address}</textarea></dt>
+<dd></dd>
+</dl>
+<input type="submit" value="确定" class="takeup"/>
+<input type="hidden" name="act" value="insert_dianpu" />
+</div>
+</form>
+<!-----底部悬浮菜单---->
+<!-- #BeginLibraryItem "/library/vshop_footer.lbi" --><!-- #EndLibraryItem --> 
+<script type="text/javascript">
+function sub_dianpu(frm)
+{
+	var dianpu_name = frm.elements['dianpu_name'].value;
+	var dianpu_desc = frm.elements['dianpu_desc'].value;
+	if(dianpu_name.length == 0)
+	{
+		alert('店铺名称不能为空！');
+		return false; 
+	}
+	else if(dianpu_name.length > 8)
+	{
+		alert('店铺名称长度不能超过8个！');
+		return false; 
+	}
+	if(dianpu_desc.length == 0)
+	{
+		alert('店铺简介不能为空！');
+		return false; 
+	}
+	return true;
+}
+</script>
+</body>
+</html>

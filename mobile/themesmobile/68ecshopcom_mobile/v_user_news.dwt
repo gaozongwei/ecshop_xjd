@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.js"></script>
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/TouchSlide.1.1.js"></script>
+<title>新手必看</title>
+<!--v_shop.css-->
+<link href="themesmobile/68ecshopcom_mobile/css/v_user.css" type="text/css" rel="stylesheet">
+</head>
+<body >
+<!--header-->
+<div class="top">
+<dl>
+<dt><a href="javascript:history.back(-1)"></a></dt>
+<dd>新手必看</dd>
+</dl>
+</div>
+<!--main-->
+<div class="new_main">
+<ul>
+  <!-- TemplateBeginEditable name="新手必看文章" -->
+<!-- #BeginLibraryItem "/library/cat_articles.lbi" -->
+
+			{foreach from=$articles item=article_item name=articles}
+			<li{if $smarty.foreach.articles.first} class="first"{/if}><span>推荐</span><a href="{$article_item.url}" title="{$article_item.title|escape:html}">{$article_item.short_title|escape:html}</a></li>
+			{/foreach}
+
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+</ul>
+</div>
+<!---返回顶部-->
+<script>
+function goTop(){
+	$('html,body').animate({'scrollTop':0},600);
+}
+</script>
+<a href="javascript:goTop();" class="gotop"><img src="themesmobile/68ecshopcom_mobile/images/v-shop/topup.png"></a> 
+<!-----底部悬浮菜单---->
+<!-- #BeginLibraryItem "/library/vshop_footer.lbi" --><!-- #EndLibraryItem --> 
+</body>
+</html>

@@ -1,0 +1,55 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<div class="f_title_attr">
+<img  id="ECS_GOODS_ATTR_THUMB" src="{$goods.goods_thumb}" style=" float:left;">
+<div class="f_title_arr_r">
+<span>价格：<i id="ECS_GOODS_AMOUNT_CHOOSE">0</i></span>
+<span>库存：<i id="ECS_GOODS_NUMBER">0</i>件</span>
+<span id="ECS_GOODS_ATTR"></span>
+</div>
+<a class="c_close_attr" href="javascript:void(0)" onclick="close_choose_attr();"></a>
+<div style="height:0px; line-height:0px; clear:both;"></div>
+</div>
+<div class="f_content_attr">
+<ul class="navContent" style="display:block;"> 
+{foreach from=$specification item=spec key=spec_key name=specification}
+<li>   
+<div class="title">{$spec.name}</div>
+          <div class="item">
+          {if $spec.attr_type eq 1}
+          {foreach from=$spec.values item=value key=key}
+          <a {if $key eq 0}class="hover"{/if}  href="javascript:;"  name="{$value.id}" onclick="changeAtt(this);" for="spec_value_{$value.id}" title="{if $value.price gt 0}{$lang.plus}{$value.format_price|abs}{elseif $value.price lt 0}{$lang.minus}{$value.format_price|abs}{/if}"><input style="display:none" id="spec_value_{$value.id}" type="radio" name="spec_{$spec_key}" value="{$value.id}" {if $key eq 0}checked{/if} />
+          {$value.label}  {if $value.price gt 0}<font>+ {$value.format_price|abs}</font>{elseif $value.price lt 0}<font>- {$value.format_price|abs}</font>{/if}
+          
+          </a>
+          {/foreach}
+          {else}
+          {foreach from=$spec.values item=value key=key}
+          <a {if $key eq 0}class="hover"{/if} href="javascript:;" name="{$value.id}" onclick="changeAtt1(this)" for="spec_value_{$value.id}" title="{if $value.price gt 0}{$lang.plus}{$value.format_price|abs}{elseif $value.price lt 0}{$lang.minus}{$value.format_price|abs}{/if}"><input type="checkbox" style=" display:none" name="spec_{$spec_key}" value="{$value.id}" id="spec_value_{$value.id}" {if $key eq 0}checked{/if}/>
+		{$value.label} {if $value.price gt 0}<font>+ {$value.format_price|abs}</font>{elseif $value.price lt 0}<font>- {$value.format_price|abs}</font>{/if}
+           </a>
+           {/foreach}
+           {/if}
+          </div>                    
+    </li>
+{/foreach}  
+<li style=" border-bottom:1px solid #eeeeee">
+        <div class="title1">购买数量</div>
+        <div class="item1">
+         <script language="javascript" type="text/javascript">  function goods_cut(){  var num_val=document.getElementById('number');  var new_num=num_val.value;  var Num = parseInt(new_num);  if(Num>1)Num=Num-1;  num_val.value=Num;  }  function goods_add(){  var num_val=document.getElementById('number');  var new_num=num_val.value;  var Num = parseInt(new_num);  Num=Num+1;  num_val.value=Num;  } </script>
+         <span class="ui-number">
+          <button type="button" class="decrease" onclick="goods_cut();changePrice();"></button>
+          <input type="number" class="num" id="number" onblur="changePrice();" name="number" value="1" min="1" style=" text-align:center"/>
+          <button type="button" class="increase" onclick="goods_add();changePrice();"></button>
+          </span>
+         <!--{if $tag eq 1}--><em>限购数量：{$goods.buymax}</em><!--{/if}-->
+      </div>
+      
+    </li>        
+</ul>
+</div>
+<div class="f_foot">
+<input type="submit"  border="0" class="add_gift_attr" value="提交" />
+<div style=" height:30px"></div>
+</div>
+

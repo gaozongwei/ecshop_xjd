@@ -1,0 +1,8 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+{if $brand_list}
+{foreach from=$brand_list item=brand name=brand}
+{if $smarty.foreach.brand.iteration < 7}
+<li class="image"><a href="{$brand.url}" title="{$brand.brand_name|escape:html}"><img src="{$brand.brand_logo}" alt="{$brand.brand_name|escape:html}"/></a></li>
+{/if}
+{/foreach}
+{/if}

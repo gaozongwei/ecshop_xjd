@@ -1,0 +1,217 @@
+{if $full_page eq 1}
+<!DOCTYPE HTML>
+<html>
+  <head>
+    {include file='html_header.htm'}
+    <script>
+      Zepto(function($)
+      {
+        $('#order_base').click(function()
+        {
+          $('#base_info_one').slideToggle();
+        });
+		 $('#consignee_base').click(function()
+        {
+          $('#consignee_info_2').slideToggle();
+        });
+      });
+      
+      function quick_delivery()
+      {
+        if($.trim($('#express_no').val()) == '')
+        {
+          $.zalert.add('请输入快递单号！',1);
+          return false;
+        }
+        else
+        {
+          return true;
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id='container'>
+      {/if}
+      {include file='page_header.htm'}
+      <section style="padding-bottom:60px;">
+        <div class="order_info_con">
+          <div class="order_base">
+            <p class="edit" id="order_base"><span>{$lang.base_info}</span> <i></i></p>
+			<table width="100%" >
+			  <tr>
+				<td align="left" width='35%'>
+				  <div >{$lang.delivery_sn_number}</div>
+				</td>
+				<td align="left" width='65%'>{$delivery_order.delivery_sn}</td>
+			  </tr>
+			  <tr>
+				<td align="left">
+				  <div >{$lang.label_shipping_time}</div>
+				</td>
+				<td align="left">{$delivery_order.formated_update_time}</td>
+			  </tr>
+			  <tr>
+				<td align="left">
+				  <div>{$lang.label_order_sn}</div>
+				</td>
+				<td align="left">{$delivery_order.order_sn}{if $delivery_order.extension_code eq "group_buy"}<a href="group_buy.php?act=edit&id={$delivery_order.extension_id}">{$lang.group_buy}</a>{elseif $delivery_order.extension_code eq "exchange_goods"}<a href="exchange_goods.php?act=edit&id={$delivery_order.extension_id}">{$lang.exchange_goods}</a>{/if}
+			  </tr>
+			  <tr>
+				<td align="left">
+				  <div>{$lang.label_order_time}</div>
+				</td>
+				<td align="left">{$delivery_order.formated_add_time}</td>
+			  </tr>
+			  </table>
+			  <div style='display:none' id='base_info_one'>
+			  <table width='100%'>
+				<tr>
+				  <td  align="left" width='35%'>
+					<div>{$lang.label_user_name}</div>
+				  </td>
+				  <td  align="left" width='65%'>{$delivery_order.user_name|default:$lang.anonymous}</td>
+				</tr>
+				<tr>
+				  <td align="left">
+					<div>{$lang.label_how_oos}</div>
+				  </td>
+				  <td align="left">{$delivery_order.how_oos}</td>
+				</tr>
+				<tr>
+				  <td align="left">
+					<div>{$lang.label_shipping}</div>
+				  </td>
+				  <td align="left">{if $exist_real_goods}{if $delivery_order.shipping_id > 0}{$delivery_order.shipping_name}{else}{$lang.require_field}{/if} {if $delivery_order.insure_fee > 0}（{$lang.label_insure_fee}{$delivery_order.formated_insure_fee}）{/if}{/if}</td>
+				</tr>
+				<tr>
+				  <td align="left">
+					<div>{$lang.label_shipping_fee}</div>
+				  </td>
+				  <td align="left">{$delivery_order.shipping_fee}</td>
+				</tr>
+				<tr>
+				  <td align="left">
+					<div>{$lang.label_insure_yn}</div>
+				  </td>
+				  <td align="left">{if $insure_yn}{$lang.yes}{else}{$lang.no}{/if}</td>
+				</tr>
+				<tr>
+				  <td align="left">
+					<div>{$lang.label_insure_fee}</div>
+				  </td>
+				  <td align="left">{$delivery_order.insure_fee|default:0.00}</td>
+				</tr>
+				<tr>
+				  <td align="left">
+					<div>{$lang.label_invoice_no}</div>
+				  </td>
+				  <td align="left">{$delivery_order.invoice_no}</td>
+				</tr>
+			</table>
+			</div>
+          </div>
+          <div class="order_base">
+		  <p class="edit" id="consignee_base"><span>{$lang.consignee_info}</span> <i></i></p>
+            <div class="order_consign">
+              <table width="100%" >
+                <tr>
+					<td  align="left" width='35%'><div>{$lang.label_consignee}</div></td>
+					<td  align="left" width='65%'>{$delivery_order.consignee|escape}</td>
+				</tr>
+				<tr>
+					<td align="left" ><div>{$lang.label_email}</div></td>
+					<td align="left" >{$delivery_order.email}</td>
+				</tr>
+				<tr>
+					<td align="left" ><div>{$lang.label_address}</div></td>
+					<td align="left" >[{$delivery_order.region}] {$delivery_order.address|escape}</td>
+				</tr>
+				</table>
+				<div style='display:none;' id='consignee_info_2'>
+				<table width='100%'>
+				<tr>
+					<td align="left"  width='35%'><div>{$lang.label_zipcode}</div></td>
+					<td align="left"  width='65%'>{$delivery_order.zipcode|escape}</td>
+				</tr>
+				<tr>
+					<td align="left" ><div>{$lang.label_tel}</div></td>
+					<td align="left" >{$delivery_order.tel}</td>
+				</tr>
+				<tr>
+					<td align="left" ><div>{$lang.label_mobile}</div></td>
+					<td align="left" >{$delivery_order.mobile|escape}</td>
+				</tr>
+				<tr>
+					<td align="left" ><div>{$lang.label_sign_building}</div></td>
+					<td align="left" >{$delivery_order.sign_building|escape}</td>
+				</tr>
+				<tr>
+					<td align="left" ><div>{$lang.label_best_time}</div></td>
+					<td align="left" >{$delivery_order.best_time|escape}</td>
+				</tr>
+				<tr>
+					<td align="left" ><div>{$lang.label_postscript}</div></td>
+					<td align="left" >{$delivery_order.postscript}</td>
+				</tr>
+			  </table>
+			  </div>
+            </div>
+          </div>
+          <div class="goods_info">
+            <p class="edit"><span>{$lang.goods_info}</span></p>
+            <div class="order_goods">
+              {foreach from=$goods_list item=goods name=name}
+              <div class="order_goods_info" style="{if $smarty.foreach.name.first}padding-top:0; border-top:0;{/if}">
+              	<div class="goods_name">
+                	<strong>{if $goods.brand_name}<i>[ {$goods.brand_name} ]</i>{/if}{$goods.goods_name}</strong>
+                    <span>{$lang.goods_sn}：{$goods.goods_sn}</span>
+                    <span>{$lang.product_sn}：{$goods.product_sn}</span>
+                </div>
+                <div class="goods_num">
+                	<span>{$goods.goods_attr|nl2br}</span>
+                	<em>x{$goods.send_number}</em>
+                </div>
+              </div>
+              {foreachelse}
+              <table width="100%" cellpadding="3" cellspacing="1">
+			  	<tr>
+                  <td align='center'><span>找不到任何商品！</span></td>
+                </tr>
+				</table>
+              {/foreach}
+              
+            </div>
+          </div>
+        </div>
+        {if $delivery_order.status eq 2}
+        <form method='POST' action='order.php?act=delivery' onsubmit='return quick_delivery();'>
+          <div class="order_info_con">
+            <p class="one_delivery">
+              <input type="text" name="express_no" id='express_no' placeholder="请输入发货单号/快递号" class="inputBg"/>
+              <input type='hidden' name='order_id' value='{$delivery_order.order_id}'/>
+              <input type='hidden' name='delivery_id' value='{$delivery_order.delivery_id}'/>
+              <input type="submit" value="发货" class="one_delivery_btn" />
+            </p>
+          </div>
+        </form>
+        {else}
+        <form method='POST' action='order.php?act=cancel_delivery'>
+          <div class="order_info_con">
+            <p class="cancel_delivery">
+              <input type='hidden' name='delivery_id' value='{$delivery_order.delivery_id}'/>
+              <input type='hidden' name='order_id' value='{$delivery_order.order_id}'/>
+              <input type="submit" value="取消发货" class="one_delivery_btn" />
+            </p>
+          </div>
+        </form>
+        {/if}
+      </section>
+      {include file='page_footer.htm'}
+      {if $full_page eq 1}
+    </div>
+    {include file='static_div.htm'}
+  </body>
+</html>
+{/if}
+

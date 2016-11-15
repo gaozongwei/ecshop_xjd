@@ -1,0 +1,319 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<title>在线客服</title>
+<link rel="stylesheet" type="text/css" href="themesmobile/68ecshopcom_mobile/css/chat.css" />
+<!-- 客服消息HTML模板 -->
+<script id="to_html" type="text">
+<div id="script_to_id" class="msg_others">
+<dl class="message">
+	<dt><img src="images/chat/others_pic.png" /></dt>
+    <dd>
+		<div class="msg_title">
+		<i></i>
+        	<em class="msg_owner txt_bold">to_name</em>
+            <span class="send_time">send_time</span>
+        <p class="msg_content">msg_content</p>
+		</div>
+    	
+    </dd>
+</dl>
+</div>
+
+</script>
+<!-- 用户消息HTML模板 -->
+<script id="from_html" type="text">
+
+<div id="script_from_id" class="msg_me">
+<dl class="message">
+ <dd>
+	<div class="user_main">
+      <i></i>
+       <span class="send_time">send_time</span>
+       <p class="msg_content">msg_content</p>
+	   </div>
+    </dd>
+	<dt>
+	<!-- {if $headimg != false} -->
+	<img src="{$headimg}" width="46px" height="47px" />
+	<!-- {else} -->
+	<img src="images/chat/user_pic.png" />
+	<!-- {/if} -->
+	</dt>
+   
+</dl>
+</div>
+
+</script>
+<!-- 系统消息HTML模板 -->
+<script id="notice_html" type="text">
+
+<div id="script_notice_id" class="msg_notice">
+	<i class="icon_notice"></i>
+	<p class="msg_content"></p>
+	<span class="msg_tl"></span>
+	<span class="msg_tr"></span>
+	<span class="msg_br"></span>
+	<span class="msg_bl"></span>
+</div>
+
+</script>
+<script type='text/javascript' src='js/jquery-1.6.2.min.js'></script>
+<!-- UEditor编辑器
+<link href="js/chat/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="js/chat/umeditor/umeditor.config.js"></script>
+<script type="text/javascript" src="js/chat/umeditor/umeditor.js"> </script>
+<script type="text/javascript" src="js/chat/umeditor/lang/zh-cn/zh-cn.js"></script>
+ -->
+<script type='text/javascript' src='js/chat/b64.js'></script>
+<script type='text/javascript' src='js/chat/md5.js'></script>
+<script type='text/javascript' src='js/chat/sha1.js'></script>
+<script type='text/javascript' src='js/chat/strophe.js'></script>
+<script type='text/javascript' src='js/chat/chat.js'></script>
+<script type="text/javascript">
+function leave(){
+	return confirm('是否终止聊天');
+}
+</script>
+</head>
+<!--  onbeforeunload="return '是否终止聊天'" -->
+<body onbeforeunload="return '是否终止聊天'" style=" background:#eeeeee">
+<header class="header">
+     <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+    <div class="h-mid">在线客服</div>
+</header>
+	<input type="hidden" id="from" value="{$from}" />
+	<input type="hidden" id="password" value="{$password}" />
+	<input type="hidden" id="to" value="{$to}" />
+	<input type="hidden" id="username" value="{$username}" />
+	<input type="hidden" id="customername" value="{$customername}" />
+	<input type="hidden" id="chat_goods_id" value="{$chat_goods_id}" />
+	<input type="hidden" id="chat_supp_id" value="{$chat_supp_id}" />
+	<input type="hidden" id="chat_order_id" value="{$chat_order_id}" />
+	<input type="hidden" id="chat_order_sn" value="{$chat_order_sn}" />
+	<div id="system_notice" style="display: none;">{$system_notice}</div>
+	<div id="sound"></div>   
+    <!--内容 start-->
+	<div class="chat_wrap">
+
+			<div class="main_con">
+				<div class="chat_window">
+					<!--消息记录 start-->
+					<div class="chat_list" id="scroll_div">
+						<div class="scroll_inner">
+							<!-- 
+                	<div class="msg_notice">
+                    	<i class="icon_notice"></i>
+                        <p class="msg_content">{$system_notice}</p>
+                    	<span class="msg_tl"></span>
+                    	<span class="msg_tr"></span>
+                   		<span class="msg_br"></span>
+                    	<span class="msg_bl"></span>
+                    </div>
+                     -->
+						</div>
+					</div>
+			</div>
+		</div>		
+	</div>
+<!--底部-->
+<div style="height:60px"></div>
+<div class="botm">
+						<div class="edit_ipt_area">
+							<textarea class="edit_txt" id="editor" placeholder="请说明您要咨询的问题……"></textarea>
+							<!-- <script id="editor" class="edit_txt" type="text/plain" style="height: 30px;"></script> -->
+						
+					
+					<a href="javascript:;" id="btn_send" class="btn_send">发送</a>
+						
+					</div>
+		            </div>
+    <!--内容 end-->
+	<script type="text/javascript">
+/**
+var ueditor = UM.getEditor('editor',{
+    //这里可以选择自己需要的工具按钮名称,此处仅选择如下七个
+    toolbar:['emotion'],
+    //focus时自动清空初始化时的内容
+    autoClearinitialContent:true,
+    //关闭字数统计
+    wordCount:false,
+    //关闭elementPath
+    elementPathEnabled:false,
+    //默认的编辑区域高度
+    initialFrameHeight: 30
+    //更多其他参数，请参考umeditor.config.js中的配置项
+});
+// 清空
+ueditor.setContent("");
+
+function getContent(){
+	return ueditor.getContent();
+}
+
+function getContentTxt(){
+	return ueditor.getContentTxt();
+}
+
+function setContent(content){
+	ueditor.setContent(content);
+}
+
+**/
+
+$(function(){
+	$.ready(function(){
+		
+		//实例化编辑器
+	    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+		
+		$('.chat_wrap').css('left',($(window).width()-$('.chat_wrap').width())/2);
+		$('.chat_wrap').css('top',($(window).height()-$('.chat_wrap').height())/2);
+		$(window).resize(function(){
+			$('.chat_wrap').css('left',($(window).width()-$('.chat_wrap').width())/2);
+			$('.chat_wrap').css('top',($(window).height()-$('.chat_wrap').height())/2);	
+		})
+	});
+	/*评价内容 textarea*/	
+	var limitNum = 256;
+    var pattern = '还可以输入' + limitNum + '字';
+    $('.txt_num').html(pattern);
+    $('.degree_content').keyup(
+    function(){
+        var remain = $(this).val().length;
+        if(remain > 500){
+                pattern = "字数超过限制！";
+            }else{
+                var result = limitNum - remain;
+                pattern = '还可以输入' + result + '字';
+            }
+            $('.txt_num').html(pattern);
+        }
+    );
+    
+	/*满意度评价*/
+	$('.degree_button').click(function(){
+		$('.pop_recommend').show();	
+	});
+	$('.recommend_btn a').click(function(){
+		if($('.degree_inputs input[type=radio]:checked').length>0){
+			$('.pop_recommend').hide();
+			$('<div class="msg_notice">'+
+                    	'<i class="icon_notice"></i>'+
+                        '<p>您对海信容声官方客服5评价成功！</p>'+
+                    	'<span class="msg_tl"></span>'+
+                    	'<span class="msg_tr"></span>'+
+                   		'<span class="msg_br"></span>'+
+                    	'<span class="msg_bl"></span>'+
+                    '</div>').appendTo('.scroll_inner');
+		}
+		$("#scroll_div").scrollTop($(".scroll_inner").height());// 发送消息后消息滚动到最底部
+	});
+	$('.edit_btn_area .btn_close').click(function(){
+		if($('.degree_inputs input[type=radio]:checked').length==0){
+			$('.pop_recommend').show();	
+		}	
+	});
+	$('.close_pop_recommend').click(function(){
+		$('.pop_recommend').hide();		
+	});
+	/*选择发送方式*/
+	$('.btn_send_set').click(function(){
+		$('.send_set_con').toggle();	
+	});
+	$('.send_set_con li').click(function(){
+		$(this).addClass('current').siblings().removeClass();
+		$('.send_set_con').hide();	
+	});
+	
+	/*关闭聊天窗口*/
+	$('.chat_close').click(function(){
+		window.close();	
+	});
+	
+	/*右侧tab切换*/
+	$().ready(function(){
+	   	//控制选项卡顺序及展示内容，设置第一个展示
+	   	//此处代码从后台获取
+	   	
+	   	/*
+	   		chat_goods:
+	   		chat_order_list:
+	   		chat_order:
+	   		chat_supp:
+	   	*/
+	   	
+	   	
+	   	var tab_items = [{id: "chat_goods", name: "咨询商品"}, {id: "chat_order_list", name: "最近订单"}];
+	   	tab_items = [{id: "chat_order_list", name: "最近订单"}];
+	   	
+	   	<!-- {if $tab_items != null} -->
+	   	tab_items = {$tab_items};
+	   	<!-- {/if} -->
+			   	
+	   	for(var i = 0; i < tab_items.length; i++){
+	   		var tab_item = tab_items[i];
+	   		var current_class = i == 0 ? "current" : "";
+	   		$("#tabs").append("<span id='"+tab_item.id+"' class='"+current_class+" tab_item'>"+tab_item.name+"</span>");
+	   		if(i == 0){
+	   			$("."+tab_item.id).show();
+	   		}
+	   	}
+	   	//切换选项卡
+	   	$(".tab_item").click(function(){
+	   		var tab_item_id = $(this).attr("id");
+	   		$(".tab_content").hide();
+	   		$("."+tab_item_id).show();
+	   		$(".current").removeClass("current");
+	   		$("#"+tab_item_id).addClass("current");
+	   	});
+	});
+	
+	/* 控制订单列表的上下页切换  */
+    $().ready(function(){
+    	
+    	var cur_page = 0;
+        <!-- {if $order_count > 0} -->
+        var total_page = {$order_count} - 1;
+        <!-- {else} -->
+        var total_page = 0;
+        <!-- {/if} -->
+    	
+    	$(".order_prev").click(function(){
+    		
+    		if(total_page == 0){
+    			return;
+    		}
+    		
+    		if(cur_page == 0){
+    			cur_page = total_page;
+    		}else{
+    			cur_page = cur_page - 1;
+    		}
+    		$(".chat_order_list").find(".order_detail").hide();
+    		$("#order_"+cur_page).show();
+    		$("#cur_page").html(cur_page + 1);
+    	});
+    	$(".order_next").click(function(){
+    		
+    		if(total_page == 0){
+    			return;
+    		}
+    		
+    		if(cur_page == total_page){
+    			cur_page = 0;
+    		}else{
+    			cur_page = cur_page + 1;
+    		}
+    		$(".chat_order_list").find(".order_detail").hide();
+    		$("#order_"+cur_page).show();
+    		$("#cur_page").html(cur_page + 1);
+    	});
+    });
+	
+})
+</script>
+</body>
+</html>

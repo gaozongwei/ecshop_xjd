@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<title>分销中心</title>
+<!--v_shop.css-->
+<link href="themesmobile/68ecshopcom_mobile/css/v_user.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.js"></script>
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/TouchSlide.1.1.js"></script>
+</head>
+<body>
+
+<!--header-->
+<div class="head">
+
+<dl>
+<dt>{if $user_info.headimgurl}
+<img src="{$user_info.headimgurl}" alt="头像"/>
+{elseif $headimg neq ''}<img src="./../{$headimg}">
+{else}
+<img src="themesmobile/68ecshopcom_mobile/images/v-shop/userportrait.jpg" alt="头像"/>
+{/if}
+</dt>
+<dd><span>{if $user_info.nickname}{$user_info.nickname}{else}{$info.username}{/if}</span>
+<em>您是由{if $user_info.parent_id}{$user_info.parent_name}{else}平台方{/if}推荐</em></dd>
+</dl>
+<ul>
+<li style=" border-right:1px solid #191c27; margin-left:-1px;"><span class="v_1">小店订单：{$total_order_count}</span></li>
+<li><span class="v_2">小店收益：￥{$total_split_money}</span></li>
+</ul>
+</div>
+<!--main-->
+<div class="liuyandom">
+<ul>
+<li><a href="v_user_shouyi.php"><span class="mun1"></span><em>小店订单</em></a></li>
+<li><a href="v_user_notes.php"><span class="mun2"></span><em>店铺账单</em></a></li>
+<li><a href="v_user_huiyuan.php"><span class="mun3"></span><em>小店会员</em></a></li>
+<li><a href="v_user_catelog.php"><span class="mun5"></span><em>小店上货</em></a></li>
+<li><a href="v_user_erweima.php?user_id={$user_id}"><span class="mun4"></span><em>推广二维码</em></a></li>
+<li class="vuser_mid" style=" width:50%;"></li>
+<li><a href="v_user_dianpu.php"><span class="mun6"></span><em>店铺设置</em></a></li>
+
+<li><a href="v_user_tixian.php"><span class="mun7"></span><em>金额提现</em></a></li>
+<li><a href="v_user_news.php"><span class="mun8"></span><em>新手必看</em></a></li>
+<li><a href="v_shop.php?user_id={$user_id}"><span class="mun9"></span><em>查看微店</em></a></li>
+<li><a href="user.php"><span class="mun10"></span><em>个人中心</em></a></li>
+</ul>
+</div>
+<!-----底部轮播广告---->
+<!--精品推荐轮播广告位--> 
+<div id="index_banner" class="index_banner">
+<div class="bd">
+<ul>
+			{foreach from=$v_user_img item=ad name=v_user_img}
+          <li><a href="{$ad.url}"><img src="{$ad.image}" width="100%" /></a></li>
+          {/foreach}
+					</ul>
+</div>
+<div class="hd">
+					<ul></ul>
+				</div>
+</div>
+<script type="text/javascript">
+				TouchSlide({ 
+					slideCell:"#index_banner",
+					titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+					mainCell:".bd ul", 
+					effect:"leftLoop", 
+					autoPage:true,//自动分页
+					autoPlay:true //自动播放
+				});
+			</script>
+<!-----底部悬浮菜单---->
+<!-- #BeginLibraryItem "/library/vshop_footer.lbi" --><!-- #EndLibraryItem --> 
+</body>
+</html>

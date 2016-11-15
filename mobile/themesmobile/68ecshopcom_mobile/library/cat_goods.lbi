@@ -1,0 +1,39 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<?php
+ $GLOBALS['smarty']->assign('thiscid1',get_wap_parent_id_tree($GLOBALS['smarty']->_var['goods_cat']['id']));
+?>
+<section class="floor_body">         
+      <h4><span>{$goods_cat.name|escape:html}</span><i><a href="{$goods_cat.url}">更多</a></i></h4>
+        <div style=" background:#eeeeee">
+        <ul>
+            <!--{foreach from=$cat_goods item=goods name=name}-->
+            <li>
+               
+                <div class="index_pro"> 
+                    <div class="products_kuang">
+                       <a href="{$goods.url}" title="{$goods.name|escape:html}"><img src="{$option.static_path}{$goods.thumb}"></a></div>
+                    <div class="goods_name"> <a href="{$goods.url}" title="{$goods.name|escape:html}">{$goods.name}</a></div>
+                    <div class="price">
+                            <a href="javascript:addToCart({$goods.id})" class="btns">
+                            <img src="themesmobile/68ecshopcom_mobile/images/index_flow.png"></a>
+                      {if $goods.promote_price}
+                <span> {$goods.promote_price}</span><em>{$goods.shop_price}</em>
+               {else}
+                <span>{$goods.shop_price}</span><em>{$goods.market_price}</em>
+               {/if}
+                    </div>
+                    </div>
+ 
+            </li>
+            
+                <!--{if $smarty.foreach.name.iteration%3 eq 0 && $smarty.foreach.name.iteration neq $smarty.foreach.name.total}--> </ul>
+        <ul>
+          <!--{/if}-->
+          
+          {/foreach}
+ </div>      
+</section>
+
+
+
+

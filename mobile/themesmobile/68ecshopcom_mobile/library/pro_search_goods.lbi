@@ -1,0 +1,70 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+ <li> 
+  <a href="{$goods.url}"> 
+   {if $goods.goods_number<=0}
+ <div class="pro_im">
+ <div class="wan"><em></em></div> 
+ <i>仅剩:&nbsp;<span class="last_g_time" id="jstimerBox{$key}"></span></i>
+  <img src="{$goods.goods_thumb}">
+ </div>
+ {else}
+  <div class="pro_img">
+  <i>仅剩:&nbsp;<span class="last_g_time" id="jstimerBox{$key}"></span></i>
+  <img src="{$goods.goods_thumb}">
+ </div>
+ {/if}
+ 
+ <div class="pto_main">
+ <h2>{$goods.goods_name}</h2>
+ <dl>
+ <dt><span>{$goods.shop_price}</span>
+   <strong>{$goods.promote_price}</strong></dt>
+ <dd>
+   <p><i>{$goods.zhekou}折</i><em>马上抢</em></p>
+ </dd>
+ </dl>
+ </div>
+  </a>  
+ </li>
+ <script>
+function clock11(key)
+{
+   var time = new Date()
+   var hour = time.getHours()
+   var minute = time.getMinutes()
+   var second = time.getSeconds()
+   var timevalue = ""+((hour > 12) ? hour-12:hour)
+   timevalue +=((minute < 10) ? ":0":":")+minute
+   timevalue +=((second < 10) ? ":0":":")+second
+   timevalue +=((hour >12 ) ? " PM":" AM")
+   var convertHour = DifferHour
+   var convertMinute = DifferMinute
+   var convertSecond = DifferSecond
+   var Diffms = Tday[key].getTime() - time.getTime()
+   DifferHour = Math.floor(Diffms / daysms)
+   Diffms -= DifferHour * daysms
+   DifferMinute = Math.floor(Diffms / hoursms)
+   Diffms -= DifferMinute * hoursms
+   DifferSecond = Math.floor(Diffms / Secondms)
+   Diffms -= DifferSecond * Secondms
+   var dSecs = Math.floor(Diffms / microsecond)
+  
+	if(convertHour != DifferHour) e="<span>"+DifferHour+":</span>";
+   if(convertMinute != DifferMinute) f="<span>"+DifferMinute+":</span>";
+   if(convertSecond != DifferSecond) g="<span>"+DifferSecond+":</span>";
+     h="<span>"+dSecs+"</span>";
+	 
+
+	 
+	 
+     if (DifferHour>0) {e=e}
+     else {e=''}
+	 
+	 
+      document.getElementById("jstimerBox"+key).innerHTML = e + f + g + h; 
+}
+
+Tday[{$key}] = new Date("{$goods.gmt_end_time}");  
+window.setInterval(function()    
+{clock11({$key});}, 1000);  
+</script> 

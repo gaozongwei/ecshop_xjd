@@ -1,0 +1,46 @@
+<!--添加红包--->
+
+<form name="addBouns" action="user.php" method="post" onSubmit="return addBonus()" class="add_bonus">
+  <dl class="tbl_type">
+    <dt>
+      <input type="text" name="bonus_sn" value="" id="bonus_sn" size="30" placeholder="请输入红包序列号"/>
+    </dt>
+    <dd>
+      <input type="submit" name="submit" value="{$lang.add_user_bonus}" />
+      <input type="hidden" name="act" value="act_add_bonus"/>
+    </dd>
+  </dl>
+</form>
+<!--红包循环--> 
+{if $bonus}
+   {foreach from=$bonus item=item name=bonus}
+<div class="user_bonus">
+  <div class="bonus_l"> </div>
+    <ul>
+      <li>{$lang.bonus_sn}：{$item.bonus_sn|default:N/A}</li>
+      <li>发行店铺：{$item.supplier_name}</li>
+      <li>使用条件：满{$item.min_goods_amount}可用</li>
+      <li>有效时间：{$item.use_enddate}</li>
+    </ul>
+    <dl>
+      <dt><i>¥</i>{$item.type_money}<dt>
+      <dd>{$item.status}</dd>
+    </dl>
+   <div class="bonus_r"> </div>
+</div>
+{/foreach}
+
+  {else}
+<div class="dotm_no">
+  <dl>
+    <dd>{$lang.user_bonus_empty}</dd>
+  </dl>
+</div>
+{/if} 
+<!--翻页--> 
+{if $bonus}{include file='library/pages.lbi'}{/if} 
+<script type="text/javascript">
+{foreach from=$lang.profile_js item=item key=key}
+var {$key} = "{$item}";
+{/foreach}
+</script>

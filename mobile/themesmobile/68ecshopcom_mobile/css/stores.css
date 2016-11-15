@@ -1,0 +1,63 @@
+/*店铺街*/
+
+.Packages{ width:100%; overflow:hidden; background:#FFF;}
+.all{ width:80%;overflow:hidden; float:left; height:40px;}
+.all li{ float:left}
+.all li a{ float:left; display:block; padding-left:10px; padding-right:10px;font-size:14px; line-height:40px; color:#333}
+.all .sele{color:#fff; background:#E71F19}
+.Packages span{ display:block; width:20%; float:left; height:40px; font-size:14px; line-height:40px; color:#E71F19; text-align:center;}
+
+/*店铺街分类弹出框样式start*/
+
+::-webkit-scrollbar {width: 0px;}
+.f_block{ width:100%;}
+.p-link {display: block;height: 100%;}
+#choose{position:fixed; bottom:0; left:0; height:0px; z-index:99999999; background:#FFF; overflow:hidden;}
+.f_mask {background-color: #000;opacity: 0.4;height: 100%;width: 100%; position: absolute;top: 0;left: 0;z-index: 111;display: none;}
+.f_title_attr { height:130px; margin-top:30px; color:#58595b; background:#fff}
+.f_content_attr {padding:0 15px;background:#ffffff; height:100%; overflow-y:scroll;}
+#choose_attr{position:fixed; bottom:0; left:0; height:0px; z-index:99999999; }
+#choose_attr{position:fixed; bottom:0; left:0; height:0px; z-index:99999999; background:#fff; width:100%;}  
+.Promotions { width:96%; overflow-y:scroll;margin-left:2%;}
+.Promotions h2{width:100%; text-align:center; height:50px; font-size:18px; line-height:50px; color:#333; font-weight:normal; padding-top:10px; border-bottom:1px solid #ccc}
+.Promotions ul{ width:100%; overflow:hidden;}
+.Promotions ul li{ float:left;}
+.Promotions ul li a{ display:block; font-size:14px; line-height:33px; color:#666; height:33px; border:1px solid #CCC; padding-left:10px; padding-right:10px; margin-top:10px; margin-right:5px; margin-left:5px; border-radius: 3px;}
+
+.goods_shut{ width:100%; height:45px; background:#FFF; position:absolute; bottom:0px;}
+.shut{ display:block; width:100%; height:45px; background:#E71F19; text-align:center; font-size:18px;line-height:45px; color:#FFF; }
+
+/*商家入住店铺信息*/
+.rzs_info{ width:100%; margin-top:10px; overflow:hidden; background:#FFF; padding-top:10px; padding-bottom:10px; margin-bottom:10px;}
+.rzs_info dl{ width:95%; margin:auto; overflow:hidden;}
+.rzs_info dl span{ width:20%; float:left; overflow:hidden}
+.rzs_info dl span img{ display:block; width:90%; float:left; height:auto;}
+.rzs_info dl dt{ width:65%; float:left;}
+.rzs_info dl dt strong{ display:block; width:100%;font-size:16px; line-height:200%;color:#666; }
+.rzs_info dl dt p{ width:100%; height:30px;font-size:12px; line-height:150%; color:#999;}
+.rzs_info dl dd{ width:15%; float:left;}
+.rzs_info dl dd i{ display:block; height:25px; font-size:12px; line-height:25px; color:#FFF; background:#F60; text-align:center; margin-top:15px;}
+
+.rzs_info ul{width:95%; margin:auto; overflow:hidden;}
+.rzs_info ul li{ width:33.3%; float:left; height:40px; text-align:center}
+.rzs_info ul li span{float:left; font-size:13px; line-height:40px; color:#666;}
+.rzs_info ul li strong{float:left; font-size:13px; line-height:40px; color:#DD2726; font-weight:normal; text-align:left}
+.rzs_info ul li em{ float:left; width:13px; height:13px;font-size:10px; line-height:15px; color:#fff;border-radius: 3px; background:#DD2726; text-align:center; margin-left:1px; margin-top:12px; }
+
+.rzs_img{ width:100%; overflow:hidden}
+.rzs_img img{ width:100% !important; height:auto !important}
+.s_dianpu{ width:100%; margin-top:15px; overflow:hidden;}
+.s_dianpu span{ display:block; float:left; width:50%; height:50px;}
+.s_dianpu span a{ display:block; width:90%;height:40px; border:1px solid #a0a0a0;border-radius:3px; font-size:14px; line-height:40px; text-align:center; text-indent:20px;line-height:40px; position:relative; color:#333;}
+
+.bg1{ display:block; width:25px; height:25px; position:absolute; background:url(../images/rzs.png) no-repeat;background-size: auto 50px;  background-position:0 0; margin-top:5px; left:20%;}
+.bg2{ display:block; width:25px; height:25px; position:absolute; background:url(../images/rzs.png) no-repeat;background-size: auto 50px;  background-position:0 -25px; margin-top:6px;left:20%;}
+
+.index_taocan { width:98%; overflow:hidden; border-top:1px solid #eeeeee; margin:auto; padding-top:10px;}
+
+
+.index_taocan dl{ width:25%;float:left; overflow:hidden;}
+.index_taocan dl dt{ width:100%; overflow:hidden; position:relative;}
+.index_taocan dl dt em{ display:block; width:90%; height:20px; position:absolute; margin-left:5%; bottom:0px;background-color:rgba(0,0,0,0.5); font-size:12px; line-height:20px; text-align:center; color:#FFF}
+.index_taocan dl dt img{ display:block; width:90%; margin:auto}
+.index_taocan dl dd{ width:90%; height:20px;margin-top:8px; margin-left:5%;line-height:20px; font-size:12px; color:#666; }

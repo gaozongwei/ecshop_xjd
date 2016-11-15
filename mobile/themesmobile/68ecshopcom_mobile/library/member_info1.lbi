@@ -1,0 +1,6 @@
+<ul>
+<li><a href="user.php?act=bonus"><i class="Assets1"></i><span>红包</span></a></li>
+<li><a href="user.php?act=account_deposit"><i class="Assets2"></i><span>在线充值</span></a></li>
+<li><a href="user.php?act=account_raply"><i class="Assets3"></i><span>提现</span></a></li>
+<li><a href="user.php?act=vc_login"><i class="Assets4"></i><span>储值卡</span></a></li>
+</ul>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {include file='html_header.htm'}
+  </head>
+          {include file='page_header.htm'}
+    <form action="order.php?act=operate_post" method="post" name="theForm">
+           <div class="order_base">
+            <p class="edit" id="order_base"  onclick='$(".base_info_one").slideToggle()'><span>{$lang.base_info}</span> <i></i></p>
+            <div class="base_info_one">
+              <p>{$lang.label_order_sn}：{$order.order_sn}</p>
+              <p>{$lang.label_user_name}：{$order.user_name|default:$lang.anonymous} <a href="javascript:open_surplus();" class="">购货人信息</a><a href="user_msg.php?act=add&order_id={$order.order_id}&user_id={$order.user_id}">{$lang.send_message}</a></p>
+              <p>{$lang.label_order_time}：{$order.formated_add_time}</p>
+              <p>{$lang.label_how_oos}：{$order.how_oos}</p>
+              <p>{$lang.label_shipping}：{if $exist_real_goods}{if $order.shipping_id > 0}{$order.shipping_name}{else}{$lang.require_field}{/if} {if $order.insure_fee > 0}（{$lang.label_insure_fee}{$order.formated_insure_fee}）{/if}{/if}</p>
+            </div>
+            <div class="base_info">
+              <p>{$lang.label_shipping_fee}：{$lang.os[$order.order_status]},{$lang.ps[$order.pay_status]},{$lang.ss[$order.shipping_status]}</p>
+              <p>{$lang.label_insure_yn}：{if $insure_yn}{$lang.yes}{else}{$lang.no}{/if}</p>
+              <p>{$lang.label_insure_fee}：{$order.insure_fee|default:0.00}</p>
+            
+            </div>
+          </div>   
+          <div class="consignee_info">
+            <p class="edit"><span>收货人信息<a href="order.php?act=edit&order_id={$order.order_id}&step=consignee" class="special" style="display:none">编辑</a></span></p>
+            <div class="order_consign">
+              <table width="100%" >
+                <tr>
+                  <td>收货人：{$order.consignee}</td>
+                  <td><a href="tel:{$order.mobile}" class="phone">{$order.mobile}</a></td>
+                </tr>
+                <tr>
+                  <td colspan="2">地址：{$order.country_name}&nbsp;{$order.city_name}&nbsp;{$order.district_name}&nbsp;{$order.address}<a href='navigate.php?act=navigate&order_id={$order.order_id}' target='_blank'><img src='images/location.png' style='height:15px;margin-left:10px'/></a>&nbsp;&nbsp;</td>
+                </tr>
+                <tr>
+                  <td colspan="2">最佳送货时间：{$order.best_time}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="goods_info">
+            <p class="edit"><span>{$lang.goods_info}</span></p>
+            <div class="order_goods">
+<table width="100%" cellpadding="3" cellspacing="1">
+  {foreach from=$goods_list item=goods}
+    <!--礼包-->
+    {if $goods.goods_id gt 0 && $goods.extension_code eq 'package_buy'}
+      <tr>
+          <td colspan="2">{$goods.goods_name}<span style="color:#FF0000;">{$lang.remark_package}</span></td>
+      </tr>
+      <tr>
+        <td>{$lang.goods_sn}：{$goods.goods_sn}</td>
+        <td>{$lang.product_sn}：&nbsp;<!--货品货号--></td>
+      </tr>
+      <tr>
+        <td>{$lang.goods_attr}: &nbsp;<!--属性--></td> 
+        <td>{$lang.suppliers_name}:</td>
+      </tr>
+      <tr>
+        <td>{$lang.storage}: </td>
+        <td>{$lang.goods_number}: {$goods.goods_number}</td>
+      </tr>
+      <tr>
+        <td>{$lang.goods_delivery}: </td>
+        <td>{$lang.goods_delivery_curr}:</td>
+      </tr>
+      {foreach from=$goods.package_goods_list item=package}
+      <tr>
+          <td colspan="2">{$package.goods_name}</a></td>
+      </tr>
+      <tr>
+        <td>{$lang.goods_sn}: {$package.goods_sn}</td>
+        <td>{$lang.product_sn}：{$package.product_sn}</td>
+      </tr>
+      <tr>
+        <td>{$lang.goods_attr}: {$package.goods_attr_str}</td>
+        
+        <td>{$lang.suppliers_name}:{if $suppliers_list neq 0} {$suppliers_name[$package.suppliers_id]|default:$lang.restaurant}{/if}</td>
+       
+      </tr>
+      <tr>
+        <td>{$lang.storage}: {$package.storage}</td>
+        <td>{$lang.goods_number}: {$package.order_send_number}</td>
+      </tr>
+      <tr>
+        <td>{$lang.goods_delivery}: {$package.sended}</td>
+        <td>{$lang.goods_delivery_curr}: <input name="send_number[{$goods.rec_id}][{$package.g_p}]" type="text" id="send_number_{$goods.rec_id}_{$package.g_p}" value="{$package.send}" size="10" maxlength="11" {$package.readonly}/></td>
+      </tr>
+      {/foreach}
+
+    {else}
+    <tr>
+        <td colspan="2">
+      {if $goods.goods_id gt 0 && $goods.extension_code neq 'package_buy'}
+      {$goods.goods_name} {if $goods.brand_name}[ {$goods.brand_name} ]{/if}
+      {if $goods.is_gift}{if $goods.goods_price > 0}{$lang.remark_favourable}{else}{$lang.remark_gift}{/if}{/if}
+      {if $goods.parent_id > 0}{$lang.remark_fittings}{/if}
+      {/if}
+      </td>
+    </tr>
+    <tr>
+      <td>{$lang.goods_sn}: {$goods.goods_sn}</td>
+      <td>{$lang.product_sn}：{$goods.product_sn}</td>
+    </tr>
+    <tr>
+      <td>{$lang.goods_attr}: {$goods.goods_attr|nl2br}</td>
+      
+      <td>{$lang.suppliers_name}: {if $suppliers_list neq 0}{$suppliers_name[$goods.suppliers_id]|default:$lang.restaurant}{/if}</td>
+      
+    </tr>
+    <tr>
+      <td>{$lang.storage}: {$goods.storage}</td>
+      <td>{$lang.goods_number}: {$goods.goods_number}</td>
+    </tr>
+    <tr>
+      <td>{$lang.goods_delivery}: {$goods.sended}</td>
+      <td>{$lang.goods_delivery_curr}: <input name="send_number[{$goods.rec_id}]" type="text" id="send_number_{$goods.rec_id}" value="{$goods.send}" size="10" maxlength="11" {$goods.readonly}/></td>
+    </tr>
+    {/if}
+  {/foreach}
+</table>
+    </div>
+</div>
+  
+ <div class="consignee_info">
+    <p><span>{$lang.label_action_note}</span></p>
+    <div>
+         <textarea name="action_note" cols="40" rows="3">{$action_note}</textarea>
+    </div>
+    <div class="operate">
+        <input name="delivery_confirmed" type="submit" value="{$lang.op_confirm}{$lang.op_split}" class="button"/>
+        <input type="button" value="{$lang.cancel}" class="button" onclick="location.href='order.php?act=info&order_id={$order_id}'" />
+    </div>
+ </div>
+ <div style="height: 80px;"></div>
+        <input name="order_id" type="hidden" value="{$order.order_id}">
+        <input name="delivery[order_sn]" type="hidden" value="{$order.order_sn}">
+        <input name="delivery[add_time]" type="hidden" value="{$order.order_time}">
+        <input name="delivery[user_id]" type="hidden" value="{$order.user_id}">
+        <input name="delivery[how_oos]" type="hidden" value="{$order.how_oos}">
+        <input name="delivery[shipping_id]" type="hidden" value="{$order.shipping_id}">
+        <input name="delivery[shipping_fee]" type="hidden" value="{$order.shipping_fee}">
+
+        <input name="delivery[consignee]" type="hidden" value="{$order.consignee}">
+        <input name="delivery[address]" type="hidden" value="{$order.address}">
+        <input name="delivery[country]" type="hidden" value="{$order.country}">
+        <input name="delivery[province]" type="hidden" value="{$order.province}">
+        <input name="delivery[city]" type="hidden" value="{$order.city}">
+        <input name="delivery[district]" type="hidden" value="{$order.district}">
+        <input name="delivery[sign_building]" type="hidden" value="{$order.sign_building}">
+        <input name="delivery[email]" type="hidden" value="{$order.email}">
+        <input name="delivery[zipcode]" type="hidden" value="{$order.zipcode}">
+        <input name="delivery[tel]" type="hidden" value="{$order.tel}">
+        <input name="delivery[mobile]" type="hidden" value="{$order.mobile}">
+        <input name="delivery[best_time]" type="hidden" value="{$order.best_time}">
+        <input name="delivery[postscript]" type="hidden" value="{$order.postscript}">
+
+        <input name="delivery[how_oos]" type="hidden" value="{$order.how_oos}">
+        <input name="delivery[insure_fee]" type="hidden" value="{$order.insure_fee}">
+        <input name="delivery[shipping_fee]" type="hidden" value="{$order.shipping_fee}">
+        <input name="delivery[agency_id]" type="hidden" value="{$order.agency_id}">
+        <input name="delivery[shipping_name]" type="hidden" value="{$order.shipping_name}">
+        <input name="operation" type="hidden" value="{$operation}">      
+    </form>        
+      {include file='page_footer.htm'}
+  </body>
+</html>
+
+{insert_scripts files="topbar.js,../js/utils.js,listtable.js,selectzone.js,../js/common.js"}
+
+{literal}
+<script language="JavaScript">
+{/literal}
+  var oldAgencyId = {$order.agency_id|default:0};
+{literal}
+  onload = function()
+  {
+    // 开始检查订单
+    startCheckOrder();
+  }
+
+</script>
+{/literal}
+
+{include file="pagefooter.htm"}

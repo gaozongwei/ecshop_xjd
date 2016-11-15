@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<title>修改店铺信息</title>
+<!--v_shop.css-->
+<link href="themesmobile/68ecshopcom_mobile/css/v_user.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<!--header-->
+<div class="top">
+<dl>
+<dt><a href="javascript:history.back(-1)"></a></dt>
+<dd>店铺管理<i><a href="v_user_dianpu_detail.php">编辑信息</a></i></dd>
+</dl>
+</div>
+<!--main-->
+<div class="main">
+<ul class="Management">
+<li><span>店铺名称</span><strong>{if $dianpu.dianpu_name}{$dianpu.dianpu_name}{else}请设置店铺名称{/if}</strong><em></em></a></li>
+<li><span>店铺简介</span><strong>{if $dianpu.dianpu_desc}{$dianpu.dianpu_desc}{else}请设置店铺简介{/if}</strong><em></em></li>
+<li><span>客服电话</span><strong>{if $dianpu.phone}{$dianpu.phone}{else}请输入手机号{/if}</strong><em></em></li>
+<li><span>客服微信</span><strong>{if $dianpu.wechat}{$dianpu.wechat}{else}请输入微信号{/if}</strong><em></em></li>
+<li><span>客服QQ</span><strong>{if $dianpu.qq}{$dianpu.qq}{else}请输入QQ{/if}</strong><em></em></li>
+<li><span>小店位置</span><strong>{if $dianpu.address}{$dianpu.address}{else}请设置小店位置{/if}</strong><em></em></li>
+</ul>
+</div>
+<!-----底部悬浮菜单---->
+<!-- #BeginLibraryItem "/library/vshop_footer.lbi" --><!-- #EndLibraryItem --> 
+<script type="text/javascript">
+function sub_dianpu(frm)
+{
+	var dianpu_name = frm.elements['dianpu_name'].value;
+	if(dianpu_name.length > 8)
+	{
+		alert('店铺名称长度不能超过8个！');
+		return false; 
+	} 
+}
+</script>
+</body>
+</html>

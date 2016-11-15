@@ -1,0 +1,13 @@
+
+      {if $goods.goods_id}
+  		<li>
+        	<a href="{$goods.url}">
+            <h2>
+            <img class="err-product" src="{$goods.goods_thumb}" alt="{$goods.goods_name|escape:html}"></h2>
+          	<dl>
+            <dt>{$goods.goods_style_name}</dt>
+            <dd>{$goods.exchange_integral}积分<em></em></dd>
+          	</dl>
+            </a>
+        </li>
+        {/if}

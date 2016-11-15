@@ -1,0 +1,88 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>{$page_title}</title>
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+	<link rel="stylesheet" type="text/css" href="themesmobile/68ecshopcom_mobile/css/public.css"/>
+<link rel="stylesheet" type="text/css" href="themesmobile/68ecshopcom_mobile/css/catalog.css"/>
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.js"></script>
+{* 包含脚本文件 *}
+{insert_scripts files='common.js'}
+</head>
+<body>
+<!-- 头部 start -->
+<header class="header" style=" position:fixed; top:0">
+  <div class="tab_nav">
+      <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+      <div class="h-mid">全部分类</div>
+      <div class="h-right">
+        <aside class="top_bar">
+          <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a href="javascript:;"></a> </div>
+        </aside>
+      </div>
+  </div>
+</header>
+<!-- #BeginLibraryItem "/library/up_menu.lbi" --><!-- #EndLibraryItem --> <!--弹出菜单-->
+<!--分类切换--> 
+<div class="container">    
+  <div class="category-box">
+    <div class="category1" style="outline: none;" tabindex="5000">
+      <ul class="clearfix" style=" padding-top:45px;">
+       <!--{foreach from=$categories item=cat name=name}-->
+        <li {if $smarty.foreach.name.first}class="cur"{/if}>{$cat.name|escape:html}</li>
+<!--{/foreach}-->
+      </ul>
+    </div>
+    <div class="category2" style=" outline: none; overflow-y:scroll" tabindex="5001">
+    <!--{foreach from=$categories item=cat name=name}-->      
+      <dl style="display: none; padding-top:45px;{if $smarty.foreach.name.first}display: block;{/if}"> 
+        <?php
+		 $GLOBALS['smarty']->assign('index_image',get_advlist('分类-'.$GLOBALS['smarty']->_var['cat']['id'].'-促销广告', 1));
+	  ?>  <!-- {if $index_image} -->
+        <span>
+       
+         
+		{foreach from=$index_image item=ad name=index_image}
+        <a href="{$ad.url}">
+ <img src="{$ad.image}">
+  </a>
+		{/foreach}
+       
+
+		</span>  <!-- {/if} -->
+        <a href="category.php?id={$cat.id}" class="all" style=" color:#FFF">进入{$cat.name|escape:html}频道&nbsp;></a>
+        <!--{foreach from=$cat.cat_id item=child name=child}-->   
+        <dt><a href="{$child.url}" >{$child.name|escape:html}</a></dt> 
+        <dd> 
+        <div class="fenimg">
+           <!--{foreach from=$child.cat_id item=childer name=cat22}--> 
+           {if $childer.img} 
+        <div class="fen_img">     
+        <a href="{$childer.url}"><span><img alt="" src="{$childer.img}"></span><em>{$childer.name}</em></a> 
+        </div>
+        {else}
+        <div class="fen">
+        <a href="{$childer.url}">{$childer.name}</a> 
+        </div>  
+{/if}  
+    <!--{/foreach}-->
+    </div>
+     
+         </dd>
+            <!--{/foreach}-->
+
+      </dl>
+   <!--{/foreach}-->
+    </div>
+  </div>
+</div>
+<!---切换js----->
+
+<script src="themesmobile/68ecshopcom_mobile/js/category.js"></script>
+<script src="themesmobile/68ecshopcom_mobile/js/jquery.nicescroll.min.js"></script> 
+</body>
+</html>

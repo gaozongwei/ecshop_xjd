@@ -1,0 +1,35 @@
+array (
+  'styleid' => 1,
+  'url' => 'pro_search.php',
+  'start' => 0,
+  'page' => 1,
+  'size' => 10,
+  'record_count' => 14,
+  'page_count' => 2,
+  'page_first' => '',
+  'page_prev' => '',
+  'page_next' => 'pro_search.php?keywords=&category=0&brand=0&sort=goods_id&order=DESC&min_price=0&max_price=0&action=&intro=promotion&goods_type=0&sc_ds=0&outstock=0&page=2',
+  'page_last' => '',
+  'page_kbd' => false,
+  'page_number' => 
+  array (
+    1 => 'pro_search.php?keywords=&category=0&brand=0&sort=goods_id&order=DESC&min_price=0&max_price=0&action=&intro=promotion&goods_type=0&sc_ds=0&outstock=0&page=1',
+    2 => 'pro_search.php?keywords=&category=0&brand=0&sort=goods_id&order=DESC&min_price=0&max_price=0&action=&intro=promotion&goods_type=0&sc_ds=0&outstock=0&page=2',
+  ),
+  'search' => 
+  array (
+    'keywords' => '',
+    'category' => 0,
+    'brand' => 0,
+    'sort' => 'goods_id',
+    'order' => 'DESC',
+    'min_price' => 0,
+    'max_price' => 0,
+    'action' => '',
+    'intro' => 'promotion',
+    'goods_type' => 0,
+    'sc_ds' => 0,
+    'outstock' => 0,
+  ),
+  'display' => 'grid',
+)

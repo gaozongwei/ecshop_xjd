@@ -1,0 +1,16 @@
+#toTop {
+    display: none;
+    position: fixed;
+    bottom: 100px;
+    right: 5px;
+    width: 40px;
+    height: 40px;
+    background-image: url('../images/toTop.png');
+    background-repeat: no-repeat;
+	background-position:center center;
+	background-color:rgba(255,255,255,0.8);
+	border-radius:50%;
+	border:1px solid #e5e5e5;
+	box-shadow:0 1px 1px #f5f5f5;
+	background-size:40px 40px;
+}

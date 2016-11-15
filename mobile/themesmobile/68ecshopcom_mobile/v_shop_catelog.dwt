@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>{$page_title}</title>
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.js"></script>
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/TouchSlide.1.1.js"></script>
+<!--v_shop.css-->
+<link href="themesmobile/68ecshopcom_mobile/css/v_shop.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<!--header-->
+<div class="h_top">
+<dl>
+<dt><a href="javascript:history.back(-1)"></a></dt>
+<dd>店铺分类</dd>
+</dl>
+</div>
+<div class="catelog">
+<ul>
+{if $cat_list}
+{foreach from=$cat_list item=list}
+<li><a href="v_shop_list.php?cat_id={$list.cat_id}&user_id={$smarty.session.user_id}"><span>{$list.cat_name}</span><i></i></a></li>
+{/foreach}
+{else}
+<span style="text-align:center">暂无分类</span>
+{/if}
+</ul>
+</div>
+</body>
+</html>

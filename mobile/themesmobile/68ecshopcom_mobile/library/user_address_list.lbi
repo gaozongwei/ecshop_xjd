@@ -1,0 +1,62 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</script>
+<div id="tbh5v0">
+ {insert_scripts files='region.js'}
+  <script type="text/javascript">
+              region.isAdmin = false;
+              {foreach from=$lang.flow_js item=item key=key}
+              var {$key} = "{$item}";
+              {/foreach}
+            </script>
+
+<div class="address_top"></div>  
+{if $consignee_list}       
+ <!-- {foreach from=$consignee_list item=consignee key=sn name=consignee_list} -->
+{if $consignee.address_id}
+<div class="address_add">
+<dl>
+<dt><strong>{$consignee.consignee|escape}&nbsp;&nbsp;{$consignee.tel}</strong>{if $consignee.address_id eq $address}<i>默认地址</i>{/if}</dt>
+<dd>{$consignee.province_name}-{$consignee.city_name}-{$consignee.district_name}{if $consignee.xiangcun_name}-{$consignee.xiangcun_name}{/if}{if $consignee.address}-{$consignee.address|escape}{/if}</dd>
+</dl>
+<div class="address_bottom">
+<div class="add_l"><span>{if $consignee.address_id eq $address}
+<a href="user.php?act=set_address&address_id={$consignee.address_id}" class="addl_red">默认地址</a>
+{else}
+<a href="user.php?act=set_address&address_id={$consignee.address_id}" class="addl_hui">其他地址</a>
+{/if}</span>
+<em>设为默认地址</em></div>
+<div class="add_r">
+<a href="user.php?act=address&address_id={$consignee.address_id}"><span>编辑</span></a>
+<a href="javascript:void(0);" onclick="if (confirm('{$lang.confirm_drop_address}'))location.href='user.php?act=drop_consignee&id={$consignee.address_id}'"><em>删除</em></a>
+</div>
+</div>
+</div>
+
+{/if}
+<!--{/foreach}-->
+
+<script type="text/javascript">
+{foreach from=$lang.flow_js item=item key=key}
+var {$key} = "{$item}";
+{/foreach}
+</script>
+{else}
+<div class="dotm_no">
+  <dl>
+    <dd>暂无收货地址，请尽快添加</dd>
+  </dl>
+</div>
+{/if}
+</div>
+<!--底部-->
+<div style=" width:100%; height:50px;"></div>
+<div class="list_footer">
+<a href="user.php?act=address">添加新地址</a>
+</div>
+<!---返回顶部-->
+<script>
+function goTop(){
+	$('html,body').animate({'scrollTop':0},600);
+}
+</script>
+<a href="javascript:goTop();" class="gotop"><img src="themesmobile/68ecshopcom_mobile/images/topup.png"></a> 

@@ -1,0 +1,103 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<meta name="viewport" content="width=device-width">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>优惠活动</title>
+<!-- TemplateEndEditable -->
+<!-- TemplateBeginEditable name="head" -->
+<!-- TemplateEndEditable -->
+
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link rel="alternate" type="application/rss+xml" title="RSS|{$page_title}" href="{$feed_url}" />
+<link rel="stylesheet" type="text/css" href="store/css/dianpu.css">
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.js"></script>
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/TouchSlide.1.1.js"></script>
+<!--header-->
+<header class="header" style=" border-bottom:1px solid #eeeeee">
+          <div class="h_left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+          <div class="h_mid">优惠活动
+          </div>
+          <div class="h_right">
+            <aside class="top_bar">
+              <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a href="javascript:;"></a> </div>
+            </aside>
+          </div>
+      </header>
+<!-- #BeginLibraryItem "/library/up_menu.lbi" --><!-- #EndLibraryItem --> <!--弹出菜单-->
+<!--mian-->
+{foreach from=$activity_list item=activity}
+<div class="activ">
+<div class="top_title">
+<h2><i></i><span>{$activity.act_name|truncate:14}</span></h2>
+<p>
+<span>{$activity.start_time}~{$activity.end_time}</span>
+<i><img src="./../{$activity.logo}"></i>
+</p>
+
+</dl>
+</div>
+   <!--优惠方式-->
+   <ul>
+   <li><i></i><span>{$activity.shop_name}</span></li>
+   <li>{$lang.label_act_type}{$activity.act_type}{$val.act_type}<!-- {if $activity.act_type ne $lang.fat_goods} -->{$activity.act_type_ext}<!-- {/if} --></li>
+   <!---上限。下限-->
+   <li>{$lang.label_max_amount}<!-- {if $activity.max_amount > 0} -->{$activity.max_amount}<!-- {else} -->{$lang.nolimit}无上限<!-- {/if} --></li> 
+   <li>{$lang.label_min_amount}{$activity.min_amount}</li>
+    </ul>
+       <!---优惠范围-->
+     <dl class="fanwei">
+     <dt><i></i><span>{$lang.label_act_range}{$activity.act_range}</span></dt>
+     <dd> 
+     <!-- {if $activity.act_range ne $lang.far_all} -->
+        <!-- {foreach from=$activity.act_range_ext item=ext} -->
+          {if $ext.thumb}
+     <span>
+      <a href="{$activity.program}{$ext.id}" class="fenwei_goods"><img src="{$ext.thumb}" alt="{$ext.name}" title="{$ext.name}"/></a>
+     </span>
+     {else}
+     <a href="{$activity.program}{$ext.id}" class="fenwei_name" style="color:#666;">{$ext.name}</a>
+     {/if}
+        <!-- {/foreach} -->
+        <!-- {/if} -->
+        </dd>
+        </dl>
+     <!--优惠会员的等级-->   
+     <dl class="dengji">
+     <dt><i></i><span>{$lang.label_user_rank}</span></dt>
+     <dd>
+     <!-- {foreach from=$activity.user_rank item=user} -->
+       <span>{$user}</span>
+        <!-- {/foreach} -->
+        </dd>
+        </dl>   
+        
+   <!--优惠品信息 -->   
+    <!-- {if $activity.gift} -->
+    <div class="xin">
+     <h4><i></i><span>特惠品信息</span></h4>
+      <!-- {foreach from=$activity.gift item=goods} -->
+      <a href="goods.php?id={$goods.id}">
+      <dl>
+      <!-- {if $goods.price > 0} --><dd>加价：{$goods.price}{$lang.unit_yuan}</dd><!-- {/if} -->
+      <dt><img src="{$goods.thumb}" alt="{$goods.name}" /></dt>
+      </dl>
+      </a>
+        <!-- {/foreach} -->
+      </div>
+    <!-- {/if} -->
+    
+</div> 
+{/foreach}
+<!---返回顶部-->
+<script>
+function goTop(){
+	$('html,body').animate({'scrollTop':0},600);
+}
+</script>
+<a href="javascript:goTop();" class="gotop"><img src="themesmobile/68ecshopcom_mobile/images/topup.png"></a> 

@@ -1,0 +1,113 @@
+/*页面body的背景色*/
+.body_bg{ background:#E5E5E5}
+.body_bj{ background:#EEEEEE}
+/*iphone手机的input的样式问题*/
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+button {
+-webkit-appearance: none;
+}
+/*css初始值*/
+body {margin:0px;font-family: "微软雅黑", "宋体", Arial, Helvetica, sans-serif;font-size: 14px;line-height: 180%;color: #333333; min-width:320px;}
+html, body, div, p, ul, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, form, input, select, button, textarea, iframe, table, th, td {margin: 0;padding: 0;list-style-type: none;}
+img { border:0px}
+a:link {font-family: "微软雅黑", "宋体", Arial, Helvetica, sans-serif;font-size:14px;color: #333333;text-decoration: none;}
+a:visited {font-family: "微软雅黑", "宋体", Arial, Helvetica, sans-serif;font-size:14px;color:#333333;text-decoration: none;}
+a:hover {font-family: "微软雅黑", "宋体", Arial, Helvetica, sans-serif;font-size:14px;color:#E24615;text-decoration: none;}
+input[type=number] {    -moz-appearance:textfield;}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button {    -webkit-appearance: none;}
+.main{ width:100%; overflow:hidden; margin:0; padding:0;}
+table { border-collapse: collapse; border-spacing: 0; empty-cells: show; font-size: 14px }
+fieldset, img { border: 0 }
+cite, em, s, i, b { font-style: normal }
+input, button, textarea, select { font-size:12px; font-family: 'microsoft yahei', Verdana, Arial, Helvetica, sans-serif; }
+body, input, button, textarea, select, option { font-size: normal }
+a, input, textarea { text-decoration: none; outline: 0 }
+li, img, label, input { vertical-align: middle }
+var { font-style: normal }
+ins { text-decoration: none }
+
+/*==================================微信提示样式==========================================*/
+.title{ width:100%; height:50px; margin:auto; background:#E71F19; text-align:center; font-size:16px; line-height:50px; color:#FFF}
+.tishi{ width:95%; margin:auto; overflow:hidden; margin-top:20px; border:1px solid #ccc; border-radius:5px; padding-top:10px; padding-bottom:10px; }
+.tishi dl{ width:95%; margin:auto;overflow:hidden;background:url(../images/weixin/weixin.png) no-repeat left top;background-size: auto 30px;}
+.tishi dl dt{ width:100%; text-indent:50px; overflow:hidden; font-size:16px; line-height:150%; color:#333; text-align:left}
+.tishi dl dd{ width:100%;text-indent:50px; overflow:hidden; font-size:14px; line-height:150%; color:#333; text-align:left}
+
+.tishi1{ width:95%; margin:auto; overflow:hidden; margin-top:20px; border:1px solid #ccc; border-radius:5px; padding-top:10px; padding-bottom:10px; }
+.tishi1 dl{ width:95%; margin:auto;overflow:hidden;background:url(../images/weixin/weixin1.png) no-repeat left top;background-size: auto 30px;}
+.tishi1 dl dt{ width:100%; text-indent:50px; overflow:hidden; font-size:16px; line-height:150%; color:#333; text-align:left}
+.tishi1 dl dd{ width:100%;text-indent:50px; overflow:hidden; font-size:14px; line-height:150%; color:#333; text-align:left}
+
+/*====================================账号管理样式=========================================*/
+.weixin_account{ width:100%; overflow:hidden; border-bottom:1px solid #eeeeee; padding-top:30px; padding-bottom:10px; margin-bottom:40px; background:url(../images/weixin/weixin2.png) no-repeat 10px 35px;background-size: auto 20px;}
+.weixin_account dl{ width:70%; float:left;overflow:hidden; }
+.weixin_account dl dt{ width:100%; height:30px;font-size:14px; line-height:30px; color:#666; text-indent:40px;}
+.weixin_account dl dd{ width:100%; height:30px; overflow:hidden;}
+.weixin_account dl dd em{ display:block; width:30px; float:left; height:30px; margin-left:40px;}
+.weixin_account dl dd em img{ display:block; width:30px; height:30px;}
+.weixin_account dl dd span{ display:block; float:left; font-size:12px; line-height:30px; color:#999;}
+
+.weixin_account i{ display:block; width:30%; float:left;}
+.weixin_account i a{ display:block; width:80%; margin:auto; background:#eeeeee; border:1px solid #ccc;font-size:14px; line-height:30px; color:#333; text-align:center; margin-top:12px;}
+
+.weixin_gengh{ display:block; width:90%; height:35px; background:#E71F19; margin:auto; text-align:center}
+.weixin_gengh a{ font-size:14px; line-height:35px; color:#FFF;}
+/*==手机绑定==*/
+.bangding_main{ width:100%; overflow:hidden}
+.bangding_main h3{ width:100%; height:40px; border-bottom:1px solid #ccc; text-indent:10px; font-size:14px; line-height:40px; color:#333; font-weight:normal;}
+.shuru{ width:100%; overflow:hidden;border-bottom:1px solid #ccc; background:#FFF; padding-top:10px;}
+.shuru dl{ width:100%; margin:auto; overflow:hidden; height:50px;}
+.shuru dl dt{ width:10%; float:left; height:40px;}
+.shuru dl dd{ width:90%; float:left; height:39px;}
+.bd_phone{ border-bottom:1px solid #eeeeee;}
+.bd_phone em{ display:block; float:left; font-size:14px; line-height:50px; color:#666}
+.bd_phone input{ display:block; width:90%; height:25px; font-size:14px; line-height:25px; margin-top:5px; color:#666; text-indent:5px;-webkit-appearance: none; -webkit-box-flex: 1; -webkit-flex: 1; flex: 1; border-radius: 0; -webkit-rtl-ordering: logical; -webkit-user-select: text; border:0px;}
+
+.bd_mima input{ display:block; width:60%; height:25px; float:left;font-size:14px; line-height:25px; margin-top:5px; color:#666; text-indent:5px;-webkit-appearance: none; -webkit-box-flex: 1; -webkit-flex: 1; flex: 1; border-radius: 0; -webkit-rtl-ordering: logical; -webkit-user-select: text; border:0px;}
+.bd_mima span{ display:block; width:40%; height:39px; float:right;}
+.bd_mima span input{display:block; width:90%; margin:auto; height:30px;font-size:14px; line-height:30px; margin-top:5px; color:#fff; text-indent:5px;-webkit-appearance: none; -webkit-box-flex: 1; -webkit-flex: 1; flex: 1; border-radius: 0; -webkit-rtl-ordering: logical; -webkit-user-select: text; border:0px; background:#E71F19; text-align:center}
+
+.bg1{ background:url(../images/weixin/bangding2.png) no-repeat center center;background-size: auto 30px;}
+.bg2{ background:url(../images/weixin/bangding1.png) no-repeat center center;background-size: auto 30px;}
+.logn{width:95%; height:30px;margin:auto; text-align:right;  margin-top:10px; }
+.logn a{ display:block; float:right; padding-left:20px;font-size:14px; line-height:30px; color:#F59900;background:url(../images/weixin/bangding.png) no-repeat left center;background-size: auto 20px;}
+
+.btn_big1{ display:block; width:90%; margin:auto; height:35px; margin-top:30px; background:#E71F19; text-align:center; font-size:14px; line-height:35px; color:#fff; border:0px; }
+
+ /*注册*/
+.log_reg_box {width: 100%;}
+.log_reg_box ul.tab {width: 100%;padding-bottom: 20px; }
+.log_reg_box ul.tab li {width: 50%;height: 51px;text-align: center;line-height: 50px;
+	font-family: 微软雅黑;font-size: 16px;color: #3e3e3e;float: left; background:#FFF; }
+.log_reg_box ul.tab li.curr span {display: block;color: #be3233; border-bottom:#be3233 1px solid;}
+.log_reg_box ul.tab li.curr span font {display: block;}
+.log_reg_box ul.tab li.currl span {border-bottom: 1px solid #d3d3d3;
+color: #3e3e3e;}
+.log_reg_box ul.tab li.currr span {
+	border-bottom: 1px solid #d3d3d3;color: #3e3e3e;}
+#logRegTabCon { width:100%; overflow:hidden; padding-top:20px; padding-bottom:20px;}
+.log_reg_item { }
+.hide {display: none}
+.c-form-txt-normal { display:block;height: 36px;width:96%; margin:auto;border: solid 1px #DDD;padding-left: 9px;color: #333333;
+font-size: 14px;-webkit-border-radius: 0;-webkit-appearance: none;background: #ffffff;}
+.Login dl dd input.zphone{width:112px; float:right; border:0px;background:#fff; font-size:14px; text-align:center; margin-top:2px;border-radius:0; color:#be3233; border:#be3233 1px solid; border-radius:16px; line-height:30px; height:30px; padding:0;}
+.field {padding: 5px 15px;}
+.tips {font-size: 14px;}
+#tbh5v0 .reg-success .tips, #tbh5v0 .login-success .tips, #tbh5v0 .reg-success .c-btn-oran-big1, #tbh5v0 .login-success 
+#tbh5v0.err .tips {color: red;}
+#tbh5v0 .success .tips {display: none;}
+#tbh5v0  .tips {font-size: 12px;color: #999;margin: 0px 0 0px 0;}
+#tbh5v0 .tips span {color: rgb(0, 153, 51);}
+#tbh5v0 .tips a {color: #69F}
+#tbh5v0 .tips a.big {font-size: 14px;}
+#tbh5v0 .innercontent .tips-act {
+	font-size: 16px;
+	padding: 20px 0;
+	line-height: 25px;
+}
+#tbh5v0 .innercontent .tips-title {
+	font-size: 24px;
+	padding: 20px 0;
+	text-align: center;
+}

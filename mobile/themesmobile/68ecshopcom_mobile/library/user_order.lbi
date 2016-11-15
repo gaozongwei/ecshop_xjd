@@ -1,0 +1,40 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!--顶部切换--->
+<ul class="order_listtop">
+<li><a href="user.php?act=order_list" {if $composite_status eq -1}class="on"{/if}>全部({$order_count.all})</a></li>
+<li><a href="user.php?act=order_list&composite_status=100" {if $composite_status eq 100}class="on"{/if}>待付款({$order_count.await_pay})</a></li>
+<li><a href="user.php?act=order_list&composite_status=101" {if $composite_status eq 101}class="on"{/if}>待发货({$order_count.await_ship})</a></li>
+<li><a href="user.php?act=order_list&composite_status=105" {if $composite_status eq 105}class="on"{/if}>待收货({$order_count.await_receipt})</a></li>
+<li><a href="user.php?act=order_list&composite_status=102" {if $composite_status eq 102}class="on"{/if}>已完成({$order_count.finished})</a></li>
+</ul>
+<div class="order_tishi">如果要退款、退货，请到电脑端操作。</div>
+
+<script type="text/javascript">
+var url = 'user.php?act=ajax_order_list';
+$(function(){
+	$('#J_ItemList').more({
+        'address': url,
+        'data':{'composite_status':'{$composite_status}'},
+});
+});
+</script> 
+
+    <div id="J_ItemList" class="order">
+      <ul class="single_item info">
+      </ul>
+      <a href="javascript:;" class="get_more" style="text-align:center; display:block;"> </a> 
+    </div>
+      
+    
+<script type="text/javascript">
+{foreach from=$lang.merge_order_js item=item key=key}
+var {$key} = "{$item}";
+{/foreach}
+</script>
+<!---返回顶部-->
+<script>
+function goTop(){
+	$('html,body').animate({'scrollTop':0},600);
+}
+</script>
+<a href="javascript:goTop();" class="gotop"><img src="themesmobile/68ecshopcom_mobile/images/topup.png"></a> 

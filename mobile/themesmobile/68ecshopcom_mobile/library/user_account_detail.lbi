@@ -1,0 +1,37 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!---------申请记录----------->
+<div class="user_login_title" style=" margin-bottom:10px;"><h2><em>账户余额：</em><span>{$surplus_amount}</span></h2></div>
+
+<!--{if $account_log}-->
+<!--{foreach from=$account_log item=item}-->
+<div class="detail_m">
+<dl>
+<h2><span>{$item.type}</span><em>{$item.add_time}</em></h2>
+<dt><em>{$lang.money}：</em><span>{$item.amount}</span></dt>
+<dd>
+<p>{$lang.process_notic}：{$item.short_user_note}</p>
+<p>{$lang.admin_notic}：{$item.short_admin_note}</p>
+</dd>
+<dd>
+<span>{$lang.is_paid}：{$item.pay_status}</span>
+ <!-- {if ($item.is_paid eq 0 && $item.process_type eq 1) || $item.handle} --> 
+<a href="user.php?act=cancel&id={$item.id}" onclick="if (!confirm('{$lang.confirm_remove_account}')) return false;" style="color:#666">{$lang.is_cancel}</a>{/if}
+</dd>
+</dl>
+</div>
+<!--{/foreach}-->       
+{else}
+  <div class="dotm_no">
+  <dl>
+    <dd>您没有任何申请记录哦！</dd>
+  </dl>
+</div>
+<!--{/if}-->
+
+<!---返回顶部-->
+<script>
+function goTop(){
+	$('html,body').animate({'scrollTop':0},600);
+}
+</script>
+<a href="javascript:goTop();" class="gotop"><img src="themesmobile/68ecshopcom_mobile/images/topup.png"></a> 

@@ -1,0 +1,316 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>{$page_title}</title>
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<link rel="stylesheet" type="text/css" href="themesmobile/68ecshopcom_mobile/css/pmpublic.css"/>
+<link rel="stylesheet" type="text/css" href="themesmobile/68ecshopcom_mobile/css/pmgoods.css"/>  
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.js"></script>
+{insert_scripts files='jquery.json.js,transport.js'}
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/touchslider.dev.js"></script>
+{insert_scripts files='common.js'}
+</head>
+<body>
+<script type="text/javascript">
+var process_request = "{$lang.process_request}";
+</script>
+<script language="javascript"> 
+<!--
+/*屏蔽所有的js错误*/
+function killerrors() { 
+return true; 
+} 
+window.onerror = killerrors; 
+//-->
+function tiaozhuan()
+{ 
+//var thisurl = window.location.href;
+document.getElementById("share_form").submit();
+}
+</script>
+<script type="text/javascript">
+				/*第一种形式 第二种形式 更换显示样式*/
+				function setGoodsTab(name,cursel,n){
+					$('html,body').animate({'scrollTop':0},600);
+				for(i=1;i<=n;i++){
+				var menu=document.getElementById(name+i);
+				var con=document.getElementById("user_"+name+"_"+i);
+				menu.className=i==cursel?"on":"";
+				con.style.display=i==cursel?"block":"none";
+				}
+				}
+				</script>
+<div class="main"> 
+      <!----------------------------------header----------------------------------->
+      <div class="tab_nav">
+        <div class="header">
+          <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+          <div class="h-mid">
+            <ul>
+              <li><a href="javascript:;" class="tab_head on"id="goods_ka1" onClick="setGoodsTab('goods_ka',1,3)">商品</a></li>
+              <li><a href="javascript:;" class="tab_head" id="goods_ka2" onClick="setGoodsTab('goods_ka',2,3)">详情</a></li>
+              <li><a href="javascript:;" class="tab_head" id="goods_ka3" onClick="setGoodsTab('goods_ka',3,3)">评价</a></li>
+              
+            </ul>
+          </div>
+          <div class="h-right">
+            <aside class="top_bar">
+            <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a href="javascript:;"></a> </div>
+            <a href="flow.php" class="show_cart"><em class="global-nav__nav-shop-cart-num" id="ECS_CARTINFO">{insert name='cart_info'}</em></a>
+            
+            
+            </aside>
+          </div>
+        </div>
+      </div>
+       	<!-- #BeginLibraryItem "/library/up_menu.lbi" --><!-- #EndLibraryItem --> <!--弹出菜单-->
+     <form action="share_goods.php" method="post" id="share_form">
+            <input type="hidden" name="content" value="{$goods.goods_style_name}">
+            <input type="hidden" name="pics" value="{$goods.goods_img}">
+            <input type="hidden" name="gid" value="{$goods.goods_id}">
+            <input type="hidden" name="url" value="http://{$smarty.server.SERVER_NAME}{$smarty.server.REQUEST_URI}">
+     </form>
+	  
+	  <!-----------------------------------商品-------------------------------------->
+      <div class="main" id="user_goods_ka_1" style="display:block;">
+        <!-- 单品介绍图片 --> 
+            <!-- #BeginLibraryItem "/library/pre_sale_goods_gallery.lbi" --><!-- #EndLibraryItem --> 
+          <form action="pre_sale.php?act=buy" method="post" id="purchase_form" name="ECS_FORMBUY" >
+          
+          <input type="hidden" name="pre_sale_id" value="{$goods.pre_sale_id}" />
+            <div class="product_info">
+              <div class="info_dottm">
+                <h3 class="name">{$goods.goods_name|truncate:30}</h3>
+                <div class="right"><a onClick="tiaozhuan()"><div id="pro_share" class="share"></div></a></div>
+              </div>
+              <!--价格-->
+              <dl class="goods_price">
+
+              <dt> <span id="ECS_GOODS_AMOUNT">定金: {$goods.formated_deposit}</span><font>预售价格：{$goods.formated_cur_price}</font>
+                </dt>
+              </dl>
+              <ul class="price_dottm">
+               <li style=" text-align:left">折扣：{$zhekou}折</li>
+               <li>{$review_count}人评价</li>
+               <li style=" text-align:right">{$order_num}人已付款</li> 
+              </ul>
+              </div>             
+<!-------商品属性-------->
+<!--{if $specification}-->  
+<section id="search_ka">
+<!---属性---->
+<div class="ui-sx bian1"> 
+<div class="subNavBox"> 
+	<div class="subNav"><strong>选择商品属性</strong></div>
+    <ul class="navContent"> 
+    {foreach from=$specification item=spec key=spec_key name=specification}
+    <li>   
+          <div class="title">{$spec.name}</div>
+          <div class="item">
+          {if $spec.attr_type eq 1}
+          {foreach from=$spec.values item=value key=key}
+          <a {if $key eq 0}class="hover"{/if} href="javascript:;" name="{$value.id}" onclick="changeAtt(this);" for="spec_value_{$value.id}" title="{if $value.price gt 0}{$lang.plus}{$value.format_price|abs}{elseif $value.price lt 0}{$lang.minus}{$value.format_price|abs}{/if}"><input style="display:none" id="spec_value_{$value.id}" type="radio" name="spec_{$spec_key}" value="{$value.id}" {if $key eq 0}checked{/if} />
+          {$value.label}  {if $value.price gt 0}<font>+ {$value.format_price|abs}</font>{elseif $value.price lt 0}<font>- {$value.format_price|abs}</font>{/if}
+          
+          </a>
+           {/foreach}
+           {else}
+            {foreach from=$spec.values item=value key=key}
+          <a {if $key eq 0}class="hover"{/if} href="javascript:;" name="{$value.id}" onclick="changeAtt1(this)" for="spec_value_{$value.id}" title="{if $value.price gt 0}{$lang.plus}{$value.format_price|abs}{elseif $value.price lt 0}{$lang.minus}{$value.format_price|abs}{/if}"><input type="checkbox" style=" display:none" name="spec_{$spec_key}" value="{$value.id}" id="spec_value_{$value.id}" {if $key eq 0}checked{/if}/>
+							{$value.label} {if $value.price gt 0}<font>+ {$value.format_price|abs}</font>{elseif $value.price lt 0}<font>- {$value.format_price|abs}</font>{/if}
+           </a>
+           {/foreach}
+            {/if}
+          </div>                    
+    </li>
+    {/foreach}  
+<!---购买数量---->      
+    <li style=" border-bottom:1px solid #eeeeee">
+        <div class="title1">购买数量</div>
+        <div class="item1">
+         <script language="javascript" type="text/javascript">  function goods_cut(){  var num_val=document.getElementById('number');  var new_num=num_val.value;  var Num = parseInt(new_num);  if(Num>1)Num=Num-1;  num_val.value=Num;  }  function goods_add(){  var num_val=document.getElementById('number');  var new_num=num_val.value;  var Num = parseInt(new_num);  Num=Num+1;  num_val.value=Num;  } </script>
+         <span class="ui-number">
+          <button type="button" class="decrease" onclick="goods_cut();changePrice();"></button>
+          <input type="number" class="num" id="number" onblur="changePrice();" name="number" value="1" min="1" max="{$goods.goods_number}" style=" text-align:center"/>
+          <button type="button" class="increase" onclick="goods_add();changePrice();"></button>
+          </span>
+      </div>
+    </li>
+
+       </ul>  
+    </div>
+    </div>    
+</section> 
+
+<!---{else}---->
+<section id="search_ka">
+<div class="ui-sx bian1"> 
+<div class="subNavBox"> 
+	<div class="subNav on"><strong>购买数量</strong></div>
+    <ul class="navContent" style="display: block;"> 
+	<li style=" border-bottom:1px solid #eeeeee">
+        <div class="item1">
+         <script language="javascript" type="text/javascript">  function goods_cut(){  var num_val=document.getElementById('number');  var new_num=num_val.value;  var Num = parseInt(new_num);  if(Num>1)Num=Num-1;  num_val.value=Num;  }  function goods_add(){  var num_val=document.getElementById('number');  var new_num=num_val.value;  var Num = parseInt(new_num);  Num=Num+1;  num_val.value=Num;  } </script>
+         <span class="ui-number">
+          <button type="button" class="decrease" onclick="goods_cut();changePrice();">-</button>
+          <input type="text" class="num" id="number" onblur="changePrice();" name="number" value="1" min="1" max="{$goods.goods_number}"/>
+          <button type="button" class="increase" onclick="goods_add();changePrice();">+</button>
+          </span>
+      </div>    
+    </li>
+       </ul>  
+    </div>
+    </div>    
+</section> 
+
+<!---{/if}---->
+
+
+<!---自提点---->
+<div style=" height:8px; background:#eeeeee; margin-top:-1px;"></div>
+<div class="is_scroll">
+<section id="search_ka">
+<div class="ui-sx bian1"> 
+<div class="subNavBox" > 
+<div class="subNav" style=" border:0;"><a href="pocking.php?id={$goods.goods_id}" style=" border:0px;"><strong>自提点</strong></a></div>
+</div>
+</div> 
+
+  
+</section>
+</div>
+
+<!-- {if $goods.supplier_id} -->
+    <div class="is_scroll">
+<input type="hidden" id="chat_supp_id" value="{$suppid}" />
+<div style=" height:8px; background:#eeeeee; margin-top:-1px;"></div>
+<section class="rzs_info">
+<div class="top_info">
+<dl>
+<dt><a href="supplier.php?suppId={$suppid}"><div style="background-image:url(./../{$shoplogo})"></div></a></dt>
+<dd><strong>卖家: <a href="supplier.php?suppId={$suppid}" style="color:#333; font-size:18px;">{$shopname}</a></strong><em>{$userrank}</em></dd>
+</dl>
+<ul>
+<li><span>宝贝描述</span><strong>:{if $c_rank gt 0}{$c_rank}{else}5.0{/if}</strong><em>{if $c_rank gt 0}{if $c_rank lte 2}低{elseif $c_rank gt 2 && $c_rank lte 4}中{else}高{/if}{else}高{/if}</em></li>
+<li><span>卖家服务</span><strong>:{if $serv_rank gt 0}{$serv_rank}{else}5.0{/if}</strong><em>{if $serv_rank gt 0}{if $serv_rank lte 2}低{elseif $serv_rank gt 2 && $serv_rank lte 4}中{else}高{/if}{else}高{/if}</em></li>
+<li><span>物流服务</span><strong>:{if $shipp_rank gt 0}{$shipp_rank}{else}5.0{/if}</strong><em>{if $shipp_rank gt 0}{if $shipp_rank lte 2}低{elseif $shipp_rank gt 2 && $shipp_rank lte 4}中{else}高{/if}{else}高{/if}</em></li>
+</ul>
+</div>
+<div class="s_dianpu">
+<span><a href="tel:{$servicephone}" style=" margin-left:7%;"><em class="bg1"></em>联系客服</a></span>
+<span><a href="supplier.php?suppId={$suppid}" style=" margin-left:3%;"><em class="bg2"></em>进入店铺</a></span>
+</div>
+</section>
+</div>
+<!-- {/if} -->
+
+
+	      <div class="footer_nav">
+			 <ul> 
+			 <li class="bian"><a href="index.php"><em class="goods_nav1"></em><span>首页</span></a> </li>
+			 <li class="bian"><a href="tel:4000785268"><em class="goods_nav2"></em><span>客服</span></a> </li>
+			 <li><a href="javascript:collect({$goods.goods_id})" id="favorite_add"><em class="goods_nav3"></em><span>收藏</span></a></li>
+			 </ul>
+			 <dl>
+			 <!-- {if $goods.status == 0} -->
+			<input type="submit"  class="goumai" value="活动尚未开始" />
+			<!--{elseif $goods.status == 1 && $goods.deposit > 0 && $goods.status < 2}-->
+			<input type="submit"  class="goumai" value="立即支付定金" />
+			<!--{elseif $goods.status < 2}-->
+			<input type="submit" onclick="addToCart({$goods.goods_id}, 0, 1, 'pre_sale', '{$goods.pre_sale_id}')" name="on_addToCart" class="goumai" value="立即付款"/>
+			<!-- {elseif $goods.status >= 2} -->
+			<input type="submit" class="goumai" value="活动结束" class="c-btn-orange"/>
+			<!--{/if}-->
+			</dl>                
+		 </div>   
+      </form>
+
+      </div>
+          
+      <!---------------------------------详情----------------------------------->
+      <div class="main" id="user_goods_ka_2" style="display:none">
+      <div class="product_main" style=" margin-top:40px;"> <!-- 产品图片 -->
+          <div class="product_images product_desc" id="product_desc"> {$goods.goods_desc} </div>
+        </div>
+        {if $properties || $cfg.show_goodssn || ($goods.goods_brand neq "" and $cfg.show_brand) || $cfg.show_goodsweight || $cfg.show_addtime}
+      <section class="index_floor">
+    <h2 style=" border-bottom:1px solid #ddd ">
+      <span></span>
+      {$lang.xinxi}
+    </h2>
+    
+      <ul class="xiangq">
+         <!-- {foreach from=$properties item=property_group key=key} -->
+        <!-- {foreach from=$property_group item=property} -->
+      <li><p>{$property.name|escape:html}:</p><span>{$property.value}</span></li>
+           <!-- {/foreach}-->
+        <!-- {/foreach}-->
+       <!-- {if $cfg.show_goodssn} 显示商品货号-->
+       <li><p>{$lang.goods_sn}</p><span>{$goods.goods_sn} </span><li>
+       <!-- {/if} -->
+       <!-- {if $goods.goods_brand neq "" and $cfg.show_brand} 显示商品品牌-->
+       <li><p>{$lang.goods_brand}</p><span><a href="{$goods.goods_brand_url}" >{$goods.goods_brand}</a></span><li>
+       <!--{/if}-->
+        <!-- {if $cfg.show_goodsweight} 商品重量-->
+       <li><p>{$lang.goods_weight}</p><span>{$goods.goods_weight}</span><li>
+       <!-- {/if} -->
+      <!-- {if $cfg.show_addtime} 上架时间-->
+       <li><p>{$lang.add_time}</p><span>{$goods.add_time}</span><li>
+      <!-- {/if} -->
+    
+      </ul>
+       </section>
+       {/if}
+      </div> 
+      <!---------------------------------评价----------------------------------->
+      <div class="tab_attrs tab_item hide" id="user_goods_ka_3" style="display:none;">
+        <!-- #BeginLibraryItem "/library/comments.lbi" --><!-- #EndLibraryItem --> 
+        <script language="javascript"> ShowMyComments({$goods.goods_id},0,1);</script>
+      </div>
+      <!---end-->
+      
+    
+    </div>
+    
+    
+
+
+ 
+<!---底部导航-->
+<script>
+function goTop(){
+	$('html,body').animate({'scrollTop':0},600);
+}
+</script>
+<a href="javascript:goTop();" class="gotop"><img src="themesmobile/68ecshopcom_mobile/images/topup.png"></a>
+<div style=" height:60px;"></div>
+             
+<script type="text/javascript">
+var goods_id = {$goods_id};
+var goodsattr_style = {$cfg.goodsattr_style|default:1};
+var gmt_end_time = {$promote_end_time|default:0};
+{foreach from=$lang.goods_js item=item key=key}
+var {$key} = "{$item}";
+{/foreach}
+var goodsId = {$goods_id};
+var now_time = {$now_time};
+
+<!-- {literal} -->
+onload = function(){ 
+  changePrice();
+
+  try { onload_leftTime(); }
+  catch (e) {}
+}
+
+/**
+ * 点选可选属性或改变数量时修改商品价格的函数
+ */
+<!-- {/literal} -->
+</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>账号管理</title>
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<link rel="stylesheet" type="text/css" href="themesmobile/68ecshopcom_mobile/css/weixin.css"/>
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.js"></script>
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/TouchSlide.1.1.js"></script>
+{insert_scripts files='jquery.json.js,transport.js'}
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.more.js"></script>
+{insert_scripts files='common.js'}
+</head>
+<body>
+<div class="title">账号管理</div> 
+<!---账号管理-->
+<div class="weixin_account">
+<dl>
+<dt>
+{if $user.mobile_phone}
+	{$user.mobile_phone}
+{else}
+	{if $user.email}{$user.email}{else}{$user.user_name}{/if}
+{/if}
+</dt>
+{if $tag eq 'weixin'}
+<dd><em><img src="themesmobile/68ecshopcom_mobile/images/weixin/weixinimg.png"></em><span>微信联合登录</span></dd>
+{elseif $tag eq 'qq'}
+<dd><em><img src="themesmobile/68ecshopcom_mobile/images/weixin/QQ.png"></em><span>QQ联合登录</span></dd>
+{elseif $tag eq 'weibo'}
+<dd><em><img src="themesmobile/68ecshopcom_mobile/images/weixin/weibo.png"></em><span>新浪微博联合登录</span></dd>
+{elseif $tag eq 'phone'}
+<dd><em><img src="themesmobile/68ecshopcom_mobile/images/weixin/phone.png"></em><span>手机登录</span></dd>
+{elseif $tag eq 'email'}
+<dd><em><img src="themesmobile/68ecshopcom_mobile/images/weixin/youxing.png"></em><span>邮箱登录</span></dd>
+{/if}
+</dl>
+<i><a href="javascript:;" onClick="jcbd('{$wxid}')">解除绑定</a></i>
+</div>
+
+<span class="weixin_gengh"><a href="weixin_account.php?act=update&wxid={$wxid}">更换账号</a></span>
+<script type="text/javascript">
+function jcbd(wxid)
+{
+	if (confirm("您确定要解除绑定吗？")) 
+	{
+		Ajax.call('weixin_account.php?act=jcbd', 'wxid=' + wxid, jcbdResponse, 'GET', 'JSON');
+	}
+}
+function jcbdResponse(result)
+{
+	 if(result.error > 0)
+	 {
+		 alert(result.message); 
+	 }
+	 else
+	 {
+		 alert(result.message);
+		 location.href = 'user.php?wxid='+result.wxid; 
+	 }
+}
+</script>
+</body>
+</html>

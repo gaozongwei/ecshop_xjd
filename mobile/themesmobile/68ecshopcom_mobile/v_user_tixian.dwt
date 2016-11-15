@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<title>提现</title>
+<!--v_shop.css-->
+<link href="themesmobile/68ecshopcom_mobile/css/v_user.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+function sub_tixian(frm)
+{
+	var deposit_money 	= frm.elements['deposit_money'].value;
+	if(deposit_money.length == 0)
+	{
+		alert('提现金额不能为空！');
+		return false; 
+	}
+	if(isNaN(deposit_money))
+	{
+		alert('您输入的金额不是纯数字！');
+		return false; 
+	}
+	return true;
+}
+</script>
+</head>
+<body  style=" background:#f5f5f5">
+<!--header-->
+<div class="top">
+<dl>
+<dt><a href="v_user.php"></a></dt>
+<dd>提现</dd>
+<span><a href="v_user_tixianmore.php">查看明细</a></span>
+</dl>
+</div>
+<!--main-->
+<div class="v_user_tx">
+<h3>
+<i>{if $user_info.headimgurl}
+<img src="{$user_info.headimgurl}" alt="头像"/>
+{else}
+<img src="themesmobile/68ecshopcom_mobile/images/v-shop/userportrait.jpg" alt="头像"/>
+{/if}</i>
+<span>{if $user_info.nickname}{$user_info.nickname}{else}{$info.username}{/if}</span>
+</h3>
+<form action="v_user_tixian.php" method="post" onsubmit="return sub_tixian(this)">
+<ul>
+<li style=" border-bottom:1px solid #eeeeee"><span>提现金额：</span><input name="deposit_money" placeholder="提现金额" type="text"/></li>
+<li><em>账户金额：￥{$split_money}</em></li>
+</ul>
+<input placeholder="确认提现" type="submit" class="tijiao" style=" color:#FFF"/>
+<input type="hidden" name="act" value="act_tixian" />
+</form>
+
+</div>
+<!-----底部悬浮菜单---->
+<!-- #BeginLibraryItem "/library/vshop_footer.lbi" --><!-- #EndLibraryItem --> 
+</body>
+</html>

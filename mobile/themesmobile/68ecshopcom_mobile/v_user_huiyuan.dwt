@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<title>会员管理</title>
+<link href="themesmobile/68ecshopcom_mobile/css/v_user.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.js"></script>
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/TouchSlide.1.1.js"></script>
+</head>
+<body style=" background:#e5e5e5">
+<!--header-->
+<div class="top">
+<dl>
+<dt><a href="javascript:history.back(-1)"></a></dt>
+<dd>会员管理</dd>
+</dl>
+</div>
+<!--main--> 
+<script type="text/javascript">
+				/*第一种形式 第二种形式 更换显示样式*/
+				function setGoodsTab(name,cursel,n){
+				for(i=1;i<=n;i++){
+				var menu=document.getElementById(name+i);
+				var con=document.getElementById("user_"+name+"_"+i);
+				menu.className=i==cursel?"current":"";
+				con.style.display=i==cursel?"block":"none";
+				}
+				}
+				</script>                
+<section class="e_detail">
+  <header>
+    <ul>
+      <li class="current" id="goods_ka1" onClick="setGoodsTab('goods_ka',1,3)"><p>{$one_level_user_count}</p><em>一级会员</em></li>
+      <li id="goods_ka2" onClick="setGoodsTab('goods_ka',2,3)"><p>{$two_level_user_count}</p><em>二级会员</em></li>
+      <li id="goods_ka3" onClick="setGoodsTab('goods_ka',3,3)" style="border-right:none;" ><p>{$three_level_user_count}</p><em>三级会员</em></li>
+    </ul>
+  </header>
+      <div class="m-desc" id="detail-desc">
+      <!---一级会员-->
+         <div id="user_goods_ka_1" style="display:block; ">
+      {if $one_user_list}
+      {foreach from=$one_user_list item=list name=one_user_list}   
+     <dl class="Member_more">
+     <a href="v_user_huiyuan_list.php?user_id={$list.user_id}">  
+     <dt><img src="{if $list.headimgurl}{$list.headimgurl}{else}themesmobile/68ecshopcom_mobile/images/v-shop/tx.jpg{/if}"/></dt>
+     <dd>
+      <p>{$list.call_username}</p>
+      <p>分成金额：<strong>￥{$list.split_money}元</strong></p>
+      <p>订单数量：{$list.order_count}</p>
+     </dd>
+        </a>
+        </dl>
+	  {/foreach}
+         {else}
+         <div class="font_prompt">您还没有会员哦！</div>
+         {/if}
+        </div>
+         <!---二级会员-->
+          <div class="m-review" id="user_goods_ka_2" style="display:none">
+    {if $two_user_list}
+      {foreach from=$two_user_list item=list name=two_user_list}
+		<dl class="Member_more">
+        <a href="v_user_huiyuan_list.php?user_id={$list.user_id}">
+<dt><img src="{if $list.headimgurl}{$list.headimgurl}{else}themesmobile/68ecshopcom_mobile/images/v-shop/tx.jpg{/if}"/></dt>
+<dd>
+<p>{$list.call_username}</p>
+<p>订单数量：{$list.order_count}</p>
+<p>分成金额：<strong>￥{$list.split_money}元</strong></p>
+</dd>
+</a>
+</dl>
+	  {/foreach}
+         {else}
+         <div class="font_prompt">您还没有会员哦！</div>
+         {/if}
+          </div>
+          <!---三级会员-->
+          <div class="m-recommend" id="user_goods_ka_3" style="display:none;" > 
+        {if $three_user_list}
+		{foreach from=$three_user_list item=list name=three_user_list}
+        <a href="v_user_huiyuan_list.php?user_id={$list.user_id}">
+		<dl class="Member_more">
+        <dt><img src="{if $list.headimgurl}{$list.headimgurl}{else}themesmobile/68ecshopcom_mobile/images/v-shop/tx.jpg{/if}"/></dt>
+        <dd>
+        <p>{$list.call_username}</p>
+        <p>订单数量：{$list.order_count}</p>
+        <p>分成金额：<strong>￥{$list.split_money}元</strong></p>
+        
+        </dd>
+    </a>
+        </dl>
+	  {/foreach}
+         
+         {else}
+         <div class="font_prompt">您还没有会员哦！</div>
+         {/if}
+          </div>
+      </div>
+</section>
+               
+<!---返回顶部-->
+<script>
+function goTop(){
+	$('html,body').animate({'scrollTop':0},600);
+}
+</script>
+<a href="javascript:goTop();" class="gotop"><img src="themesmobile/68ecshopcom_mobile/images/v-shop/topup.png"></a> 
+<!-----底部悬浮菜单---->
+<!-- #BeginLibraryItem "/library/vshop_footer.lbi" --><!-- #EndLibraryItem --> 
+</body>
+</html>

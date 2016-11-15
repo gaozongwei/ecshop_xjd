@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>同城的店铺</title>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <link rel="stylesheet" href="themesmobile/68ecshopcom_mobile/css4/ecsmart.css">
+	
+    <script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.js"></script>
+    {insert_scripts files='jquery.json.js,transport.js'}
+    <script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/touchslider.dev.js"></script>
+    <link rel="stylesheet" href="themesmobile/68ecshopcom_mobile/css/supplier.css" type="text/css" />
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <style>
+        /*.shop-list-box{ margin-top: 0}
+        .shop-list li{ background: none;}
+        .shop-list .shop-products ul li{ background: #FFF; border-radius: 5px;}
+        .shop-list .shop-products ul>li:first-child{ margin-right: 10px;}*/
+        /*.shop-list .shop-action a{ color: #F23015;}*/
+        header{ background: #cc221a; position: relative;}
+        .shop-list .shop-action i.icon{
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background: no-repeat 0 0;
+            vertical-align: bottom;
+            -webkit-background-size: cover;
+            background-size: cover;
+        }
+        #header .back {
+            background-image: url(themesmobile/68ecshopcom_mobile/images/index.png);
+        }
+		 #header.top_bt,.user_btn,.show_cart{background:url(themesmobile/68ecshopcom_mobile/images/pub_flow.png) no-repeat;background-size: auto 160px; }
+
+        .shop-list .shop-action .contact i.icon{ background-image: url(themesmobile/68ecshopcom_mobile/images/iconfont-phone.png);}
+        .shop-list .shop-action .shop i.icon { background-image: url(themesmobile/68ecshopcom_mobile/images/iconfont-shop.png);}
+        .address_box {line-height: 30px; font-size: 14px; background: #FFF; text-indent: 10px;}
+        .shop-list .shop-thumb {max-height: 80px; }
+        .shop-info{ height: 80px;}
+    </style>
+</head>
+<body style="font-family:'微软雅黑';">
+    <header id="header" class='header'>
+        <h1>城市经销商</h1>
+        <a href="javascript:history.back(-1)" class="back">返回</a>
+        <a href="flow.php" class="user_btn"></a>
+    </header>
+   
+    <div ng-view="" class="page ng-scope" id="mainPage" style="height: 100%;">
+        <div class="address_box">当前位置：<span id="l_address">{if $address}{$address}{else}定位中...{/if}</span></div>
+        <div class="wrap ng-scope">
+            <div class="shop-list-box">
+                <ul class="shop-list">
+                    <!-- {foreach from=$supplier_list item=sup} -->
+                    <li class="ng-scope">
+                        <div>
+                            <div class="shop-thumb">
+                                <a href="supplier.php?suppId={$sup.supplier_id}">
+                                    <img src="{$sup.shop_logo}" style="display: inline;">
+                                </a>
+                            </div>
+                            <div class="shop-info">
+                                <div class="shop-name">
+                                    <a class="ng-binding" href="supplier.php?suppId={$sup.supplier_id}">{$sup.shop_name}(<font color="#2BB8AA">{$sup.distance_}</font>)</a>
+                                </div>
+                                <div class="shop-address">
+                                    <span class="l ng-binding">{$sup.shop_country}-{$sup.shop_province}-{$sup.shop_city}-{$sup.shop_address}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="shop-products ng-scope">
+                            <ul>
+                            <!-- {foreach from=$sup['goods_list'] item=goods} -->
+                                <li class="ng-scope">
+                                    <a href="goods.php?id={$goods.goods_id}">
+                                        <div class="product-thumb">
+                                            <img src="{$ROOTPATH}/{$goods.goods_thumb}" style="display: inline;">
+                                        </div>
+                                        <div class="product-name">
+                                            <p class="name ng-binding">{$goods.goods_name|truncate:12}</p>
+                                            <p class="price">¥<span class="ng-binding">{$goods.shop_price}</span></p>
+                                        </div>
+                                    </a>
+                                </li>
+                            <!-- {/foreach} -->
+                            </ul>
+                        </div>
+
+                        <div class="shop-action">
+                            <div class="item navigation">
+                                <a href="supplier_near.php?act=map&supplier_id={$sup.supplier_id}"><i class="icon"></i>查看地图</a>
+                            </div>
+                            <div class="item contact">
+                                <a href="tel:{$sup.service_phone}"><i class="icon"></i>联系店家</a>
+                            </div>
+                            <div class="item shop">
+                                <a href="supplier.php?suppId={$sup.supplier_id}">
+                                <i class="icon"></i>进入店铺</a>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- {/foreach} -->
+                </ul>
+                {include file='library/pages.lbi'}
+            </div>
+        </div>
+    </div>
+
+    {if $is_jssdk}
+    <script>
+        wx.config({
+            debug: false,
+            appId: "{$signPackage.appId}",
+            timestamp: "{$signPackage.timestamp}",
+            nonceStr: "{$signPackage.nonceStr}",
+            signature: "{$signPackage.signature}",
+            jsApiList: [
+              // 所有要调用的 API 都要加到这个列表中
+                'checkJsApi',
+                'openLocation',
+                'getLocation'
+            ]
+        });
+
+        wx.ready(function () {
+            
+            // 在这里调用 API
+            wx.getLocation({
+                success: function (res) {
+                    var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                    var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                    var speed = res.speed; // 速度，以米/每秒计
+                    var accuracy = res.accuracy; // 位置精度
+                    set_address(latitude,longitude);
+                },
+                cancel: function (res) {
+                    alert('用户拒绝授权获取地理位置');
+                }
+            });
+
+        });
+
+        function set_address(lat,lng){
+            $.ajax({
+                url: "supplier_near.php", 
+                data: {lat: lat, lng: lng, is_ajax: 1}, 
+                success: function (address){
+                    $('#l_address').html(address);
+                    window.location.reload();
+                }
+            });
+        }
+    </script>
+    {/if}
+</body>

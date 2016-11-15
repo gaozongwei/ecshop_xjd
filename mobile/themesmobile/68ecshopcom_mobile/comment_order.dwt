@@ -1,0 +1,167 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<link rel="stylesheet" type="text/css" href="themesmobile/68ecshopcom_mobile/css/public.css"/>
+<link rel="stylesheet" type="text/css" href="themesmobile/68ecshopcom_mobile/css/user.css"/>
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.js"></script>
+<body>
+<header>
+  <div class="tab_nav">
+    <div class="header">
+      <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+      <div class="h-mid">评价宝贝</div>
+      <div class="h-right">
+        <aside class="top_bar">
+          <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a href="javascript:;"></a> </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- #BeginLibraryItem "/library/up_menu.lbi" --><!-- #EndLibraryItem --> <!--弹出菜单-->
+<div class="bodybj">
+  <form  method="post" action="user.php?act=my_comment_send" onsubmit="return validate_comment()">
+    <input type="hidden" value="{$goods_id}" name="goods_id">
+    <input type="hidden" value="{$rec_id}" name="rec_id">
+    <input type="hidden" name="o_id" value="{$order_id}" />
+    <!--商品-->
+    <div class="shai_goods">
+      <dl>
+        <dt><img src="{$goods.goods_thumb}" width="50"/></dt>
+        <dd>
+          <p>{$goods.goods_name|truncate:35}</p>
+          <span>{$goods.supplier_name}</span> </dd>
+      </dl>
+    </div>
+    <!--评分-->
+    <div class="pingfen">
+      <h2>填写评价内容:</h2>
+      <span>
+      <textarea id="content_13" class="inputBorder"  name="content"></textarea>
+      </span> </div>
+    <div class="pingfen">
+      <h3>
+        <input type="checkbox" value="1" name="hide_username" class="f_checkbox_t" style="-webkit-appearance: none; border: 0;border-radius: 0; display:block; margin-top:10px;">
+        匿名评价</h3>
+      <dl>
+        <dt>描述：</dt>
+        <dd>
+          <ul class="jsstar">
+            <input name="comment_rank" value="0" type="hidden">
+            <li  title="1"></li>
+            <li  title="2"></li>
+            <li  title="3"></li>
+            <li  title="4"></li>
+            <li  title="5"></li><span></span>
+          </ul>
+          
+        </dd>
+      </dl>
+      <dl>
+        <dt>服务：</dt>
+        <dd>
+          <ul class="jsstar" style=" width:80%">
+           
+            <input name="server" value="0" type="hidden">
+            <li title="1"></li>
+            <li title="2"></li>
+            <li title="3"></li>
+            <li title="4"></li>
+            <li title="5"></li> <span></span>
+          </ul>
+        </dd>
+      </dl>
+      <dl>
+        <dt>发货：</dt>
+        <dd>
+          <ul class="jsstar" style=" width:80%">
+            
+            <input name="send" value="0" type="hidden">
+            <li title="1"></li>
+            <li title="2"></li>
+            <li title="3"></li>
+            <li title="4"></li>
+            <li title="5"></li><span></span>
+          </ul>
+        </dd>
+      </dl>
+      <dl>
+        <dt>物流：</dt>
+        <dd>
+          <ul class="jsstar" style=" width:80%">
+         
+            <input name="shipping" value="0" type="hidden">
+            <li title="1"></li>
+            <li title="2"></li>
+            <li title="3"></li>
+            <li title="4"></li>
+            <li title="5"></li>   <span></span>
+          </ul>
+        </dd>
+      </dl>
+    </div>
+    <script type="text/javascript">
+$(document).ready(function(){
+ $(".jsstar li").mouseover(function(){
+        $(this).parent().find("li").css({"background-position":"left top"});
+        for(var i=0; i<$(this).attr("title"); i++){
+        $(this).parent().find("li").eq(i).css({"background-position":"left bottom"});
+       }
+    });
+
+ $(".jsstar li").mouseout(function(){
+    $(this).parent().find("li").css({"background-position":"left top"});
+     for(var i=0; i<$(this).parent().find("input").val(); i++){
+        $(this).parent().find("li").eq(i).css({"background-position":"left bottom"});
+    }
+});
+
+$(".jsstar li").click(function(){
+    $(this).parent().find("input").val($(this).attr("title"));
+    $(this).parent().find("span").html($(this).attr("title")+"星");
+    });
+});
+</script> 
+    <!--按钮-->
+    <div class="p_main"> 
+      <input name="" type="submit" value="提交" class="m_pingjia" />
+</div>
+  </form>
+</div>
+</body>
+<script>
+ function validate_comment(){
+var content = $("#content_13").val();
+var error = [];
+$(".jsstar input").each(function(index){
+   if(this.value == '0'){
+       if(this.name == 'comment_rank'){
+            error.push('请给描述评分！');
+        };
+       if(this.name == 'server'){
+            error.push('请给服务评分！');
+        };
+       if(this.name == 'send'){
+            error.push('请给发货评分！');
+        };
+       if(this.name == 'shipping'){
+            error.push('请给物流评分！');
+        };
+
+    }
+});
+ if(content.trim() == ''){
+    error.push('评价内容不能为空！');
+}
+
+if(error.length>0){
+alert(error);
+   return false;
+}else{
+  return true;
+}
+}
+</script>
+</html>

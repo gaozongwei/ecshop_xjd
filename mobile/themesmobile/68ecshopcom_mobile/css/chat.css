@@ -1,0 +1,57 @@
+@charset "utf-8";
+/* CSS Document */
+/*css初始值*/
+body {margin:0px;font-family: "微软雅黑", "宋体", Arial, Helvetica, sans-serif;font-size: 14px;line-height: 180%;color: #333333; min-width:320px;}
+html, body, div, p, ul, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, form, input, select, button, textarea, iframe, table, th, td {margin: 0;padding: 0;list-style-type: none;}
+img { border:0px}
+a:link {font-family: "微软雅黑", "宋体", Arial, Helvetica, sans-serif;font-size:14px;color: #333333;text-decoration: none;}
+a:visited {font-family: "微软雅黑", "宋体", Arial, Helvetica, sans-serif;font-size:14px;color:#333333;text-decoration: none;}
+a:hover {font-family: "微软雅黑", "宋体", Arial, Helvetica, sans-serif;font-size:14px;color:#E24615;text-decoration: none;}
+input[type=number] {    -moz-appearance:textfield;}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button {    -webkit-appearance: none;}
+.main{ width:100%; overflow:hidden; margin:0; padding:0;}
+table { border-collapse: collapse; border-spacing: 0; empty-cells: show; font-size: 14px }
+fieldset, img { border: 0 }
+cite, em, s, i, b { font-style: normal }
+input, button, textarea, select { font-size:12px; font-family: 'microsoft yahei', Verdana, Arial, Helvetica, sans-serif; }
+body, input, button, textarea, select, option { font-size: normal }
+a, input, textarea { text-decoration: none; outline: 0 }
+li, img, label, input { vertical-align: middle }
+var { font-style: normal }
+ins { text-decoration: none }
+body { font-size: 20px }
+/*header*/
+.header{ width:100%; height:45px; margin:auto; background:#FFF}
+.h-left a,#show_more{background:url(../images/top.png) no-repeat;background-size: auto 230px;}
+.h-left{float:left;width:30px; height:45px;}
+.h-left a{ display:block; width:30px; height:45px; background-position:5px 9px; }
+.h-mid{ float:left; font-size:16px;color:#333; line-height:45px;}
+/*main*/
+.chat_wrap{ width:100%; overflow:hidden; background:#e5e5e5}
+.main_con{ width:100%; overflow:hidden;}
+.chat_list{ width:100%; height:360px; overflow:auto;}
+.msg_notice{ position:relative; width:100%; height:35px; border-bottom:1px solid #c1e9f0; background:#e2f9fd;line-height: 20px; color: #333; z-index:9; font-size:14px; color:#333; text-indent:10px; line-height:35px;}
+
+.msg_me{ width:98%; margin:auto; overflow:hidden; margin-top:8px;}
+.msg_me .message dt{ width:10%; float:left;}
+.msg_me .message dt img{ display:block; width:90%; float:right; height:auto; border-radius: 50%;}
+.msg_me .message dd{ width:90%; float:left; overflow:hidden;}
+
+.user_main { float:right;border-radius:5px; padding:8px; border:2px solid #72a309; margin-right:10px; background:#FFF; position:relative;}
+.user_main span{ display:block;height:20px; text-align:right; font-size:12px; line-height:20px; color:#999}
+.user_main p{ font-size:14px; line-height:150%; color:#666}
+.user_main i{ display:block; width:10px; height:10px; position:absolute; top:5px; right:-11px; background:url(../images/chat/sj.png) no-repeat left center;background-size: auto 10px; z-index:9999;}
+
+.msg_others{width:98%; margin:auto; overflow:hidden; margin-top:8px;}
+.msg_others .message dt{ width:10%; float:left;}
+.msg_others .message dt img{ display:block; width:90%; float:left; height:auto; border-radius: 50%;}
+.msg_others .message dd{ width:90%; float:left; overflow:hidden;}
+.msg_title { float:left;border-radius:5px; padding:8px; border:2px solid #ccc; margin-left:10px; background:#FFF; position:relative;}
+.msg_title em{ display:block;height:20px; text-align:left; font-size:12px; line-height:20px; color:#666}
+.msg_title span{ display:block;height:20px; text-align:left; font-size:12px; line-height:20px; color:#999}
+.msg_title p{ font-size:14px; line-height:150%; color:#666}
+.msg_title i{ display:block; width:10px; height:10px; position:absolute; top:5px; left:-11px; background:url(../images/chat/sj1.png) no-repeat left center;background-size: auto 10px; z-index:9999;}
+/*底部*/
+.botm{ width:100%; height:40px; border-top:1px solid #ccc; position:fixed; bottom:0; left:0; padding-top:10px; padding-bottom:10px; background:#ccc;}
+.edit_ipt_area{ width:98%; margin:auto; overflow:hidden}
+.edit_ipt_area textarea{ display:block; border:0px; background:#FFF; width:75%; height:40px; float:left; font-size:12px; line-height:150%; color:#666;border-radius:2px;}
+.btn_send{ display:block; float:right; width:20%; text-align:center; background:#FFF; font-size:14px; line-height:40px; color:#666;border-radius:2px;}

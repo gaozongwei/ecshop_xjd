@@ -1,0 +1,30 @@
+/*===================排序==========================*/
+.filtrate_term { width: 100%; overflow: hidden; background: #fff; margin-bottom:5px; }
+.filtrate_term ul { width: 100%; overflow:hidden; padding-top:10px; padding-bottom:10px; border-bottom:1px solid #ccc}
+.filtrate_term li {width: 25%; height:25px; line-height:25px; text-align: center; float:left; border-right:1px solid #ccc; margin-left:-1px}
+.filtrate_term li a { color:#666; font-size:16px; }
+.filtrate_term li.on a { color: #e3091a; }
+
+.filtrate_term .arrow_up, .filtrate_term .arrow_down { width: 0px; height: 0px; font-size: 0; line-height: 0; border-color: #fff #fff #a5a5a5 #fff; border-width: 0px 5px 5px; display: inline-block; border-style: solid; position: relative; top: -6px; left: 5px; }
+.filtrate_term .arrow_down { border-color: #a5a5a5 #fff #fff #fff; border-width: 5px 5px 0px; position: relative; top: 2px; left: -5px; }
+.filtrate_term .active_up { border-color: #fff #fff #e3091a #fff; }
+.filtrate_term .active_down { border-color: #e3091a #fff #fff #fff; }
+
+.show_type { display:block; width: 25px; height:25px; margin:auto;background-position:0px -121px;}
+.show_list{display:block;width: 25px; height:25px; margin:auto;background-position:0px -76px;}
+
+
+.pro_mobile{ width:100%; overflow:hidden; margin-top:5px;}
+.pro_mobile dl{ width:50%; float:left; overflow:hidden; margin-bottom:5px;}
+.pro_mobile dl a{ display:block; width:95%; margin:auto; background:#FFF; overflow:hidden}
+.pro_mobile dl dt{ width:100%; overflow:hidden}
+.pro_mobile dl dt img{ display:block;width:100%; overflow:hidden}
+.pro_mobile dl dd{ width:95%; margin:auto; overflow:hidden; padding-bottom:10px;}
+.pro_mobile dl dd p{ display:block; width:100%; margin:auto; height:40px; font-size:12px; line-height:20px; color:#666;    -webkit-line-clamp: 2; /*2，是控制行数的*/
+    -webkit-box-orient: vertical;
+    display: -webkit-box;  overflow:hidden}
+.pro_mobile dl dd span{ display:block; width:100%; margin:auto;overflow:hidden}
+.pro_mobile dl dd span em{ display:block; float:left; font-size:16px; line-height:30px; color:#E71F19;}
+.pro_mobile dl dd span i{ display:block; float:right; font-size:12px; padding-left:8px; padding-right:8px; border:1px solid #E71F19; line-height:20px; color:#E71F19;border-radius:20px; margin-left:5px; margin-top:5px;}
+.pro_mobile dl dd strong em{ display:block; float:left; font-size:12px; line-height:20px; color:#999;text-decoration:line-through; font-weight:normal;}
+.pro_mobile dl dd strong i{ display:block; float:right; font-size:12px; padding-left:20px;  line-height:20px; color:#999; margin-left:10px;  background:url(../images/phone.png) no-repeat left center;background-size: auto 18px; font-weight:normal;}

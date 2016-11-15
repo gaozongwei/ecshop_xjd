@@ -1,0 +1,5 @@
+<p class="page">
+  <a href="javascript:{if $filter.page eq 1}void(0){else}prev_page(){/if}" class="prev">上一页</a>
+  <span>{if $filter.page && $filter.page gte 0}{$filter.page}{else}0{/if}/{if $filter.page_count && $filter.page_count gte 0}{$filter.page_count}{else}0{/if}</span>
+  <a href="javascript:{if $filter.page eq $filter.page_count}void(0){else}next_page(){/if}">下一页</a>  
+</p>

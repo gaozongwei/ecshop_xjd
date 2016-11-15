@@ -1,0 +1,107 @@
+<!DOCTYPE html >
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>{$page_title}</title>
+  <meta name="Keywords" content="{$keywords}" />
+  <meta name="Description" content="{$description}" />
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+  <link rel="stylesheet" type="text/css" href="themesmobile/68ecshopcom_mobile/css/public.css"/>
+<link rel="stylesheet" type="text/css" href="themesmobile/68ecshopcom_mobile/css/index.css"/>
+  <script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.js"></script>
+	{insert_scripts files='jquery.json.js,transport.js'}
+<body>
+<header id="header"> <!-- #BeginLibraryItem "/library/page_header.lbi" --> <!-- #EndLibraryItem --> </header>
+<div id="search_hide" class="search_hide">
+ <h2> <span class="close"><a href="index.php"><img src="themesmobile/68ecshopcom_mobile/images/close.png"></a></span>关键搜索</h2>
+
+ <div id="mallSearch" class="search_mid">
+        <div id="search_tips" style="display:none;"></div>
+          <ul class="search-type">
+          	<li {if $smarty.request.type == 0} class="cur" {/if} num="0">宝贝</li>
+          	<li {if $smarty.request.type == 1} class="cur" {/if} num="1">店铺</li>
+          </ul>	
+          <div class="searchdotm"> 
+          <form class="mallSearch-form" method="get" name="searchForm" id="searchForm" action="search.php" onSubmit="return checkSearchForm()">
+	   		<input type='hidden' name='type' id="searchtype" value="{$smarty.request.type|default:0}" >
+              <div class="mallSearch-input">
+                <div id="s-combobox-135">
+                    <input aria-haspopup="true" role="combobox" class="s-combobox-input" name="keywords" id="keyword" tabindex="9" accesskey="s" onkeyup="STip(this.value, event);" autocomplete="off"  value="{if $search_keywords}{$search_keywords|escape}{else}请输入关键词{/if}" onFocus="if(this.value=='请输入关键词'){this.value='';}else{this.value=this.value;}" onBlur="if(this.value=='')this.value='请输入关键词'" type="text">
+                </div>
+                <input type="submit" value="" class="button"  >
+              </div>
+             
+            
+          </form>
+         </div> 
+        </div>
+
+ <!--
+                            <div class="search_body">
+                                <div class="search_box">
+                                    <form action="search.php" method="post" id="searchForm" name="searchForm" onSubmit="return checkSearchForm()">
+                                        <div>
+											<select id='search_type' name="search_type" style="width:15%;">
+												<option value='search'>宝贝</option>
+												<option value='stores'>店铺</option>
+											</select>
+                                            <input class="text" type="search" name="keywords" id="keywordBox" autofocus>
+                                            <button type="submit" value="搜 索"></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            -->
+<div id="search_goods">
+<section class="mix_recently_search"><h3><i class="search_h1"></i><span>搜索记录</span><a href="javascript:del_session_search('search_goods')" class="Delete" style="color:#999;">删除</a> </h3>
+<ul>
+</ul>
+  </section>  
+</div>                              
+                            <section class="mix_recently_search"><h3>热门搜索</h3>
+   {if $searchkeywords}
+  <ul>
+    {foreach from=$searchkeywords item=val}
+   <li>
+    <a href="search.php?keywords={$val|escape:url}">{$val}</a>
+   </li>
+   {/foreach}
+   </ul>
+
+    {else}
+    <div class="recently_search_null">没有搜索记录</div>
+    {/if}
+    </section>
+                        </div>
+                        
+                        <script>
+$('.search-type li').click(function() {
+    $(this).addClass('cur').siblings().removeClass('cur');
+    $('#searchtype').val($(this).attr('num'));
+});
+$('#searchtype').val($(this).attr('0'));
+
+window.onload = function(){ 
+    Ajax.call('search.php?is_ajax=1&act=get_session_search_goods', '', session_search_goods , 'POST', 'JSON');
+}
+function session_search_goods(request){
+        $("#search_goods ul").html(request);
+    }
+function search_key(key){
+     document.getElementById('keyword').value = key;     
+     document.getElementById('searchForm').submit();
+}
+
+function del_session_search(name){
+     Ajax.call('search.php?is_ajax=1&act=del_session_search','name='+name, delSearchResponse, 'GET', 'JSON');
+}
+
+function delSearchResponse(result){
+    if(result>0){
+       $("#search_goods ul").html("");
+    }
+}
+</script>
+</body>
+</html>

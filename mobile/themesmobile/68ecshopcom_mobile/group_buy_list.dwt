@@ -1,0 +1,157 @@
+<!DOCTYPE html >
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>{$page_title}</title>
+  <meta name="Keywords" content="{$keywords}" />
+  <meta name="Description" content="{$description}" />
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+  <link rel="stylesheet" type="text/css" href="themesmobile/68ecshopcom_mobile/css/public.css"/>
+  <link rel="stylesheet" type="text/css" href="themesmobile/68ecshopcom_mobile/css/group_buy.css" />
+  <link rel="stylesheet" type="text/css" href="themesmobile/68ecshopcom_mobile/css/ecsmart.css" />
+
+  <script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.js"></script>
+
+</head>
+<body style="font-family:'微软雅黑';">
+<!----------------------------------header----------------------------------->
+<div class="tab_nav">
+    <header class="header">
+      <div class="h-left">
+        <a class="sb-back" href="javascript:history.back(-1)" title="返回"></a>
+      </div>
+      <div class="h-mid">
+      拼团活动
+      </div>
+      <div class="h-right">
+        <aside class="top_bar">
+          <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more">
+            <a href="javascript:;"></a>
+          </div>
+        </aside>
+      </div>
+    </header>
+</div>
+<!-- #BeginLibraryItem "/library/up_menu.lbi" -->
+<!-- #EndLibraryItem -->
+<!--弹出菜单-->
+  
+{if $gb_list}
+<div id="tbh5v0">
+  <section class="innercontent"> 
+    <div class="main">
+     <!-- {if $gb_list} 如果有拼团活动 -->
+         <div class="floor_body auction_hot" style="padding-top: 0px; padding-bottom:0px;">
+    
+        <div class="mc">
+     
+         
+          <ul>
+            <!-- {foreach from=$gb_list item=group_buy} 循环拼团活动开始 -->
+            <li style="background:#FFF; width:48%; margin-left:1%; margin-right:1%;">
+              
+                <a href="{$group_buy.url}" >
+                    <div class="products_kuang">
+                        <img src="../../{$group_buy.goods_thumb}"></div>
+                    <div class="goods_name" style="line-height:28px; font-size:14px;">{$group_buy.goods_name|truncate:25}</div>
+                    <div class="price">
+                        <b style="color:#F00; font-size:14px;">{$group_buy.formated_cur_price}</b>
+                        <b>&nbsp;抢</b>
+                    </div>
+                    <div class='endtime' value="{$group_buy.end_date}" startvalue='{$group_buy.start_date}' showday='no' style="font-size:14px; color:#6C6;"></div>
+                  </a>
+            </li>
+            <!--{/foreach}--> 
+            </ul>
+          
+        </div>
+  </div>
+  <!-- {/if} --> 
+  </div>
+  </section>
+  </div>
+  {else}
+  <div class="touchweb-com_searchListBox" id="goods_list">
+<div class="new_prom2">
+  <strong>抱歉暂时没有相关商品!</strong>
+  </div>  
+</div>
+{/if}
+                
+
+<!-- #BeginLibraryItem "/library/pro_pages.lbi" -->
+<!-- #EndLibraryItem --> 
+
+
+  <!-- #BeginLibraryItem "/library/page_footer.lbi" -->
+  <!-- #EndLibraryItem -->
+  <!-- #BeginLibraryItem "/library/footer_nav.lbi" -->
+  <!-- #EndLibraryItem -->
+<script>
+	$(function(){
+		var datename = new Date();
+		//var Offset = datename.getTimezoneOffset() * 28800;
+		var Offset = datename.getTimezoneOffset();
+		
+		setInterval(function(){
+		  $(".endtime").each(function(){
+			var obj = $(this);
+			var endTime = new Date(parseInt(obj.attr('value')) * 1000 - Offset) ;
+			var strTime = new Date(parseInt(obj.attr('startvalue')) * 1000 - Offset) ;
+			
+			
+			var show_day =  obj.attr('showday');
+			var nowTime = new Date();
+			var nMS=endTime.getTime() - nowTime.getTime();	//距离结束毫秒
+			var eMs=strTime.getTime() - nowTime.getTime();	//距离开始毫秒
+			
+			if(nMS >=0 && eMs <= 0){
+				var myD=Math.floor(nMS/(1000 * 60 * 60 * 24));
+				var myH_show=Math.floor(nMS/(1000*60*60) % 24);
+				var myH=Math.floor(nMS/(1000*60*60));
+				var myM=Math.floor(nMS/(1000*60)) % 60;
+				var myS=Math.floor(nMS/1000) % 60;
+				var myMS=Math.floor(nMS/100) % 10;
+			}
+			if(eMs >= 0){
+				var syD=Math.floor(eMs/(1000 * 60 * 60 * 24));
+				var syH_show=Math.floor(eMs/(1000*60*60) % 24);
+				var syH=Math.floor(eMs/(1000*60*60));
+				var syM=Math.floor(eMs/(1000*60)) % 60;
+				var syS=Math.floor(eMs/1000) % 60;
+				var syMS=Math.floor(eMs/100) % 10;
+			}
+			
+			if(myS >= 0 && eMs <= 0){
+				if(show_day == 'show')
+				{
+					var str = '距结束还有:'+myD+'天'+myH_show+'小时'+myM+'分'+myS+'秒';
+					obj.css('color','#F00');
+				}
+				else
+				{
+					var str = '距结束还有:'+myH+'时'+myM+'分'+myS+'秒';
+					obj.css('color','#F00');
+				}
+			}else{
+				if(eMs > 0){
+					if(show_day == 'show')
+					{
+						var str = '距开始还有:'+syD+'天'+syH_show+'小时'+syM+'分'+syS+'秒';
+					}
+					else
+					{
+						var str = '距开始还有:'+syH+'时'+syM+'分'+syS+'秒';
+					}
+				}else{
+					var str = "已结束！";	
+				}
+			}
+			obj.html(str);
+		  });
+		}, 100);
+	})
+</script>
+</body>
+</html>

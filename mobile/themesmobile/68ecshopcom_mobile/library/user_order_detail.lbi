@@ -1,0 +1,317 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div class="order">
+<!--详情顶部-->
+<div class="order_up">
+<div class="lan">
+<dl>
+<dd>{if $order.extension_code eq 'pre_sale'}<span>[预售活动]</span>{/if}
+{if $order.order_status eq '已取消'}
+<span style=" line-height:50px;">订单已取消</span>
+{else}
+<span>{$order.pay_status}&nbsp;&nbsp;&nbsp;&nbsp;卖家{$order.shipping_status}</span>
+<span style=" font-size:14px">{$lang.shipping_fee}{$lang.colon}&nbsp;:{$order.formated_shipping_fee}</span>
+{/if}
+</dd>
+</dl>
+</div>
+<!--支付方式-->
+<div class="order_zhifu">
+<dl>
+{if $order.order_status eq '已取消'}
+<dd>
+<span style=" margin-top:15px">订单状态：已取消</span>
+<span>订单已取消，不能继续支付</span>
+</dd>
+{else}
+<dd>
+{if $order.pay_time || $order.topay}
+<span>{$lang.select_payment}&nbsp;:&nbsp;{$lang.colon}{$order.pay_name}</span>
+<span>{$lang.order_amount}&nbsp;:&nbsp;{$lang.colon}{$order.formated_order_amount}</span>
+<span>{$order.pay_time}</span>
+{else}
+<span>{$lang.select_payment}&nbsp;:&nbsp;{$lang.colon}{$order.pay_name}</span>
+<span>{$lang.order_amount}&nbsp;:&nbsp;{$lang.colon}{$order.formated_order_amount}</span>
+<i onClick="choose_attr()">立即支付</i>
+<div id="zf_button" style="display:none">{$order.pay_online}</div>
+{/if}
+</dd>
+</dl>
+{/if}
+</dl>
+</div>
+<script>
+{if $is_pay}
+    var zf = document.getElementById("zf_button");
+    var zf_input = zf.getElementsByTagName('INPUT');
+    for(var i=0;i<zf_input.length;i++){
+        if(zf_input[i].type == 'button' || zf_input[i].type == 'submit'){
+            zf_input[i].click();
+        }
+    }
+{/if}
+</script>
+<!--收货人信息-->
+<div class="information">
+<dl>
+<dd>
+<span>{$lang.consignee_name}&nbsp;:{$lang.colon}&nbsp;{$order.consignee}<em>{$order.mobile}</em></span>
+{if $order.exist_real_goods}
+<p>
+{$lang.detailed_address}{$lang.colon}&nbsp;:&nbsp;{$order.address}
+{if $order.zipcode}[{$lang.postalcode}{$lang.colon}{$order.zipcode}]
+{/if}
+</p>
+{/if}
+</dd>
+
+</dl>
+</div>
+<!--物流信息-->
+{if $kuaidi_list}
+{foreach from=$kuaidi_list item=kuaidi}
+<div class="Logistics">
+<dl>
+<dd><span>{$kuaidi.shipping_name}</span>
+{if $kuaidi.data.context}<p>{$kuaidi.data.context}</p>{/if}
+{if $kuaidi.data.ftime}<i>{$kuaidi.data.ftime}</i>{else}<i>{$kuaidi.data.time}</i>{/if}
+</dd>
+</dl>
+</div>
+{/foreach}
+{else}
+<div class="Logistics">
+<dl>
+<dd style=" line-height:30px; color:#359A2B; font-size:16px;">还没有物流信息</dd>
+</dl>
+</div>
+{/if}
+
+</div>
+<!---订单-->
+<div class="ord_list1">
+<h2><span>{$order.referer}</span></h2>
+{foreach from=$goods_list item=goods name=goods_list}
+<div class="good_list">
+        <a {if $goods.goods_id gt 0 && $goods.extension_code neq 'package_buy'}href="goods.php?id={$goods.goods_id}"{/if}>
+          <dl>
+          <dt><img src="{if $goods.goods_id gt 0 && $goods.extension_code neq 'package_buy'}{$goods.goods_thumb}{else}./themesmobile/68ecshopcom_mobile/images/flow/libao.png{/if}"></dt>
+          <dd class="good_name"><strong>{$goods.goods_name}</strong>
+           
+         {if $goods.goods_attr} <span>{$goods.goods_attr}</span>{/if}
+								{if $goods.is_shipping} <span>{$lang.carriage_free}</span>{/if}
+								{if $goods.parent_id gt 0} <span>{$lang.accessories}</span>{/if}
+								{if $goods.is_gift gt 0} <span>{$lang.largess}</span>{/if}
+           {if $goods.extension_code eq 'package_buy'}<a onClick="choose_attrone(0)" class="mingxi">查看明细</a>{/if}
+             </dd>
+          <dd class="good_pice"><strong>{$goods.goods_price}</strong><em>x{$goods.goods_number}</em></dd>
+          </dl>
+          </a>
+          
+          <div class="pic"><span>小计：</span><strong>{$goods.subtotal}</strong></div>
+         </div>
+{/foreach}
+
+<!--价格信息--->
+<div class="jiage">
+<ul>
+<li>{$lang.goods_all_price}
+						{if $order.extension_code eq "group_buy"}{$lang.gb_deposit}{/if}{$lang.colon}&nbsp;:&nbsp;<span>{$order.formated_goods_amount}</span>
+                        {if $order.discount gt 0}<br>
+						- {$lang.discount}{$lang.colon}&nbsp;:&nbsp;<span>{$order.formated_discount}</span>
+						{/if}
+						{if $order.tax gt 0}<br>
+						+ {$lang.tax}{$lang.colon}&nbsp;:&nbsp;<span>{$order.formated_tax}</span>
+						{/if}
+						{if $order.shipping_fee > 0}<br>
+						+ {$lang.shipping_fee}{$lang.colon}&nbsp;:&nbsp;<span>{$order.formated_shipping_fee}</span>
+						{/if}
+						{if $order.insure_fee > 0}<br>
+						+ {$lang.insure_fee}{$lang.colon}&nbsp;:&nbsp;<span>{$order.formated_insure_fee}</span>
+						{/if}
+						{if $order.pay_fee > 0}<br>
+						+ {$lang.pay_fee}{$lang.colon}&nbsp;:&nbsp;<span>{$order.formated_pay_fee}</span>
+						{/if}
+						{if $order.pack_fee > 0}<br>
+						+ {$lang.pack_fee}{$lang.colon}&nbsp;:&nbsp;<span>{$order.formated_pack_fee}</span>
+						{/if}
+						{if $order.card_fee > 0}<br>
+						+ {$lang.card_fee}{$lang.colon}&nbsp;:&nbsp;<span>{$order.formated_card_fee}</span>
+						{/if}
+						{if $order.money_paid > 0}<br> - {$lang.order_money_paid}{$lang.colon}&nbsp;:&nbsp;<span>{$order.formated_money_paid}</span>{/if}
+						{if $order.surplus > 0}<br> - {$lang.use_surplus}{$lang.colon}&nbsp;:&nbsp;<span>{$order.formated_surplus}</span>{/if}
+						{if $order.integral_money > 0}<br> - {$lang.use_integral}{$lang.colon}&nbsp;:&nbsp;<span>{$order.formated_integral_money}</span>{/if}
+						{if $order.bonus > 0}<br> - {$lang.use_bonus}{$lang.colon}&nbsp;:&nbsp;<span>{$order.formated_bonus}</span>{/if}</li>
+						<li>{$lang.order_amount}{$lang.colon}&nbsp;:&nbsp;<span style=" color:#EE0A3B; font-weight:bold">{$order.formated_order_amount}</span>{if $order.extension_code eq "group_buy"}{$lang.notice_gb_order_amount}{/if}</li>
+                                                
+</ul>					
+</div>
+</div>
+<!--其他信息-->  
+<div class="navContent"> 
+    <ul>
+    <li>{$lang.detail_order_sn}&nbsp;:&nbsp;{$lang.colon}{$order.order_sn}</li>
+{if $order.shipping_id > 0}<li>{$lang.shipping}{$lang.colon}&nbsp;:&nbsp;{$order.shipping_name}</li>{/if}
+			{if $order.pay_name}<li>{$lang.payment}{$lang.colon}&nbsp;:&nbsp;{$order.pay_name}</li>{/if}
+			{if $order.pack_name}<li>{$lang.use_pack}{$lang.colon}&nbsp;:&nbsp;{$order.pack_name}</li>{/if}
+			{if $order.card_name}<li>{$lang.use_card}{$lang.colon}&nbsp;:&nbsp;{$order.card_name}</li>{/if}
+			{if $order.card_message}<li>{$lang.bless_note}{$lang.colon}&nbsp;:&nbsp;{$order.card_message}</li>{/if}
+			{if $order.integral > 0}<li>{$lang.use_integral}{$lang.colon}&nbsp;:&nbsp;{$order.integral}</li>{/if}
+			{if $order.inv_payee && $order.inv_content}
+				<li>{$lang.invoice_title}{$lang.colon}&nbsp;:&nbsp;{$order.inv_payee}</li>
+				<li>{$lang.invoice_content}{$lang.colon}&nbsp;:&nbsp;{$order.inv_content}</li>
+			{/if}
+			{if $order.postscript}<li>{$lang.order_postscript}{$lang.colon}&nbsp;:&nbsp;{$order.postscript}</li>{/if}
+			{if $order.how_oos_name}<li>{$lang.booking_process}{$lang.colon}&nbsp;:&nbsp;{$order.how_oos_name}</li>{/if}
+            </ul>
+       </div>      
+<!--底部按钮-->
+{if $handler.handler}
+<div style=" height:60px;"></div> 
+<div class="detail_dowm">
+<ul>
+<li>
+{$handler.handler}
+</li>
+ </ul> 
+ </div>
+ {/if}
+<!--end--> 
+</div>
+<!---返回顶部-->
+<script>
+function goTop(){
+	$('html,body').animate({'scrollTop':0},600);
+}
+</script>
+<a href="javascript:goTop();" class="gotop"><img src="themesmobile/68ecshopcom_mobile/images/topup.png"></a> 
+<!--支付方式--->
+<section class="f_mask" style="display: none;"></section>
+<section class="f_block" id="choose_attr" style="height:0; overflow:hidden;">
+<div class="zhifu_up">
+<h3><span>选择支付方式</span><a class="c_close_attr" href="javascript:void(0)" onclick="close_choose_attr();">关闭</a></h3>
+
+    <!--{if $payment_list}-->
+    <form name="payment" id="payment" method="post" action="user.php" onsubmit="return payment_validate()">
+ <ul>
+    <!--{if $iswei}-->
+        <!--{foreach from=$payment_list item=payment}-->
+            <!--{if $payment.pay_code eq "weixin" || $payment.pay_code eq "alipay" || $payment.pay_code eq "balance" || $payment.pay_code eq "cod" || $payment.pay_code eq "unionpay"}-->
+                <li>
+                  <input type="radio" name="pay_code" onchange="choose_payment(this.value)"  {if $order.pay_id eq $payment.pay_id}checked="true"{/if} class="f_checkbox_t"   value="{$payment.pay_code}"> {$payment.pay_name}
+                </li>
+            <!--{/if}-->
+        <!--{/foreach}-->
+    <!--{else}-->
+        <!--{foreach from=$payment_list item=payment}-->
+            <!--{if $payment.pay_code eq "alipay" || $payment.pay_code eq "balance" || $payment.pay_code eq "cod" || $payment.pay_code eq "unionpay"}-->
+              <li>
+                  <input type="radio" name="pay_code" onchange="choose_payment(this.value)" {if $order.pay_id eq $payment.pay_id}checked="checked"{/if} class="f_checkbox_t"   value="{$payment.pay_code}"> {$payment.pay_name}
+              </li>
+            <!--{/if}-->
+   <!-- {/foreach} -->
+<!--{/if}-->
+
+                  <input type="hidden" name="act" value="act_edit_payment" />
+                  <input type="hidden" name="order_id" value="{$order.order_id}" />
+                  <input type="hidden" name="is_pay" value="1" />
+</ul>                  
+                  
+<em><input type="submit" value="确定" class="inpu"></em>
+    </form>
+<!-- {/if} -->
+{if $allow_edit_surplus}
+<div class="yue">
+ <form action="user.php" method="post" name="formFee" id="formFee">
+ <h2>{$lang.use_more_surplus}</h2> 
+<div style=" width:100%; overflow:hidden">
+ <input name="surplus" type="text" size="8" value="{$order_surplus}" class="zhifumain"/>
+  <!--余额额支付密码_更改_START_www.68ecshop.com-->
+                  <input onclick="return check_surplus_open(this.form);" type="submit" name="Submit" class="Determine" value="{$lang.button_submit}"/>
+                  <!--余额额支付密码_更改_END_www.68ecshop.com-->
+                  <input type="hidden" name="act" value="act_edit_surplus" />
+                  <input type="hidden" name="order_id" value="{$smarty.get.order_id}" />
+ </div>                 
+                   <span>{$max_surplus}</span>
+                </form>
+</div>
+{/if}
+</div>
+</section>
+<script>
+function choose_attr(){
+	$("#choose_attr").animate({height:'80%'},[10000]);
+		var total=0,h=$(window).height(),
+        top =$('.f_title_attr').height()||0,
+        con = $('.f_content_attr');
+		total = 0.8*h;
+		con.height(total-top+'px');
+	$(".f_mask").show();
+}
+function close_choose_attr(){	
+	$(".f_mask").hide();	
+	$('#choose_attr').animate({height:'0'},[10000]);
+}
+function choose_payment(pay_id){
+	if(pay_id == 'alipay_bank')
+	{	
+            document.getElementById('payment_subbox').style.display = 'block';
+	}
+	else
+	{
+            document.getElementById('payment_subbox').style.display = 'none';
+	}
+    }
+
+    function payment_validate(){
+        var arr=document.getElementsByName("pay_code");
+        var do_pay = false;
+        for(var i=0;i<arr.length;i++){
+            if(arr[i].checked)
+            {
+                do_pay = true;
+            }
+        }
+        if(do_pay){
+              return true;
+        }else{
+             alert("请选择一个支付方式");
+             return false;
+        }
+    }
+</script>
+<!--超值礼包弹出-->
+
+<section class="f_mask1" style="display: none;"></section>
+<section class="f_block1" id="choose_attr1" style="height:0; overflow:hidden;">
+<section class="good_canshu">
+<h2>
+<span>优惠大礼包</span>
+<a href="javascript:void(0)" onclick="close_choose_attr1();" class="c_close" ></a>
+</h2>
+<div style=" height:50px"></div>
+{foreach from=$goods.package_goods_list item=package_goods}
+<dl>
+<dt><img src="{$package_goods.goods_thumb}"></dt>
+<dd>{$package_goods.goods_name}</dd>
+<span><font style=" color:#FF3300">{$package_goods.shop_price}</font>x{$package_goods.goods_number}</span>
+</dl>
+{/foreach}
+
+</section>
+</section>
+<script>
+function choose_attrone(num){
+	$("#choose_attr1").animate({height:'80%'},[10000]);
+		var total=0,h=$(window).height(),
+        top =$('.good_canshu').height()||0,
+        con = $('.xiangq');
+		total = 0.8*h;
+		con.height(total-top+'px');
+	$(".f_mask1").show();
+}
+function close_choose_attr1(){	
+	$(".f_mask1").hide();
+	$('#choose_attr1').animate({height:'0'},[10000]);
+}
+
+</script>

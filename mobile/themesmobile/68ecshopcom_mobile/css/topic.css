@@ -1,0 +1,11 @@
+.topic_pic{ width:100%; overflow:hidden;}
+.floor_body{ width:100%; overflow:hidden; margin-bottom:8px; background:#FFF}
+.floor_body h2{ width:97%; margin:auto; height:20px; font-size:14px; line-height:20px; color:#333; font-weight:normal; text-indent:10px; border-left:2px solid #E71F19; margin-top:8px; margin-bottom:8px; }
+.mc{ width:100%; overflow:hidden}
+.mc ul{ width:100%; overflow:hidden}
+.mc ul li{ width:50%; float:left; overflow:hidden; margin-bottom:5px;}
+.mc ul li a{ display:block; width:95%; overflow:hidden; margin:auto; background:#FFF}
+.mc ul li a i{ display:block; width:100%; margin:auto; overflow:hidden;}
+.mc ul li a i img{ display:block; width:100%; height:auto; margin:auto}
+.mc ul li a span{ width:96%; margin:auto;height:40px; overflow:hidden; font-size:14px; line-height:20px; color:#666;    -webkit-line-clamp: 2; /*2，是控制行数的*/ -webkit-box-orient: vertical;display: -webkit-box;  }
+.mc ul li a strong{ display:block; width:96%; margin:auto; height:40px;font-size:16px; line-height:40px; color:#F30;}

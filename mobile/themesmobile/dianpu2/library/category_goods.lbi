@@ -1,0 +1,23 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- {if $category_goods} -->
+<!--{foreach from=$category_goods item=ginfo}-->
+<div class="stitle">
+<h2><em></em>{$ginfo.cat_name}</h2>
+<div class="stitle_main">
+ <!--{foreach from=$ginfo.goods item=bestgoods name=bestgoods}--> 
+  <a href="{$bestgoods.url}" target="_blank">
+<dl>
+<dt><img src="./../{$bestgoods.original_img}" class="" alt="{$bestgoods.name}" ></dt>
+<dd>{$bestgoods.name}</dd>
+                      <p> 
+     {if $bestgoods.is_exclusive} <div class="best_phone">手机专享</div>{/if}
+<span>{if $bestgoods.final_price}{$bestgoods.final_price}{elseif  $bestgoods.promote_price}{$bestgoods.promote_price}{else}{$bestgoods.shop_price}{/if}</span>
+<em>{if $bestgoods.promote_price neq ""}{$bestgoods.shop_price}{else}{$bestgoods.market_price}{/if}</em>
+                                     </p>
+                    </dl>
+  </a> 
+  <!--{/foreach}--> 
+</div>
+</div>
+<!-- {/foreach} --> 
+<!-- {/if} --> 

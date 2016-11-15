@@ -1,0 +1,37 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>微信账号绑定</title>
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<link rel="stylesheet" type="text/css" href="themesmobile/68ecshopcom_mobile/css/weixin.css"/>
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.js"></script>
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/TouchSlide.1.1.js"></script>
+{insert_scripts files='jquery.json.js,transport.js'}
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.more.js"></script>
+{insert_scripts files='common.js'}
+</head>
+<body>
+<div class="title">微信账号绑定</div> 
+<!--{if $tag eq 1}-->
+<!---无需重新绑定提示-->
+<div class="tishi">
+<dl>
+<dt>无需重新绑定</dt>
+<dd>您的微信账号已经绑定{$shop_name}账号</dd>
+</dl>
+</div> 
+<!--{elseif $tag eq 2}-->
+<!---绑定成功提示-->
+<div class="tishi1">
+<dl>
+<dt>绑定成功</dt>
+<dd>即刻“返回”，体验{$shop_name}微信的快捷服务</dd>
+</dl>
+</div>
+{/if}
+</body>
+</html>

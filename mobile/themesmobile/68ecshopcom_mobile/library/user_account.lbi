@@ -1,0 +1,19 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div class="Funds">
+<h2><span>账户余额</span><em>￥{$user_info.user_money}</em></h2>
+<h3>积分：{$user_info.user_points}</h3>
+</div>
+
+<div class="Funds_dom">
+<ul>
+<li  class="border_left"><a href="user.php?act=bonus"><i class="ac1"><em>{$user_info.bonus_count}</em></i><span>红包</span></a></li>
+<li><a href="user.php?act=account_deposit"><i class="ac2"></i><span>在线充值</span></a></li>
+<li  class="border_left"><a href="user.php?act=vc_login"><i class="ac3"></i><span>储值卡充值</span></a></li>
+<li><a href="user.php?act=account_raply"><i class="ac4"></i><span>提现</span></a></li>
+<li  class="border_left"><a href="user.php?act=account_detail"><i class="ac5"></i><span>账户明细</span></a></li>
+<li><a href="user.php?act=account_log"><i class="ac6"></i><span>申请记录</span></a></li>
+</ul>
+</div>
+
+
+

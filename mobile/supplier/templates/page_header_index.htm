@@ -1,0 +1,15 @@
+<header id="header" class='header'>
+<div class="toplog">
+    <dl>
+    <dt><img src="{if $headimg}{$headimg}{else}images/logo1.png{/if}"></dt>
+    <dd><span>{$supplier_name}管理员</span></dd>
+    </dl>
+</div>
+<div class="topnav">
+    <ul>
+    <li class="bain"><a href="javascript:void(0)" ><span>{$today.money}</span>今日销售额</a></li>
+    <li class="bain"><a href="javascript:void(0)"><span>{$today.order}</span>今日订单数</a></li>
+    <li style=" border:0"><a href="order.php?act=list&composite_status=101"><span>{if $footer_order.await_ship}{$footer_order.await_ship}{else}0{/if}</span>待发货订单</a></li>
+    </ul>
+</div>
+</header>

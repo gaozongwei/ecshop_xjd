@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<title>小店上货</title>
+<!--v_shop.css-->
+<link href="themesmobile/68ecshopcom_mobile/css/v_user.css" type="text/css" rel="stylesheet">
+</head>
+<body >
+<!--header-->
+<div class="top">
+<dl>
+<dt><a href="javascript:history.back(-1)"></a></dt>
+<dd>小店上货</dd>
+</dl>
+</div>
+<!--main-->
+<div class="usercatelog">
+<h2><span>温馨提示：选择您想要分销的商品分类，放到您的微店里展示！</span></h2>
+<form action="v_user_catelog.php" name="theForm" method="post" onsubmit="return sub_on_sale(this)">
+<ul>
+{if $cat_list}
+<li><input onclick="selectAll()" type="checkbox" class="f_checkbox_t" id="controlAll"/><span>全选</span></li>
+{foreach from=$cat_list item=list}
+<li>
+
+<input type="checkbox" name="cat_ids[]" value="{$list.cat_id}" class="radio f_checkbox_t" id="cat_{$list.cat_id}" {if $list.checked}checked="true"{/if}>
+<span>{$list.cat_name}</span></li>
+{/foreach}
+{else}
+<li><span>暂无分类</span></li>
+{/if}
+</ul>
+<input type="submit" value="确定" class="takeup"/>
+<input type="hidden" name="act" value="act_on_sale" />
+</form>
+</div>
+<script>
+function selectAll(){
+ var checklist = document.getElementsByName("cat_ids[]");
+   if(document.getElementById("controlAll").checked)
+   {
+   for(var i=0;i<checklist.length;i++)
+   {
+      checklist[i].checked = 1;
+   } 
+ }else{
+  for(var j=0;j<checklist.length;j++)
+  {
+     checklist[j].checked = 0;
+  }
+ }
+}
+
+function sub_on_sale(frm)
+{
+	var count = 0;
+    var checkArry = document.getElementsByName("cat_ids[]");
+            for (var i = 0; i < checkArry.length; i++) { 
+                if(checkArry[i].checked == true){
+                    //选中的操作
+                    count++; 
+                }
+            }
+    if( count == 0 ){
+        alert("请选择商品分类！")
+		return false;
+    }
+	return true;
+}
+</script>
+<!-----底部悬浮菜单---->
+<!-- #BeginLibraryItem "/library/vshop_footer.lbi" --><!-- #EndLibraryItem --> 
+</body>
+</html>

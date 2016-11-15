@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/TouchSlide.1.1.js"></script>
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.js"></script>
+<title>账单</title>
+<!--v_shop.css-->
+<link href="themesmobile/68ecshopcom_mobile/css/v_user.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<!--header-->
+<div class="top">
+<dl>
+<dt><a href="javascript:history.back(-1)"></a></dt>
+<dd>账单</dd>
+</dl>
+</div>
+<!--main-->
+<div class="main">
+<h3 class="Bill"><i></i>账户余额:<strong>￥{$split_money}</strong></h3>
+<div style=" height:10px; background:#f5f5f5;"></div>
+{if $notes_list}
+<div class="Funds">
+  <ul>
+  {foreach from=$notes_list item=list name=notes_list}
+    <li class="Funds_li">
+    	<span class="icon on"></span>
+        <span>{if $list.money gt 0}账户收入:{else}账户支出{/if}<em>￥{$list.money}</em></span>
+        <span>{$list.time}</span>
+        <span>{$list.change_desc}</span>
+    </li>
+  {/foreach}
+  </ul>
+</div>
+{else}
+<div class="notes_no">
+您的账户还没有任何变动哦！
+</div>
+{/if}
+</div>
+<!---返回顶部-->
+<script>
+function goTop(){
+	$('html,body').animate({'scrollTop':0},600);
+}
+</script>
+<a href="javascript:goTop();" class="gotop"><img src="themesmobile/68ecshopcom_mobile/images/v-shop/topup.png"></a> 
+<!-----底部悬浮菜单---->
+<!-- #BeginLibraryItem "/library/vshop_footer.lbi" --><!-- #EndLibraryItem --> 
+</body>
+</html>

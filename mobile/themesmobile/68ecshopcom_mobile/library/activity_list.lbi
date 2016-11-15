@@ -1,0 +1,8 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div class="huodong">
+   <a onClick="choose_attr({$val.act_id})">
+  <div class="activity_name"><i></i><strong>{$val.act_name|truncate:14}</strong><span>{$val.shop_name}</span></div>
+  <em>
+  <span>{$lang.label_end_time}{$val.end_time}</span><img src="{if $val.supplier_id >0}../{else}..{/if}{$val.logo|default:images/ceshi.jpg}"/></em>
+  </a>
+  </div>

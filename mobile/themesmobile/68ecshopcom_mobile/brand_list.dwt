@@ -1,0 +1,129 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>{$page_title}</title>
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<link rel="stylesheet" type="text/css" href="themesmobile/68ecshopcom_mobile/css/public.css">
+<link rel="stylesheet" type="text/css" href="themesmobile/68ecshopcom_mobile/css/brand_list.css">
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.js"></script>
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/TouchSlide.1.1.js"></script>
+{insert_scripts files='common.js,utils.js'}
+</head>
+<body class="body_bj">{insert name='add_url_uid'}
+<!-- 头部 start -->
+<header class="header">
+  <div class="tab_nav">
+      <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+      <div class="h-mid">品牌街</div>
+      <div class="h-right">
+        <aside class="top_bar">
+          <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a href="javascript:;"></a> </div>
+        </aside>
+      </div>
+  </div>
+</header>
+<!-- #BeginLibraryItem "/library/up_menu.lbi" --><!-- #EndLibraryItem --> <!--弹出菜单--> 
+<!--  头部 end --> 
+<!--头部广告--> 
+<div class="brand_img">
+<img src="themesmobile/68ecshopcom_mobile/images/brand.jpg">
+</div> 
+<!---猜你喜欢---->
+<div id="brand_like" class="brand_like">
+<div class="bd">
+<ul>
+<!-- TemplateBeginEditable name="品牌下商品" -->
+<!-- #BeginLibraryItem "/library/brand_goods.lbi" -->
+
+	<li>
+    <h2><span></span><a href="{$goods_brand.url}">{$goods_brand.name|escape:html}</a></h2>
+    <div class="like_img">
+    {foreach from=$brand_goods item=goods name=brand_goods}
+    {if $smarty.foreach.brand_goods.iteration < 4}
+    <i {if $smarty.foreach.brand_goods.last}style=" margin-right:0px;"{/if}>	<a href="{$goods.url}" title="{$goods.name|escape:html}" class="image"><img src="{$option.static_path}{$goods.thumb}" alt="{$goods.name|escape:html}"/></a></i>
+    {/if}
+    {/foreach}
+    </div>
+    </li>
+
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/brand_goods.lbi" -->
+
+	<li>
+    <h2><span></span><a href="{$goods_brand.url}">{$goods_brand.name|escape:html}</a></h2>
+    <div class="like_img">
+    {foreach from=$brand_goods item=goods name=brand_goods}
+    {if $smarty.foreach.brand_goods.iteration < 4}
+    <i {if $smarty.foreach.brand_goods.last}style=" margin-right:0px;"{/if}>	<a href="{$goods.url}" title="{$goods.name|escape:html}" class="image"><img src="{$option.static_path}{$goods.thumb}" alt="{$goods.name|escape:html}"/></a></i>
+    {/if}
+    {/foreach}
+    </div>
+    </li>
+
+ <!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/brand_goods.lbi" -->
+
+	<li>
+    <h2><span></span><a href="{$goods_brand.url}">{$goods_brand.name|escape:html}</a></h2>
+    <div class="like_img">
+    {foreach from=$brand_goods item=goods name=brand_goods}
+    {if $smarty.foreach.brand_goods.iteration < 4}
+    <i {if $smarty.foreach.brand_goods.last}style=" margin-right:0px;"{/if}>	<a href="{$goods.url}" title="{$goods.name|escape:html}" class="image"><img src="{$option.static_path}{$goods.thumb}" alt="{$goods.name|escape:html}"/></a></i>
+    {/if}
+    {/foreach}
+    </div>
+    </li>
+
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+</ul>
+</div>
+<div class="hd">
+<ul></ul>
+</div>
+</div>
+<script type="text/javascript">
+				TouchSlide({ 
+					slideCell:"#brand_like",
+					titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+					mainCell:".bd ul", 
+					effect:"leftLoop", 
+					autoPage:true,//自动分页
+					autoPlay:true //自动播放
+				});
+			</script>
+<!-- 商品品牌广告图片 end-->
+<div class="ccontainer">
+  <div class="jxyh_logo"> 
+  {foreach from=$brand_list item=brand_data name=brand_list_foreach}
+  {if $brand_data.brand_logo}  
+    <a href="{$brand_data.url}" {if $smarty.foreach.brand_list_foreach.iteration %3}{else} style="border-right:1px solid #fff;"{/if}> <img src="{$brand_data.brand_logo}" alt="{$brand_data.brand_name}" width="100%"> </a>
+    {/if}
+    {/foreach}
+     </div>
+</div>
+<!--如果没有品牌logo，循环名称-->
+<div class="brand_bd"> 
+  {foreach from=$brand_list item=brand_data name=brand_list_foreach}
+     {if $brand_data.brand_logo} 
+    {else}    
+    <a href="{$brand_data.url}">{$brand_data.brand_name}</a>
+         {/if}
+    {/foreach}
+     </div>
+<!---返回顶部-->
+<script>
+function goTop(){
+	$('html,body').animate({'scrollTop':0},600);
+}
+</script>
+<a href="javascript:goTop();" class="gotop"><img src="themesmobile/68ecshopcom_mobile/images/topup.png"></a> 
+<!--底部 footer -->
+<div style="height:12px; line-height:12px; clear:both;"></div>
+<footer> <!-- #BeginLibraryItem "/library/page_footer.lbi" --> <!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/footer_nav.lbi" --> <!-- #EndLibraryItem --> </footer>
+</body>
+</html>

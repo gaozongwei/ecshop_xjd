@@ -1,0 +1,105 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- {if $action eq 'message_list'} -->
+<div class="liuyan">
+ {if $message_list}	
+ {foreach from=$message_list item=message key=key name=message_list}
+    <div class="liuyan_list">
+      <dl class="liuyan">
+        <dt><span>{$message.msg_type}</span><i>{$message.msg_time}</i></dt>
+        <dd><font style=" color:#666; font-size:14px;">标题：{$message.msg_title}</font></dd>
+        <dd>{$item.total_fee}</dd>
+        <dd><span>{$message.msg_content}
+        {if $message.message_img}
+        <a href="data/feedbackimg/{$message.message_img}" target="_bank">{$lang.view_upload_file}</a>{/if}</span> <font>{$item.handler}</font></dd>
+         </dl>
+        {if $message.re_msg_content}
+        <div class="huifu">
+        <h2><span>{$lang.shopman_reply}</span><font>{$message.re_msg_time}</font></h2>
+        <span>{$message.re_msg_content}</span>
+        </div>
+        {/if}
+      </div>
+       {/foreach}
+      {include file='library/pages.lbi'}
+            {else}
+  <div class="dotm_no">
+  <dl>
+    <dd>{$lang.message_empty}</dd>
+  </dl>
+</div>
+      {/if}
+    {if $message_board}
+     <div class="liuyandom"> 
+     <h2>发布留言</h2>
+      <section class="innercontent1">
+        <form action="user.php" method="post" enctype="multipart/form-data" name="formMsg" onSubmit="return submitMsg()">
+          {if $order_info}
+            <div class="form_search"> {$lang.message_type}：<a href ="{$order_info.url}">{$order_info.order_sn}</a>
+              <input type="hidden" name="msg_type" value="5">
+              <input type="hidden" name="order_id" value="{$order_info.order_id}">
+            </div>
+          {else}
+          <div>
+            <div class="form_search"><span>{$lang.message_type}：</span>
+            <div class="anniu">
+            <ul>
+            <li class="on">
+              <label for="msg_type0">
+                <input type="radio" name="msg_type" value="0" checked="checked" class="radio" id="msg_type0">
+                {$lang.type[0]}</label>
+                </li>
+                <li>
+              <label for="msg_type1">
+                <input type="radio" name="msg_type" value="1" class="radio" id="msg_type1">
+                {$lang.type[1]}</label>
+                </li>
+                <li>
+              <label for="msg_type2">
+                <input type="radio" name="msg_type" value="2" class="radio" id="msg_type2">
+                {$lang.type[2]}</label>
+                </li>
+                <li>
+              <label for="msg_type3">
+                <input type="radio" name="msg_type" value="3" class="radio" id="msg_type3">
+                {$lang.type[3]}</label>
+                </li>
+                <li>
+              <label for="msg_type4">
+                <input type="radio" name="msg_type" value="4" class="radio" id="msg_type4">
+                {$lang.type[4]}</label>
+                </li>
+                </ul>
+                </div>
+            </div>
+          </div>
+          {/if}
+          <label for="msg_title">
+          <div class="field_else">
+          <span>留言主题：</span>
+              <input type="text" name="msg_title" id="msg_title" placeholder="*{$lang.message_title}"/>
+          </div>
+          </label>
+          <div class="field_else">
+              <label for="msg_content"> 
+              <span>{$lang.message_content}：</span>
+               <textarea name="msg_content" id="msg_content" style="height:100px;"></textarea>
+              </label>
+          </div>
+          <div style=" padding-bottom:10px;">
+            <input type="submit" value="{$lang.submit_message}" class="btn_big1"/>
+          </div>
+          <input type="hidden" name="act" value="act_add_message">
+        </form>
+      </section>
+      </div>
+    {/if}
+</div>
+<!-- {/if} -->
+<!--按钮js-->
+    <script>
+    $('.anniu ul li').click(function(){
+	$(this).find("input").attr("checked","checked");
+	$('.anniu ul li').removeClass("on");
+	$(this).addClass("on");
+	})
+    </script>

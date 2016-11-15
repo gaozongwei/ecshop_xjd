@@ -1,0 +1,166 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style>
+.utitle2{ height:60px; line-height:60px; font-size:18px; font-family:微软雅黑;  background:#ffffff; color:#666;margin:0px 0px 0px; text-align:center; position:relative; margin-top:15px; border-bottom:#eee 1px solid;}
+.utitle2 i{ position:absolute; right:10px; top:25px; width:20px; height:15px; background:url(themesmobile/68ecshopcom_mobile/images/user/up_down.png) no-repeat}
+.whightbg{ padding:20px 0 20px; background:#FFF;}
+i.utitle2_down{ background-position:0 0px;}
+i.utitle2_up{ background-position:0 -54px;}
+.bdsharebuttonbox{ text-align:center ; padding-top:15px;}
+.bdsharebuttonbox a{ width:40px; height:50px; display:inline-block; float:none; margin-right:5px; margin-left:5px; background:url(themesmobile/68ecshopcom_mobile/images/user/share.png) no-repeat; background-size:40px auto; }
+.bdsharebuttonbox a.bds_qzone{ background-position:0px 1px;}
+.bdsharebuttonbox a.bds_tsina{ background-position:0px -96px;}
+.bdsharebuttonbox a.bds_renren{  background-position:0px -47px;}
+.bdsharebuttonbox a.bds_tqq{ background-position:0px -144px;}
+.tabletitle td{ background:#f3f3f3; color:#666; height:55px;}
+.even td{ background:#ecf5fd; height:55px; font-size:16px;}
+.odd td{ background:#fcfdeb; height:55px; font-size:16px;}
+td.lever1{ color:#f68916; font-size:30px; font-family:Helvetica;}
+td.lever2{ color:#50c559; font-size:30px; font-family:Helvetica;}
+td.lever3{ color:#f5b710; font-size:30px; font-family:Helvetica;}
+td.lever4{ color:#0e80cb; font-size:30px; font-family:Helvetica;}
+td.lever5{ color:#68a5dd; font-size:30px; font-family:Helvetica;}
+#pager a { background:#FFF; border:1px solid #ddd; padding:5px 10px;}
+#pager{ margin:10px; font-size:14px; text-align:center;}
+.blank{ height:15px; line-height:15px; clear:both;}
+.tuijian{ padding:10px; line-height:28px; color:#999;}
+.tuijian a{ color:#4acfec;}
+.tuijian b{ color:#999; font-weight:normal;}
+.tuijian span{ color:#F60; font-size:18px; font-weight:bold;font-family:Helvetica;}
+</style>
+<!-- *我的推荐 -->
+    <!-- {if $affiliate.on eq 1} -->
+     <!-- {if $action eq 'affiliate'} -->
+       <div class="utitle2" >分享方式
+       <i class="utitle2_up"></i>
+       </div>
+   <div class="tui_main">
+     <div class="bdsharebuttonbox" data-tag="share_1">
+	<a class="bds_qzone shareicon" data-cmd="qzone"></a>
+	<a class="bds_tsina shareicon" data-cmd="tsina"></a>
+	<a class="bds_renren shareicon" data-cmd="renren"></a>
+	<a class="bds_tqq shareicon" data-cmd="tqq"></a>
+</div>
+<script>
+	window._bd_share_config = {
+		common : {
+			bdText : '{$page_title}',	
+			bdDesc : '{$page_title}',	
+			bdUrl : '{$shopurl}?u={$userid}', 	
+			bdPic : '{$shopurl}erweima_png.php?data={$shopurl}?u={$userid}'
+		},
+		share : [{
+			"bdSize" : 16
+		}],
+	
+		image : [{
+			viewType : 'list',
+			viewPos : 'top',
+			viewColor : 'black',
+			viewSize : '16',
+			viewList : ['qzone','tsina','huaban','tqq','renren']
+		}],
+		selectShare : [{
+			"bdselectMiniList" : ['qzone','tqq','kaixin001','bdxc','tqf']
+		}]
+	}
+	with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+</div>
+
+    <!-- {if $affiliate.config.separate_by eq 0} -->
+    <!-- 下线人数、分成 -->
+ 
+    <div class="utitle2" id="myrecommend">{$lang.affiliate_member}<i class="utitle2_up"></i></div>
+   <div class="tui_main">
+   <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd" class="data_table">
+    <tr align="center" class="tabletitle">
+      <td bgcolor="#ffffff">{$lang.affiliate_lever}</td>
+      <td bgcolor="#ffffff">{$lang.affiliate_num}</td>
+      <td bgcolor="#ffffff">{$lang.level_point}</td>
+      <td bgcolor="#ffffff">{$lang.level_money}</td>
+    </tr>
+    <!-- {foreach from=$affdb key=level item=val name=affdb} -->
+    <tr align="center" class="{if $smarty.foreach.affdb.iteration % 2 == 0}even{else}odd{/if}">
+      <td bgcolor="#ffffff" class="lever{$level}">{$level}</td>
+      <td bgcolor="#ffffff">{$val.num}</td>
+      <td bgcolor="#ffffff">{$val.point}</td>
+      <td bgcolor="#ffffff">{$val.money}</td>
+    </tr>
+    <!-- {/foreach} -->
+  </table>
+  </div>
+<!-- {/if} -->
+<!-- 我的推荐清单 -->
+
+<div class="utitle2">分成规则<i class="utitle2_up"></i></div>
+<div class="tui_main">
+<table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd" class="data_table">
+    <tr align="center"  class="tabletitle">
+      <td bgcolor="#ffffff">{$lang.order_number}</td>
+      <td bgcolor="#ffffff">{$lang.affiliate_money}</td>
+      <td bgcolor="#ffffff">{$lang.affiliate_point}</td>
+   
+      <td bgcolor="#ffffff">{$lang.affiliate_status}</td>
+    </tr>
+    <!-- {foreach from=$logdb item=val name=logdb} -->
+    <tr align="center" class="tabletd {if $smarty.foreach.logdb.iteration % 2 == 0}even{else}odd{/if}">
+      <td bgcolor="#ffffff">{$val.order_sn}</td>
+      <td bgcolor="#ffffff">{$val.money}</td>
+      <td bgcolor="#ffffff">{$val.point}</td>      
+      <td bgcolor="#ffffff">{$lang.affiliate_stats[$val.is_separate]}</td>
+    </tr>
+    {foreachelse}
+<tr><td colspan="5" align="center" bgcolor="#ffffff">{$lang.no_records}</td>
+</tr>
+    <!-- {/foreach} -->
+      </table>
+    <!-- {if $logdb} -->
+  
+ <form action="{$smarty.server.PHP_SELF}" method="get">
+  <div id="pager">  <span><a href="{$pager.page_first}">{$lang.page_first}</a> <a href="{$pager.page_prev}">{$lang.page_prev}</a> <a href="{$pager.page_next}">{$lang.page_next}</a> <a href="{$pager.page_last}">{$lang.page_last}</a> </span>
+    <input type="hidden" name="act" value="affiliate" />
+  </div>
+</form>
+ 
+    <!-- {/if} -->
+
+  </div>
+  
+  
+<div class="utitle2">分成说明<i class="utitle2_down"></i></div>
+      
+<div class="tui_main" style="display:none;">
+     <p class="tuijian">{$affiliate_intro}</p>
+     </div>
+     <div class="blank"></div>
+ <script type="text/javascript" language="JavaScript">
+<!--
+{literal}
+function selectPage(sel)
+{
+  sel.form.submit();
+}
+{/literal}
+//-->
+</script>
+<script>
+$('.utitle2').click(function(){
+	if($(this).find("i").hasClass("utitle2_down"))
+	{
+	$(this).next('.tui_main').fadeIn("slow");
+	$(this).find("i").removeClass("utitle2_down");
+	$(this).find("i").addClass("utitle2_up");
+	}
+	else
+	{
+	$(this).next('.tui_main').fadeOut("slow");
+	$(this).find("i").removeClass("utitle2_up");
+	$(this).find("i").addClass("utitle2_down");
+	}
+	})
+</script>
+<!-- /我的推荐清单 -->
+<!-- {/if} -->
+<!-- {/if} -->
+<!-- /我的推荐 -->

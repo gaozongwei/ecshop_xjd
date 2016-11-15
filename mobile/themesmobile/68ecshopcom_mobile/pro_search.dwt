@@ -1,0 +1,76 @@
+<!DOCTYPE html >
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>{$page_title}</title>
+  <meta name="Keywords" content="{$keywords}" />
+  <meta name="Description" content="{$description}" />
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+  <link rel="stylesheet" type="text/css" href="themesmobile/68ecshopcom_mobile/css/public.css"/>
+  <link rel="stylesheet" type="text/css" href="themesmobile/68ecshopcom_mobile/css/group_buy.css"/>
+  <script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.js"></script>
+  <script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.more.js"></script>
+
+<script >
+var Tday = new Array();
+var daysms = 24 * 60 * 60 * 1000
+var hoursms = 60 * 60 * 1000
+var Secondms = 60 * 1000
+var microsecond = 1000
+var DifferHour = -1
+var DifferMinute = -1
+var DifferSecond = -1
+</script>
+</head>
+<body>
+   <!----------------------------------header----------------------------------->
+      <div class="tab_nav">
+        <div class="header">
+          <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+          <div class="h-mid">限时抢购</div>
+          <div class="h-right">
+            <aside class="top_bar">
+              <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a href="javascript:;"></a> </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+       	<!-- #BeginLibraryItem "/library/up_menu.lbi" --><!-- #EndLibraryItem --> <!--弹出菜单-->
+        
+        
+<!--团购图片--> 
+  {foreach from=$wap_group_ad item=ad name=wap_group_ad}
+<div class="but_banner"><a href="{$ad.url}" class="u-brand-pic J_item-list"> <img src="{$ad.image}" class="BrandMer_star"></a></div>
+    {/foreach} 
+<script type="text/javascript">
+var url = 'pro_search.php?act=ajax_list';
+$(function(){
+	$('#J_ItemList').more({'address': url});
+});
+
+</script> 
+<!--首页精品推荐动态加载-->
+
+<div class="product_list" id="good_list"> 
+    <div id="J_ItemList">
+      <ul class="product single_item info">
+      </ul>
+      <a href="javascript:;" class="get_more" style="text-align:center; display:block;"> 
+      <img src='themesmobile/68ecshopcom_mobile/images/category/loader.gif' width="12" height="12"> </a> 
+      </div>
+  </div>
+
+<!--首页精品推荐动态加载end-->
+<!---返回顶部-->
+<script>
+function goTop(){
+	$('html,body').animate({'scrollTop':0},600);
+}
+</script>
+<a href="javascript:goTop();" class="gotop"><img src="themesmobile/68ecshopcom_mobile/images/topup.png"></a> 
+
+
+<!-- #BeginLibraryItem "/library/footer_nav.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>

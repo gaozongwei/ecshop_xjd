@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>同城的店铺</title>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <link rel="stylesheet" href="themesmobile/68ecshopcom_mobile/css4/ecsmart.css">
+    <script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=tQCdpcBLYZghj464jcWL9oak"></script>
+    <style>
+        header{ background: #cc221a; position: relative;}
+        #header .back {
+            background-image: url(../images/index.png);
+        }
+        
+        .content{ width: 100%; height: 100px; min-height: 350px; position: relative; background-color: #FFF;}
+        #allmap { width: 98%; height: 100%; margin: 0 auto;}
+    </style>
+</head>
+<body  style="font-family:'微软雅黑';">
+    <header id="header" class='header'>
+        <h1>经销商地图</h1>
+        <a href="javascript:history.back(-1)" class="back">返回</a>
+    </header>
+    <div class="content">
+        <div id="allmap"></div> 
+    </div>
+
+    <script>
+        var winHeight = $(window).height();
+        var hdrHeight = $("header").height();
+        $("#allmap").height(winHeight - hdrHeight);
+
+        // 百度地图API功能
+        var latitude = "{$latitude}";
+        var longitude = "{$longitude}";
+
+        var map = new BMap.Map("allmap");
+        map.enableScrollWheelZoom();   //启用滚轮放大缩小，默认禁用
+        map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
+        var point = new BMap.Point(longitude, latitude);
+        map.centerAndZoom(point, 16);
+        var marker = new BMap.Marker(point);        // 创建标注    
+        map.addOverlay(marker); 
+
+        var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
+        var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
+        map.addControl(top_left_control);
+        map.addControl(top_left_navigation);
+
+    </script>
+
+</body>

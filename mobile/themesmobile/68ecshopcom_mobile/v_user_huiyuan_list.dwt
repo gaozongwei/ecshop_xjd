@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.js"></script>
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/TouchSlide.1.1.js"></script>
+<title>会员详情</title>
+<!--v_shop.css-->
+<link href="themesmobile/68ecshopcom_mobile/css/v_user.css" type="text/css" rel="stylesheet">
+</head>
+<body style=" background:#e5e5e5">
+<!--header-->
+<div class="top">
+<dl>
+<dt><a href="javascript:history.back(-1)"></a></dt>
+<dd>会员详情</dd>
+
+</dl>
+</div>
+<!--main-->               
+{if $order_list}
+{foreach from=$order_list item=list}
+<div class="hy_list">
+         <h2><span>{$list.supplier_name}</span><em>{if $list.is_separate eq 0}未分成{else}已分成{/if}</em></h2>
+         {foreach from=$list.goods item=goods}
+         <dl>
+            <dt><img src="../../{$goods.goods_thumb}"/></dt>
+            <dd>
+            <p>{$goods.goods_name}</p>
+            <strong>{$list.call_username}</strong>
+            </dd>
+            <span>
+            <em>￥{$goods.goods_price}</em>
+            <i>x{$goods.goods_number}</i>
+            </span>
+         </dl>
+		 {/foreach}
+         <h3><span>共{$list.goods_count}件商品</span><em>合计：￥{$list.total_split_money}</em></h3>
+          <h4><em>订单分成金额：</em><strong>￥{$list.set_money}</strong></h4>
+         </div>
+ {/foreach}
+{else}
+<font class="font01">该会员暂无订单</font>
+{/if}
+<!-----底部悬浮菜单---->
+<!-- #BeginLibraryItem "/library/vshop_footer.lbi" --><!-- #EndLibraryItem --> 
+<!---返回顶部-->
+<script>
+function goTop(){
+	$('html,body').animate({'scrollTop':0},600);
+}
+</script>
+<a href="javascript:goTop();" class="gotop"><img src="themesmobile/68ecshopcom_mobile/images/v-shop/topup.png"></a> 
+</body>
+</html>

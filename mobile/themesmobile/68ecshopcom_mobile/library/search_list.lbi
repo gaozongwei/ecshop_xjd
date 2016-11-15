@@ -1,0 +1,50 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!--{foreach from=$shop_list item=shop name=shop_list}--> 
+<section class="search_shop">
+<div class="dianpu_top">
+<a href="supplier.php?suppId={$shop.supplier_id}" title="{$shop.shop_name}">
+<h2><!--{if $shop.shop_logo}--><img alt="" src="../../{$shop.shop_logo}"/>{else}<img src="themesmobile/68ecshopcom_mobile/images/goods/dianpu.jpg"><!--{/if}--></h2>
+</a>
+<dl>
+<a href="supplier.php?suppId={$shop.supplier_id}" title="{$shop.shop_name}">
+<dt><strong>{$shop.shop_name}</strong>
+ <em>共{$shop.goods_number}件宝贝</em>
+</dd>
+</dt>
+</a>
+<dd>
+<em onclick='guanzhu({$shop.supplier_id});'><!---{if $shop.shop_closed}-->装修中..<!---{else}-->收藏<!---{/if}--></em>
+</dd>
+</dl>
+</div>
+<ul>
+<li><span>宝贝描述</span><strong>:{if $shop.c_rank gt 0}{$shop.c_rank}{else}5.0{/if}</strong><em>{if $shop.c_rank gt 0}{if $shop.c_rank lte 2}低{elseif $shop.c_rank gt 2 && $shop.c_rank lte 4}中{else}高{/if}{else}高{/if}</em></li>
+<li><span>卖家服务</span><strong>:{if $shop.serv_rank gt 0}{$shop.serv_rank}{else}5.0{/if}</strong><em>{if $shop.serv_rank gt 0}{if $shop.serv_rank lte 2}低{elseif $shop.serv_rank gt 2 && $shop.serv_rank lte 4}中{else}高{/if}{else}高{/if}</em></li>
+<li><span>物流服务</span><strong>:{if $shop.shipp_rank gt 0}{$shop.shipp_rank}{else}5.0{/if}</strong><em>{if $shop.shipp_rank gt 0}{if $shop.shipp_rank lte 2}低{elseif $shop.shipp_rank gt 2 && $shop.shipp_rank lte 4}中{else}高{/if}{else}高{/if}</em></li>
+</ul>
+<div class="seach_pu">
+<dl>   
+     {foreach from=$shop.goodlist item=goods name=goods key=i}
+ {if $i lt 4}       
+          <dt>
+           <a href="goods.php?id={$goods.goods_id}" title="{$goods.goods_name}"> 
+          <em>{$goods.shop_price}</em><img src="{$goods.goods_thumb}">
+          </a>
+           </dt>
+           {/if}
+   {/foreach}
+</dl>
+  </div>
+<div class="s_dianpu">
+<a href="supplier.php?suppId={$shop.supplier_id}">进入店铺逛逛&nbsp;></a>
+</div>
+</section>
+<!--{foreachelse}-->
+<div class="seach_pu">
+  <dl>
+    <dt class="seach_puimg"></dt>
+    <dd>没有找到相应店铺，换个词试试吧!</dd>
+  </dl>
+</div>
+<!--{/foreach}-->	

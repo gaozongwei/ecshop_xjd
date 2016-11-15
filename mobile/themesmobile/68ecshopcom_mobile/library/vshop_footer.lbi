@@ -1,0 +1,24 @@
+﻿<link rel="stylesheet" type="text/css" href="themesmobile/68ecshopcom_mobile/css/vshop_footer.css"/>
+{insert name='add_url_uid'}
+<div style="height:50px; line-height:50px; clear:both;"></div>
+<div class="v_nav">
+<div class="vf_nav">
+<ul>
+<li><a href="v_shop.php?user_id={$user_id}">
+   <i class="footer_nav2"></i>
+    <span>微店</span></a></li>
+<li><a href="v_user.php">
+    <i class="footer_nav3"></i>
+    <span>分销中心</span></a></li>
+<li><a href="flow.php">
+   <i class="footer_nav4"></i>
+   <span>购物车</span>
+   </a></li>
+<li><a href="user.php">
+    <i class="footer_nav5"></i>
+    <span>我的</span></a></li>
+</ul>
+</div>
+</div>
+
+

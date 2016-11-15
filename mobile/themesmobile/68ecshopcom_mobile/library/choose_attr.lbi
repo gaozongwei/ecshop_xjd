@@ -1,0 +1,47 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div class="f_title_attr">
+<input type="hidden" id="goods_id" value="{$goods.goods_id}"/>
+<input type="hidden" id="cart_goods_number" value="{$goods_cart.goods_number}"/>
+<input type="hidden" id="goods_attr_id" value="{$goods_cart.goods_attr_id}"/>
+<img class="fl" id="ECS_GOODS_ATTR_THUMB" src="{$goods.goods_thumb}">
+<div class="fl" style="width:45%; margin-left:5px; margin-top:10px;">
+<span class="price">价格: <span id="ECS_GOODS_AMOUNT_CHOOSE">{$goods_cart.goods_price}</span></span><br>
+<span class="number">库存：<span id="ECS_GOODS_NUMBER">0</span>件</span><br>
+<span class="number" id="ECS_GOODS_ATTR">{$goods_cart.goods_attr}</span>
+</div>
+
+<a class="c_close_attr" href="javascript:void(0)" onclick="close_choose_attr();"></a>
+<div class="clearfix"></div>
+</div>
+<div class="f_content_attr" style=" ">
+<div class="choose-inner">
+<ul class="navContent" style="display: block;"> 
+{foreach from=$specification item=spec key=spec_key name=specification}
+        <li>   
+          <div class="title">{$spec.name}</div>
+          <div class="item">
+        {if $spec.attr_type eq 1}
+            {foreach from=$spec.values item=value key=key}
+              <a {if in_array($value.id,$goods_cart.goods_attr_arr)}class="hover"{/if} href="javascript:;" name="{$value.id}" onclick="changeAtt(this)" for="spec_value_{$value.id}" title="{if $value.price gt 0}{$lang.plus}{$value.format_price|abs}{elseif $value.price lt 0}{$lang.minus}{$value.format_price|abs}{/if}"><input style="display:none" id="spec_value_{$value.id}" type="radio" name="spec_{$spec_key}" value="{$value.id}" {if in_array($value.id,$goods_cart.goods_attr_arr)}checked{/if} />
+                {$value.label} {if $value.price gt 0}<font>+ {$value.format_price|abs}</font>{elseif $value.price lt 0}<font>- {$value.format_price|abs}</font>{/if}           
+              </a>
+  {/foreach}
+           {else}
+            {foreach from=$spec.values item=value key=key}
+          <a {if in_array($value.id,$goods_cart.goods_attr_arr)}class="hover"{/if} href="javascript:;" name="{$value.id}" onclick="changeAtt1(this)" for="spec_value_{$value.id}" title="{if $value.price gt 0}{$lang.plus}{$value.format_price|abs}{elseif $value.price lt 0}{$lang.minus}{$value.format_price|abs}{/if}"><input type="checkbox" style=" display:none" name="spec_{$spec_key}" value="{$value.id}" id="spec_value_{$value.id}" {if in_array($value.id,$goods_cart.goods_attr_arr)}checked{/if}/>
+                {$value.label} {if $value.price gt 0}<font>+ {$value.format_price|abs}</font>{elseif $value.price lt 0}<font>- {$value.format_price|abs}</font>{/if}
+           </a>
+           {/foreach}
+            {/if}
+        </div>                    
+    </li>
+{/foreach}
+  
+    <li>
+    <input type="button" value="提交" onclick="editCartGoods({$goods_cart.rec_id})"  border="0" class="add_gift" style="margin-top:20px;" />
+    </li>
+       </ul>
+	<div style="height:50px; line-height:50px; clear:both"></div>
+        
+</div>
+</div>

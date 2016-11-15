@@ -1,0 +1,1337 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>{$page_title}</title>
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<link rel="stylesheet" href="themesmobile/68ecshopcom_mobile/css/public.css">
+<link rel="stylesheet" href="themesmobile/68ecshopcom_mobile/css/flow.css">
+<link rel="stylesheet" href="themesmobile/68ecshopcom_mobile/css/style_jm.css">
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.js"></script>
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/ecsmart.js"></script>
+{insert_scripts files='jquery.json.js,transport.js'}
+{insert_scripts files='common.js,utils.js,shopping_flow.js'}
+
+</head>
+<body style="background:#e5e5e5;">
+<!--余额支付密码弹窗-->
+<div id="popup_window" style="background:#EFEFF4;box-shadow: 0 0 10px #ccc;border: 1px solid #ccc;border-radius: 6px;width:85%;height:auto;margin-left:-43%;margin-top:-20%;left:50%;top:50%;position:fixed;display:none;z-index:9999;">
+  <label class="yezf_tit" style="float:left;margin:15px;width: 91%;text-align: center;"><span>请输入余额支付密码</span> </label>
+  <input id="surplus_password_input" type="password" style='float:left;margin:10px 3%;width:91%;background-color:white;height:30px;border: 1px solid #ccc;padding-left: 6px;'/>
+  <span class="flow_tank">
+  <input class='yezf_QRB tankuang' type="button" onclick="end_input_surplus()"  value="确定" />
+</span>
+  <span class="flow_tank">
+  <input class='yezf_QXB tankuang' type="button" onclick="cancel_input_surplus()" value="取消" />
+  </span>
+</div>
+<!--弹窗end--> 
+<!--头部--->
+<div class="tab_nav">
+  <div class="header" style=" position:relative">
+    <div class="h-left"> <a class="sb-back" href="javascript:history.back(-1)" title="返回"></a> </div>
+    <div class="h-mid"> {if $step eq 'cart'}购物车{elseif $step eq 'login'}登录{elseif $step eq 'consignee'}填写收货地址{elseif $step eq 'checkout'}确认订单{elseif $step eq 'done'}提交订单{/if} </div>
+  </div>
+  <dl>
+    <dd class="top_bar" style=" position:absolute; top:0; right:2%; z-index:999999">
+      <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a href="javascript:;"></a> </div>
+    </dd>
+  </dl>
+</div>
+<!-- #BeginLibraryItem "/library/up_menu.lbi" --><!-- #EndLibraryItem --> <!--弹出菜单-->
+<!-------------------购物车---------------------> 
+{if $step eq 'cart'}
+  {if $goods_list}
+<form id="formCart" name="formCart" method="post" action="flow.php">
+  {foreach from=$goods_list item=goods name=goods_list   key=key}
+  <div class="folw_shopmain">
+    <div class="shopmain_title">
+      <dl>
+        <input type="checkbox" autocomplete="off"  checked=checked class="f_checkbox f_pub_checkbox f_pub_checkbox_{$smarty.foreach.goods_list.iteration}" title="{$smarty.foreach.goods_list.iteration}" style=" margin-top:10px; margin-left:10px;">
+        <dt><input type="hidden" name="supplierid" id="supplierid" value="{$key}">
+        <a class="shopLink eclipse" href="supplier.php?suppId={$key}">{$goods.supplier_name}</a>
+          
+        </dt>
+        <dd><a class="shopLink edit_btn" href="javascript:void(0)" name="{$smarty.foreach.goods_list.iteration}">编辑</a></dd>
+      </dl>
+    </div>
+    {foreach from=$goods.goods_list name=goods_list1 item=goods_li }
+    <div class="item-list">
+      <div class="inner">
+        <input type="checkbox" autocomplete="off" name="sel_cartgoods[]" value="{$goods_li.rec_id}"
+                   id="sel_cartgoods_{$goods_li.rec_id}" checked=checked   
+                  class="f_checkbox check-wrapper check-wrapper-{$smarty.foreach.goods_list.iteration}">
+        <div class="item_img"> {if $goods_li.goods_thumb} <a href="goods.php?id={$goods_li.goods_id}"> <img src="{$goods_li.goods_thumb}"></a> {elseif $goods_li.extension_code eq 'package_buy'} <img src="themesmobile/68ecshopcom_mobile/images/flow/libao.png"> {/if} </div>
+        <!--没有点击编辑的内容-->
+        <div class="goods_desc edit_info_{$smarty.foreach.goods_list.iteration}" >
+          <dl>
+            <dt><!-- {if $goods_li.is_gift gt 0} 赠品 --><span style=" color:#E71F19">[{$lang.largess}]&nbsp;&nbsp;</span>{/if}{$goods_li.goods_name}</dt>
+          {if $goods_li.goods_attr} <dd>{$goods_li.goods_attr}</dd>{/if}
+          </dl>
+          <div class="price"><span>{$goods_li.goods_price}</span><i>{$goods_li.market_price}</i> <em id="goods_numx_{$goods_li.rec_id}">x{$goods_li.goods_number}</span> </div>
+        </div>
+        <!--点击编辑后切换的内容-->
+        <div class="num edit_box_{$smarty.foreach.goods_list.iteration}" style="display:none;"> 
+        {if $goods_li.goods_id gt 0 && $goods_li.is_gift eq 0 && $goods_li.parent_id eq 0}
+            <div class="qiehuan">
+          <div class="xm-input-number"> 
+            <a href="javascript:;" onclick="minus_num({$goods_li.rec_id}, {$goods_li.goods_id}, {$key},{if $goods_li.extension_code eq 'package_buy'}1{else}0{/if});" id="jiannum{$goods_li.rec_id}" class="input-sub {if $goods_li.goods_number<2}{else}active{/if}" ></a>
+            <input type="text" onKeyDown='if(event.keyCode == 13) event.returnValue = false' name="goods_number[{$goods_li.rec_id}]" id="goods_number_{$goods_li.rec_id}" value="{$goods_li.goods_number}"  class="input-num"  onblur="change_price({$goods_li.rec_id}, {$goods_li.goods_id}, {$key})"/>
+            <input type="hidden" id="hidden_{$goods_li.rec_id}" value="{$goods_li.goods_number}">
+            <a href="javascript:;" onclick='javascript:add_num({$goods_li.rec_id}, {$goods_li.goods_id}, {$key},{if $goods_li.extension_code eq 'package_buy'}1{else}0{/if})'  class="input-add"></a> </div>
+          {if $goods_li.goods_attr}<div class="goods_attr" onClick="choose_attr({$goods_li.rec_id});"> 
+          <span>{$goods_li.goods_attr}</span> </div>{/if}
+        </div>  
+          <div class="delete">
+           <a href="javascript:if (confirm('{$lang.drop_goods_confirm}')) location.href='flow.php?step=drop_goods&amp;id={$goods_li.rec_id}';">
+           删除
+          </a> 
+           </div>
+          {else}
+          x{$goods_li.goods_number}
+          {/if} </div>
+      </div>
+    </div>
+    {/foreach}
+    <div class="flow_activity"> 
+      <!-- {if $goods.discount.discount gt 0} -->
+     <a href="activity.php"> <h2 id='discount_{$key}'><span>{$goods.discount.your_discount}</span></h2></a>
+      <!-- {/if} --> 
+      <!-- {if $goods.favourable} 优惠活动 -->
+      <h3 onclick="choose_gift({$key})">选择赠品</h3>
+      <!-- {/if} --> 
+    </div>
+  </div>
+  {/foreach}
+  <div style=" height:50px"></div>
+  <div class="flow_bottom">
+    <input type="hidden" name="step" value="update_cart">
+    <div class="quanxuan">
+      <div class="check-wrapper"> <span  class="cart-checkbox1 checked" onclick="return chkAll_onclick()"></span> <span class="cart-checktext">全选</span> </div>
+    </div>
+    <div class="info"><span class="hot" id="cart_amount_desc"><em>总计：</em>{$shopping_money}</span></div>
+    <div class="right"> {* 代码修改_start  By www.68ecshop.com *}
+      <input type="button" href="javascript:void();"  onclick="return selcart_submit();" class="xm-button " value="去结算">
+      {* 代码修改_end  By www.68ecshop.com *}</div>
+  </div>
+</form>
+{* 代码增加_start   By  www.68ecshop.com *} 
+<script type="text/javascript" charset="utf-8">   
+    $(".inner .cart-checkbox").click(function(){
+  if($(this).hasClass('checked')){
+    $(this).removeClass('checked');
+    $(this).find('input').attr('checked',false);
+  }
+  else
+  {
+    $(this).addClass('checked');
+    $(this).find('input').attr('checked',true);
+  }
+
+        
+if($(".inner .cart-checkbox")==true)
+{
+$('.quanxuan .cart-checkbox').addClass('checked');
+}
+else
+{
+$('.quanxuan .cart-checkbox').removeClass('checked');
+}
+
+  var is_checked = true;
+            $('.inner .cart-checkbox').each(function(){
+        if(!$(this).hasClass('checked'))
+          {
+            is_checked = false;
+            return false;
+          }
+               });
+        if(is_checked){
+        $('.quanxuan .cart-checkbox').addClass('checked'); 
+        }else
+        {
+        $('.quanxuan .cart-checkbox').removeClass('checked'); 
+        }
+      select_cart_goods();
+         
+});
+
+   
+  function chkAll_onclick() 
+  {
+    var is_checked = false;
+    if($('.quanxuan .cart-checkbox').hasClass('checked')){
+      $('.quanxuan .cart-checkbox').removeClass('checked');
+      $('.inner .cart-checkbox').removeClass('checked');
+      is_checked = false;
+    }   
+    else{
+      $('.quanxuan .cart-checkbox').addClass('checked');
+      $('.inner .cart-checkbox').addClass('checked');
+      is_checked = true;
+    }
+    for (var i=0;i<document.formCart.elements.length;i++)
+    {
+    var e = document.formCart.elements[i];
+    e.checked = is_checked;
+    }
+    select_cart_goods();
+  }
+  function select_cart_goods()
+  {
+        var sel_goods = new Array();
+        var obj_cartgoods = document.getElementsByName("sel_cartgoods[]");
+        var j=0;
+        for (i=0;i<obj_cartgoods.length;i++)
+        {
+      if(obj_cartgoods[i].checked == true)
+      { 
+        sel_goods[j] = obj_cartgoods[i].value;
+        j++;
+      }
+        }
+        Ajax.call('flow.php', 'act=selcart&sel_goods=' + sel_goods, selcartResponse, 'GET', 'JSON');
+  }
+  function selcartResponse(res)
+  {
+  if(res.result == '请选择要结算的商品！')
+  {
+        $('.xm-button').addClass('to_cart');
+      $('.xm-button').attr('disable');
+  }
+  else{
+      $('.xm-button').removeClass('to_cart');
+      $('.xm-button').removeAttr('disable');
+    }
+    if (res.err_msg.length > 0)
+    {
+            alert(res.err_msg);
+    }
+    else
+    {
+     
+       document.getElementById('cart_amount_desc').innerHTML=res.result;
+    }
+  }
+  function selcart_submit()
+  {
+        var obj_cartgoods = document.getElementsByName("sel_cartgoods[]");
+        var j=0;
+        for (i=0;i<obj_cartgoods.length;i++)
+        {
+      if(obj_cartgoods[i].checked == true)
+      { 
+        j++;
+      }
+        }
+        if (j>0)
+        {
+      document.formCart.action='flow.php?step=checkout';
+      document.formCart.elements['step'].value='checkout';
+      document.formCart.submit();
+      return true;
+       }
+       else
+      {   
+      alert('请选择要结算的商品！');
+      return false;
+      }
+  }
+  </script> 
+{* 代码增加_End    By  www.68ecshop.com *} 
+<!--增加代码_start By www.68ecshop.com--> 
+<script>
+  function add_num(rec_id,goods_id,supp_id,is_package)
+   {
+    var sel_goods = new Array();
+    var obj_cartgoods = document.getElementsByName("sel_cartgoods[]");
+    var j=0;
+    for (i=0;i<obj_cartgoods.length;i++){
+	if(obj_cartgoods[i].checked == true){	
+            sel_goods[j] = obj_cartgoods[i].value;
+            j++;
+	}
+    }
+    document.getElementById("goods_number_"+rec_id+"").value++;
+    if(document.getElementById("goods_number_"+rec_id+"").value > 1)
+    {
+      document.getElementById("jiannum"+rec_id).className = 'input-sub active';
+      }else
+      {
+      document.getElementById("jiannum"+rec_id).className = 'input-sub';
+      }
+    var number = document.getElementById("goods_number_"+rec_id+"").value;
+    Ajax.call('flow.php', 'step=update_group_cart&sel_goods='+ sel_goods +'&rec_id=' + rec_id +'&number=' + number+'&goods_id=' + goods_id + '&suppid=' + supp_id + '&is_package=' + is_package, changeNumResponse, 'GET', 'JSON');
+   }
+function minus_num(rec_id,goods_id,supp_id,is_package)
+  {
+    var sel_goods = new Array();
+    var obj_cartgoods = document.getElementsByName("sel_cartgoods[]");
+    var j=0;
+    for (i=0;i<obj_cartgoods.length;i++){
+	if(obj_cartgoods[i].checked == true){	
+            sel_goods[j] = obj_cartgoods[i].value;
+            j++;
+	}
+    }
+    if (document.getElementById("goods_number_"+rec_id+"").value>1)
+    {
+      document.getElementById("goods_number_"+rec_id+"").value--;
+      if(document.getElementById("goods_number_"+rec_id+"").value > 1)
+    {
+      document.getElementById("jiannum"+rec_id).className = 'input-sub active';
+      }else
+      {
+      document.getElementById("jiannum"+rec_id).className = 'input-sub';
+      }
+    }
+    var number = document.getElementById("goods_number_"+rec_id+"").value;
+    Ajax.call('flow.php', 'step=update_group_cart&sel_goods='+ sel_goods +'&rec_id=' + rec_id +'&number=' + number+'&goods_id=' + goods_id + '&suppid=' + supp_id + '&is_package=' + is_package, changeNumResponse, 'GET', 'JSON');
+  }
+
+function change_price(rec_id,goods_id)
+{
+  var r = /^[1-9]+[0-9]*]*$/;
+  var number = document.getElementById("goods_number_"+rec_id+"").value;
+  if (!r.test(number))
+  {
+    alert("您输入的格式不正确！");
+    document.getElementById("goods_number_"+rec_id+"").value=document.getElementById("hidden_"+rec_id+"").value;
+  }
+  else
+  {
+    Ajax.call('flow.php','step=update_group_cart&rec_id=' + rec_id +'&number=' + number+'&goods_id=' + goods_id, changeNumResponse, 'GET', 'JSON');
+  }
+}
+
+function changeNumResponse(result)
+{
+if(result.error == 1)
+{
+  alert(result.content);
+  document.getElementById("goods_number_"+result.rec_id+"").value =result.number;
+  document.getElementById("hidden_"+result.rec_id+"").value =result.number;
+}
+else if (result.error == 888 )
+{
+	alert(result.message);
+	document.getElementById("goods_number_"+result.rec_id+"").value =result.number;
+	document.getElementById("hidden_"+result.rec_id+"").value =result.number;
+}
+else
+{
+  document.getElementById("hidden_"+result.rec_id+"").value =result.number;
+  document.getElementById('cart_amount_desc').innerHTML = result.cart_amount_desc;//购物车商品总价说明
+  show_div_text = "恭喜您！ 商品数量修改成功！ ";
+  document.getElementById("goods_numx_"+result.rec_id+"").innerHTML = 'x'+result.number;
+
+}
+
+}
+</script> 
+{else}
+<section id="cart-content">
+  <div class="qb_tac" style="padding:50px 0"> <img src="themesmobile/68ecshopcom_mobile/images/flow/empty_cart.png" width="100" height="95"> <br>
+    购物车还是空的</div>
+  <div class="qb_gap" style="width:60%; margin:0 auto;"> <a href="./" class="mod_btn btn_strong" >马上逛逛</a> </div>
+</section>
+{/if}
+  {/if} 
+<!--选择赠品js--->
+<section class="f_mask" style="display: none;"></section>
+<section class="f_block" id="choose" style="height:0px;"></section>
+<section class="f_block" id="choose_attr" style="height:0; overflow:hidden;"> </section>
+<script type="text/javascript">
+function closeCustomer(){
+	$("#choose").hide();
+	}
+function choose_gift(suppid)
+{
+	var sel_goods = new Array();
+	var obj_cartgoods = document.getElementsByName("sel_cartgoods[]");
+	var j = 0;
+	for (i=0; i<obj_cartgoods.length; i++)
+	{
+		//if(obj_cartgoods[i].checked == true)
+		{	
+			sel_goods[j] = obj_cartgoods[i].value;
+			j++;
+		}
+	}
+	Ajax.call('flow.php', 'is_ajax=1&suppid=' + suppid + '&sel_goods='+sel_goods, selgiftResponse, 'GET', 'JSON');
+}
+function selgiftResponse(res)
+{
+	$('#choose').html(res.result);
+	$("#choose").animate({height:'80%'},[10000]);
+		var total=0,h=$(window).height(),
+        top =$('.f_title').height()||0,
+        con = $('.f_content');
+		total = 0.8*h;
+		con.height(total-top+'px');
+	$(".f_mask").show();
+}
+function close_choose(){	
+
+	$(".f_mask").hide();
+	$('#choose').animate({height:'0'},[10000]);
+
+}
+
+function choose_attr(rec_id)
+{
+ Ajax.call('flow.php?is_ajax=1&step=show_choose_attr','rec_id='+rec_id, show_choose_attr, 'GET', 'JSON');
+}
+function show_choose_attr(result){
+	$("#choose_attr").animate({height:'80%'},[10000]);
+        $("#choose_attr").html(result);
+		var total=0,h=$(window).height(),
+        top =$('.f_title_attr').height()||0,
+        con = $('.f_content_attr');
+		total = 0.8*h;
+		con.height(total-top+'px');
+	$(".f_mask").show();
+ changePrice();
+}
+function close_choose_attr(){	
+
+	$(".f_mask").hide();
+	
+	$('#choose_attr').animate({height:'0'},[10000]);
+
+}
+
+function changeAtt(t) {
+t.lastChild.checked='checked';
+for (var i = 0; i<t.parentNode.childNodes.length;i++) {
+        if (t.parentNode.childNodes[i].className == 'hover') {
+            t.parentNode.childNodes[i].className = '';
+			t.childNodes[0].checked="checked";
+		}
+    }
+t.className = "hover";
+changePrice();
+}
+
+/**
+ * 点选可选属性或改变数量时修改商品价格的函数
+ */
+function changePrice()
+{
+  var goodsId = document.getElementById('goods_id').value;
+  var attr = getSelectedAttributes(document.forms['formCart']);
+  var qty = document.getElementById('cart_goods_number').value;
+  Ajax.call('goods.php', 'act=price&id=' + goodsId + '&attr=' + attr + '&number=' + qty, changePriceResponse, 'GET', 'JSON');
+}
+
+/**
+ * 接收返回的信息
+ */
+function changePriceResponse(res)
+{
+  if (res.err_msg.length > 0)
+  {
+    alert(res.err_msg);
+  }
+  else
+  {
+        if (document.getElementById('ECS_GOODS_AMOUNT')){
+          document.getElementById('ECS_GOODS_AMOUNT').innerHTML = res.result;
+        }
+       if(document.getElementById('ECS_GOODS_NUMBER')){
+        document.getElementById('ECS_GOODS_NUMBER').innerHTML = res.goods_attr_number;
+        }
+        if(document.getElementById('ECS_GOODS_AMOUNT_JF')){
+          document.getElementById('ECS_GOODS_AMOUNT_JF').innerHTML = res.result_jf;
+        }
+        if(document.getElementById('ECS_GOODS_AMOUNT_CHOOSE')){
+                document.getElementById('ECS_GOODS_AMOUNT_CHOOSE').innerHTML = res.result;
+        }
+        if(document.getElementById('ECS_GOODS_ATTR_THUMB')){
+            document.getElementById('ECS_GOODS_ATTR_THUMB').src = res.goods_attr_thumb;
+        }
+        if(document.getElementById('ECS_GOODS_ATTR')){
+            document.getElementById('ECS_GOODS_ATTR').innerHTML = res.goods_attr;
+        }
+    }
+}
+
+</script> 
+<!--购物车选择按钮状态js---> 
+<script type="text/javascript" charset="utf-8">   
+function editCartGoods(rec_id){
+    var goodsId = document.getElementById('goods_id').value;
+    var attr = getSelectedAttributes(document.forms['formCart']);
+    var qty = document.getElementById('cart_goods_number').value;
+    Ajax.call('flow.php?is_ajax=1&step=edit_cart_goods','rec_id='+rec_id + '&goods_id=' + goodsId + '&attr=' + attr + '&number=' + qty, editCartGoodsResponse, 'GET', 'JSON');    
+}
+
+function editCartGoodsResponse(result){
+
+    if(result.err != 0){
+       alert(result.err);
+    }else{
+        window.location.href = "flow.php?step=cart";
+    }
+}
+
+</script> 
+<!--购物车选择按钮状态js---> 
+<script type="text/javascript" charset="utf-8">   
+    $(".inner .f_checkbox").click(function(){
+      
+	pub = $(this).attr("title");
+	
+	if($(this).attr("checked") == "checked")
+	{
+
+		var is_checked_2 = true;
+        $('.check-wrapper-'+pub).each(function(){
+        if($(this).attr("checked") != "checked")
+          {
+            is_checked_2 = false;
+            return false;
+          }
+          });
+        if(is_checked_2){
+        $('.f_pub_checkbox_'+pub).attr("checked",'checked');
+        }else
+        {
+       $('.f_pub_checkbox_'+pub).removeAttr("checked",'checked');
+        }
+		
+	}
+	else
+	{
+		$('.f_pub_checkbox_'+pub).removeAttr("checked");
+	}
+	
+  		var is_checked = true;
+        $('.f_checkbox').each(function(){
+        if($(this).attr("checked") != "checked")
+          {
+            is_checked = false;
+            return false;
+          }
+          });
+        if(is_checked){
+        $('.quanxuan .cart-checkbox1').addClass('checked'); 
+        }else
+        {
+        $('.quanxuan .cart-checkbox1').removeClass('checked'); 
+        }
+      select_cart_goods();
+         
+});
+
+$(".f_pub_checkbox").click(function(){
+    	pub = $(this).attr("title");
+		var is_checked = false;
+    if($(this).attr("checked") == 'checked'){
+				
+	$(this).attr("checked","checked");
+    $(this).parent().parent().parent().find('.check-wrapper-'+pub).attr('checked','checked');
+
+    is_checked = true;
+	}   
+    else{
+	 $(this).parent().parent().parent().find('.check-wrapper-'+pub).removeAttr("checked");
+	 is_checked = false;
+}
+
+
+        $('.f_checkbox').each(function(){
+        if($(this).attr("checked") != "checked")
+          {
+            is_checked = false;
+            return false;
+          }
+          });
+        if(is_checked){
+        $('.quanxuan .cart-checkbox1').addClass('checked'); 
+        }else
+        {
+        $('.quanxuan .cart-checkbox1').removeClass('checked'); 
+        }
+
+	  
+    select_cart_goods();
+
+})
+   
+  function chkAll_onclick() 
+  {
+    var is_checked = false;
+    if($('.quanxuan .cart-checkbox1').hasClass('checked')){
+      $('.quanxuan .cart-checkbox1').removeClass('checked');
+        $('.inner .f_checkbox').removeAttr("checked");
+      is_checked = false;
+    }   
+    else{
+      $('.quanxuan .cart-checkbox1').addClass('checked');
+       $('.inner .f_checkbox').attr("checked","checked");
+      is_checked = true;
+    }
+    for (var i=0;i<document.formCart.elements.length;i++)
+    {
+    var e = document.formCart.elements[i];
+    e.checked = is_checked;
+    }
+    select_cart_goods();
+  }
+  function select_cart_goods()
+  {
+        var sel_goods = new Array();
+        var obj_cartgoods = document.getElementsByName("sel_cartgoods[]");
+        var j=0;
+        for (i=0;i<obj_cartgoods.length;i++)
+        {
+      if(obj_cartgoods[i].checked == true)
+      { 
+        sel_goods[j] = obj_cartgoods[i].value;
+        j++;
+      }
+        }
+        Ajax.call('flow.php', 'act=selcart&sel_goods=' + sel_goods, selcartResponse, 'GET', 'JSON');
+  }
+  function selcartResponse(res)
+  {
+  if(res.result == '请选择要结算的商品！')
+  {
+        $('.xm-button').addClass('to_cart');
+      $('.xm-button').attr('disable');
+  }
+  else{
+      $('.xm-button').removeClass('to_cart');
+      $('.xm-button').removeAttr('disable');
+    }
+    if (res.err_msg.length > 0)
+    {
+            alert(res.err_msg);
+    }
+    else
+    {
+     
+       document.getElementById('cart_amount_desc').innerHTML=res.result;
+    }
+  }
+  function selcart_submit()
+  {
+        var obj_cartgoods = document.getElementsByName("sel_cartgoods[]");
+        var j=0;
+        for (i=0;i<obj_cartgoods.length;i++)
+        {
+      if(obj_cartgoods[i].checked == true)
+      { 
+        j++;
+      }
+        }
+        if (j>0)
+        {
+      document.formCart.action='flow.php?step=checkout';
+      document.formCart.elements['step'].value='checkout';
+      document.formCart.submit();
+      return true;
+       }
+       else
+      {   
+      alert('请选择要结算的商品！');
+      return false;
+      }
+  }
+  </script> 
+<!--购物车编辑js---> 
+<script>
+			
+			$('.edit_btn').bind('click', function() {
+				
+				if($(this).html()=="编辑"){		
+					num = $(this).attr("name");		
+					$(".edit_box_"+num).show();
+					$(".edit_info_"+num).hide();
+					$(this).html("完成");
+					}
+					
+					else
+					{			
+					num = $(this).attr("name");
+					$(".edit_box_"+num).hide();
+					$(".edit_info_"+num).show();
+					$(this).html("编辑");
+					}
+				
+				
+				 });
+
+                </script> 
+<!---------------------------收货地址----------------> 
+{if $step eq 'consignee'}
+  {insert_scripts files='region.js'} 
+<!-- {foreach from=$consignee_list item=consignee_info key=sn} -->
+<form action="flow.php" method="post" name="theForm" id="theForm" onsubmit="return checkConsignee(this)">
+  {include file='library/consignee.lbi'}
+</form>
+{/foreach} 
+<script type="text/javascript">
+          region.isAdmin = false;
+          {foreach from=$lang.flow_js item=item key=key}
+          var {$key} = "{$item}";
+          {/foreach}
+
+          {literal}
+          onload = function() {
+            if (!document.all)
+            {
+              document.forms['theForm'].reset();
+            }
+          }
+          {/literal}
+        </script> 
+{/if} 
+
+<!---------------提交订单页面------------------------> 
+{if $step eq 'checkout'}
+  {insert_scripts files='region.js,utils.js'}
+<form action="flow.php" method="post" name="theForm" id="theForm" onsubmit="return checkOrderForm(this)">
+  <script type="text/javascript">
+        var flow_no_payment = "{$lang.flow_no_payment}";
+        var flow_no_shipping = "{$lang.flow_no_shipping}";
+  </script>
+  <div class="order-buy">
+  <!--收货人信息---->
+  <section class="address"> <a href="flow.php?step=consignee">
+    <dl>
+      <dt>
+        <h2> <span>收货人: {$consignee.consignee|escape}</span> <em>{$consignee.tel}</em> </h2>
+        <p>收货地址：{$consignee.region|escape}{$consignee.address|escape}</p>
+      </dt>
+    </dl>
+    </a> </section>
+  <!--返回购物车修改----> 
+  <!--{if $allow_edit_cart} -->
+  <div class="order_goblack"><a href="flow.php"><span>返回购物车</span><em>修改购物车信息</em></a></div>
+  <!--{/if} --> 
+  <!--订单商品信息----> 
+  <!-- {foreach from=$goods_list item=goodsinfo name=glist key=key} -->
+  <!-- {if $goodsinfo.goodlist} -->
+  <section class="order_info">
+    <div class="order_list">
+      <a href="supplier.php?suppId={$goodsinfo.goodlist[0].supplier_id}"> <h2>{$goodsinfo.goodlist[0].seller}</h2></a>
+    </div>
+    <!--订单商品循环---> 
+    {foreach from=$goodsinfo.goodlist item=goods name=name} 
+    <!-- {if $goods.goods_id gt 0 && $goods.extension_code neq 'package_buy'}普通商品 -->
+    <div class="item">
+     <a href="goods.php?id={$goods.goods_id}">
+      <dl>
+        <dt> {if $goods.goods_thumb}<img src="{$goods.goods_thumb}">{else}<img src="images/no_picture.gif">{/if}</dt>
+        <dd> <span><!-- {if $goods.parent_id gt 0} 配件 --><em style=" color:#F30">[{$lang.accessories}]&nbsp;&nbsp;</em><!-- {/if} --> 
+          <!-- {if $goods.is_gift gt 0} 赠品 --> <em style=" color:#F30">[{$lang.largess}]&nbsp;&nbsp;</em> <!-- {/if} --> 
+          {$goods.goods_name}</span>
+          <p class="godds-specification">{$goods.goods_attr}</p>
+        </dd>
+      </dl>
+      <ul id="itemPay17">
+        <li>{$goods.formated_goods_price}</li>
+        <li>x{$goods.goods_number}</li>
+      </ul>
+     </a> 
+    </div>
+    <!-- {elseif $goods.goods_id gt 0 && $goods.extension_code eq 'package_buy'} 超值礼包商品-->
+    <div class="item" id="itemInfo12">
+      <dl>
+        <dt> <a href="goods.php?id={$goods.goods_id}"> <img src="themesmobile/68ecshopcom_mobile/images/flow/libao.png" style="border:#eee 1px solid;"></a> </dt>
+        <dd><span><em style=" color:#F30">[{$lang.remark_package}]&nbsp;&nbsp;</em>{$goods.goods_name} </span> <a href="javascript:void(0)" onclick="setSuitShow({$goods.goods_id})" class="libao" style=" font-size:12px; color:#FFF; text-align:center;" >查看礼包明细</a> </dd>
+      </dl>
+    </div>
+    <script>
+
+function setSuitShow(suitId)
+{
+    var suit    = $('#suit_'+suitId);
+    if(suit == null)
+    {
+        return;
+    }
+
+		suit.animate({height:'80%'},[10000]);
+		var total=0,h=$(window).height(),
+        top =$('#suit_'+suitId).find('.f_title').height()||0,
+		con = $('#suit_'+suitId).find('.f_content');
+		total = 0.8*h;
+		con.height(total-top+'px');
+		$('.f_mask').show();
+	
+}
+function close_gift(suitId){
+
+	 $('.f_mask').hide();
+	 var suit    = $('#suit_'+suitId);
+	 suit.animate({height:'0'},[10000]);
+	}
+</script> 
+    <!-- {/if} --> 
+    {/foreach} 
+    <!-- {if $goodsinfo.zhekou} 优惠活动 -->
+    <div class="order_list bian_botm"> 
+      <!-- {if $goodsinfo.zhekou} --><span class="ord_hd">{$goodsinfo.zhekou.your_discount}</span><!-- {/if} --> 
+    </div>
+    <!-- {/if} --> 
+    <!-- 是否使用红包或者积分 --> 
+    <!-- {if $allow_use_bonus  && $goodsinfo.goodlist}-->
+    <div class="order_list">
+      <div class="checkout_other">
+        <div class="jmbag" href="javascript:void(0);" onclick="showCheckoutOther(this);">使用店铺优惠券</div>
+        <div class="subbox_other sub_bonus"> 
+          <!-- {if $allow_use_bonus} 是否使用优惠券 -->
+          <dl>
+            <dt>
+              <select name="bonus[{$key}]" onchange="changeBonus(this.value,{$key})" id="ECS_BONUS_{$key}" >
+                <option value="0" {if $order.bonus_id eq 0}selected{/if}>{$lang.please_select}优惠券</option>
+                <!-- {foreach from=$goodsinfo.redbag item=bonus} -->
+                <option value="{$bonus.bonus_id}" {if $order.bonus_id_info[$key] eq $bonus.bonus_id}selected{/if}>{$bonus.type_name}[{$bonus.bonus_money_formated}]</option>
+                <!-- {/foreach} -->
+                
+              </select>
+            </dt>
+            <span>&nbsp;或 &nbsp;<a href="javascript:void(0);" onclick="javascript:document.getElementById('Bonus_span_{$key}').style.display='block';document.getElementById('Bonus_a_{$key}').style.display='none';" class="a_other1_h" id="Bonus_a_{$key}">直接输入优惠券号</a></span>
+            <dd>
+              <label id="Bonus_span_{$key}" style="display:none;">
+                <input name="bonus_sn[{$key}]" id="bonus_sn_{$key}" type="text"   value="{if $order.bonus_sn_info[$key]}{$order.bonus_sn_info[$key]}{else}输入优惠券{/if}" onfocus="if (value =='输入优惠券'){value =''}" onblur="if (value ==''){value='输入优惠券'}" class="txt1" style="width:70%; height:35px; border:1px solid #ccc; text-indent:10px; margin-top:2px; padding:0px;"/>
+                <input name="validate_bonus" type="button" value="使用" onclick="validateBonus(document.getElementById('bonus_sn_{$key}').value,{$key})" class="BonusButton1" />
+              </label>
+            </dd>
+          </dl>
+          <!-- {/if} --> 
+        </div>
+      </div>
+    </div>
+    <!-- {/if} --> 
+    
+    <!--配送方式--> 
+    {if $goodsinfo.shipping_html}
+    <div class="order_list">
+      <div class="checkout_other">
+        <div class="psbag" href="javascript:void(0);" onclick="showCheckoutOther(this);">选择配送方式</div>
+        <div class="checkout_other" style=" padding-bottom:20px;"> {$goodsinfo.shipping_html} <span id='picktxt{$key}'> </span>
+          <p class="shipping_desc" id="desc_{$key}">您可以选择离您最近的自提点上门提货：运费5元，满99元免邮</p>
+          <script>selectShipping($('#pay_ship_{$goodsinfo.goodlist[0].supplier_id}').val(),{$key});</script> 
+        </div>
+      </div>
+    </div>
+    {/if} 
+    </section>
+  <!-- {/if} -->
+  <!-- {/foreach} --> 
+
+  <!--发票--> 
+   <!-- {if $inv_content_list} 能否开发票 -->
+  <section class="main">
+    <div class="checkout_other" >
+      <div class="content ptop0">
+        <div class="panel panel-default info-box">
+          <div class="orderInfo " >
+            <h4 class="fp other"> 开发票
+              <input name="need_inv" type="checkbox" id="ECS_NEEDINV" onclick="changeNeedInv()" value="1" class="chk_3" />
+              <label for="ECS_NEEDINV"></label>
+            </h4>
+          </div>
+          <!-- {if $inv_content_list} -->
+          <div class="checkout_other2 padding10"  id="fapiao" style="display:none;" > 
+            <div class="subbox_other" width="100%"> 
+            
+              <div class="flow_bottom_list" style=" padding-bottom:10px;">
+                <select name="inv_type" id="ECS_INVTYPE" {if $order.need_inv neq 1}disabled="true"{/if} onchange="changeNeedInv()" style="margin-right:10px;">
+                  <option value="0">请选择发票类型</option>
+                  
+                {html_options options=$inv_type_list selected=$order.inv_type}                  
+           
+                </select>
+                <select name="inv_content" id="ECS_INVCONTENT" {if $order.need_inv neq 1}disabled="true"{/if}  onchange="changeNeedInv()"  >
+                  <option value="0">请选择发票内容</option>
+                  
+                    
+        {html_options values=$inv_content_list output=$inv_content_list selected=$order.inv_content}        
+                  
+              
+                </select>
+              </div>
+           
+          
+              <!--增值税发票-->
+              <div class="putong_fp">
+              
+
+              <table id='vat_invoice_tbody' style='display:none; line-height:40px; margin-top:10px;' width="100%" cellpadding="5" cellspacing="0" >
+                <tr bgcolor="#ffffff">
+                  <td colspan="3" align='left' bgcolor="#ffffff"><strong style='font-size:14px;'>&nbsp;&nbsp;公司信息</strong></td>
+                </tr>
+                <tr>
+                  <td align=right width="120"><em style='color:#e4393c'>*</em>单位名称：</td>
+                  <td colspan="2"><input name='vat_inv_company_name' type='text' class="txt1" /></td>
+                </tr>
+                <tr>
+                  <td align=right><em style='color:#e4393c'>*</em>纳税人识别号：</td>
+                  <td colspan="2"><input name='vat_inv_taxpayer_id' type='text'  onblur='javascript:check_taxpayer_id(this,"taxpayer_notice")' class="txt1" />
+                    <br>
+                    <span id='taxpayer_notice' style='font-size:12px;color:#f00;'></span></td>
+                </tr>
+                <tr>
+                  <td align=right><em style='color:#e4393c'>*</em>注册地址：</td>
+                  <td colspan="2"><input name='vat_inv_registration_address' type='text' class="txt1" /></td>
+                </tr>
+                <tr>
+                  <td align=right><em style='color:#e4393c'>*</em>注册电话：</td>
+                  <td colspan="2"><input name='vat_inv_registration_phone' type='text' class="txt1" /></td>
+                </tr>
+                <tr>
+                  <td align=right><em style='color:#e4393c'>*</em>开户银行：</td>
+                  <td colspan="2"><input name='vat_inv_deposit_bank' type='text' class="txt1" /></td>
+                </tr>
+                <tr>
+                  <td align=right><em style='color:#e4393c'>*</em>银行账户：</td>
+                  <td colspan="2"><input name='vat_inv_bank_account' type='text' onblur='javascript:check_bank_account(this,"bank_account_notice")' class="txt1" />
+                    <br>
+                    <span id='bank_account_notice' style='font-size:12px;color:#f00;'></span></td>
+                </tr>
+                <tr>
+                  <td colspan="3" align='left' style="padding:10px 0px"><strong style='font-size:14px;'>&nbsp;&nbsp;收票人信息</strong></td>
+                </tr>
+                <tr>
+                  <td align=right><em style='color:#e4393c'>*</em>收票人姓名：</td>
+                  <td colspan="2"><input name='inv_consignee_name' type='text' class="txt1" /></td>
+                </tr>
+                <tr>
+                  <td align=right><em style='color:#e4393c'>*</em>收票人手机：</td>
+                  <td  colspan='2'><input name='inv_consignee_phone' type='text' onblur='javascript:check_phone_number(this,"phone_number_notice")' class="txt1" />
+                    <br>
+                    <span id='phone_number_notice' style='font-size:12px;color:#f00;'></span></td>
+                </tr>
+                <tr>
+                  <td align=right><em style='color:#e4393c'>*</em>收票人省份：</td>
+                  <td colspan='2'><input type="hidden" name="inv_country" value="1">
+                    <select name="inv_consignee_province" id="sel_inv_provinces" onchange="region.changed(this, 2, 'sel_inv_cities');"  
+                
+                    <option value="0">{$lang.please_select}{$name_of_region[1]}</option>
+                    
+                    <!-- {foreach from=$province_list item=province} -->
+                    
+                    <option value="{$province.region_id}" {if $address.province eq $province.region_id}selected{/if}>{$province.region_name}</option>
+                    
+                    <!-- {/foreach} -->
+                    
+                    </select>
+                    <select name="inv_consignee_city" id="sel_inv_cities" onchange="region.changed(this, 3, 'sel_inv_districts');">
+                      <option value="0">请选择</option>
+                    </select>
+                    <select name="inv_consignee_district" id="sel_inv_districts" style="display:none; margin-top:10px;">
+                      <option value="0">请选择</option>
+                    </select></td>
+                </tr>
+                <tr>
+                  <td align=right><em style='color:#e4393c'>*</em>详细地址：</td>
+                  <td colspan='2'><input name='inv_consignee_address' type='text' class="txt1" /></td>
+                </tr>
+              </table>
+              </div>
+              <!--普通发票-->
+              <div class="putong_fp" id="normal_invoice_tbody">
+                <ul>
+                  <li>发票抬头：</li>
+                  <li><input id='individual_inv' type='radio' onclick='changeNeedInv()' name='inv_payee_type' value='individual' checked='true' style="margin-top:5px;" class="f_checkbox_t"/>
+                    <label for='individual_inv'  class="fl" style="width:50px; height:30px;">个人</label>
+                    <input id='unit_inv' type='radio' onclick='changeNeedInv()' name='inv_payee_type' value='unit' class="f_checkbox_t" style="margin-top:5px;"/>
+                    <label for='unit_inv' class="fl" style="width:50px; height:30px;">单位</label>
+                    <input id='ECS_INVPAYEE' name='inv_payee' class="txt1" style='display:none; vertical-align:middle;' placeholder="发票抬头" /></li>
+                </ul>
+              </div>
+        
+            </div>
+            <!--增值税发票_更改_END_www.68ecshop.com--> 
+          </div>
+          <!-- {/if} --> 
+          <script type="text/javascript">
+    var fapiao_con = document.getElementById('ECS_INVCONTENT');
+    if (fapiao_con.value=='0')
+    {
+      document.getElementById('ECS_INVPAYEE').disabled=true;
+    }
+    else
+    {
+      document.getElementById('ECS_INVPAYEE').disabled=false;
+    }
+    </script> 
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- {/if} --> 
+  <!--送货时间选择-->
+  <div class="main">
+    <div class="content ptop0 order_checked">
+      <div class="checkout_other">
+        <h4 class="sh"  onclick="showCheckoutOther(this);">送货时间<span class="right_arrow_flow" ></span><em id="emheka">请选择送货时间</em></h4>
+        <div class="subbox_other">
+          <div class="flow_bottom_list bian">
+            <div class="songh_time" id="time_id_1">
+              <input id="time_delivery1" type="radio" name="best_time" value="仅工作日送货" checked=checked class="f_checkbox_t" style="margin-top:3px;">
+              <label for="time_delivery1">仅工作日送货</label>
+            </div>
+            <div class="songh_time" id="time_id_2">
+              <input id="time_delivery2" type="radio" name="best_time" value="仅周末送货" class="f_checkbox_t" style="margin-top:3px;">
+              <label for="time_delivery2">仅周末送货</label>
+            </div>
+            <div class="songh_time" id="time_id_3">
+              <input id="time_delivery3" type="radio" name="best_time" value="工作日/周末/假日均可" class="f_checkbox_t" style="margin-top:3px;">
+              <label for="time_delivery3">工作日/周末/假日均可</label>
+            </div>
+            <div class="songh_time"id="time_id_4" style="position:relative;">
+              <input type="radio" name="best_time" value="指定送货时间" id="definetime_input" class="f_checkbox_t" style="margin-top:3px;">
+              <label for="definetime_input" id="definetime">指定送货时间</label>
+            </div>
+            <div class="flowBox">送货时间仅作参考，快递公司会尽量满足您的要求</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+        {if $step eq 'checkout'} 
+<section class="f_mask" style="display: none;"></section>
+	  <!-- #BeginLibraryItem "/library/choose_time.lbi" --><!-- #EndLibraryItem --> 
+      <script type="text/javascript">
+
+	function selTimeSh(obj)
+	{
+		document.getElementById('definetime').innerHTML = "指定送货时间 <font class='detail_time'>"+ obj.name +"</font>";
+		document.getElementById('definetime_input').value = "指定送货时间 "+ obj.name ;
+		$("#emheka").html(obj.name);
+		$(".f_mask").hide();	
+		$('#choose_time').animate({height:'0'},[10000]);
+	}
+	function close_choose_time(){	
+
+	$(".f_mask").hide();	
+	$('#choose_time').animate({height:'0'},[10000]);
+
+}
+</script> 
+      {/if}
+  <!--缺货处理--> 
+  {if $how_oos_list}
+  <section class="order-info">
+    <div class="order_checked mid">
+      <div class="checkout_other">
+        <h4 class="qh" onclick="showCheckoutOther(this);">缺货处理<span class="right_arrow_flow" ></span><em id="emquehuo">缺货处理</em></h4>
+        
+        <!-- {if $how_oos_list} -->
+        <div class="subbox_other" id="jifen68" style=" background:#FFF;">
+          <div class="flow_bottom_list bian"> 
+            <!-- {foreach from=$how_oos_list key=how_oos_id item=how_oos_name} -->
+            <div style=" margin-top:8px">
+              <input name="how_oos" class="f_checkbox_t" style="float:inherit" type="radio" value="{$how_oos_id}" {if $order.how_oos eq $how_oos_id}checked{/if} id="how_oos_{$how_oos_id}" onclick="changeOOS(this)" />
+              <label for="how_oos_{$how_oos_id}">{$how_oos_name}</label>
+            </div>
+            <!-- {/foreach} --> 
+          </div>
+        </div>
+        <!-- {/if} --> 
+      </div>
+    </div>
+  </section>
+  {/if} 
+  <!--订单附言-->
+  <section class="order_info">
+    <div class="order_list">
+      <div class="checkout_other" >
+        <div class="fy " href="javascript:void(0);" onclick="showCheckoutOther(this);">
+        <span class="right_arrow_flow" style=" float:right; margin-right:30px;"></span>订单备注</div>
+        <div class=" subbox_other">
+          <div class="flow_bottom_list">
+            <textarea name="postscript" cols="80" rows="3" id="postscript" >{$order.postscript|escape}</textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--使用账户余额支付--> 
+  {if $allow_use_surplus}
+  <section class="main">
+    <div class="allow_user_surplus">
+      <p class="ye">
+        <input type="checkbox" class="b_checkbox" id="issurplus" onclick="checkboxOnclick(this)" style="vertical-align:middle; cursor:pointer" />
+        <span class="is_user_surplus">使用账户余额支付</span></p>
+      <dl class="yueonlin" id="allow_user_surplus">
+        <dt> <i>输入余额：
+          <input name="surplus" type="text" class="surplus" id="ECS_SURPLUS"  value="0" onblur="changeSurplus(this.value);" />
+          &nbsp;&nbsp;元</i> <span>您当前的可用余额为:￥{$your_surplus|default:0}</span><span id="ECS_SURPLUS_NOTICE_{$key}" class="notice"></span> </dt>
+        <dd> {if $is_surplus_open eq 0}<span class="open_surplus">未开通余额安全支付,请在电脑端登录开通</span>{/if} </dd>
+      </dl>
+    </div>
+  </section>
+  <script type="text/javascript">
+    $('#issurplus').attr('checked',false);
+    function checkboxOnclick(checkbox){ 
+	
+
+		
+            var surplus = {$your_surplus|default:0};
+            if ( checkbox.checked == true){
+                    document.getElementById("allow_user_surplus").style.display = "block";
+                    changeSurplus(surplus);
+            }else{
+                    document.getElementById("allow_user_surplus").style.display = "none";
+                    changeSurplus(0);
+            }
+    }
+    </script> 
+  {/if} 
+  
+  <!--订单价格信息-->
+  <section class="main" style=" margin-top:8px;">
+    <div class="con_ct"> {include file='library/order_total.lbi'} </div>
+  </section>
+  <!--支付方式-->
+  <section class="main" style=" margin-top:8px;"> {if $is_exchange_goods neq 1 || $total.real_goods_count neq 0}
+    <div class="panel-body" id="pay_div">
+      <div class="title" id="zhifutitle"> <span class="text">支付方式&nbsp;:&nbsp;</span> <em class="qxz" id="emzhifu">请选择支付方式</em> <a href="javascript:void(0)" title="{$lang.modify}{$lang.goods_list}">必选</a> </div>
+      <ul class="nav nav-list-sidenav" id="zhifu68" style="display:block; border-bottom:none;">
+        {foreach from=$payment_list item=payment name=pay}
+        {if $iswei}
+        {if $payment.pay_code eq "weixin" || $payment.pay_code eq "alipay" || $payment.pay_code eq "unionpay" || $payment.pay_code eq "balance" ||$payment.pay_code eq "cod" }
+        <li onclick="selectPayment({$payment.pay_id})" class="clearfix" name="payment_name" {if $payment.pay_code eq 'balance'}style="display:none"{/if}>
+         
+          <input type="radio" id="payment_method_{$payment.pay_id}" name="payment" value="{$payment.pay_id}" {if $order.pay_id eq $payment.pay_id} checked="checked"{/if} isCod="{$payment.is_cod}" onclick="selectPayment(this)" class="f_checkbox_t"  {if $cod_disabled and $payment.is_cod eq "1"}disabled="true"{/if}  {if $payment.pay_code eq "balance"}display:none{/if} />
+          <label for="payment_method_{$payment.pay_id}" >
+           <div class="fl shipping_title"> {$payment.pay_name}{$payment.format_pay_fee } </div>
+          </label>
+        </li>
+        {/if}
+        {else}
+        {if $payment.pay_code eq "alipay" || $payment.pay_code eq "unionpay" || $payment.pay_code eq "balance" ||$payment.pay_code eq "cod"}
+        <li onclick="selectPayment({$payment.pay_id})" class="clearfix" name="payment_name" {if $payment.pay_code eq 'balance'}style="display:none"{/if}>
+          <input type="radio" id="payment_method_{$payment.pay_id}" name="payment" value="{$payment.pay_id}" {if $order.pay_id eq $payment.pay_id} checked="checked"{/if} isCod="{$payment.is_cod}" onclick="selectPayment(this)" class="f_checkbox_t"  {if $cod_disabled and $payment.is_cod eq "1"}disabled="true"{/if}  {if $payment.pay_code eq "balance"}display:none{/if} />
+            <label for="payment_method_{$payment.pay_id}" > <div class="fl shipping_title"> {$payment.pay_name}{$payment.format_pay_fee} </div>
+          </label>
+        </li>
+        {/if}
+        {/if}
+        {/foreach}
+      </ul>
+    </div>
+    {else}
+    <input type="radio" name="payment" value="-1" checked="checked" style="display:none"/>
+    {/if} </section>
+  <!--提交订单按钮--> 
+  <div class="pay-btn">
+    <input onclick="return check_before_submit()" type="submit" class="tijiao_butn" value="提交订单"/>
+    <input type="hidden" name="step" value="done">
+  </div>
+</form>
+<!--提交订单页面礼包明细-->
+{if $goods_list}
+<section class="f_mask" style="display: none;"></section>
+<!-- {foreach from=$goods_list item=goodsinfo name=glist key=key} --> 
+{foreach from=$goodsinfo.goodlist item=goods name=name} 
+<!-- {if $goods.goods_id gt 0 && $goods.extension_code eq 'package_buy'} -->
+<div class="f_block" id="suit_{$goods.goods_id}" style="position:fixed;bottom:0;left:0;height:0px;background:#FFF;z-index:99999999;overflow:hidden; width:100%;">
+  <p class="f_title"><span>{$goods.goods_name}</span><a class="c_close" href="javascript:void(0)" onClick="close_gift({$goods.goods_id})"></a></p>
+  <div class="f_content" style="">
+    <div class="choose-inner">
+      <div class="gift-table">
+        <div class="miblebox miblebox-cnt mible-suit">
+          <ul class="list-suit">
+            <!-- {foreach from=$goods.package_goods_list name="package_goods_list" item=package_goods_list} -->
+            
+            <li class="list-suit-item"  style="width:100%;{if $smarty.foreach.package_goods_list.last}border-bottom:none{/if}" > <a href="goods.php?id={$package_goods_list.goods_id}" class="p-link">
+              <div class="p-img" style="margin-left:10px;"> <img src="{$package_goods_list.goods_thumb}" width="60" height="60"></div>
+              <div class="p-info" style="margin-left:40px;">
+                <h5 class="p-name">{$package_goods_list.goods_name}</h5>
+                <div class="p-price">{$package_goods_list.shop_price} <span style="color:#000;">x {$package_goods_list.goods_number}</span></div>
+              </div>
+              </a> </li>
+            <!-- {/foreach} -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{/if}
+  {/foreach}
+  {/foreach} 
+{/if}
+<!-------------------------自提点--------------------------->
+
+<section class="f_mask" style="display: none;"></section>
+<section class="f_block" id="pop" style="height:0; position:fixed; bottom:-5px; left:0px; width:100%; overflow:auto; z-index:999999; background:#FFF;">
+<div id="pickcontent"></div>
+</section>
+      
+  {/if} 
+<script type="text/javascript">
+  {literal}
+  function showCheckoutOther(obj)
+  {
+    var otherParent = obj.parentNode;
+    otherParent.className = (otherParent.className=='checkout_other') ? 'checkout_other2' : 'checkout_other';
+    var spanzi = obj.getElementsByTagName('span')[0];
+    spanzi.className= spanzi.className == 'right_arrow_flow' ? 'right_arrow_flow2' : 'right_arrow_flow';
+
+  }
+  {/literal}
+      </script>
+     
+</div>
+<!-----------------订单提交成功------------------> 
+{if $step eq 'done'}
+<div class="screen-wrap fullscreen login" style=" background:#FFF">
+    <div class="sys_message">
+    {if $pay_online}
+<p class="title">订单提交成功！</p>
+<p class="desc">点击下面的按钮,支付您的订单！</p>
+{else}
+<p class="title">订单提交成功！</p>
+<p class="desc">您的包裹整装待发~~~</p>
+
+{/if}
+</div>
+    <ul class="content_success">
+      {if $split_order.sub_order_count gt 1}
+      <li>由于您的商品由不同的商家发出，此订单将分为<font style="color:#E71F19;">{$split_order.sub_order_count}</font>个不同的子订单配送</li>
+      {else}
+      <li>您的商品将由{$order.shipping_name}为您配送</li>
+      {/if}
+      {foreach from=$split_order.suborder_list item=suborder}
+      <li style=" border-top:1px solid #eeeeee">
+      <span>订单号：<em>{$suborder.order_sn}</em></span>
+      <span>{$order.pay_name}：<em>{$suborder.order_amount_formated}</em></span>
+      <span>配送方式：<em style=" color:#E71F19">{$suborder.shipping_name}</em></span>
+      </li>
+      {/foreach}
+    </ul>
+  {if $pay_online}
+  {if $iswei}
+  {if $order.pay_name eq "微信支付"}
+  <div class="pay-btn"><a href="./weixinpay.php?out_trade_no={$order.log_id}" class=" sub_btn" style="color:#FFF;">微支付</a> </div>
+  {elseif $order.pay_name eq "支付宝"}
+  <div class="pay-btn"> <a href="./pay/alipayapi.php?out_trade_no={$order.log_id}&total_fee={$order.order_amount}" class="sub_btn" style="color:#FFF;">去支付宝支付</a> </div>
+  {/if}
+  {else}
+  {if $order.pay_name eq "支付宝"}
+  <div class="pay-btn"> <a href="./pay/alipayapi.php?out_trade_no={$order.log_id}&total_fee={$order.order_amount}" class="sub_btn" style="color:#FFF;">去支付宝支付</a> </div>
+  {/if}
+  {if $order.pay_name eq "中国银联全渠道商户"}
+    {$pay_online}
+  {/if}
+  {/if}
+  {/if}
+  {if $virtual_card}
+  <div class="con-ct radius shadow fo-con">
+    <ul class="ct-list">
+      {foreach from=$virtual_card item=vgoods name=virtual_card}
+      {foreach from=$vgoods.info item=card name=vgoods_info}
+      <li> <span class="type">{$vgoods.goods_name}</span> {if $card.card_sn} <span class="id"> <strong>{$lang.card_sn}{$lang.colon}</strong> {$card.card_sn}</em> </span> {/if}
+        {if $card.card_password} <span class="serial_code"> <strong>{$lang.card_password}{$lang.colon}</strong> <em>{$card.card_password}</em> </span> {/if}
+        {if $card.end_date} <span class="expire_date"> <strong>{$lang.end_date}{$lang.colon}</strong> <em>{$card.end_date}</em> </span> {/if} </li>
+      {/foreach}
+      {/foreach}
+    </ul>
+  </div>  
+  <div class="con-ct radius shadow fo-con">
+    <ul class="ct-list">
+      <li>{$order_submit_back}</li>
+    </ul>
+  </div>
+  {/if} 
+    <div class="welcome_dom">
+<span><a href="index.php">返回首页</a></span><span><a href="user.php?act=order_list">查看订单</a></span></div>
+</div>
+{/if} 
+
+{insert_scripts files='order_pickpoint.js'} 
+      <script type="text/javascript">
+var process_request = "{$lang.process_request}";
+{foreach from=$lang.passport_js item=item key=key}
+var {$key} = "{$item}";
+{/foreach}
+var username_exist = "{$lang.username_exist}";
+var compare_no_goods = "{$lang.compare_no_goods}";
+var btn_buy = "{$lang.btn_buy}";
+var is_cancel = "{$lang.is_cancel}";
+var select_spe = "{$lang.select_spe}";
+</script> 
+      <script type="text/javascript">
+
+function choose_gift(suppid)
+{
+
+	var sel_goods = new Array();
+	var obj_cartgoods = document.getElementsByName("sel_cartgoods[]");
+	var j = 0;
+	for (i=0; i<obj_cartgoods.length; i++)
+	{
+		//if(obj_cartgoods[i].checked == true)
+		{	
+			sel_goods[j] = obj_cartgoods[i].value;
+			j++;
+		}
+	}
+	Ajax.call('flow.php', 'is_ajax=1&suppid=' + suppid + '&sel_goods='+sel_goods, selgiftResponse, 'GET', 'JSON');
+}
+function selgiftResponse(res)
+{
+	$('#choose').html(res.result);
+	$("#choose").animate({height:'80%'},[10000]);
+		var total=0,h=$(window).height(),
+        top =$('.f_title').height()||0,
+        con = $('.f_content');
+		total = 0.8*h;
+		con.height(total-top+'px');
+	$(".f_mask").show();
+}
+function close_choose(){	
+
+	$(".f_mask").hide();
+	$('#choose').animate({height:'0'},[10000]);
+
+}
+</script> 
+      <script type="text/javascript">
+var process_request = "{$lang.process_request}";
+{foreach from=$lang.passport_js item=item key=key}
+var {$key} = "{$item}";
+{/foreach}
+var username_exist = "{$lang.username_exist}";
+var compare_no_goods = "{$lang.compare_no_goods}";
+var btn_buy = "{$lang.btn_buy}";
+var is_cancel = "{$lang.is_cancel}";
+var select_spe = "{$lang.select_spe}";
+</script> 
+      <script>
+//点击input标签时间
+$(function() {
+	$(".order_checked input").click(
+	function() {
+	$(this).parents(".checkout_other2").addClass("checkout_other");
+	$(this).parents(".checkout_other2").removeClass("checkout_other2");
+	$(this).parents(".order_checked").find(".right_arrow_flow2").addClass("right_arrow_flow");
+	$(this).parents(".order_checked").find(".right_arrow_flow2").removeClass("right_arrow_flow2");
+	$(this).parents(".order_checked").find("em").html($(this).next().html());
+	if($(this).attr("id")=='definetime_input')
+	{
+		$("#choose_time").animate({height:'80%'},[10000]);
+		var total=0,h=$(window).height(),
+        top =$('.f_title_time').height()||0,
+        con = $('.f_content_time');
+		total = 0.8*h;
+		con.height(total-top+'px');
+		$(".f_mask").show();
+	}
+	})
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+{if $goods}
+<dl>
+<a href="{$goods.url}"  class="info_wrap">
+<dt><img src="{$goods.goods_thumb}"></dt>
+<dd>
+<p>{$goods.goods_name}</p>
+<span><em>{if $goods.final_price}{$goods.final_price}{elseif  $goods.promote_price}{$goods.promote_price}{else}{$goods.shop_price}{/if}</em><i>手机专享</i></span>
+<strong><em>{if $goods.promote_price}{$goods.shop_price}{else}{$goods.market_price}{/if}</em><i>{$goods.salenum}</i></strong>
+</dd>
+</a>
+</dl>
+{/if}

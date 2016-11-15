@@ -1,0 +1,99 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.more.js"></script>
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.js"></script>
+<link href="themesmobile/68ecshopcom_mobile/css/photoswipe.css" rel="stylesheet" type="text/css">
+<script src="themesmobile/68ecshopcom_mobile/js/klass.min.js"></script>
+
+      <!----------------------------------header----------------------------------->
+      <div class="Evaluation">
+            <ul>
+              <li><a href="user.php?act=my_comment&state=all" class="tab_head {if $state eq 'all'}on{/if}">全部</a></li>
+              <li><a href="user.php?act=my_comment&state=wait" class="tab_head {if $state eq 'wait'}on{/if}" >待评价</a></li>
+              <li><a href="user.php?act=my_comment&state=finish" class="tab_head {if $state eq 'finish'}on{/if}">已评价</a></li> 
+            </ul>
+      </div>
+      <!-----------------------------------全部评价-------------------------------------->
+{foreach from=$item_list item=value}
+ <div class="pingjia">
+<dl>
+           <dt><img src="{$value.thumb}"></dt>
+           <dd><span>{$value.goods_name}</span><em>成交时间：{$value.add_time_str}</em></dd>
+           <strong>{$value.shop_price}</strong>
+           </dl>
+ {if $value.comment_status}
+ <div class="pj_main">
+<ul>
+       <li><em>评价：</em><img src="themesmobile/68ecshopcom_mobile/images/stars{$value.comment.comment_rank}.png"></li>
+       <li class="pj_w">{$value.comment.content}</li>
+       </ul>       
+<!--晒单-->
+{if $value.shaidan_status}
+<dl>
+<dt><span>心&nbsp;&nbsp;得：</span><em>晒单</em></dt>
+<dd>{$value.comment.shaidan.message}</dd>
+</dl>
+<div class="sd_img">
+        <dl id="gallery">
+            
+{foreach from=$value.comment.shaidan_img item=shaidan_img}
+       <dd><a href="./../{$shaidan_img.image}">
+               <img src="./../{$shaidan_img.thumb}" width="100px" heigth="100px">
+            </a></dd>
+{/foreach}
+ 
+        </dl>
+       </div>
+{/if}
+<!--管理员回复-->
+{if $value.comment.comment_reps}
+{foreach from=$value.comment.comment_reps item=val}
+<ul style="border-top:1px dashed #e5e5e5; padding-top:8px; margin-top:10px">
+       <li><em style=" color:#F60">客服回复：</em></li>
+       <li class="pj_w" style=" color:#F60; font-size:12px;">{$val.content}</li>
+       </ul>
+{/foreach} 
+{/if}
+       </div>
+ {/if}
+<!---评价晒单按钮---> 
+
+ <div class="pj_zhuangtai">
+
+     {if $value.comment_status eq 0}
+       {if $value.comment.comment_id} <em>审核中</em>{else}
+       {if $value.shipping_time_end gt $min_time} 
+       <a href="user.php?act=comment_order&rec_id={$value.rec_id}&goods_id={$value.goods_id}">立即评价</a>
+       {else} <em>评价已超期</em>{/if}{/if}{/if}
+       
+       {if $value.shaidan_status eq 0 }
+        {if $value.shaidan_id }<em>审核中</em>{else}{if $value.shipping_time_end gt $min_time} 
+        <a href="user.php?act=shaidan_send&id={$value.rec_id}">发表晒单</a>{else}<em>晒单已超期</em>{/if}{/if}{/if}
+       </div>
+
+
+</div>
+{/foreach}
+	{if $item_list}{include file='library/pages.lbi'}{else}
+    <div class="dotm_no">
+  <dl>
+    <dd>{$lang.no_comments}</dd>
+  </dl>
+</div>
+
+    
+    {/if}
+
+
+<!---返回顶部--->
+<script>
+function goTop(){
+	$('html,body').animate({'scrollTop':0},600);
+}
+</script>
+<script src="themesmobile/68ecshopcom_mobile/js/photoswipe.js"></script>
+<script src="themesmobile/68ecshopcom_mobile/js/custom.js"></script>
+<a href="javascript:goTop();" class="gotop"><img src="themesmobile/68ecshopcom_mobile/images/topup.png"></a>
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/footer_nav.lbi" --><!-- #EndLibraryItem -->
+</div>
+

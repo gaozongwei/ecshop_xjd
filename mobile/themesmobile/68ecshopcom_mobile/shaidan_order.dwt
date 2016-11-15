@@ -1,0 +1,145 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<title>{$page_title}</title>
+<link rel="stylesheet" type="text/css" href="themesmobile/68ecshopcom_mobile/css/public.css"/>
+<link rel="stylesheet" type="text/css" href="themesmobile/68ecshopcom_mobile/css/user.css"/> 
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.js"></script>
+<body>
+<header>
+      <div class="tab_nav">
+        <div class="header">
+          <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+          <div class="h-mid">用户晒单</div>
+          <div class="h-right">
+            <aside class="top_bar">
+              <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a href="javascript:;"></a> </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+      </header>
+        <!-- #BeginLibraryItem "/library/up_menu.lbi" --><!-- #EndLibraryItem --> <!--弹出菜单-->
+<div class="bodybj">
+<form  method="post" action="user.php?act=shaidan_save" onsubmit="return validate_comment()" enctype="multipart/form-data" data-ajax="false">
+<input type="hidden" value="{$goods.rec_id}" name="rec_id">
+<input type="hidden" value="{$goods.goods_id}" name="goods_id">
+<div class="shai_goods">
+<dl>
+<dt><img src="{$goods.goods_thumb}" width="50"/></dt>
+<dd>
+<p>{$goods.goods_name|truncate:35}</p>
+<span>{$goods.supplier_name}</span>
+</dd>
+</dl>
+</div>
+
+<div class="shaidan">
+<h2>填写评价标题：</h2>
+<input type="text" name="title" id="title"  class="title"/></div>
+
+
+<div class="shaidan">
+<h3>填写评价内容：</h3><textarea id="content_13" class="inputBorder" name="message"></textarea>
+</div>
+<div class="shaidan">
+<h4>上传晒单图片：</h4>
+<div style=" width:90%; margin:auto; overflow:hidden; padding-top:10px;">
+{foreach from=$shaidan_img item=img}
+<a href="javascript:;" class="file"><div id="fileList{$img}" style="width:60px;height:60px;"><img width="60" height="60" ></div><input type="file" onchange="handleFiles(this,{$img})" name = "img_srcs{$img}" accept="image/*" capture="camera" /></a>
+{/foreach}
+</div>
+
+<span style=" font-size:14px; display:block; width:90%; margin:auto; overflow:hidden; margin-top:10px;">
+<input type="checkbox" name="hide_username" value="1" class="f_checkbox_t" style="-webkit-appearance: none; border: 0;border-radius: 0; display:block; margin-top:8px;"/>匿名评价</span> 
+
+</div>
+
+ <div class="p_main"> 
+<input name="" type="submit" value="提交" class="m_pingjia" />
+ </div>
+</form>
+</div>
+</body>
+<script>
+function validate_comment(){
+var error = [];
+var img_num = 0;
+var AllImgExt=".jpg|.jpeg|.gif|.bmp|.png|";//全部图片格式类型 
+var message = document.getElementById("content_13").value;
+var title = document.getElementById("title").value;
+$(".file input").each(function(index){
+FileExt=this.value.substr(this.value.lastIndexOf(".")).toLowerCase(); 
+
+if(this.value!=''){
+    img_num++;
+if(AllImgExt.indexOf(FileExt+"|")==-1){
+     error.push("第"+(index+1)+"张图片格式错误"); 
+}
+}    
+});
+if(message.trim() == ''){
+    error.push('晒单内容不能为空！');
+}
+if(title.trim() == ''){
+    error.push('标题不能为空！');
+}
+if(img_num == 0){
+    error.push('您还没有上传图片！');
+}
+if(error.length>0){
+    alert(error);
+    return false;
+}else{
+    return true;
+}
+}
+window.URL = window.URL || window.webkitURL;
+function handleFiles(obj,id) {
+fileList = document.getElementById("fileList"+id);
+	var files = obj.files;
+	img = new Image();
+	if(window.URL){
+	//File API
+			  
+	img.src = window.URL.createObjectURL(files[0]); //创建一个object URL，并不是你的本地路径
+	img.width = 60;
+        img.height = 60;
+	img.onload = function(e) {
+	window.URL.revokeObjectURL(this.src); //图片加载后，释放object URL
+	}
+        if(fileList.firstElementChild){
+            fileList.removeChild(fileList.firstElementChild);
+        } 
+	fileList.appendChild(img);
+	}else if(window.FileReader){
+	//opera不支持createObjectURL/revokeObjectURL方法。我们用FileReader对象来处理
+	var reader = new FileReader();
+	reader.readAsDataURL(files[0]);
+	reader.onload = function(e){
+				
+            img.src = this.result;
+            img.width = 60;
+            img.height = 60;
+            fileList.appendChild(img);
+	}
+    }else{
+	//ie
+	obj.select();
+	obj.blur();
+	var nfile = document.selection.createRange().text;
+	document.selection.empty();
+	img.src = nfile;
+	img.width = 60;
+        img.height = 60;
+	img.onload=function(){
+	  
+    }
+	fileList.appendChild(img);
+    }
+}
+
+</script>
+</html>

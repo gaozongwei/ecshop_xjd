@@ -1,0 +1,160 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>{$page_title}</title>
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<link rel="stylesheet" type="text/css" href="themesmobile/68ecshopcom_mobile/css/public.css"/>
+<link rel="stylesheet" href="themesmobile/68ecshopcom_mobile/css/stores.css">
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.js"></script>
+{insert_scripts files='index.js'}
+</head>
+<body class="bodybj">
+      <header>
+      <div class="tab_nav">
+        <div class="header">
+          <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+          <div class="h-mid">店铺街</div>
+          <div class="h-right">
+            <aside class="top_bar">
+              <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a href="javascript:;"></a> </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+      </header>
+       	<!-- #BeginLibraryItem "/library/up_menu.lbi" --><!-- #EndLibraryItem --> <!--弹出菜单-->
+<!--店铺分类--->        
+<div class="Packages">
+<ul class="all">
+<li><a class="{if $smarty.request.id == $cat.str_id} sele {/if}" href="stores.php">全部</a></li>
+{foreach from=$all item=cat key=i} 
+<li><a class="{if $smarty.request.id == $cat.str_id} sele {/if}" href="{$cat.url}#street_cat{$i}" >{$cat.str_name}</a></li>
+{/foreach}
+</ul>
+<span onClick="choose_attr(0)">更多</span>
+</div>
+<!---店铺列表--->
+{foreach from=$shops_list item=shop name=shop}
+<section class="rzs_info">
+<dl>
+<a href="supplier.php?suppId={$shop.supplier_id}">
+<span><img src="./..{$shop.logo}"></span>
+<dt><strong><a href="supplier.php?suppId={$shop.supplier_id}"> 店铺：{$shop.shop_name}</a></strong>
+<p>共{$shop.goods_number}件宝贝</p>
+ </dt>
+<dd>{if $shop.is_guanzhu}<a href="javascript:void(0);"><i>已收藏</i></a>{else}<a href="javascript:guanzhu({$shop.supplier_id});"><i>收藏</i></a>{/if}</dd>
+ </a>
+</dl>
+<ul>
+<li><span>宝贝描述</span><strong>:{if $shop.comment_rand gt 0}{$shop.comment_rand}{else}5.0{/if}</span></strong><em>{if $shop.comment_rand gt 0}{if $shop.comment_rand lte 2}低{elseif $shop.comment_rand gt 2 && $shop.comment_rand lte 4}中{else}高{/if}{else}高{/if}</em></li>
+<li><span>卖家服务</span><strong>:{if $shop.server gt 0}{$shop.server}{else}5.0{/if}</strong><em>{if $shop.server gt 0}{if $shop.server lte 2}低{elseif $shop.server gt 2 && $shop.server lte 4}中{else}高{/if}{else}高{/if}</em></em></li>
+<li><span>物流服务</span><strong>:{if $shop.shipping gt 0}{$shop.shipping}{else}5.0{/if}</strong><em>{if $shop.shipping gt 0}{if $shop.shipping lte 2}低{elseif $shop.shipping gt 2 && $shop.shipping lte 4}中{else}高{/if}{else}高{/if}</em></em></li>
+</ul>
+ {if $shop.goods_info}
+<div class="index_taocan">
+    
+{foreach from=$shop.goods_info item=goods name=goods}
+ <a href="{$goods.url}"> 
+    <dl>
+        <dt><img src="{$goods.goods_thumb}" class="B_eee" ><em>￥{$goods.shop_p}</em></dt>
+        <dd>{$goods.goods_name}</dd>
+    </dl>
+    </a>
+{/foreach}
+  </div>
+{/if}
+<div class="s_dianpu">
+<span><a href="tel:{$shop.service_phone}" style=" margin-left:7%"><em class="bg1"></em>联系客服</a></span>
+<span><a href="supplier.php?suppId={$shop.supplier_id}" style=" margin-left:3%"><em class="bg2"></em>进入店铺</a></span>
+</div>
+</section>
+{/foreach}
+
+
+<!--翻页-->
+<!-- #BeginLibraryItem "/library/pages.lbi" --><!-- #EndLibraryItem -->
+<!---footer--->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/footer_nav.lbi" --><!-- #EndLibraryItem -->
+<!---返回顶部-->
+<script>
+function goTop(){
+	$('html,body').animate({'scrollTop':0},600);
+}
+</script>
+<a href="javascript:goTop();" class="gotop"><img src="themesmobile/68ecshopcom_mobile/images/topup.png"></a> 
+<!--滑动js-->
+<script type="text/javascript">
+//reg_package();
+</script>
+<script src="themesmobile/68ecshopcom_mobile/js/slider.js" type="text/javascript"></script>
+<!---店铺分类弹出层--->
+<section class="f_mask" style="display: none;"></section>
+<section class="f_block" id="choose_attr" style="height:0; overflow:hidden;">
+
+<div class="Promotions"> 
+ <h2>店铺街筛选分类</h2>  
+   <ul>
+   <li><a href="stores.php">全部</a></li>
+ {foreach from=$all item=cat key=i} 
+<li><a href="{$cat.url}#street_cat{$i}" >{$cat.str_name}</a></li>
+{/foreach}
+</ul>
+</div> 
+ <div class="goods_shut">     
+<a href="javascript:void(0)" onclick="close_choose_attr();" class="shut" style=" color:#FFF; font-size:18px;">关闭</a>
+</div>
+</section>
+<script>
+function choose_attr(num){
+	$("#choose_attr").animate({height:'80%'},[10000]);
+		var total=0,h=$(window).height(),
+        top =$('.Promotions h2').height()||0,
+        con = $('.Promotions');
+		total = 0.8*h;
+		con.height(total-top+'px');
+	$(".f_mask").show();
+}
+function close_choose_attr(){	
+	$(".f_mask").hide();
+	$('#choose_attr').animate({height:'0'},[10000]);
+}
+
+function changeAtt(t) {
+t.lastChild.checked='checked';
+for (var i = 0; i<t.parentNode.childNodes.length;i++) {
+        if (t.parentNode.childNodes[i].className == 'hover') {
+            t.parentNode.childNodes[i].className = '';
+			t.childNodes[0].checked="checked";
+		}
+    }
+t.className = "hover";
+changePrice();
+changeGoodsNumber();
+}
+function changeAtt1(t) {
+t.lastChild.checked='checked';
+for (var i = 0; i<t.parentNode.childNodes.length;i++) {
+        if (t.className == 'hover') {
+            t.className = '';
+			t.childNodes[0].checked = false;
+		}
+		else{
+			t.className="hover";
+			t.childNodes[0].checked = true;
+		}
+		
+	
+}
+
+changePrice();
+changeGoodsNumber
+}
+
+</script>
+</body>
+</html>

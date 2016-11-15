@@ -1,0 +1,70 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+{if $goods_list}
+ <form action="javascript:void(0)" method="post" name="ECS_FORMBUY" id="ECS_FORMBUY" >
+<!--{foreach name=goods_list from=$goods_list item=goods}-->
+{if $goods.goods_id}
+<li>
+<div class="item">
+<div class="pic_box">
+{if $goods.is_best == 1}
+<span style=" background-position:0px -70px">精品</span>
+{elseif $goods.is_new == 1}
+<span style=" background-position:0px -36px">新品</span>
+{elseif $goods.is_hot == 1}
+<span style=" background-position:0px 0px">热卖</span>
+{/if}
+</div>
+<div class="goods_images">
+
+{if $goods.is_exclusive}<div class="best_phone">手机专享</div>{/if} 
+<a href="{$goods.url}"><img src="{$goods.goods_thumb}"></a></div>
+<dl>
+<dt><a href="{$goods.url}">{$goods.goods_name}</a></dt>
+<dd><i>{if $goods.final_price}{$goods.final_price}{elseif  $goods.promote_price}{$goods.promote_price}{else}{$goods.org_price}{/if}</i>
+<em>{if $goods.promote_price}{$goods.org_price}{else}{$goods.market_price}{/if}</em>
+</dd>
+</dl>
+</div>
+<!--列表页面加减号-->
+<div class="goods_number">
+<div class="ui-number"> 
+<a class="decrease" onclick="goods_cut({$goods.goods_id});">-</a>
+<input class="num" id="number_{$goods.goods_id}" type="text" onblur="changePrice();" value="1" onfocus="if(value=='1') {value=''}" size="4" maxlength="5"  />
+<a class="increase" onclick="goods_add({$goods.goods_id});">+</a> 
+</div>
+</div>
+
+
+<span class="bug_car" onClick="addToCart({$goods.goods_id})">
+<img src="themesmobile/68ecshopcom_mobile/images/index_flow.png">
+</span>
+</li>
+{/if}    
+<!--{/foreach}-->
+</form>
+<script language="javascript" type="text/javascript">  
+function goods_cut($val){  
+var num_val=document.getElementById('number_'+$val);  
+var new_num=num_val.value;  
+var Num = parseInt(new_num);  
+if(Num>1)Num=Num-1;  
+num_val.value=Num;  
+} 
+function goods_add($val){ 
+var num_val=document.getElementById('number_'+$val);  
+var new_num=num_val.value;  
+var Num = parseInt(new_num);  
+Num=Num+1;  
+num_val.value=Num;  
+}
+</script>
+{include file='library/pages.lbi'}
+{else}
+<div class="seach_pu">
+  <dl>
+    <dt class="seach_puimg"></dt>
+    <dd>没有搜索到相关结果，换个词试试吧!</dd>
+  </dl>
+</div>
+{/if}
+                    
