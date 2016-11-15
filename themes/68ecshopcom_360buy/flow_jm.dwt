@@ -37,7 +37,7 @@ var pay_balance_id = {$pay_balance_id};//保存余额支付的id做为js全局�
 <!--余额额支付密码_添加_END_www.68ecshop.com--> 
 <!-- #BeginLibraryItem "/library/user_header.lbi" --><!-- #EndLibraryItem -->
 <div class="header w990">
-  <div class="mall-logo"><a href="./"><img src="../images/logo.gif" /></a> </div>
+  <div class="mall-logo"><a href="./"><img src="../images/ecshop_logo.png" /></a> </div>
 </div>
 <div class="blank15"></div>
 <div class="block_jm"> 

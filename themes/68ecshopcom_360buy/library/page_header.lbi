@@ -14,7 +14,7 @@ window.onerror = killerrors;
 {include file='library/user_header.lbi'}
 <div class="header">
 	<div class="w1210">
-  		<div class="mall-logo"> <a href="./"><img src="../images/logo.gif" width="250" /></a> </div>
+  		<div class="mall-logo"> <a href="./"><img src="../images/ecshop_logo.png" width="250" /></a> </div>
   		<div class="mall-logo-right"> <a href="#" target="_blank"></a> </div>
   		<div class="mall-search">
     <div id="search-tips" style="display:none;"></div>

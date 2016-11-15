@@ -5,7 +5,7 @@ Description: (68ecshop.com) <br/> 官方网站:http://www68ecshop.com.
 Version: 2.7.3
 Author: 68ECSHOP Team
 Author URI: http://www.68ecshop.com/
-Logo filename: logo.gif
+Logo filename: ecshop_logo.png
 Template Type: type_0
 */
 /* ====================
@@ -487,7 +487,7 @@ h6 span {
 .logo {
 	FLOAT: left;
 	WIDTH: 200px;
-	background: url(images/logo.gif) no-repeat left center;
+	background: url(images/ecshop_logo.png) no-repeat left center;
 	display: block;
 	height: 75px;
 }

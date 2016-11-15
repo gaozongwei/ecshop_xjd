@@ -22,7 +22,7 @@
 <body>
 <div id="site-nav">
   <div class="headerLayout">
-      <h1 id="mallLogo"> <a href="index.php" class="header-logo"><img src="../images/logo.gif" /></a></h1>
+      <h1 id="mallLogo"> <a href="index.php" class="header-logo"><img src="../images/ecshop_logo.png" /></a></h1>
   </div>
   <div class="w" id="entry">
     <div class="mcon">

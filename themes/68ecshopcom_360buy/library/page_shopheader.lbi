@@ -15,7 +15,7 @@ window.onerror = killerrors;
 {include file='../../68ecshopcom_360buy/library/user_header.lbi'} 
 <div class="header">
 	<div class="w1210">
-      <div class="mall-logo"> <a href="./"><img src="../themes/68ecshopcom_360buy/images/logo.gif" width="250" /></a> </div>
+      <div class="mall-logo"> <a href="./"><img src="../themes/68ecshopcom_360buy/images/ecshop_logo.png" width="250" /></a> </div>
 	<div class="mall-logo-right"> <a href="#" target="_blank"></a> </div>
       <div class="mall-search">
           <div id="search-tips" style="display:none;"></div>

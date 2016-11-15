@@ -22,7 +22,7 @@
 <body>
 <!-- #BeginLibraryItem "/library/user_header.lbi" --><!-- #EndLibraryItem -->
 <div class="header w990">
-  <div class="mall-logo"><a href="./"><img src="../images/logo.gif" /></a> </div>
+  <div class="mall-logo"><a href="./"><img src="../images/ecshop_logo.png" /></a> </div>
 </div>
 <div class="block"> 
   <!-- {if $step eq "cart"} -->

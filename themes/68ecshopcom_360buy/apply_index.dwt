@@ -20,7 +20,7 @@
 </head>
 <body>
 <div class="header">
-  <h2 class="header-logo"><a href="index.php"><img src="../images/logo.gif" /></a></h2>
+  <h2 class="header-logo"><a href="index.php"><img src="../images/ecshop_logo.png" /></a></h2>
   <ul class="header-menu">
     <li class="current"><a href="apply.php" class="joinin"><i></i>商家入驻申请</a></li>
     <li class=""><a href="{$mydomain}supplier/" class="login"><i></i>商家管理中心</a></li>
