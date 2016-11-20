@@ -127,7 +127,7 @@ $_LANG['save_ok'] = '保存成功';
 /* 积分设置 */
 $_LANG['no_points'] = '没有检测到论坛有可以兑换的积分';
 $_LANG['bbs'] = '论坛';
-$_LANG['shop_pay_points'] = '商城消费积分';
+$_LANG['shop_pay_points'] = '商城云豆';
 $_LANG['shop_rank_points'] = '商城等级积分';
 $_LANG['add_rule'] = '新增规则';
 $_LANG['modify'] = '修改';
@@ -168,7 +168,7 @@ $_LANG['ucenter_lab_db_name'] = 'UCenter 数据库名:';
 $_LANG['ucenter_lab_db_pre'] = 'UCenter 表前缀:';
 $_LANG['ucenter_lab_tag_number'] = 'TAG 标签显示数量:';
 $_LANG['ucenter_lab_credit_0'] = '等级积分名称:';
-$_LANG['ucenter_lab_credit_1'] = '消费积分名称:';
+$_LANG['ucenter_lab_credit_1'] = '云豆名称:';
 $_LANG['ucenter_opt_database'] = '数据库方式';
 $_LANG['ucenter_opt_interface'] = '接口方式';
 
@@ -202,7 +202,7 @@ $_LANG['uc_client_not_exists'] = 'uc_client目录不存在，请先把uc_client�
 $_LANG['uc_client_not_write'] = 'uc_client/data目录不可写，请先把uc_client/data目录权限设置为777';
 $_LANG['uc_lang']['credits'][0][0] = '等级积分';
 $_LANG['uc_lang']['credits'][0][1] = '';
-$_LANG['uc_lang']['credits'][1][0] = '消费积分';
+$_LANG['uc_lang']['credits'][1][0] = '云豆';
 $_LANG['uc_lang']['credits'][1][1] = '';
 $_LANG['uc_lang']['exchange'] = 'UCenter积分兑换';
 

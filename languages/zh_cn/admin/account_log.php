@@ -24,7 +24,7 @@ $_LANG['label_user_name'] = '当前会员：';
 $_LANG['label_user_money'] = '可用资金帐户：';
 $_LANG['label_frozen_money'] = '冻结资金帐户：';
 $_LANG['label_rank_points'] = '等级积分帐户：';
-$_LANG['label_pay_points'] = '消费积分帐户：';
+$_LANG['label_pay_points'] = '云豆帐户：';
 $_LANG['label_change_desc'] = '帐户变动原因：';
 
 $_LANG['change_time'] = '帐户变动时间';
@@ -32,7 +32,7 @@ $_LANG['change_desc'] = '帐户变动原因';
 $_LANG['user_money'] = '可用资金帐户';
 $_LANG['frozen_money'] = '冻结资金帐户';
 $_LANG['rank_points'] = '等级积分帐户';
-$_LANG['pay_points'] = '消费积分帐户';
+$_LANG['pay_points'] = '云豆帐户';
 
 $_LANG['add'] = '增加';
 $_LANG['subtract'] = '减少';
@@ -44,6 +44,6 @@ $_LANG['js_languages']['no_change_desc'] = '请输入帐户变动原因';
 $_LANG['js_languages']['user_money_not_number'] = '可用资金不是数值';
 $_LANG['js_languages']['frozen_money_not_number'] = '冻结资金不是数值';
 $_LANG['js_languages']['rank_points_not_int'] = '等级积分不是整数';
-$_LANG['js_languages']['pay_points_not_int'] = '消费积分不是整数';
+$_LANG['js_languages']['pay_points_not_int'] = '云豆不是整数';
 
 ?>

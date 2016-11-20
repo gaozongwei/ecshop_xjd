@@ -42,7 +42,7 @@ $_LANG['birthday'] = '出生日期';
 $_LANG['sex'][0] = '保密';
 $_LANG['sex'][1] = '男';
 $_LANG['sex'][2] = '女';
-$_LANG['pay_points'] = '消费积分';
+$_LANG['pay_points'] = '云豆';
 $_LANG['rank_points'] = '等级积分';
 $_LANG['user_money'] = '可用资金';
 $_LANG['frozen_money'] = '冻结资金';
@@ -68,7 +68,7 @@ $_LANG['home_phone'] = '家庭电话';
 $_LANG['office_phone'] = '办公电话';
 $_LANG['mobile_phone'] = '手机';
 
-$_LANG['notice_pay_points'] = '消费积分是一种站内货币，允许用户在购物时支付一定比例的积分。';
+$_LANG['notice_pay_points'] = '云豆是一种站内货币，允许用户在购物时支付一定比例的积分。';
 $_LANG['notice_rank_points'] = '等级积分是一种累计的积分，系统根据该积分来判定用户的会员等级。';
 $_LANG['notice_user_money'] = '用户在站内预留下的金额';
 
@@ -115,7 +115,7 @@ $_LANG['js_languages']['less_password'] = '输入的密码不能少于六位。'
 $_LANG['js_languages']['passwd_balnk'] = '密码中不能包含空格';
 $_LANG['js_languages']['no_confirm_password'] = '没有输入确认密码。';
 $_LANG['js_languages']['password_not_same'] = '输入的密码和确认密码不一致。';
-$_LANG['js_languages']['invalid_pay_points'] = '消费积分数不是一个整数。';
+$_LANG['js_languages']['invalid_pay_points'] = '云豆数不是一个整数。';
 $_LANG['js_languages']['invalid_rank_points'] = '等级积分数不是一个整数。';
 $_LANG['js_languages']['password_len_err'] = '新密码和确认密码的长度不能小于6';
 $_LANG['js_languages']['invalid_mobile_phone'] = '没有输入手机号码或者输入了一个无效的手机号码。';

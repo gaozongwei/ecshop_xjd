@@ -135,7 +135,7 @@ $_LANG['unit_kg'] = '千克';
 $_LANG['lab_goods_number'] = '商品库存数量：';
 $_LANG['lab_warn_number'] = '库存警告数量：';
 $_LANG['lab_integral'] = '积分购买金额：';
-$_LANG['lab_give_integral'] = '赠送消费积分数：';
+$_LANG['lab_give_integral'] = '赠送云豆数：';
 $_LANG['lab_rank_integral'] = '赠送等级积分数：';
 $_LANG['lab_intro'] = '加入推荐：';
 $_LANG['lab_is_on_sale'] = '上架：';
@@ -146,7 +146,7 @@ $_LANG['compute_by_mp'] = '按市场价计算';
 
 $_LANG['notice_goods_sn'] = '如果您不输入商品货号，系统将自动生成一个唯一的货号。';
 $_LANG['notice_integral'] = '(此处需填写金额)购买该商品时最多可以使用积分的金额';
-$_LANG['notice_give_integral'] = '购买该商品时赠送消费积分数,-1表示按商品价格赠送';
+$_LANG['notice_give_integral'] = '购买该商品时赠送云豆数,-1表示按商品价格赠送';
 $_LANG['notice_rank_integral'] = '购买该商品时赠送等级积分数,-1表示按商品价格赠送';
 $_LANG['notice_seller_note'] = '仅供商家自己看的信息';
 $_LANG['notice_storage'] = '库存在商品为虚货或商品存在货品时为不可编辑状态，库存数值取决于其虚货数量或货品数量';

@@ -208,7 +208,7 @@ width:auto;
               <input type="button" value="{$lang.integral_market_price}" onclick="integral_market_price()" />
             </td>
           </tr>
-     
+    
 
           <tr id="promote_4">
             <td class="label" ><a href="javascript:showNotice('noticeValidDate');" title="{$lang.form_notice}"><img src="images/notice.gif" width="16" height="16" border="0" alt="{$lang.form_notice}"></a>有效截止日期：</td>
@@ -264,6 +264,8 @@ width:auto;
 		 </tr>
         </table>
         <input type="hidden" value="{$goods.supplier_id}" name="supplier_id">
+        <input type="hidden" name="give_integral" value="{$goods.give_integral}" />
+        <input type="hidden" name="rank_integral" value="{$goods.rank_integral}" />
         <!-- 璇︾粏鎻忚堪 -->
         <table width="90%" id="detail-table" style="display:none">
           <tr>

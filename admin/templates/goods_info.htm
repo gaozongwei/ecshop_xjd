@@ -316,13 +316,13 @@
 					</td>
 				</tr>
 				<!-- 手机专享价格  app  jx -->
-			   <tr>
+<!-- 			   <tr>
 				<td class="label">手机专享价：</td>
 				<td><input type="text" name="exclusive" value="{$goods.exclusive}" size="20" />
 				 <br />
 				<span class="notice-span" {if $help_open}style="display:block" {else} style="display:none" {/if} id="noticeUserPrice">手机专享价格为-1的时候表示没有手机专享价格</span>
 				</td>
-			  </tr>
+			  </tr> -->
 			  <!-- 手机专享价格  app jx -->
 				{if $user_rank_list}
 				<tr>
@@ -392,9 +392,13 @@
 						<input type="text" name="give_integral" value="{$goods.give_integral}" size="20" />
 						<br />
 						<span class="notice-span" {if $help_open}style="display:block" {else} style="display:none" {/if} id="giveIntegral">{$lang.notice_give_integral}</span>
+						
+						<input type="hidden" name="rank_integral" value="0" />
+						<input type="hidden" name="exclusive" value="-1" size="20" />
+						<input type="hidden" id="promote_1" name="cost_price" value="0" />
 					</td>
 				</tr>
-				<tr>
+<!-- 				<tr>
 					<td class="label">
 						<a href="javascript:showNotice('rankIntegral');" title="{$lang.form_notice}">
 							<img src="images/notice.gif" width="16" height="16" border="0" alt="{$lang.form_notice}">
@@ -406,7 +410,7 @@
 						<br />
 						<span class="notice-span" {if $help_open}style="display:block" {else} style="display:none" {/if} id="rankIntegral">{$lang.notice_rank_integral}</span>
 					</td>
-				</tr>
+				</tr> -->
 				<!-- <tr>
 					<td class="label">
 						<a href="javascript:showNotice('noticPoints');" title="{$lang.form_notice}">
@@ -477,7 +481,7 @@
 					</td>
 				</tr>
 
-				<tr>
+<!-- 				<tr>
 					<td class="label" id="promote_5">{$lang.lab_cost_price}</td>
 					<td id="promote_7">
 						<input type="text" id="promote_1" name="cost_price" value="{$goods.cost_price}" size="20" />
@@ -485,7 +489,7 @@
 						<span class="notice-span">{$lang.notice_cost_price}</span>
 					</td>
 
-				</tr>
+				</tr> -->
 
 				<tr>
 					<td class="label">{$lang.lab_picture}</td>

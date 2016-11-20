@@ -218,7 +218,7 @@ $_LANG['bonus_not_available'] = '该订单使用红包支付，现在红包不�
 /* 购货人信息 */
 $_LANG['display_buyer'] = '显示购货人信息';
 $_LANG['buyer_info'] = '购货人信息';
-$_LANG['pay_points'] = '消费积分';
+$_LANG['pay_points'] = '云豆';
 $_LANG['rank_points'] = '等级积分';
 $_LANG['user_money'] = '账户余额';
 $_LANG['email'] = '电子邮件';
