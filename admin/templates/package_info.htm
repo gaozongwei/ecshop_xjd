@@ -27,21 +27,11 @@
       <input type="text" name="end_time" maxlength="60" size="40" value="{$package.end_time}"  readonly="readonly" id ="end_time_id" />
       <input name="selbtn1" type="button" id="selbtn1" onclick="return showCalendar('end_time_id', '%Y-%m-%d %H:%M', '24', false, 'selbtn1');" value="{$lang.btn_select}" class="button"/>
       {$lang.require_field}</td>
-
-      <!-- 设定礼包价格为0元用于赠送VIP认证礼包 -->
-      <input type="hidden" name="package_price" maxlength="60" size="20" value="0" />
   </tr>
-<!--   <tr>
+  <tr>
     <td class="label"><a href="javascript:showNotice('noticepackagePrice');" title="{$lang.form_notice}"><img src="images/notice.gif" width="16" height="16" border="0" alt="{$lang.form_notice}"></a>{$lang.package_price}</td>
     <td><input type="text" name="package_price" maxlength="60" size="20" value="{$package.package_price}" />{$lang.require_field}<br /><span class="notice-span" {if $help_open}style="display:block" {else} style="display:none" {/if} id="noticepackagePrice">{$lang.notice_package_price}</span></td>
-  </tr> -->
-<!--   <tr>
-    <td class="label">VIP礼包</td>
-    <td>
-      <input type="radio" name="is_VIP" checked value=1>是
-      <input type="radio" name="is_VIP" checked value=0>否
-    </td>
-  </tr> -->
+  </tr>
   <tr>
     <td class="label">{$lang.desc}</td>
     <td><textarea  name="desc" cols="60" rows="4">{$package.act_desc}</textarea></td>
