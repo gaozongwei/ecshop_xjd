@@ -18,10 +18,11 @@ require(dirname(__FILE__) . '/includes/init.php');
 admin_priv('affiliate');
 $config = get_affiliate();
 
+
 /*------------------------------------------------------ */
-//-- 分成管理页
+//-- VIP分成管理页
 /*------------------------------------------------------ */
-if ($_REQUEST['act'] == 'list')
+if ($_REQUEST['act'] == 'vip_list')
 {
     assign_query_info();
     if (empty($_REQUEST['is_ajax']))
@@ -30,17 +31,16 @@ if ($_REQUEST['act'] == 'list')
     }
 $config['on'] = 1;
         $config['config']['separate_by'] = 0;
-    $smarty->assign('ur_here', $_LANG['distrib_set']);  /*微分销*/
+    $smarty->assign('ur_here', $_LANG['vip_distrib_set']);  /*微分销*/
     $smarty->assign('config', $config);
-    $smarty->display('affiliate.htm');
+    $smarty->display('affiliate_vip.htm');
 }
 elseif ($_REQUEST['act'] == 'query')
 {
-    $smarty->assign('ur_here', $_LANG['affiliate']);
+    $smarty->assign('ur_here', $_LANG['vip_affiliate']);
     $smarty->assign('config', $config);
-    make_json_result($smarty->fetch('affiliate.htm'), '', null);
+    make_json_result($smarty->fetch('affiliate_vip.htm'), '', null);
 }
-
 /*------------------------------------------------------ */
 //-- 增加下线分配方案
 /*------------------------------------------------------ */
@@ -68,7 +68,7 @@ elseif ($_REQUEST['act'] == 'add')
             $_POST['level_money'] .= '%';
         }
         $items = array('level_point'=>$_POST['level_point'],'level_money'=>$_POST['level_money']);
-        $links[] = array('text' => $_LANG['affiliate'], 'href' => 'affiliate.php?act=list');
+        $links[] = array('text' => $_LANG['affiliate'], 'href' => 'affiliate_vip.php?act=list');
         $config['item'][] = $items;
         $config['on'] = 1;
         $config['config']['separate_by'] = 0;
@@ -80,7 +80,7 @@ elseif ($_REQUEST['act'] == 'add')
        make_json_error($_LANG['level_error']);
     }
 
-    ecs_header("Location: affiliate.php?act=query\n");
+    ecs_header("Location: affiliate_vip.php?act=query\n");
     exit;
 }
 /*------------------------------------------------------ */
@@ -119,7 +119,7 @@ elseif ($_REQUEST['act'] == 'updata')
     $temp['item'] = $config['item'];
     $temp['on'] = 1;
     put_affiliate($temp);
-    $links[] = array('text' => $_LANG['affiliate'], 'href' => 'affiliate.php?act=list');
+    $links[] = array('text' => $_LANG['affiliate'], 'href' => 'affiliate_vip.php?act=list');
     sys_msg($_LANG['edit_ok'], 0 ,$links);
 }
 /*------------------------------------------------------ */
@@ -132,13 +132,40 @@ elseif ($_REQUEST['act'] == 'on')
 
     $config['on'] = $on;
     put_affiliate($config);
-    $links[] = array('text' => $_LANG['affiliate'], 'href' => 'affiliate.php?act=list');
+    $links[] = array('text' => $_LANG['affiliate'], 'href' => 'affiliate_vip.php?act=list');
     sys_msg($_LANG['edit_ok'], 0 ,$links);
 }
 /*------------------------------------------------------ */
 //-- Ajax修改设置
 /*------------------------------------------------------ */
 elseif ($_REQUEST['act'] == 'edit_point')
+{
+
+    /* 取得参数 */
+    $key = trim($_POST['id']) - 1;
+    $val = (float)trim($_POST['val']);
+    $maxpoint = 100;
+    foreach ($config['item'] as $k => $v)
+    {
+        if ($k != $key)
+        {
+            $maxpoint -= $v['level_point'];
+        }
+    }
+    $val > $maxpoint && $val = $maxpoint;
+    if (!empty($val) && strpos($val,'%') === false)
+    {
+        $val .= '%';
+    }
+    $config['item'][$key]['level_point'] = $val;
+    $config['on'] = 1;
+    put_affiliate($config);
+    make_json_result(stripcslashes($val));
+}
+/*------------------------------------------------------ */
+//-- Ajax修改设置
+/*------------------------------------------------------ */
+elseif ($_REQUEST['act'] == 'edit_vip_point')
 {
 
     /* 取得参数 */
@@ -203,13 +230,13 @@ elseif ($_REQUEST['act'] == 'del')
     $config['on'] = 1;
     $config['config']['separate_by'] = 0;
     put_affiliate($config);
-    ecs_header("Location: affiliate.php?act=list\n");
+    ecs_header("Location: affiliate_vip.php?act=list\n");
     exit;
 }
 
 function get_affiliate()
 {
-    $config = unserialize($GLOBALS['_CFG']['affiliate']);
+    $config = unserialize($GLOBALS['_CFG']['affiliate_vip']);
     empty($config) && $config = array();
 
     return $config;
@@ -220,7 +247,7 @@ function put_affiliate($config)
     $temp = serialize($config);
     $sql = "UPDATE " . $GLOBALS['ecs']->table('ecsmart_shop_config',1) .
            "SET  value = '$temp'" .
-           "WHERE code = 'affiliate'";
+           "WHERE code = 'affiliate_vip'";
     $GLOBALS['db']->query($sql);
     clear_all_files();
 }

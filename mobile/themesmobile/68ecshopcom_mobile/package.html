@@ -59,52 +59,21 @@ a{ text-decoration:none; line-height:14px;}
 <div class="clearfix">
   <div class="welcome-hd">恭喜你成为第<span class="num">5555</span>位会员，您可以从以下礼包中任选一份</div>
   <section class="floor_body">
+      {foreach from=$list item=val name=list}
     <div class="gift-box gift-box-selected">
-      <h4><span>婴儿超值大礼包</span><em class="iconfont icon-xuanze"></em></h4>
+      <h4><span>{$val.act_name}</span><em class="iconfont icon-xuanze"></em></h4>
       <ul>
+        {foreach from=$val.goods_list item=goods name=val_goods_list}
         <li>
           <div class="index_pro">
-            <div class="products_kuang"> <a href="#" title="好事达家用梯子四步梯加厚梯子折叠梯移动扶梯人字梯2766"><img src="http://dreamfly.ticp.io/images/201507/thumb_img/227_thumb_G_1437587283837.jpg"></a></div>
-            <div class="goods_name"> <a href="goods.php?id=283" title="好事达家用梯子四步梯加厚梯子折叠梯移动扶梯人字梯2766">好事达家用梯子四步梯加厚梯子折叠梯移动扶梯人字梯2766</a></div>
+            <div class="products_kuang"> <a href="goods.php?id={$goods.goods_id}" title="{$goods.goods_name|escape:html}"><img src="{$option.static_path}{$goods.goods_thumb}"  alt="{$goods.goods_name|escape:html}"></a></div>
+            <div class="goods_name"> <a href="goods.php?id={$goods.goods_id}" title="{$goods.goods_name|escape:html}">{$goods.goods_name}</a></div>
           </div>
         </li>
-        <li>
-          <div class="index_pro">
-            <div class="products_kuang"> <a href="#" title="超B级锁芯防伪升级版 防盗门锁芯 防锡纸开门37.5+32.5=70mm"><img src="http://dreamfly.ticp.io/images/201507/thumb_img/139_thumb_G_1437528892306.jpg"></a></div>
-            <div class="goods_name"> <a href="goods.php?id=282" title="超B级锁芯防伪升级版 防盗门锁芯 防锡纸开门37.5+32.5=70mm">超B级锁芯防伪升级版 防盗门锁芯 防锡纸开门37.5+32.5=70mm</a></div>
-          </div>
-        </li>
-        <li>
-          <div class="index_pro">
-            <div class="products_kuang"> <a href="#" title="卡贝 不锈钢户门吸15CM加长特长墙吸地碰门挡强磁现代家用五金 拉丝不锈钢"><img src="http://dreamfly.ticp.io/images/201603/thumb_img/_thumb_P_1457590880591.jpg"></a></div>
-            <div class="goods_name"> <a href="#" title="卡贝 不锈钢户门吸15CM加长特长墙吸地碰门挡强磁现代家用五金 拉丝不锈钢">卡贝 不锈钢户门吸15CM加长特长墙吸地碰门挡强磁现代家用五金 拉丝不锈钢</a></div>
-          </div>
-        </li>
+        {/foreach}
       </ul>
     </div>
-    <div class="gift-box">
-      <h4><span>的发大水发大礼包</span><em class="iconfont icon-xuanze"></em></h4>
-      <ul>
-        <li>
-          <div class="index_pro">
-            <div class="products_kuang"> <a href="goods.php?id=283" title="好事达家用梯子四步梯加厚梯子折叠梯移动扶梯人字梯2766"><img src="http://dreamfly.ticp.io/images/201507/thumb_img/227_thumb_G_1437587283837.jpg"></a></div>
-            <div class="goods_name"> <a href="goods.php?id=283" title="好事达家用梯子四步梯加厚梯子折叠梯移动扶梯人字梯2766">好事达家用梯子四步梯加厚梯子折叠梯移动扶梯人字梯2766</a></div>
-          </div>
-        </li>
-        <li>
-          <div class="index_pro">
-            <div class="products_kuang"> <a href="goods.php?id=282" title="超B级锁芯防伪升级版 防盗门锁芯 防锡纸开门37.5+32.5=70mm"><img src="http://dreamfly.ticp.io/images/201507/thumb_img/139_thumb_G_1437528892306.jpg"></a></div>
-            <div class="goods_name"> <a href="goods.php?id=282" title="超B级锁芯防伪升级版 防盗门锁芯 防锡纸开门37.5+32.5=70mm">超B级锁芯防伪升级版 防盗门锁芯 防锡纸开门37.5+32.5=70mm</a></div>
-          </div>
-        </li>
-        <li>
-          <div class="index_pro">
-            <div class="products_kuang"> <a href="#" title="卡贝 不锈钢户门吸15CM加长特长墙吸地碰门挡强磁现代家用五金 拉丝不锈钢"><img src="http://dreamfly.ticp.io/images/201603/thumb_img/_thumb_P_1457590880591.jpg"></a></div>
-            <div class="goods_name"> <a href="#" title="卡贝 不锈钢户门吸15CM加长特长墙吸地碰门挡强磁现代家用五金 拉丝不锈钢">卡贝 不锈钢户门吸15CM加长特长墙吸地碰门挡强磁现代家用五金 拉丝不锈钢</a></div>
-          </div>
-        </li>
-      </ul>
-    </div>
+    {/foreach}
   </section>
   <a href="javascript:" class="btn-sure">确认选择</a>
 </div>
