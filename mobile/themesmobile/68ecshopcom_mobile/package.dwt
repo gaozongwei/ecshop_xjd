@@ -99,12 +99,13 @@ var giftChoice ={
         type:'POST',
         dataType:'JSON',
         url:'flow.php?step=add_package_to_cart',
-        data:{"package_info":{"package_id": dataId, "number":1}},
+        data: {"package_info":JSON.stringify({"package_id": dataId, "number":1})},
         beforeSend:function(){
         flag = false;  
        },
         success:function(data){
         console.info(data); 
+        //window.location.href='/mobile/flow.php?step=checkout';
         },
         error:function(){
          flag = true; 
