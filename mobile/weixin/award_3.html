@@ -4,10 +4,10 @@
 	<meta charset="UTF-8">
 	<title>大转盘抽奖</title>
 	<meta name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=1">
-    <link type="text/css" rel="stylesheet" href="http://at.alicdn.com/t/font_gpiq31xw3rgm0a4i.css">
+    <link type="text/css" rel="stylesheet" href="http://at.alicdn.com/t/font_pb29s3aoqoscerk9.css">
 	<style>
 		*{padding: 0; margin: 0;}
-		body{ /*background:url(dzp/bg.png);*/ font-family:'微软雅黑'}
+		body{ background:url(dzp/bg.png); font-family:'微软雅黑'}
 		body.bg-green{background:url(dzp/bg.png)}
 		.grid{ width: 320px; margin: 0 auto; position: relative; overflow: hidden;}
 		#banner{
@@ -42,6 +42,8 @@
 
 
 		  .block{
+		  	background-color: #FFF9B3;
+		  	border: 2px solid #306931;
 		  	margin:0 10px 10px 10px;
 		  	border-radius: 8px;
 		  	padding: 8px;
@@ -51,15 +53,13 @@
 		  .block .title{
 		  	font-size: 16px;
 		  	line-height: 24px;
-			background-color:#cccaca;
-			border-bottom:solid 1px #ccc;
-			border-radius:5px;
+		  	background:url(dzp/tit.png) no-repeat;
 		  	padding-left: 7px;
-			display:inline-block;
-			padding:0 10px;
+		  	width: 123px;
 		  	color: #fff;
 		  	height: 24px;
 		  	-webkit-background-size: 123px auto;
+		  	background-size: 123px auto;
 		  }
 		  .block p{
 		  	line-height: 22px;
@@ -144,8 +144,8 @@
 		.tabs-bd{ padding-top:10px; color:#333;}
 		.cj-box{ padding-top:50px;}
 		/*list-gift*/
-		.list-gift{ }
-		.list-gift li{ padding:0 10px; height:40px; line-height:40px; border-bottom:solid 1px #ccc; text-align:center;}
+		.list-gift{background-color: #FFF9B3;}
+		.list-gift li{ padding:0 10px; height:40px; line-height:40px; border-bottom:solid 1px #9dc09e; text-align:center;}
 		/*tips-no-data*/
 		.tips-no-data{ padding:50px 20px; text-align:center; line-height:40px; font-size:22px; color:#666;}
 		.gray{ color:#f60;}
@@ -334,7 +334,7 @@
 	$(".tabs-hd li").bind("click",function(){
 		var _this =$(this);
 		var index = _this.index();
-		index ==0 ? $("body").addClass("bg-green"):$("body").removeClass("bg-green")
+		//index ==0 ? $("body").addClass("bg-green"):$("body").removeClass("bg-green")
 		_this.addClass("current").siblings("li").removeClass("current");
 		$(".tabs-bd").eq(index).fadeIn().siblings(".tabs-bd").hide();	
 	});

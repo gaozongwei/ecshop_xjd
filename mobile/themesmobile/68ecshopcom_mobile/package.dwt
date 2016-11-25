@@ -52,15 +52,15 @@ a{ text-decoration:none; line-height:14px;}
 .welcome-hd .num{ color:#f60;}
 .btn-sure{ display:block; margin:20px 50px; height:40px; line-height:40px; padding:0 15px; background-color:#f60; border-radius:8px; color:#fff; text-align:center; font-size:16px; box-shadow:0 2px 4px #999;}
 .gift-box-selected ul{ background-color:#fae8dd;}
-.gift-box .icon-xuanze{ display:block; float:right; color:#f60; margin:4px 10px 0 0; font-size:24px; display:none;}
-.gift-box-selected .icon-xuanze{ display:block;}
+.gift-box .icon-xuanze{ display:block; float:right; color:#f60; margin:4px 10px 0 0; font-size:24px; color:#ddd;}
+.gift-box-selected .icon-xuanze{ display:block; color:#f60;}
 </style>
 <body>
 <div class="clearfix">
   <div class="welcome-hd">恭喜你成为第<span class="num">5555</span>位会员，您可以从以下礼包中任选一份</div>
   <section class="floor_body">
       {foreach from=$list item=val name=list}
-    <div class="gift-box">
+    <div class="gift-box" data-id="{$val.act_id}">
       <h4><span>{$val.act_name}</span><em class="iconfont icon-xuanze"></em></h4>
       <ul>
         {foreach from=$val.goods_list item=goods name=val_goods_list}
@@ -75,14 +75,52 @@ a{ text-decoration:none; line-height:14px;}
     </div>
     {/foreach}
   </section>
-  <a href="javascript:" class="btn-sure">确认选择</a>
+  <a href="javascript:" class="btn-sure" id="btnSure">确认选择</a>
 </div>
 </div>
 <script src="js/jquery-1.6.2.min.js"></script>
 <script>
-$(".gift-box").bind("click",function(){
-	$(this).addClass("gift-box-selected").siblings(".gift-box").removeClass("gift-box-selected");
+var giftChoice ={
+  init:function(){
+    var flag = true;
+    $(".gift-box").bind("click",function(){
+      var _this = $(this);
+       _this.addClass("gift-box-selected").siblings(".gift-box").removeClass("gift-box-selected");
+      dataId = _this.attr("data-id");
+    });
+    $("#btnSure").bind("click",function(){  
+        if(!$(".gift-box").hasClass("gift-box-selected")){
+        alert('您还没选择礼包，请选择一种礼包');
+        return;
+     }
+
+     if(!flag){return;}
+       $.ajax({
+        type:'POST',
+        dataType:'JSON',
+        url:'flow.php?step=add_package_to_cart',
+        data:{"package_info":{"package_id": dataId, "number":1}},
+        beforeSend:function(){
+        flag = false;  
+       },
+        success:function(data){
+        console.info(data); 
+        },
+        error:function(){
+         flag = true; 
+        }
+    })
 })
+  }
+}
+
+giftChoice.init();
+
+    
+  
+ 
+    
+
 </script>
 </body>
 </html>
