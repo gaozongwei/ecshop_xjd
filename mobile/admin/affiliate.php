@@ -40,6 +40,29 @@ elseif ($_REQUEST['act'] == 'query')
     $smarty->assign('config', $config);
     make_json_result($smarty->fetch('affiliate.htm'), '', null);
 }
+
+/*------------------------------------------------------ */
+//-- VIP分成管理页
+/*------------------------------------------------------ */
+if ($_REQUEST['act'] == 'vip_list')
+{
+    assign_query_info();
+    if (empty($_REQUEST['is_ajax']))
+    {
+        $smarty->assign('full_page', 1);
+    }
+$config['on'] = 1;
+        $config['config']['separate_by'] = 0;
+    $smarty->assign('ur_here', $_LANG['vip_distrib_set']);  /*微分销*/
+    $smarty->assign('config', $config);
+    $smarty->display('affiliate_vip.htm');
+}
+elseif ($_REQUEST['act'] == 'query')
+{
+    $smarty->assign('ur_here', $_LANG['affiliate']);
+    $smarty->assign('config', $config);
+    make_json_result($smarty->fetch('affiliate.htm'), '', null);
+}
 /*------------------------------------------------------ */
 //-- 增加下线分配方案
 /*------------------------------------------------------ */
@@ -220,6 +243,16 @@ function put_affiliate($config)
     $sql = "UPDATE " . $GLOBALS['ecs']->table('ecsmart_shop_config',1) .
            "SET  value = '$temp'" .
            "WHERE code = 'affiliate'";
+    $GLOBALS['db']->query($sql);
+    clear_all_files();
+}
+
+function put_affiliate_vip($config)
+{
+    $temp = serialize($config);
+    $sql = "UPDATE " . $GLOBALS['ecs']->table('ecsmart_shop_config',1) .
+           "SET  value = '$temp'" .
+           "WHERE code = 'affiliate_vip'";
     $GLOBALS['db']->query($sql);
     clear_all_files();
 }
