@@ -46,7 +46,7 @@ elseif ($_REQUEST['act'] == 'query')
 /*------------------------------------------------------ */
 elseif ($_REQUEST['act'] == 'add')
 {
-    if (count($config['item']) < 3)
+    if (count($config['item']) < 7)
     {
         //下线不能超过3层
         $_POST['level_point'] = (float)$_POST['level_point'];

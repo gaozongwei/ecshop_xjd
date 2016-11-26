@@ -3066,7 +3066,23 @@ elseif ($_REQUEST['step'] == 'done')
 
 	                    /* 修改订单状态 */
 	                    update_order($order['order_id'], array('shipping_status' => SS_SHIPPED, 'shipping_time' => gmtime()));
+                        
+                        /* 如果是购买的是VIP会员 */
+                        $sql = "SELECT COUNT(*)" .
+                                " FROM " . $ecs->table('order_goods') .
+                                " WHERE order_id = '$order[order_id]' " .
+                                " AND goods_id = 292";                          // 需要VIP会员的商品ID为292 
+                        if ($db->getOne($sql) >= 0){
+                            include_once('includes/lib_transaction.php');
+                            include_once (ROOT_PATH . 'includes/lib_v_user.php');
+                            // 确认收货
+                            affirm_received($order['order_id'], $order['user_id']);
+
+                            // 分成
+                            $affiliate = unserialize($GLOBALS['_CFG']['affiliate_vip']);                        }
+
 	                    /* 如果订单用户不为空，计算积分，并发给用户；发红包 */
+
 
                        
 	                    if ($order['user_id'] > 0)
@@ -3088,7 +3104,6 @@ elseif ($_REQUEST['step'] == 'done')
 	        }
 	
 	    }
-
 	    //为每一个订单生成一个支付日志记录
 	    $order['log_id'] = insert_pay_log($order['order_id'], $order['order_amount'], PAY_ORDER);
     	$all_order_amount += $order['order_amount'];
