@@ -3055,6 +3055,7 @@ elseif ($_REQUEST['step'] == 'done')
                             $content = sprintf($_LANG['mobile_virtual_template'], $supplier_name, $val['goods_name'], $card_sn,local_date('Y-m-d',$val['valid_date']));
                             $result = sendSMS($_REQUEST['mobile_phone'],$content);  
                         }
+
 	                /* 如果没有实体商品，修改发货状态，送积分和红包 */
 	                $sql = "SELECT COUNT(*)" .
 	                        " FROM " . $ecs->table('order_goods') .
@@ -3062,8 +3063,6 @@ elseif ($_REQUEST['step'] == 'done')
 	                        " AND is_real = 1";
 	                if ($db->getOne($sql) <= 0)
 	                {
-
-
 	                    /* 修改订单状态 */
 	                    update_order($order['order_id'], array('shipping_status' => SS_SHIPPED, 'shipping_time' => gmtime()));
                         
@@ -3073,13 +3072,65 @@ elseif ($_REQUEST['step'] == 'done')
                                 " WHERE order_id = '$order[order_id]' " .
                                 " AND goods_id = 292";                          // 需要VIP会员的商品ID为292 
                         if ($db->getOne($sql) >= 0){
+                            $order_id = $order['order_id'];
                             include_once('includes/lib_transaction.php');
                             include_once (ROOT_PATH . 'includes/lib_v_user.php');
                             // 确认收货
                             affirm_received($order['order_id'], $order['user_id']);
 
                             // 分成
-                            $affiliate = unserialize($GLOBALS['_CFG']['affiliate_vip']);                        }
+                            $affiliate = unserialize($GLOBALS['_CFG']['affiliate_vip']);    
+
+
+                            //获取订单分成金额
+                            $split_money = get_split_money_by_orderid($order_id);
+
+                            $row = $GLOBALS['db']->getRow("SELECT o.order_sn,u.parent_id, o.is_separate,(o.goods_amount - o.discount) AS goods_amount, o.user_id,o.supplier_id  FROM " . $GLOBALS['ecs']->table('order_info') . " o"." LEFT JOIN " . $GLOBALS['ecs']->table('users') . " u ON o.user_id = u.user_id"." WHERE order_id = '$order_id'");
+                            $order_sn = $row['order_sn'];
+                            if($row['supplier_id'] == 0 || $GLOBALS['_CFG']['is_add_distrib'] == 1)
+                            {
+                                if($split_money > 0)
+                                {
+                                    $num = count($affiliate['item']);
+                                    for ($i=0; $i < $num; $i++)
+                                    {
+                                        $affiliate['item'][$i]['level_point'] = (float)$affiliate['item'][$i]['level_point'];
+
+                                        if ($affiliate['item'][$i]['level_point'])
+                                        {
+                                            $affiliate['item'][$i]['level_point'] /= 100;
+                                        }
+                                        $setmoney = round($split_money * $affiliate['item'][$i]['level_point'], 2);
+
+                                        $row = $GLOBALS['db']->getRow("SELECT o.parent_id as user_id,u.user_name FROM " . $GLOBALS['ecs']->table('users') . " o" .
+                                                        " LEFT JOIN" . $GLOBALS['ecs']->table('users') . " u ON o.parent_id = u.user_id".
+                                                        " WHERE o.user_id = '$row[user_id]'"
+                                                );
+                                        $up_uid = $row['user_id'];
+                                        if (empty($up_uid) || empty($row['user_name']))
+                                        {
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            $info = sprintf($_LANG['separate_info'], $order_sn, $setmoney, 0);
+                                            push_user_msg($up_uid,$order_sn,$setmoney);
+                                            insert_affiliate_log($order_id, $up_uid, $row['user_name'], $setmoney, $separate_by,$_LANG['order_separate'], 2);
+                                        }
+                                        $sql = "UPDATE " . $GLOBALS['ecs']->table('order_info') .
+                                               " SET is_separate = 1" .
+                                               " WHERE order_id = '$order_id'";
+                                        $db->query($sql);
+                                    }
+                                    $_SERVER['REQUEST_URI'] = $_SERVER['REQUEST_URI'] ? $_SERVER['REQUEST_URI'] : "/mobile/";
+                                    $autoUrl = str_replace($_SERVER['REQUEST_URI'],"",$GLOBALS['ecs']->url());
+                                    @file_get_contents($autoUrl."/weixin/auto_do.php?type=1&is_affiliate=1");
+                                } 
+                            }
+
+
+
+                        }
 
 	                    /* 如果订单用户不为空，计算积分，并发给用户；发红包 */
 
@@ -3109,7 +3160,7 @@ elseif ($_REQUEST['step'] == 'done')
     	$all_order_amount += $order['order_amount'];
     	user_uc_call('add_feed', array($order['order_id'], BUY_GOODS)); //推送feed到uc
     }
-
+    
     /* 清空购物车 */
     clear_cart($flow_type,$id_ext);
     /* 清除缓存，否则买了商品，但是前台页面读取缓存，商品数量不减少 */

@@ -808,7 +808,7 @@ function get_order_total_fee($order_id)
 //分成后，推送到各个上级分销商微信
 function push_user_msg($ecuid,$order_sn,$split_money){
 	$type = 1;
-	$text = "订单".$order_sn."分成，您得到的分成金额为".$split_money;
+	$text = "订单".$order_sn."分成，您得到的分成积分为".$split_money;
 	$user = $GLOBALS['db']->getRow("select * from " . $GLOBALS['ecs']->table('weixin_user') . " where ecuid='{$ecuid}'");
 	if($user && $user['fake_id']){
 		$content = array(
@@ -832,14 +832,20 @@ function push_user_msg($ecuid,$order_sn,$split_money){
 	}
 }
 
-function insert_affiliate_log($oid, $uid, $username, $money, $separate_by,$change_desc)
+function insert_affiliate_log($oid, $uid, $username, $money, $separate_by,$change_desc, $type=1)
 {
     $time = gmtime();
-    $sql = "INSERT INTO " . $GLOBALS['ecs']->table('affiliate_log') . "( order_id, user_id, user_name, time, money, separate_type,change_desc)".
-                                                              " VALUES ( '$oid', '$uid', '$username', '$time', '$money', '$separate_by','$change_desc')";
+    $sql = "INSERT INTO " . $GLOBALS['ecs']->table('affiliate_log') . "( order_id, user_id, user_name, time, money, separate_type,change_desc, type)".
+                                                              " VALUES ( '$oid', '$uid', '$username', '$time', '$money', '$separate_by','$change_desc', '$type')";
+    if($type ==1){
+    	$sql_user = "UPDATE " . $GLOBALS['ecs']->table('users') . " SET user_money = user_money + $money  WHERE user_id = $uid";
+    }else{
+    	$sql_user = "UPDATE " . $GLOBALS['ecs']->table('users') . " SET vip_points = vip_points + $money  WHERE user_id = $uid";
+    }
     if ($oid)
     {
         $GLOBALS['db']->query($sql);
+        $GLOBALS['db']->query($sql_user);
     }
 }
 ?>
