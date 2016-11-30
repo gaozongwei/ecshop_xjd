@@ -1065,6 +1065,17 @@ elseif ($_REQUEST['step'] == 'checkout')
     //-- 订单确认
     /*------------------------------------------------------ */
 
+    /* 如果用户够买的是VIP或者VIP赠送的礼包，先删除购物车其他的商品 */
+    $sql = "SELECT rec_id FROM" . 
+            $ecs->table('cart') . " WHERE user_id = '$_SESSION[user_id]' AND ((goods_id = 292 AND extension_code != 'package_buy') OR extension_code = 'package_buy')";
+    $rec_id = $db->getOne($sql);
+    if($rec_id > 0){
+        $smarty->assign('is_vip', 1);
+        $sql = "DELETE FROM " . $ecs->table('cart') . " WHERE user_id = '$_SESSION[user_id]' AND rec_id <> $rec_id";
+        $db->query($sql);
+    }
+
+
     /* 取得购物类型 */
     $flow_type = isset($_SESSION['flow_type']) ? intval($_SESSION['flow_type']) : CART_GENERAL_GOODS;
 
@@ -3004,12 +3015,28 @@ elseif ($_REQUEST['step'] == 'done')
 	        $content = $smarty->fetch('str:' . $tpl['template_content']);
 	        send_mail($_CFG['shop_name'], $_CFG['service_email'], $tpl['template_subject'], $content, $tpl['is_html']);
 	    }
+
             /* 处理虚拟团购商品 */
 	    /* 如果订单金额为0 处理虚拟卡 */
-  
+        
 	    if ($order['order_amount'] <= 0)
 	    {
-	    	/* 代码增加_start  By www.68ecshop.com */
+
+            /* vip领取礼包处理 */
+            $sql = "SELECT goods_id FROM ".
+                   $GLOBALS['ecs']->table('cart') .
+                    " WHERE extension_code = 'package_buy' ".
+                    " AND $sql_where AND rec_type = '$flow_type'";
+            $package_id = $GLOBALS['db']->getOne($sql);
+            if($package_id){
+
+                $sql = "UPDATE " . $GLOBALS['ecs']->table('users') .
+                       " SET vip_package_id = '$package_id'" .
+                       " WHERE user_id = '$order[user_id]'";
+                $db->query($sql);                
+            }
+
+            /* 虚拟商品处理 */
 	    	$sql = "SELECT goods_id, goods_name,extension_code, goods_attr_id, goods_number AS num FROM ".
 	               $GLOBALS['ecs']->table('cart') .
 	                " WHERE is_real = 0 ".
@@ -3077,10 +3104,16 @@ elseif ($_REQUEST['step'] == 'done')
                             include_once (ROOT_PATH . 'includes/lib_v_user.php');
                             // 确认收货
                             affirm_received($order['order_id'], $order['user_id']);
+                            $is_vip = 1;
+
+                            // 初始化领取礼包id，防止用户再次购买vip无法领取礼包
+                            $sql = "UPDATE " . $GLOBALS['ecs']->table('users') .
+                                   " SET vip_package_id = 0" .
+                                   " WHERE user_id = '$order[user_id]'";
+                            $db->query($sql);    
 
                             // 分成
                             $affiliate = unserialize($GLOBALS['_CFG']['affiliate_vip']);    
-
 
                             //获取订单分成金额
                             $split_money = get_split_money_by_orderid($order_id);
@@ -3127,9 +3160,6 @@ elseif ($_REQUEST['step'] == 'done')
                                     @file_get_contents($autoUrl."/weixin/auto_do.php?type=1&is_affiliate=1");
                                 } 
                             }
-
-
-
                         }
 
 	                    /* 如果订单用户不为空，计算积分，并发给用户；发红包 */
@@ -3246,7 +3276,9 @@ elseif ($_REQUEST['step'] == 'done')
     unset($_SESSION['flow_consignee']); // 清除session中保存的收货人信息
     unset($_SESSION['flow_order']);
     unset($_SESSION['direct_shopping']);
-    
+    if(isset($is_vip)){
+        ecs_header("Location: package.php\n");
+    }
  
 }
 

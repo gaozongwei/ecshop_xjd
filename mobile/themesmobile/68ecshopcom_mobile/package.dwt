@@ -57,7 +57,7 @@ a{ text-decoration:none; line-height:14px;}
 </style>
 <body>
 <div class="clearfix">
-  <div class="welcome-hd">恭喜你成为第<span class="num">5555</span>位会员，您可以从以下礼包中任选一份</div>
+  <div class="welcome-hd">恭喜您成为VIP会员，您可以从以下礼包中任选一份</div>
   <section class="floor_body">
       {foreach from=$list item=val name=list}
     <div class="gift-box" data-id="{$val.act_id}">
@@ -66,8 +66,8 @@ a{ text-decoration:none; line-height:14px;}
         {foreach from=$val.goods_list item=goods name=val_goods_list}
         <li>
           <div class="index_pro">
-            <div class="products_kuang"> <a href="goods.php?id={$goods.goods_id}" title="{$goods.goods_name|escape:html}"><img src="./../{$goods.goods_thumb}"  alt="{$goods.goods_name|escape:html}"></a></div>
-            <div class="goods_name"> <a href="goods.php?id={$goods.goods_id}" title="{$goods.goods_name|escape:html}">{$goods.goods_name}</a></div>
+            <div class="products_kuang"> <a href="javascript:void(0)" title="{$goods.goods_name|escape:html}"><img src="./../{$goods.goods_thumb}"  alt="{$goods.goods_name|escape:html}"></a></div>
+            <div class="goods_name"> <a href="javascript:void(0)" title="{$goods.goods_name|escape:html}">{$goods.goods_name}</a></div>
           </div>
         </li>
         {/foreach}
@@ -95,6 +95,8 @@ var giftChoice ={
      }
 
      if(!flag){return;}
+     document.cookie="one_step_buy=1;path=/";
+      flag = false;  
        $.ajax({
         type:'POST',
         dataType:'JSON',
@@ -104,8 +106,13 @@ var giftChoice ={
         flag = false;  
        },
         success:function(data){
-        console.info(data); 
-        //window.location.href='/mobile/flow.php?step=checkout';
+          console.info(data);
+          if(data.error){
+              alert(data.message);
+              flag = true;  
+          }else{
+              window.location.href='/mobile/flow.php';
+          }
         },
         error:function(){
          flag = true; 

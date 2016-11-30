@@ -34,6 +34,35 @@ $position = assign_ur_here(0, $_LANG['shopping_package']);
 $smarty->assign('page_title',       $position['title']);    // 页面标题
 $smarty->assign('ur_here',          $position['ur_here']);  // 当前位置
 
+/* 用户判断 */
+$user_id = $_SESSION['user_id'];
+if(!$user_id){   //未登录
+    show_message($_LANG['require_login'], array('登录', '返回首页'), array('user.php?act=login', $ecs->url()), 'error', false);
+}else{
+  $sql = "SELECT rank_points, vip_package_id FROM ".
+                  $GLOBALS['ecs']->table('users') .
+                  " WHERE user_id = '$user_id' limit 0,1";
+  $user = $db->getAll($sql);
+  if($user = $user[0]){
+
+    if($user['rank_points'] < 10000000){
+        show_message("非VIP会员，</br>请先升级为VIP会员", array('升级VIP', '返回首页'), array('goods.php?id=292', $ecs->url()), 'error', false);
+    }
+
+    if($user['vip_package_id'] > 0){
+        show_message("您已领取礼包，请不要重复领取", array('再次购买VIP', '返回首页'), array('goods.php?id=292', $ecs->url()), 'error', false);
+    }
+
+  }else{
+    show_message($_LANG['require_login'], array('登录', '返回首页'), array('user.php?act=login', $ecs->url()), 'error', false);
+  }
+                   
+}
+
+
+
+
+
 /* 读出所有礼包信息 */
 
 $now = gmtime();

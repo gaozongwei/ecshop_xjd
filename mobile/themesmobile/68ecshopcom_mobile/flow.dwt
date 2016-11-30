@@ -781,7 +781,7 @@ function close_gift(suitId){
     </div>
     <!-- {/if} --> 
     <!-- 是否使用红包或者积分 --> 
-    <!-- {if $allow_use_bonus  && $goodsinfo.goodlist}-->
+    <!-- {if $allow_use_bonus  && $goodsinfo.goodlist && $is_vip neq 1}-->
     <div class="order_list">
       <div class="checkout_other">
         <div class="jmbag" href="javascript:void(0);" onclick="showCheckoutOther(this);">使用店铺优惠券</div>
@@ -1056,18 +1056,18 @@ function close_gift(suitId){
       </div>
     </div>
   </section>
-  <!--使用账户余额支付--> 
+  <!--使用账户积分支付--> 
   {if $allow_use_surplus}
   <section class="main">
     <div class="allow_user_surplus">
       <p class="ye">
         <input type="checkbox" class="b_checkbox" id="issurplus" onclick="checkboxOnclick(this)" style="vertical-align:middle; cursor:pointer" />
-        <span class="is_user_surplus">使用账户余额支付</span></p>
+        <span class="is_user_surplus">使用账户V积分支付</span></p>
       <dl class="yueonlin" id="allow_user_surplus">
-        <dt> <i>输入余额：
+        <dt> <i>输入V积分：
           <input name="surplus" type="text" class="surplus" id="ECS_SURPLUS"  value="0" onblur="changeSurplus(this.value);" />
-          &nbsp;&nbsp;元</i> <span>您当前的可用余额为:￥{$your_surplus|default:0}</span><span id="ECS_SURPLUS_NOTICE_{$key}" class="notice"></span> </dt>
-        <dd> {if $is_surplus_open eq 0}<span class="open_surplus">未开通余额安全支付,请在电脑端登录开通</span>{/if} </dd>
+          &nbsp;&nbsp;元</i> <span>您当前的可用V积分为:￥{$your_surplus|default:0}</span><span id="ECS_SURPLUS_NOTICE_{$key}" class="notice"></span> </dt>
+        <!-- <dd> {if $is_surplus_open eq 0}<span class="open_surplus">未开通余额安全支付,请在电脑端登录开通</span>{/if} </dd> -->
       </dl>
     </div>
   </section>
@@ -1145,7 +1145,7 @@ function close_gift(suitId){
           <ul class="list-suit">
             <!-- {foreach from=$goods.package_goods_list name="package_goods_list" item=package_goods_list} -->
             
-            <li class="list-suit-item"  style="width:100%;{if $smarty.foreach.package_goods_list.last}border-bottom:none{/if}" > <a href="goods.php?id={$package_goods_list.goods_id}" class="p-link">
+            <li class="list-suit-item"  style="width:100%;{if $smarty.foreach.package_goods_list.last}border-bottom:none{/if}" > <a href="javascript:void(0)" class="p-link">
               <div class="p-img" style="margin-left:10px;"> <img src="{$package_goods_list.goods_thumb}" width="60" height="60"></div>
               <div class="p-info" style="margin-left:40px;">
                 <h5 class="p-name">{$package_goods_list.goods_name}</h5>
