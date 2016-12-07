@@ -418,8 +418,8 @@ class weixinapi{
 		$res = $this->randAward($aid);
 		$class_name = '';$code = '';$msg = 0;
 		$uid = $_SESSION['user_id'];
-		$arr = array(2,3,4,6,7,8,11,12);
-		$r = $arr[array_rand($arr)];
+		// $arr = array(2,3,4,6,7,8,11,12);
+		// $r = $arr[array_rand($arr)];
 		if($res){
 			$class_name = $res['awardname'];
 			$code = $res['code'];
@@ -429,10 +429,18 @@ class weixinapi{
 						$r = 1;
 					break;
 				case "二等奖":
-						$r = 5;
+						$r = 9;
 					break;
 				case "三等奖":
-						$r = 9;
+						$r = 5;
+					break;
+				case "幸运奖":
+						$arr = array(3,7,11);
+						$r = $arr[array_rand($arr)];
+					break;
+				case "拆包奖":
+						$arr = array(2,4,6,8,10,12);
+						$r = $arr[array_rand($arr)];
 					break;
 			}
 		}
@@ -454,7 +462,8 @@ class weixinapi{
 				}
 			}
 		}
-		return false;
+		
+		return $this->randAward($aid);
 	}
 	private function checkAward($aid){
 		$act = $GLOBALS['db']->getRow ( "SELECT * FROM " . $GLOBALS['ecs']->table('weixin_act') . " where aid=$aid" );
