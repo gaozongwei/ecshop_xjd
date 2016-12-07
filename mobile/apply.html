@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>申请入驻</title>
-<meta name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1">
 <link href="../themes/68ecshopcom_360buy/css/store_joinin.css" type="text/css" rel="stylesheet">
 <style>
     /*压缩版本覆盖样式*/
@@ -19,7 +19,223 @@
 		.store-joinin-apply{ width:640px;}
 	}
 
-    </style>
+/* layer begin */
+.form-item{ font-size:14px;}
+.ios-select-widget-box.olay {
+	position: absolute;
+	z-index: 500;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 1;
+	background: rgba(0, 0, 0, 0.75);
+}
+.ios-select-widget-box.olay > div {
+	position: fixed;
+	z-index: 1000;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #f2f2f2;
+	bottom: 0;
+	left: 0;
+	visibility: visible;
+}
+.ios-select-widget-box header.iosselect-header {
+	height: 44px;
+	line-height: 44px;
+	background-color: #eee;
+	width: 100%;
+	z-index: 9999;
+	text-align: center;
+}
+.ios-select-widget-box header.iosselect-header a {
+	font-size: 16px;
+	color: #e94643;
+	text-decoration: none;
+}
+.ios-select-widget-box header.iosselect-header a.close {
+	float: left;
+	padding-left: 15px;
+	height: 44px;
+	line-height: 44px;
+}
+.ios-select-widget-box header.iosselect-header a.sure {
+	float: right;
+	padding-right: 15px;
+	height: 44px;
+	line-height: 44px;
+}
+.ios-select-widget-box {
+	padding-top: 44px;
+}
+.ios-select-widget-box .one-level-contain,
+.ios-select-widget-box .two-level-contain,
+.ios-select-widget-box .three-level-contain,
+.ios-select-widget-box .four-level-contain,
+.ios-select-widget-box .five-level-contain {
+	height: 100%;
+	overflow: hidden;
+}
+.ios-select-widget-box .iosselect-box {
+	overflow: hidden;
+}
+.ios-select-widget-box .iosselect-box > div {
+	display: block;
+	float: left;
+}
+.ios-select-widget-box ul {
+	background-color: #fff;
+}
+.ios-select-widget-box ul li {
+	font-size: 13px;
+	height: 35px;
+	line-height: 35px;
+	background-color: #fff;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-align: center;
+	color: #111;
+	opacity: .3;
+}
+.ios-select-widget-box ul li.at {
+	font-size: 16px;
+	opacity: 1;
+}
+.ios-select-widget-box ul li.side1 {
+	font-size: 15px;
+	opacity: .7;
+}
+.ios-select-widget-box ul li.side2 {
+	font-size: 14px;
+	opacity: .5;
+}
+.ios-select-widget-box.one-level-box .one-level-contain {
+	width: 100%;
+}
+.ios-select-widget-box.one-level-box .two-level-contain,
+.ios-select-widget-box.one-level-box .three-level-contain,
+.ios-select-widget-box.one-level-box .four-level-contain,
+.ios-select-widget-box.one-level-box .five-level-contain,
+{
+	width: 0;
+}
+.ios-select-widget-box.two-level-box .one-level-contain, 
+.ios-select-widget-box.two-level-box .two-level-contain {
+	width: 50%;
+}
+.ios-select-widget-box.two-level-box .three-level-contain,
+.ios-select-widget-box.two-level-box .four-level-contain,
+.ios-select-widget-box.two-level-box .five-level-contain,
+{
+	width: 0;
+}
+.ios-select-widget-box.three-level-box .one-level-contain, 
+.ios-select-widget-box.three-level-box .two-level-contain {
+	width: 30%;
+}
+.ios-select-widget-box.three-level-box .three-level-contain {
+	width: 40%;
+}
+.ios-select-widget-box.three-level-box .four-level-contain
+.ios-select-widget-box.three-level-box .five-level-contain {
+	width: 0%;
+}
+
+.ios-select-widget-box.four-level-box .one-level-contain, 
+.ios-select-widget-box.four-level-box .two-level-contain,
+.ios-select-widget-box.four-level-box .three-level-contain,
+.ios-select-widget-box.four-level-box .four-level-contain {
+	width: 25%;
+}
+.ios-select-widget-box.four-level-box .five-level-contain {
+	width: 0%;
+}
+
+.ios-select-widget-box.five-level-box .one-level-contain, 
+.ios-select-widget-box.five-level-box .two-level-contain,
+.ios-select-widget-box.five-level-box .three-level-contain,
+.ios-select-widget-box.five-level-box .four-level-contain,
+.ios-select-widget-box.five-level-box .five-level-contain {
+	width: 20%;
+}
+.ios-select-widget-box .cover-area1 {
+	width: 100%;
+	border: none;
+	border-top: 1px solid #d9d9d9;
+	position: absolute;
+	top: 149px;
+	margin: 0;
+	height: 0;
+}
+.ios-select-widget-box .cover-area2 {
+	width: 100%;
+	border: none;
+	border-top: 1px solid #d9d9d9;
+	position: absolute;
+	top: 183px;
+	margin: 0;
+	height: 0;
+}
+.ios-select-widget-box #iosSelectTitle {
+	margin: 0;
+    padding: 0;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: normal;
+    color: #333;
+}
+.ios-select-body-class {
+	overflow: hidden;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+.ios-select-widget-box.olay > div > .ios-select-loading-box {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,.5);
+    display: none;
+}
+.ios-select-widget-box.olay > div > .ios-select-loading-box > .ios-select-loading { 
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-top: -25px;
+	margin-left: -25px;
+	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo1OEMxMEI3NDI3MEIxMUU2ODVGMzhFNjYyMDIyOUFCMCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo1OEMxMEI3NTI3MEIxMUU2ODVGMzhFNjYyMDIyOUFCMCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjU4QzEwQjcyMjcwQjExRTY4NUYzOEU2NjIwMjI5QUIwIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU4QzEwQjczMjcwQjExRTY4NUYzOEU2NjIwMjI5QUIwIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+GeWqMwAAA+BJREFUeNrMmVlsTGEUx+9cXZQiLZWKklhbQSSlSMUWSxAiJGJ5aSQehOiDF7yI4EFILW99I3iRSJGUPkiILSKp2OuJVtHWkrRVapn2jv+R/ycnn5l27rQz10l+mWlyl/+c833nO+c0FIlEnATMBbPAIn5OBuPAENAKToC74BtoB59AG/D9spBPgaPBdrAFjJH7Fa66TkRuNe8gP8Bb8Ap8j/eFaXFelwv286WZfKG2WL9SX5cFCuntBvAc/OoPD64HJ8EI5Q3tmW7whl4pAl/AUfAEDKZnQ1HuFXGPQGOiAsW7x8A26wUhirgMLnGtfe3hGcO5NApARpRnSchrY0UhlkAJxxmw0npYBzgOKinSj6WDCfRyphWFJnAPdMUjUH71WbDKElcDykGL0zcbCEroVf389+CW7Uk3ygNk/azghYIHDoCN/SDO4W6+A55aAiUrzImWz7StA2WWuF2gIpEc1ovVgQeWyELm06gCc8ARJU44DM45yTPZII8tkXO5DP4RuI8iPYqr4YmQbJN8+E4JlA1abAuUBbtZeU526O4khDWW3QdhK9TZWmAZd6/x3inw0UmdSZJ/pgSKlilGoMvTwoiTw/20k3p7yTyovRgScTNAvgrvFSbkVJuE+LU6GiXEefJHqfKefF5zgrMGVRnJZ4HEerryXjdzU1DWbB2BI10mRuPBej+1WhKsi8vLeDDXZRllwtvoBG8davNmS4gHUZyTQIWSrM1iQpyZptafo4QGabp9+JNmOijMY9MTtGWpEHe5PDHMGsz/DwQOUwI7XVYUZheP1ZVEAJbOFsGswTYR+EKF2NWVRABWwHPYeLDFZWKOKJFLAhRYpMQJjS7rsWYlcjlTT6pNOr5pahfL5m12KaparUPpZTcEILCEjjGniCy9iMk3F9hImzCXcZqQKhOnLFShjbBX/psQP4Aq5UUpdfZEGXEkKzGvZf4zu/exOdV0T1LJCZTx4gK2msm2Uq494z1pS29Ea5ra2RPrrm4HpwvJsplgtTW/kXq0M1ZffF2F2uMNe+nJUD+HVWaLm8AAtXNrOXTqcfQh2fwQmKdST4TTgAp6ui+WTWFTrUpedu15Fs29Do/kuDsIZlsiW7njryZQ2MrAaD5Yqko88+w6zoPCfsdv5VwjnnXayA67zYmUdGM/e0i+E7nWivnDPUWEz6iyPedngLkY7ARDrQeb72GOz5roVY/eylMHvxflXjkpLoKHfZ2wmhJIkvcylUi9BAnTa9U9DD59CzQm/csaZv0cn0JbOeK4ye/xbfcE/w0hYZvElnU8GEXBGRQjeewzi5B6rtP6RGY9vwUYACMHTam1T1ebAAAAAElFTkSuQmCC) no-repeat 0 0;
+    background-size: contain;
+    -webkit-animation: loading-keyframe 1s infinite linear;
+            animation: loading-keyframe 1s infinite linear;
+}
+@-webkit-keyframes loading-keyframe {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@keyframes loading-keyframe {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+</style>
 </head>
 <body>
 <div class="panel-heading">
@@ -74,7 +290,7 @@
             </tr>
             <tr>
               <th><i>*</i>联系地址：</th>
-              <td><select name="country" id="selCountries_1" onchange="region.changed(this, 1, 'selProvinces_1')">
+              <td><!--<select name="country" id="selCountries_1" onchange="region.changed(this, 1, 'selProvinces_1')">
                   <option value="0">请选择</option>
                   <option value="1" selected="">中国</option>
                 </select>
@@ -86,64 +302,33 @@
                   <option value="5" selected="">甘肃</option>
                   <option value="6">广东</option>
                   <option value="7">广西</option>
-                  <option value="8">贵州</option>
-                  <option value="9">海南</option>
-                  <option value="10">河北</option>
-                  <option value="11">河南</option>
-                  <option value="12">黑龙江</option>
-                  <option value="13">湖北</option>
-                  <option value="14">湖南</option>
-                  <option value="15">吉林</option>
-                  <option value="16">江苏</option>
-                  <option value="17">江西</option>
-                  <option value="18">辽宁</option>
-                  <option value="19">内蒙古</option>
-                  <option value="20">宁夏</option>
-                  <option value="21">青海</option>
-                  <option value="22">山东</option>
-                  <option value="23">山西</option>
-                  <option value="24">陕西</option>
-                  <option value="25">上海</option>
-                  <option value="26">四川</option>
-                  <option value="27">天津</option>
-                  <option value="28">西藏</option>
-                  <option value="29">新疆</option>
-                  <option value="30">云南</option>
-                  <option value="31">浙江</option>
-                  <option value="32">重庆</option>
-                  <option value="33">香港</option>
-                  <option value="34">澳门</option>
-                  <option value="35">台湾</option>
+              
                 </select>
                 <select name="city" id="selCities_1" onchange="region.changed(this, 3, 'selDistricts_1')">
                   <option value="0">请选择</option>
                   <option value="62">兰州</option>
-                  <option value="63">白银</option>
-                  <option value="64">定西</option>
+       
                   <option value="65" selected="">甘南</option>
                   <option value="66">嘉峪关</option>
                   <option value="67">金昌</option>
-                  <option value="68">酒泉</option>
-                  <option value="69">临夏</option>
-                  <option value="70">陇南</option>
-                  <option value="71">平凉</option>
-                  <option value="72">庆阳</option>
-                  <option value="73">天水</option>
-                  <option value="74">武威</option>
-                  <option value="75">张掖</option>
+
                 </select>
                 <select name="district" id="selDistricts_1">
                   <option value="0">请选择</option>
                   <option value="625" selected="">合作市</option>
                   <option value="626">临潭县</option>
-                  <option value="627">卓尼县</option>
-                  <option value="628">舟曲县</option>
-                  <option value="629">迭部县</option>
-                  <option value="630">玛曲县</option>
-                  <option value="631">碌曲县</option>
-                  <option value="632">夏河县</option>
+        
                 </select>
-                <span></span></td>
+                <span></span> -->
+                
+                <div class="form-item item-line" id="select_contact">                 
+    <label>点击更换地址</label>                 
+    <div class="pc-box">                     
+        <input type="hidden" name="contact_province_code" data-id="0001" id="contact_province_code" value="" data-province-name="">                     
+        <input type="hidden" name="contact_city_code" id="contact_city_code" value="" data-city-name=""><span data-city-code="510100" data-province-code="510000" data-district-code="510105" id="show_contact">四川省 成都市 青羊区</span> 
+    </div>             
+</div>
+                </td>
             </tr>
             <tr>
               <th><i>*</i>详细地址：</th>
@@ -226,7 +411,7 @@
             </tr>
             <tr>
               <th><i>*</i>个人银行账号：</th>
-              <td><input name="bank_account_number" id="bank_account_number" type="text" class="w200" value="45445464546465456">
+              <td><input name="bank_account_number" id="bank_account_number" type="text" class="w200" value="">
                 <span></span></td>
             </tr>
             <tr>
@@ -251,7 +436,8 @@
         <input type="hidden" name="person" value="1"> -->
         <div class="bottom">
           <input type="button" value="上一步" class="btn" onclick="top.location.href='apply.php?shownum=0'">
-          <input type="submit" value="下一步" class="btn">
+         <input type="submit" value="下一步" class="btn">
+         
         </div>
       </form>
     </div>
@@ -314,65 +500,6 @@
       </form>
     </div>
     <!--个人信息第二步  end-->
-    
-    <!--个人信息第二步  begin-->
-    <div id="apply_company_info" class="apply-company-info">
-      <form id="form_store_info" name="form_company_info" action="apply.php" method="post" enctype="multipart/form-data" onsubmit="return supplier_Reg()">
-      <table border="0" cellpadding="0" cellspacing="0" class="all">
-        <thead>
-          <tr>
-            <th colspan="20" align="left">店铺经营信息</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th class="w150"><i>*</i>店铺名称：</th>
-            <td><input name="supplier_name" type="text" class="w200" value="">
-              <span></span>
-              <p class="emphasis">店铺名称注册后不可修改，请认真填写。</p></td>
-          </tr>
-          <tr>
-            <th><i>*</i>店铺等级：</th>
-            <td>
-	    <select name="rank_id" size="1">
-                <option value="0">请选择</option>
-		                 <option value="3">高级店铺</option>
-		                  <option value="2">中级店铺</option>
-		                  <option value="1">初级店铺</option>
-		                </select>
-              <span></span>
-              <div id="grade_explain" class="grade_explain"></div></td>
-          </tr>
-          <tr>
-            <th><i>*</i>店铺分类：</th>
-            <td> <select name="type_id" size="1">
-                <option value="0">请选择</option>
-		                 <option value="1">精选</option>
-		                  <option value="2">女人</option>
-		                  <option value="3">男人</option>
-		                  <option value="4">家装</option>
-		                  <option value="5">母婴</option>
-		                  <option value="6">美妆</option>
-		                  <option value="7">美食</option>
-		                  <option value="8">数码</option>
-		                </select>
-              <span></span>
-              <p class="emphasis">请根据您所经营的内容认真选择店铺分类，注册后商家不可自行修改。</p></td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="20">&nbsp;</td>
-          </tr>
-        </tfoot>
-      </table>
-      <input type="hidden" name="shownum" value="3">
-      <input type="hidden" name="do" value="1">
-      <div class="bottom"><input type="button" value="上一步" class="btn" onclick="top.location.href='apply.php?shownum=1'"><input type="submit" value="下一步" class="btn"></div>
-      </form>
-    </div>
-    <!--个人信息第二步  end-->
-    
     <!--个人信息第三步  begin-->
     <div class="explain"><i></i>入驻申请已经提交，请等待管理员审核</div>
     <!--个人信息第三步  end-->
@@ -382,8 +509,51 @@
 
 
 <script src="../js/jquery-1.6.2.min.js"></script>
-<script src="../js/region.js"></script>
-<script src="../js/user.js"></script>
+<script src="../js/utils.js"></script>
+<!--<script src="../js/region.js"></script>
+<script src="../js/user.js"></script> -->
+
+<!--地区选择 iosselect -->
+<script src="js/iscroll.js"></script>
+<script src="js/areaData_v2.js"></script>
+<script src="js/iosSelect.js"></script>
+<script type="text/javascript">
+    var selectContactDom = $('#select_contact');
+    var showContactDom = $('#show_contact');
+    var contactProvinceCodeDom = $('#contact_province_code');
+    var contactCityCodeDom = $('#contact_city_code');
+    selectContactDom.bind('click', function () {
+        var sccode = showContactDom.attr('data-city-code');
+        var scname = showContactDom.attr('data-city-name');
+
+        var oneLevelId = showContactDom.attr('data-province-code');
+        var twoLevelId = showContactDom.attr('data-city-code');
+        var threeLevelId = showContactDom.attr('data-district-code');
+        var iosSelect = new IosSelect(3, 
+            [iosProvinces, iosCitys, iosCountys],
+            {
+                title: '地址选择',
+                itemHeight: 35,
+                relation: [1, 1, 0, 0],
+                oneLevelId: oneLevelId,
+                twoLevelId: twoLevelId,
+                threeLevelId: threeLevelId,
+                callback: function (selectOneObj, selectTwoObj, selectThreeObj) {
+                    contactProvinceCodeDom.val(selectOneObj.id); 
+                    contactProvinceCodeDom.attr('data-province-name', selectOneObj.value);
+                    contactCityCodeDom.val(selectTwoObj.id);
+                    contactCityCodeDom.attr('data-city-name', selectTwoObj.value);
+
+                    showContactDom.attr('data-province-code', selectOneObj.id);
+                    showContactDom.attr('data-city-code', selectTwoObj.id);
+                    showContactDom.attr('data-district-code', selectThreeObj.id);
+                    showContactDom.html(selectOneObj.value + ' ' + selectTwoObj.value + ' ' + selectThreeObj.value);
+                }
+        });
+    });
+</script>
+<!--地区选择 iosselect -->
+
 <script>
 function ispic(filepath){
 		
@@ -645,7 +815,6 @@ function supplier_person_Reg()
 		return true;
 	}
 }
-
 
 </script> 
 </body>
