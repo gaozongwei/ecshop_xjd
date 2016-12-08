@@ -8,7 +8,6 @@
 <meta name="Keywords" content="{$keywords}" />
 <meta name="Description" content="{$description}" />
 <link rel="stylesheet" type="text/css" href="themesmobile/68ecshopcom_mobile/css/public.css"/>
-<!--<link type="text/css" rel="stylesheet" href="http://at.alicdn.com/t/font_pb29s3aoqoscerk9.css"> -->
 </head>
 <style>
 body, button, input, select, textarea {
@@ -32,7 +31,7 @@ h1, h2, h3, h4, h5, h6 {
 a{ text-decoration:none; line-height:14px;}
 .floor_body { width:100%; overflow:hidden; margin-top:10px; background:#FFF; }
 .floor_body h4{ width:100%; height:25px; padding-top:8px; padding-bottom:8px;border-bottom:1px solid #eeeeee;}
-.floor_body h4 span{ display:block; float:left; font-size:14px; line-height:25px; color:#333; text-indent:10px; border-left:2px solid #E71F19;}
+.floor_body h4 span{ display:block; float:left; font-size:14px; line-height:25px; color:#E71F19; text-indent:10px; border-left:2px solid #E71F19;}
 .floor_body h4 i{ display:block; float:right;line-height:25px;  padding-right:15px; margin-right:10px; background:url(../images/index_r.png) no-repeat right 40%;background-size: auto 25px;}
 .floor_body h4 i a{font-style:normal;font-size:14px; line-height:25px; color:#999; font-weight:normal; }
 .floor_body ul { width:96%; overflow:hidden; margin:auto; margin-top:5px; padding-top:8px; padding-left:2%; padding-right:2%; background:#FFF}
@@ -59,28 +58,27 @@ a{ text-decoration:none; line-height:14px;}
 .buy-item{ position:absolute; top:5px; right:5px; color:#E71F19; font-style:normal;}
 .buy-item .price{ font-size:18px; margin-right:15px;}
 .buy-item .btn-buy{ display:inline-block; width:80px; height:30px; line-height:30px; color:#fff; font-size:14px; text-align:center; background-color:#E71F19; border-radius:5px;}
+.h-mid{ font-family:"微软雅黑"}
 </style>
 
 
-
-<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery-1.9.1.min.js" ></script>
 {insert_scripts files='jquery.json.js,transport.js'}
 {insert_scripts files='common.js'}
 
 
-      <header>
+      <!----------------------------------header----------------------------------->
       <div class="tab_nav">
         <div class="header">
           <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
           <div class="h-mid">礼包套餐</div>
           <div class="h-right">
             <aside class="top_bar">
-              <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a href="javascript:;"></a> </div>
+              <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more" ><a href="javascript:;"></a> </div>
             </aside>
           </div>
         </div>
       </div>
-      </header>
+       	<!-- #BeginLibraryItem "/library/up_menu.lbi" --><!-- #EndLibraryItem --> <!--弹出菜单-->
 
 
 
@@ -104,7 +102,7 @@ a{ text-decoration:none; line-height:14px;}
         {/foreach}
       </ul>
     </div>
-    
+   
     {/foreach}
   </section>
   <!--<a href="javascript:" class="btn-sure">确认选择</a> -->
