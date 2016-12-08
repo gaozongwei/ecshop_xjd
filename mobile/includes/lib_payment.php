@@ -179,7 +179,24 @@ function order_paid($log_id, $pay_status = PS_PAYED, $note = '')
 	                                " order_amount = 0 ".
 	                       "WHERE order_id = '$order_id'";
 	                $GLOBALS['db']->query($sql);
+
+
+            /* vip礼包处理 */
+            $sql = "SELECT (goods_price * goods_number) as goods_money FROM ".
+                   $GLOBALS['ecs']->table('cart') .
+                    " WHERE extension_code = 'package_buy' ".
+                    " AND $sql_where AND rec_type = '$flow_type'";
+            $rank_points = $GLOBALS['db']->getOne($sql);
 	
+            if ($rank_points){
+                $order_id = $order['order_id'];
+                $is_vip = 1;
+                $vip_times = floor($rank_points/1000);
+                log_account_change($order['user_id'], 0, 0, intval($rank_points*10000), 0, sprintf("订单 %s 购买VIP等级礼包", $order['order_sn']), ACT_OTHER, $vip_times, $rank_points);
+
+            }
+
+
 	                /* 记录订单操作记录 */
 	                order_action($order_sn, OS_CONFIRMED, SS_UNSHIPPED, $pay_status, $note, $GLOBALS['_LANG']['buyer']);
 	

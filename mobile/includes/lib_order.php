@@ -3255,6 +3255,7 @@ function add_package_to_cart($package_id, $num = 1, $package_attr_id='', $packag
         'goods_price'   => $package_pricea[1] ? $package_pricea[1] :  $package['package_price'],
 	'package_attr_id' =>$package_attr_id,
         'goods_number'  => $num,
+        'split_money'   => $package_pricea[1] ? $package_pricea[1] :  $package['package_price'],
         'goods_attr'    => '',
         'goods_attr_id' => '',
         'is_real'       => $package['is_real'],

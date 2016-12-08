@@ -1407,11 +1407,11 @@ function doane(event)
 
 function addPackageToCart(packageId)
 {
-
+debugger;
   var package_info = new Object();
 
   var number       = 1;
-    document.cookie = "one_step_buy=0;path=/";// 打标识
+    document.cookie = "one_step_buy=1;path=/";// 打标识
 
 
   package_info.package_id = packageId
@@ -1419,8 +1419,27 @@ function addPackageToCart(packageId)
   package_info.number     = number;
 
 
-
-  Ajax.call('flow.php?step=add_package_to_cart', 'package_info=' + $.toJSON(package_info), addPackageToCartResponse, 'POST', 'JSON');
+       $.ajax({
+        type:'POST',
+        dataType:'JSON',
+        url:'flow.php?step=add_package_to_cart',
+        data: {"package_info":JSON.stringify(package_info)},
+        beforeSend:function(){
+        flag = false;  
+       },
+        success:function(data){
+          console.info(data);
+          if(data.error){
+              alert(data.message);
+              flag = true;  
+          }else{
+              window.location.href='/mobile/flow.php';
+          }
+        },
+        error:function(){
+         flag = true; 
+        }
+    })
 
 }
 
@@ -1435,6 +1454,8 @@ function addPackageToCart(packageId)
 function addPackageToCartResponse(result)
 
 {
+  debugger;
+  console.info(result);
 
   if (result.error > 0)
 
