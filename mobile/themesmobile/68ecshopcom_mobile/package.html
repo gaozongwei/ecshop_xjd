@@ -7,7 +7,7 @@
 <title>{$page_title}</title>
 <meta name="Keywords" content="{$keywords}" />
 <meta name="Description" content="{$description}" />
-<link type="text/css" rel="stylesheet" href="http://at.alicdn.com/t/font_pb29s3aoqoscerk9.css">
+<!--<link type="text/css" rel="stylesheet" href="http://at.alicdn.com/t/font_pb29s3aoqoscerk9.css"> -->
 </head>
 <style>
 body, button, input, select, textarea {
@@ -54,35 +54,73 @@ a{ text-decoration:none; line-height:14px;}
 .gift-box-selected ul{ background-color:#fae8dd;}
 .gift-box .icon-xuanze{ display:block; float:right; color:#f60; margin:4px 10px 0 0; font-size:24px; display:none;}
 .gift-box-selected .icon-xuanze{ display:block;}
+.gift-box{ position:relative;}
+.buy-item{ position:absolute; top:5px; right:5px; color:#E71F19; font-style:normal;}
+.buy-item .price{ font-size:18px; margin-right:15px;}
+.buy-item .btn-buy{ display:inline-block; width:80px; height:30px; line-height:30px; color:#fff; font-size:14px; text-align:center; background-color:#E71F19; border-radius:5px;}
 </style>
 <body>
 <div class="clearfix">
   <div class="welcome-hd">恭喜你成为第<span class="num">5555</span>位会员，您可以从以下礼包中任选一份</div>
   <section class="floor_body">
-      {foreach from=$list item=val name=list}
-    <div class="gift-box gift-box-selected">
-      <h4><span>{$val.act_name}</span><em class="iconfont icon-xuanze"></em></h4>
+    <div class="gift-box">
+    <div class="buy-item"><span>套装价<i class="price">￥523.0</i></span><a href="javascript:" class="btn-buy">立即购买</a></div>
+      <h4><span>礼包名称</span></h4>
       <ul>
-        {foreach from=$val.goods_list item=goods name=val_goods_list}
         <li>
           <div class="index_pro">
-            <div class="products_kuang"> <a href="goods.php?id={$goods.goods_id}" title="{$goods.goods_name|escape:html}"><img src="{$option.static_path}{$goods.goods_thumb}"  alt="{$goods.goods_name|escape:html}"></a></div>
-            <div class="goods_name"> <a href="goods.php?id={$goods.goods_id}" title="{$goods.goods_name|escape:html}">{$goods.goods_name}</a></div>
+            <div class="products_kuang"> <a href="#" title="绣短袖镂空蕾丝连衣裙"><img src="http://dreamfly.ticp.io/images/201507/thumb_img/36_thumb_G_1437508564664.jpg"  alt="绣短袖镂空蕾丝连衣裙"></a></div>
+            <div class="goods_name"> <a href="#" title="绣短袖镂空蕾丝连衣裙">绣短袖镂空蕾丝连衣裙</a></div>
           </div>
         </li>
-        {/foreach}
+        <li>
+          <div class="index_pro">
+            <div class="products_kuang"> <a href="#" title="绣短袖镂空蕾丝连衣裙"><img src="http://dreamfly.ticp.io/images/201507/thumb_img/36_thumb_G_1437508564664.jpg"  alt="绣短袖镂空蕾丝连衣裙"></a></div>
+            <div class="goods_name"> <a href="#" title="绣短袖镂空蕾丝连衣裙">绣短袖镂空蕾丝连衣裙</a></div>
+          </div>
+        </li>
+        <li>
+          <div class="index_pro">
+            <div class="products_kuang"> <a href="#" title="绣短袖镂空蕾丝连衣裙"><img src="http://dreamfly.ticp.io/images/201507/thumb_img/36_thumb_G_1437508564664.jpg"  alt="绣短袖镂空蕾丝连衣裙"></a></div>
+            <div class="goods_name"> <a href="#" title="绣短袖镂空蕾丝连衣裙">绣短袖镂空蕾丝连衣裙</a></div>
+          </div>
+        </li>
       </ul>
     </div>
-    {/foreach}
+    
+    <div class="gift-box">
+    	 <div class="buy-item"><span>套装价<i class="price">￥523.0</i></span><a href="javascript:" class="btn-buy">立即购买</a></div>
+      <h4><span>礼包名称</span></h4>
+      <ul>
+        <li>
+          <div class="index_pro">
+            <div class="products_kuang"> <a href="#" title="绣短袖镂空蕾丝连衣裙"><img src="http://dreamfly.ticp.io/images/201507/thumb_img/36_thumb_G_1437508564664.jpg"  alt="绣短袖镂空蕾丝连衣裙"></a></div>
+            <div class="goods_name"> <a href="#" title="绣短袖镂空蕾丝连衣裙">绣短袖镂空蕾丝连衣裙</a></div>
+          </div>
+        </li>
+        <li>
+          <div class="index_pro">
+            <div class="products_kuang"> <a href="#" title="绣短袖镂空蕾丝连衣裙"><img src="http://dreamfly.ticp.io/images/201507/thumb_img/36_thumb_G_1437508564664.jpg"  alt="绣短袖镂空蕾丝连衣裙"></a></div>
+            <div class="goods_name"> <a href="#" title="绣短袖镂空蕾丝连衣裙">绣短袖镂空蕾丝连衣裙</a></div>
+          </div>
+        </li>
+        <li>
+          <div class="index_pro">
+            <div class="products_kuang"> <a href="#" title="绣短袖镂空蕾丝连衣裙"><img src="http://dreamfly.ticp.io/images/201507/thumb_img/36_thumb_G_1437508564664.jpg"  alt="绣短袖镂空蕾丝连衣裙"></a></div>
+            <div class="goods_name"> <a href="#" title="绣短袖镂空蕾丝连衣裙">绣短袖镂空蕾丝连衣裙</a></div>
+          </div>
+        </li>
+      </ul>
+    </div>
   </section>
-  <a href="javascript:" class="btn-sure">确认选择</a>
+  <!--<a href="javascript:" class="btn-sure">确认选择</a> -->
 </div>
 </div>
 <script src="js/jquery-1.6.2.min.js"></script>
 <script>
-$(".gift-box").bind("click",function(){
+/*$(".gift-box").bind("click",function(){
 	$(this).addClass("gift-box-selected").siblings(".gift-box").removeClass("gift-box-selected");
-})
+})*/
 </script>
 </body>
 </html>

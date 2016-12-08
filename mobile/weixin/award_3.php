@@ -184,8 +184,8 @@
          <i class="iconfont icon-laba"></i>
         	<ul>
             	<li>恭喜<span>大幅度发</span>抽中了顶顶顶顶顶大抽中了顶顶顶顶顶大</li>
-                <li>恭喜<span>大幅度发</span>抽中了顶顶顶顶顶大</li>
-                <li>恭喜<span>大幅度发</span>抽中了顶顶顶顶顶大</li>
+                <!--<li>恭喜<span>大幅度发</span>抽中了顶顶顶顶顶大</li>
+                <li>恭喜<span>大幅度发</span>抽中了顶顶顶顶顶大</li> -->
             </ul>
         </div>
         
