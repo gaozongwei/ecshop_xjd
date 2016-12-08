@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>大转盘</title>
+	<title>大转盘抽奖</title>
 	<meta name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <link type="text/css" rel="stylesheet" href="http://at.alicdn.com/t/font_pb29s3aoqoscerk9.css">
 	<style>
 		*{padding: 0; margin: 0;}
-		body{ background:url(dzp/bg.png);}
+		body{ background:url(dzp/bg.png); font-family:'微软雅黑'}
+		body.bg-green{background:url(dzp/bg.png)}
 		.grid{ width: 320px; margin: 0 auto; position: relative; overflow: hidden;}
 		#banner{
 			width:270px;
@@ -128,54 +130,127 @@
 
 		.jilu{ height: 30px; width: 100%; overflow: hidden; background-color: #eee; }
 		.jilu li{ height: 30px; line-height: 30px; text-align: center;}
+		/*tabs-hd*/
+		.tabs-hd{ height:50px; line-height:50px; background-color:#fff;}
+		.tabs-hd ul{display:-webkit-box; display:-moz-box; }
+		.tabs-hd li{ width:33.3%; -webkit-box-flex:1; -moz-box-flex:1; height:48px; line-height:48px; border-bottom:solid 2px #ccc; font-size:18px; text-align:center;}
+		.tabs-hd li.current{ border-bottom-color:#f60; color:#f60;}
+		/*gift-hd*/
+		.gift-hd{ height:40px; line-height:40px; background-color:#f1f1f1; border-top:solid 1px #dedede; border-bottom:solid 1px #dedede;}
+		.gift-hd ul{}
+		.gift-hd li{ height:40px; line-height:40px; width:50%; float:left; text-align:center; color:#666;}
+		.gift-hd li.current{ background-color:#fd7f06; color:#fff;}
+		 /*tabs-bd*/
+		.tabs-bd{ padding-top:10px; color:#333;}
+		.cj-box{ padding-top:50px;}
+		/*list-gift*/
+		.list-gift{background-color: #FFF9B3;}
+		.list-gift li{ padding:0 10px; height:40px; line-height:40px; border-bottom:solid 1px #9dc09e; text-align:center;}
+		/*tips-no-data*/
+		.tips-no-data{ padding:50px 20px; text-align:center; line-height:40px; font-size:22px; color:#666;}
+		.gray{ color:#f60;}
+		.cj-num{ padding:0 0 20px; text-align:center; color:#fff;}
+		.cj-num .gray{ margin:0 3px;}
+		.cj-num .icon-laba{ font-size:18px; margin-right:8px;}
+		/*scroll-news*/
+		.scroll-news{ padding:0 20px 0 50px; position:relative; height:50px; overflow:hidden; background:rgba(0,0,0,0.3);}
+		.scroll-news li{ width:96%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; height:50px; line-height:50px; color:#fff; font-size:16px;}
+		.scroll-news .icon-laba{ position:absolute; top:10px; left:20px; color:#fff; font-size:22px;}
 	</style>
 </head>
-<body>
-
-	<div class="grid">
-		<div id="banner">
+<body class="bg-green">
+	<div class="tabs-hd">
+    	<ul>
+        	<li class="current">首页</li>
+            <li>中奖查询</li>
+            <li>活动说明</li>
+        </ul>
+    </div><!--end of tabs-hd -->
+    <!--首页 begin-->
+    <div class="tabs-bd cj-box">
+    	<div id="banner">
 			<div class="inner">
 				<div id="zhen"></div>
 			</div>
 		</div>
-		<div class="block">
-			<div class="title">剩余次数</div>
-			<p >你还可抽奖的次数：<span class="num"><?php echo $awardNum;?></span></p>
+
+
+		<div class="cj-num">
+			<p >你还可抽奖的次数：<span class="num gray"><?php echo $awardNum;?></span></p>
 		</div>
-		<div class="block">
+
+       
+		<div class="scroll-news" id="scrollNews">
+         <i class="iconfont icon-laba"></i>
+        	<ul>
+            	<li>恭喜<span>大幅度发</span>抽中了顶顶顶顶顶大抽中了顶顶顶顶顶大</li>
+                <li>恭喜<span>大幅度发</span>抽中了顶顶顶顶顶大</li>
+                <li>恭喜<span>大幅度发</span>抽中了顶顶顶顶顶大</li>
+            </ul>
+        </div>
+        
+        
+    </div>
+    <!--首页 end-->
+    <!--中奖查询 begin-->
+    <div class="tabs-bd" style="display:none;">
+    	<div class="gift-hd">
+        	<ul>
+            	<li class="current">我的中奖</li>
+                <li>中奖排行榜</li>
+            </ul>
+        </div>
+        <!--我的中奖 -->
+        <div class="gift-bd">
+        	<!--中奖纪录为空时 -->
+            <div class="tips-no-data" style="display:none;">
+           		<p>亲，你还没有中奖纪录，<br>下次继续努力哦~~</p>
+             </div>
+            <!--中奖纪录有数据时-->
+            <ul class="list-gift">
+				<?php foreach($award as $v){
+				if($v['uid'] == $uid){
+				?>
+				<li><?php echo $v['nickname'];?>---<?php echo $v['class_name'];?>---<?php echo $v['code'];?></li>
+				<?php }}?>
+            </ul>
+        </div>
+        <!--中奖排行榜 -->
+        <div class="gift-bd" style="display:none;">
+            <!--中奖排行榜为空时 -->
+            <div class="tips-no-data"  style="display:none;">
+           		<p>暂无中奖纪录~</p>
+             </div>
+            <!--中奖纪录有数据时-->
+            <ul class="list-gift">
+				<?php foreach($award as $v){?>
+				<li><?php echo $v['nickname'];?>---<?php echo $v['class_name'];?></li>
+				<?php }?>
+            </ul>
+        </div>
+    </div>
+    <!--中奖查询 end-->
+    <!--活动说明 begin-->
+    <div class="tabs-bd" style="display:none;">
+        <div class="block">
+        	<div class="title">抽奖模式</div>
+        	<p>大转盘大转盘</p>
+            <br>
 			<div class="title">奖项设置</div>
+
 			<ul>
-			<?php foreach($actList as $v){?>
-			<li class="tpl-prize-item">
-                        <span class="prize-num tpl-prize-num"></span>
-                        <span class="prize-name tpl-prize-name"><?php echo $v['title'];?>---<?php echo $v['awardname'];?></span>
-                        <span class="prize-number tpl-prize-number">奖品数量：<?php echo $v['num'];?></span>
-                    </li>
-							<?php }?>
+				<?php foreach($actList as $v){?>
+				<li class="tpl-prize-item">
+	                        <span class="prize-num tpl-prize-num"></span>
+	                        <span class="prize-name tpl-prize-name"><?php echo $v['title'];?>---<?php echo $v['awardname'];?></span>
+	                        <span class="prize-number tpl-prize-number">奖品数量：<?php echo $v['num'];?></span>
+	                    </li>
+								<?php }?>
 							
-                                    </ul>
+            </ul>
 		</div>
-		<div class="block">
-			<div class="title">活动规则</div>
-			<p><?php echo $act['content'];?></p>
-		</div>
-		<div class="block">
-			<div class="title">中奖记录</div>
-                            <p>兑奖截止<?php echo $act['overymd'];?></p>
-							<?php foreach($award as $v){?>
-							<p><?php echo $v['nickname'];?>---<?php echo $v['class_name'];?></p>
-							<?php }?>
-            		</div>
-		<?php if($uid){?><div class="block">
-			<div class="title">我的中奖记录</div>
-                            <p>兑奖截止<?php echo $act['overymd'];?></p>
-							<?php foreach($award as $v){
-							if($v['uid'] == $uid){
-							?>
-							<p><?php echo $v['nickname'];?>---<?php echo $v['class_name'];?>---<?php echo $v['code'];?></p>
-							<?php }}?>
-            		</div><?php }?>
-	</div>
+    </div>
+    <!--活动说明 end-->
 	<div id="mask"></div>
 	<div id="dialog" class="yes">
 		<div id="content"></div>
@@ -207,7 +282,7 @@
         $("#zhen").click(function() {
             // 显示结果
             var $me = $(this);
-            $.getJSON("act_prize.php?aid=<?php echo $aid;?>", function(json){
+            $.getJSON("act_prize.php?aid=3", function(json){
                 if(json.msg == 2){
                     $("#content").html(json.prize);
                     $("#dialog").attr("class",'no').show();
@@ -250,4 +325,30 @@
             $("#mask").trigger('click');
         });
     });
+	
+	//选项卡 
+	$(".tabs-hd li").bind("click",function(){
+		var _this =$(this);
+		var index = _this.index();
+		//index ==0 ? $("body").addClass("bg-green"):$("body").removeClass("bg-green")
+		_this.addClass("current").siblings("li").removeClass("current");
+		$(".tabs-bd").eq(index).fadeIn().siblings(".tabs-bd").hide();	
+	});
+	$(".gift-hd li").bind("click",function(){
+		var _this =$(this);
+		var index = _this.index();
+		_this.addClass("current").siblings("li").removeClass("current");
+		$(".gift-bd").eq(index).fadeIn().siblings(".gift-bd").hide();	
+	});
+	
+	//滚动向上
+	function scrollNotice(obj){
+		$(obj).find("ul").animate({
+			marginTop:'-40px'
+		},500,function(){
+		 $(this).css({marginTop:"0px"}).find("li:first").appendTo(this); 	
+		})
+	}
+	setInterval("scrollNotice('#scrollNews')",2000);
+	
 </script>

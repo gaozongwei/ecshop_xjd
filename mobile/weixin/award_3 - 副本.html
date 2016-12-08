@@ -173,12 +173,9 @@
 				<div id="zhen"></div>
 			</div>
 		</div>
-
-
 		<div class="cj-num">
-			<p >你还可抽奖的次数：<span class="num gray"><?php echo $awardNum;?></span></p>
-		</div>
-
+        	你的抽奖次数还有<span class="gray">5</span>次
+        </div>
        
 		<div class="scroll-news" id="scrollNews">
          <i class="iconfont icon-laba"></i>
@@ -208,11 +205,10 @@
              </div>
             <!--中奖纪录有数据时-->
             <ul class="list-gift">
-				<?php foreach($award as $v){
-				if($v['uid'] == $uid){
-				?>
-				<p><?php echo $v['nickname'];?>---<?php echo $v['class_name'];?>---<?php echo $v['code'];?></p>
-				<?php }}?>
+            	<li>二等奖---20元抵用券</li>
+                <li>二等奖---20元抵用券</li>
+                <li>二等奖---20元抵用券</li>
+                <li>二等奖---20元抵用券</li>
             </ul>
         </div>
         <!--中奖排行榜 -->
@@ -223,9 +219,10 @@
              </div>
             <!--中奖纪录有数据时-->
             <ul class="list-gift">
-				<?php foreach($award as $v){?>
-				<li><?php echo $v['nickname'];?>---<?php echo $v['class_name'];?></li>
-				<?php }?>
+            	<li>二等奖---20元抵用券</li>
+                <li>二等奖---20元抵用券</li>
+                <li>二等奖---20元抵用券</li>
+                <li>二等奖---20元抵用券</li>
             </ul>
         </div>
     </div>
@@ -237,19 +234,24 @@
         	<p>大转盘大转盘</p>
             <br>
 			<div class="title">奖项设置</div>
-
-
-
 			<ul>
-				<?php foreach($actList as $v){?>
-				<li class="tpl-prize-item">
-	                        <span class="prize-num tpl-prize-num"></span>
-	                        <span class="prize-name tpl-prize-name"><?php echo $v['title'];?>---<?php echo $v['awardname'];?></span>
-	                        <span class="prize-number tpl-prize-number">奖品数量：<?php echo $v['num'];?></span>
-	                    </li>
-								<?php }?>
-							
-            </ul>
+						<li class="tpl-prize-item">
+                        <span class="prize-num tpl-prize-num"></span>
+                        <span class="prize-name tpl-prize-name">一等奖---500元红包</span>
+                        <span class="prize-number tpl-prize-number">奖品数量：10</span>
+                    </li>
+										<li class="tpl-prize-item">
+                        <span class="prize-num tpl-prize-num"></span>
+                        <span class="prize-name tpl-prize-name">二等奖---20元抵用券</span>
+                        <span class="prize-number tpl-prize-number">奖品数量：2000</span>
+                    </li>
+										<li class="tpl-prize-item">
+                        <span class="prize-num tpl-prize-num"></span>
+                        <span class="prize-name tpl-prize-name">三等奖---5元优惠券</span>
+                        <span class="prize-number tpl-prize-number">奖品数量：30000</span>
+                    </li>
+														
+         </ul>
 		</div>
     </div>
     <!--活动说明 end-->
