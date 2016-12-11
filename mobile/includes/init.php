@@ -43,7 +43,7 @@ if (!file_exists(ROOT_PATH . '../data/install.lock') && !file_exists(ROOT_PATH .
 @ini_set('session.use_trans_sid', 0);
 @ini_set('session.use_cookies',   1);
 @ini_set('session.auto_start',    0);
-@ini_set('display_errors',        0);
+@ini_set('display_errors',        1);
 
 if (DIRECTORY_SEPARATOR == '\\')
 {
@@ -329,6 +329,87 @@ if (!empty($_CFG['stylename']))
     }
 
 }
+}
+
+// 抽奖汇总
+$week = date("w");
+if($week == 2 || $week ==5){        // 暂时写死周二五抽奖
+    // 获取上次抽奖信息
+    $is_insert = 0;
+    $time_end = strtotime(date("y-m-d"));
+    $sql = "SELECT * FROM " . $ecs->table('award_account') . " order by id desc limit 0,1";
+    $data = $db->GetRow($sql);
+
+    if($data){
+        if($data['time_end'] != strtotime(date("y-m-d"))){
+            $time_begin = $data['time_end'];
+            $is_insert = 1;
+        }
+    }else{
+        $time_begin = 0;
+        $is_insert = 1;
+    }
+    if($is_insert){
+
+        // 计算奖池累计
+        $sql = " SELECT sum(og.goods_price * og.goods_number) as all_points FROM " . 
+                $ecs->table('order_goods') . " AS og, ".
+                $ecs->table('order_info'). " AS oi ".
+                "WHERE oi.order_id = og.order_id AND oi.pay_status = 2 AND oi.pay_time > $time_begin AND oi.pay_time < $time_end AND og.extension_code = 'package_buy'";
+        $all_points = $db->getOne($sql);
+
+        // 计算人数加权值
+        $sql = "SELECT sum(vip_times) as member_all FROM " . $ecs->table('users') . " WHERE vip_award > 0";
+        $member_all = $db->getOne($sql);
+        $award_percent = number_format(55*23/100, 2);
+        $sql = "INSERT INTO " . $ecs->table('award_account') . "(time_begin, time_end, all_points, award_percent, member_all, week) VALUES( '$time_begin', '$time_end', '$all_points', '$award_percent', '$member_all', '$week')";
+        $db->query($sql);
+        // $id = $db->insert_id();
+
+        $award_config = array(
+                array(
+                        'title' => '一等奖',
+                        'award_percent' => '30',
+                        'num' => '1',
+                        'randnum' => '5'
+                    ),
+                array(
+                        'title' => '二等奖',
+                        'award_percent' => '20',
+                        'num' => '2',
+                        'randnum' => '10'
+                    ),
+                array(
+                        'title' => '三等奖',
+                        'award_percent' => '10',
+                        'num' => '3',
+                        'randnum' => '15'
+                    ),
+                array(
+                        'title' => '幸运奖',
+                        'award_percent' => '10',
+                        'num' => '30',
+                        'randnum' => '20'
+                    ),
+                array(
+                        'title' => '拆包奖',
+                        'award_percent' => '30',
+                        'num' => ($member_all - 36 > 0) ? ($member_all - 36) : 0,
+                        'randnum' => '40'
+                    )
+            );
+        // 更新抽奖配置
+        foreach ($award_config as $key => $value) {
+            $points = 0;
+            if($value['num'] > 0){
+                $points = ($all_points * $award_percent * $value['award_percent'])/($value['num'] * 100 * 100);
+            }
+            $points = round($points);
+            // make_record($points, $value['num'], $value['title'], $value['randnum']);
+            $sql = "UPDATE " . $ecs->table('weixin_actlist') . " SET awardname = '$points',  num = '$value[num]', num2 = 0, randnum = '$value[randnum]' WHERE title = '$value[title]' AND aid = 3";
+            $GLOBALS['db']->query($sql);
+        }
+    }
 }
 /*
 $_SERVER['REQUEST_URI'] = $_SERVER['REQUEST_URI'] ? $_SERVER['REQUEST_URI'] : "/moblie/";

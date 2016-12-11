@@ -391,6 +391,9 @@ class weixinapi{
 	}
 	//统计剩余抽奖次数
 	function getAwardNum($aid){
+		// if(date("w") != 2 || date("w") != 5){
+		// 	return 0;
+		// }
 		$act = self::checkAward($aid);
 		if(!$act) return 0;
 		$uid = $_SESSION['user_id'];
@@ -412,6 +415,17 @@ class weixinapi{
 		if($awardNum<=0){
 			return array('num'=>0,'msg'=>2,'prize'=>"您的抽奖机会已经用完！");
 		}
+		$user = $this->getUserInfoById($_SESSION['user_id']);
+		if(!$user){
+			return array('num'=>0,'msg'=>2,'prize'=>"请先登录");
+		}
+		if($user['vip_times'] == 0){
+			return array('num'=>0,'msg'=>2,'prize'=>"请先升级VIP");
+		}
+		if($user['vip_award'] == 0){
+			return array('num'=>0,'msg'=>2,'prize'=>"您的抽奖已达到最高累计值");
+		}
+
 		//$awardNum = $awardNum-1;
 		$time = time();
 		$ymd = date('Y-m-d',$time);
@@ -422,9 +436,10 @@ class weixinapi{
 		// $r = $arr[array_rand($arr)];
 		if($res){
 			$class_name = $res['awardname'];
+			$title = $res['title'];
 			$code = $res['code'];
 			$msg = 1;
-			switch($res['title']){
+			switch($title){
 				case "一等奖":
 						$r = 1;
 					break;
@@ -444,8 +459,8 @@ class weixinapi{
 					break;
 			}
 		}
-		$GLOBALS['db']->query("INSERT INTO ".$GLOBALS['ecs']->table('weixin_actlog')." (uid,aid,class_name,createymd,createtime,code,issend) 
-		value ($uid,$aid,'$class_name','$ymd','$time','$code',0)");
+		$GLOBALS['db']->query("INSERT INTO ".$GLOBALS['ecs']->table('weixin_actlog')." (uid,aid,class_name,createymd,createtime,code,issend, title) 
+		value ($uid,$aid,'$class_name','$ymd','$time','$code',0, '$title')");
 		$class_name = $class_name ? $class_name : "非常遗憾没有中奖！";
 		
 		return array('num'=>$awardNum,'msg'=>$msg,'prize'=>$class_name,'prize_code'=>$code,'r'=>$r);
@@ -457,7 +472,18 @@ class weixinapi{
 			foreach($actList as $v){
 				if(intval(rand(1,10000)) <= $v['randnum']*100){
 					$v['code'] = uniqid();
+					$user = $this->getUserInfoById($_SESSION['user_id']);
+					if($user['vip_award'] < $v['awardname']){
+						$v['awardname'] = $user['vip_award'];
+					}
+
 					$GLOBALS['db']->query("update " . $GLOBALS['ecs']->table('weixin_actlist') . " set num2=num2+1 where lid={$v['lid']}");
+
+					$GLOBALS['db']->query("update " . $GLOBALS['ecs']->table('users') . " set vip_award=vip_award - $v[awardname], vip_points = vip_points  + $v[awardname] where user_id = {$_SESSION['user_id']}");
+
+					$GLOBALS['db']->query("update " . $GLOBALS['ecs']->table('award_account') . " set member_done=member_done + 1, award_points = award_points  + $v[awardname] where time_end = ".strtotime(date("Y-m-d")));
+
+					$v['awardname'] = $v['awardname']."积分";
 					return $v;
 				}
 			}
@@ -506,7 +532,10 @@ class weixinapi{
 		}
 	}
 
-	
+	function getUserInfoById($user_id){
+		$sql = "SELECT vip_times, vip_award FROM " . $GLOBALS['ecs']->table('users') . " WHERE user_id = $user_id limit 1";
+		return $GLOBALS['db']->getRow($sql);
+	}
 	
 	//快递查询
 	function queryKuaidi($wxid='oPsituCpCTsGEI-df2Km8qUB2kuA'){

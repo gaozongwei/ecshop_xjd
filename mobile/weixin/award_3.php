@@ -183,9 +183,10 @@
 		<div class="scroll-news" id="scrollNews">
          <i class="iconfont icon-laba"></i>
         	<ul>
-            	<li>恭喜<span>大幅度发</span>抽中了顶顶顶顶顶大抽中了顶顶顶顶顶大</li>
-                <!--<li>恭喜<span>大幅度发</span>抽中了顶顶顶顶顶大</li>
-                <li>恭喜<span>大幅度发</span>抽中了顶顶顶顶顶大</li> -->
+
+				<?php foreach($award as $l){  ?>
+            	<li>恭喜<span><?php echo $l['user_name'] ?></span>抽中了<?php echo $l['title'].$l['class_name'] ?></li>
+                <?php }?>
             </ul>
         </div>
         
@@ -202,31 +203,41 @@
         </div>
         <!--我的中奖 -->
         <div class="gift-bd">
-        	<!--中奖纪录为空时 -->
-            <div class="tips-no-data" style="display:none;">
-           		<p>亲，你还没有中奖纪录，<br>下次继续努力哦~~</p>
-             </div>
             <!--中奖纪录有数据时-->
             <ul class="list-gift">
-				<?php foreach($award as $v){
-				if($v['uid'] == $uid){
+				<?php 
+					$temp = 0;
+					foreach($my_award as $v){
+						$temp = 1;
 				?>
-				<li><?php echo $v['nickname'];?>---<?php echo $v['class_name'];?>---<?php echo $v['code'];?></li>
-				<?php }}?>
+				<li><?php echo $v['title'];?>---<?php echo $v['class_name'];?></li>
+				<?php }?>
             </ul>
+        	<!--中奖纪录为空时 -->
+        	<?php  if($temp == 0){  ?>
+            <div class="tips-no-data">
+           		<p>亲，你还没有中奖纪录，<br>下次继续努力哦~~</p>
+             </div>
+             <?php } ?>
         </div>
         <!--中奖排行榜 -->
         <div class="gift-bd" style="display:none;">
-            <!--中奖排行榜为空时 -->
-            <div class="tips-no-data"  style="display:none;">
-           		<p>暂无中奖纪录~</p>
-             </div>
             <!--中奖纪录有数据时-->
             <ul class="list-gift">
-				<?php foreach($award as $v){?>
-				<li><?php echo $v['nickname'];?>---<?php echo $v['class_name'];?></li>
+				<?php 
+					$tt = 0;
+				foreach($award as $v){ 
+					$tt = 1;
+					?>
+				<li><?php echo $v['user_name'];?>---<?php echo $v['class_name'];?></li>
 				<?php }?>
             </ul>
+        	<?php  if($temp == 0){  ?>
+            <!--中奖排行榜为空时 -->
+            <div class="tips-no-data">
+           		<p>暂无中奖纪录~</p>
+             </div>
+             <?php } ?>
         </div>
     </div>
     <!--中奖查询 end-->
@@ -234,20 +245,56 @@
     <div class="tabs-bd" style="display:none;">
         <div class="block">
         	<div class="title">抽奖模式</div>
-        	<p>大转盘大转盘</p>
+        	<p>只有VIP才有资格抽奖</p>
+        	<p>每次每个VIP只有一次抽奖机会</p>
+        	<p>每周二周五进行一次抽奖活动</p>
             <br>
 			<div class="title">奖项设置</div>
 
 			<ul>
 				<?php foreach($actList as $v){?>
-				<li class="tpl-prize-item">
+ 				<li class="tpl-prize-item">
 	                        <span class="prize-num tpl-prize-num"></span>
-	                        <span class="prize-name tpl-prize-name"><?php echo $v['title'];?>---<?php echo $v['awardname'];?></span>
-	                        <span class="prize-number tpl-prize-number">奖品数量：<?php echo $v['num'];?></span>
-	                    </li>
+	                        <span class="prize-name tpl-prize-name"><?php echo $v['title'];?>---<?php echo $v['awardname'];?>积分</span>
+	                        <span class="prize-number tpl-prize-number">奖品数量：<?php echo $v['num'] ? $v['num']: '不限';?></span>
+	                    </li> 
 								<?php }?>
 							
             </ul>
+
+            <!-- 
+			<ul>
+						<li class="tpl-prize-item">
+	                        <span class="prize-num tpl-prize-num"></span>
+	                        <span class="prize-name tpl-prize-name">一等奖---824积分</span>
+	                        <span class="prize-number tpl-prize-number">奖品数量：1</span>
+	                    </li>
+												<li class="tpl-prize-item">
+	                        <span class="prize-num tpl-prize-num"></span>
+	                        <span class="prize-name tpl-prize-name">二等奖---275积分</span>
+	                        <span class="prize-number tpl-prize-number">奖品数量：2</span>
+	                    </li>
+												<li class="tpl-prize-item">
+	                        <span class="prize-num tpl-prize-num"></span>
+	                        <span class="prize-name tpl-prize-name">三等奖---92积分</span>
+	                        <span class="prize-number tpl-prize-number">奖品数量：3</span>
+	                    </li>
+												<li class="tpl-prize-item">
+	                        <span class="prize-num tpl-prize-num"></span>
+	                        <span class="prize-name tpl-prize-name">幸运奖---9积分</span>
+	                        <span class="prize-number tpl-prize-number">奖品数量：30</span>
+	                    </li>
+												<li class="tpl-prize-item">
+	                        <span class="prize-num tpl-prize-num"></span>
+	                        <span class="prize-name tpl-prize-name">拆包奖---0积分</span>
+	                        <span class="prize-number tpl-prize-number">奖品数量：不限</span>
+	                    </li>
+															
+            </ul>
+ -->
+
+
+
 		</div>
     </div>
     <!--活动说明 end-->

@@ -232,7 +232,7 @@ $_LANG['12_favourable'] = '优惠活动';
 $_LANG['13_pre_sale'] = '预售管理';
 $_LANG['13_wholesale'] = '批发管理';
 $_LANG['ebao_commend'] = '易宝推荐';
-$_LANG['14_package_list'] = '超值礼包';
+$_LANG['14_package_list'] = 'VIP超值礼包';
 $_LANG['package_add'] = '添加超值礼包';
 $_LANG['25_pre_sale_list'] = '预售管理';
 
@@ -311,7 +311,7 @@ $_LANG['04_users_export'] = '会员导出'; // 代码增加 By www.68ecshop.com
 $_LANG['04_users_add'] = '添加会员';
 $_LANG['05_user_rank_list'] = '会员等级';
 $_LANG['06_list_integrate'] = '会员整合';
-$_LANG['09_user_account'] = '充值和提现申请';
+$_LANG['09_user_account'] = '提现申请';
 $_LANG['10_user_account_manage'] = '资金管理';
 $_LANG['09_postman_list'] = '快递员列表';
 

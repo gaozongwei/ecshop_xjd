@@ -32,10 +32,18 @@ $act = $db->getRow ( "SELECT * FROM " . $GLOBALS['ecs']->table('weixin_act') . "
 if(!$act) exit("活动已经结束");
 $actList = (array)$db->getAll ( "SELECT * FROM " . $GLOBALS['ecs']->table('weixin_actlist') . " where aid=$aid and isopen=1" );
 if(!$actList) exit("活动未设置奖项");
-$sql = "SELECT " . $GLOBALS['ecs']->table('weixin_actlog') . ".*," . $GLOBALS['ecs']->table('weixin_user') . ".nickname FROM " . $GLOBALS['ecs']->table('weixin_actlog') . " 
-		left join " . $GLOBALS['ecs']->table('weixin_user') . " on " . $GLOBALS['ecs']->table('weixin_actlog') . ".uid=" . $GLOBALS['ecs']->table('weixin_user') . ".ecuid 
-		where code!='' and aid=$aid order by lid desc";
+$sql = "SELECT wa.*, u.user_name FROM " . 
+		$GLOBALS['ecs']->table('weixin_actlog') . " AS wa  left join " . 
+		$GLOBALS['ecs']->table('users') . " AS U on wa.uid = u.user_id 
+		where code!='' and aid=$aid order by lid desc limit 0,15";
 $award = $db->getAll ( $sql );
+
+// 我的中奖纪录
+$sql = "SELECT wa.*, u.user_name FROM " . 
+		$GLOBALS['ecs']->table('weixin_actlog') . " AS wa  left join " . 
+		$GLOBALS['ecs']->table('users') . " AS U on wa.uid = u.user_id 
+		where code!='' AND user_id = $_SESSION[user_id] and aid=$aid order by lid desc limit 0,15";
+$my_award = $db->getAll ( $sql );
 $uid = intval($_SESSION['user_id']);
 $api = new weixinapi();
 $awardNum = intval($api->getAwardNum($aid));
