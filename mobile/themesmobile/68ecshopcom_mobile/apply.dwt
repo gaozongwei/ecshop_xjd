@@ -1,67 +1,612 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="Keywords" content="{$keywords}" />
-<meta name="Description" content="{$description}" />
-<!-- TemplateBeginEditable name="doctitle" -->
-<title>{$page_title}</title>
-<!-- TemplateEndEditable -->
-<!-- TemplateBeginEditable name="head" -->
-<!-- TemplateEndEditable -->
-<link rel="shortcut icon" href="favicon.ico" />
-<link rel="icon" href="animated_favicon.gif" type="image/gif" />
-<link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="themes/68ecshopcom_360buy/css/68ecshop_common.css" />
-<link rel="stylesheet" type="text/css" href="themes/68ecshopcom_360buy/css/store_joinin.css" />
-<script type="text/javascript" src="themes/68ecshopcom_360buy/js/jquery-1.9.1.min.js"></script>
-{insert_scripts files='jquery.json.js,transport.js'}
-{insert_scripts files='common.js,user.js'}
-</head>
-<body onload="radioShow()">
-<div class="margin-w1210 clearfix">
-	<!-- #BeginLibraryItem "/library/user_header.lbi" --><!-- #EndLibraryItem --> 
-    {insert name='apply_supplier' id=$userid} 
-</div>
-<div class="site-footer">
-        <div class="footer-related">
-            <!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
-      </div>
-  </div>
-</body>
-<script type="text/javascript">
-function setImagePreview(docObj,localImagId,imgObjPreview) {
-    if(docObj.files && docObj.files[0]){
-	//火狐下，直接设img属性
-	imgObjPreview.style.display = 'block';
-	imgObjPreview.style.width = '300px';
-	imgObjPreview.style.height = '200px';                    
+<meta charset="UTF-8">
+<title>申请入驻</title>
+<meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1">
+<link href="./themesmobile/68ecshopcom_mobile/css/store_joinin.css" type="text/css" rel="stylesheet">
+<style>
+    /*压缩版本覆盖样式
+	.panel-heading{ padding:0; margin:10px auto; text-align:center;}
+	.panel-heading .more{ float:none; margin:0 auto; display:inline-block;}
+	.panel-heading .progress-wrap{ width:100px;}*/
+	.store-joinin-apply{ width:320px; overflow:hidden; margin:0 auto; padding:0;}
+	.store-joinin-apply .main,.main table.all{ width:auto;}
+	.main table.all tbody th{ white-space:nowrap; padding:8px 0;}
+	.main table.all .w200{ width:180px!important;}
+	@media screen and (min-width:600px) and (max-width:719px){	
+	.store-joinin-apply{ width:640px;}
+	}
+	.apply-notice{ padding:10px; font-size:18px; text-align:center; line-height:22px; color:#f60;}
+/* layer begin */
+#show_contact{ display:block; padding:5px; width:180px; min-height:20px; line-height:20px; border:solid 1px #ddd; margin-top:0;}
 
-	//火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式  
-	imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
-    }else{
-	//IE下，使用滤镜
-	docObj.select();
-	docObj.blur();
-	var imgSrc = document.selection.createRange().text;
-
-	//必须设置初始大小
-	localImagId.style.width = "300px";
-	localImagId.style.height = "200px";
-
-	//图片异常的捕捉，防止用户修改后缀来伪造图片
-	try{
-	    localImagId.style.filter="progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
-	    localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
-	 }
-	 catch(e){
-	    alert("您上传的图片格式不正确，请重新选择!");
-	    return false;
-	  }                          
-	  imgObjPreview.style.display = 'none';
-	  document.selection.empty();
-    }
-    return true;
+.form-item{ font-size:14px;}
+.ios-select-widget-box.olay {
+	position: absolute;
+	z-index: 500;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 1;
+	background: rgba(0, 0, 0, 0.75);
 }
+.ios-select-widget-box.olay > div {
+	position: fixed;
+	z-index: 1000;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #f2f2f2;
+	bottom: 0;
+	left: 0;
+	visibility: visible;
+}
+.ios-select-widget-box header.iosselect-header {
+	height: 44px;
+	line-height: 44px;
+	background-color: #eee;
+	width: 100%;
+	z-index: 9999;
+	text-align: center;
+}
+.ios-select-widget-box header.iosselect-header a {
+	font-size: 16px;
+	color: #e94643;
+	text-decoration: none;
+}
+.ios-select-widget-box header.iosselect-header a.close {
+	float: left;
+	padding-left: 15px;
+	height: 44px;
+	line-height: 44px;
+}
+.ios-select-widget-box header.iosselect-header a.sure {
+	float: right;
+	padding-right: 15px;
+	height: 44px;
+	line-height: 44px;
+}
+.ios-select-widget-box {
+	padding-top: 44px;
+}
+.ios-select-widget-box .one-level-contain,
+.ios-select-widget-box .two-level-contain,
+.ios-select-widget-box .three-level-contain,
+.ios-select-widget-box .four-level-contain,
+.ios-select-widget-box .five-level-contain {
+	height: 100%;
+	overflow: hidden;
+}
+.ios-select-widget-box .iosselect-box {
+	overflow: hidden;
+}
+.ios-select-widget-box .iosselect-box > div {
+	display: block;
+	float: left;
+}
+.ios-select-widget-box ul {
+	background-color: #fff;
+}
+.ios-select-widget-box ul li {
+	font-size: 13px;
+	height: 35px;
+	line-height: 35px;
+	background-color: #fff;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-align: center;
+	color: #111;
+	opacity: .3;
+}
+.ios-select-widget-box ul li.at {
+	font-size: 16px;
+	opacity: 1;
+}
+.ios-select-widget-box ul li.side1 {
+	font-size: 15px;
+	opacity: .7;
+}
+.ios-select-widget-box ul li.side2 {
+	font-size: 14px;
+	opacity: .5;
+}
+.ios-select-widget-box.one-level-box .one-level-contain {
+	width: 100%;
+}
+.ios-select-widget-box.one-level-box .two-level-contain,
+.ios-select-widget-box.one-level-box .three-level-contain,
+.ios-select-widget-box.one-level-box .four-level-contain,
+.ios-select-widget-box.one-level-box .five-level-contain,
+{
+	width: 0;
+}
+.ios-select-widget-box.two-level-box .one-level-contain, 
+.ios-select-widget-box.two-level-box .two-level-contain {
+	width: 50%;
+}
+.ios-select-widget-box.two-level-box .three-level-contain,
+.ios-select-widget-box.two-level-box .four-level-contain,
+.ios-select-widget-box.two-level-box .five-level-contain,
+{
+	width: 0;
+}
+.ios-select-widget-box.three-level-box .one-level-contain, 
+.ios-select-widget-box.three-level-box .two-level-contain {
+	width: 30%;
+}
+.ios-select-widget-box.three-level-box .three-level-contain {
+	width: 40%;
+}
+.ios-select-widget-box.three-level-box .four-level-contain
+.ios-select-widget-box.three-level-box .five-level-contain {
+	width: 0%;
+}
+
+.ios-select-widget-box.four-level-box .one-level-contain, 
+.ios-select-widget-box.four-level-box .two-level-contain,
+.ios-select-widget-box.four-level-box .three-level-contain,
+.ios-select-widget-box.four-level-box .four-level-contain {
+	width: 25%;
+}
+.ios-select-widget-box.four-level-box .five-level-contain {
+	width: 0%;
+}
+
+.ios-select-widget-box.five-level-box .one-level-contain, 
+.ios-select-widget-box.five-level-box .two-level-contain,
+.ios-select-widget-box.five-level-box .three-level-contain,
+.ios-select-widget-box.five-level-box .four-level-contain,
+.ios-select-widget-box.five-level-box .five-level-contain {
+	width: 20%;
+}
+.ios-select-widget-box .cover-area1 {
+	width: 100%;
+	border: none;
+	border-top: 1px solid #d9d9d9;
+	position: absolute;
+	top: 149px;
+	margin: 0;
+	height: 0;
+}
+.ios-select-widget-box .cover-area2 {
+	width: 100%;
+	border: none;
+	border-top: 1px solid #d9d9d9;
+	position: absolute;
+	top: 183px;
+	margin: 0;
+	height: 0;
+}
+.ios-select-widget-box #iosSelectTitle {
+	margin: 0;
+    padding: 0;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: normal;
+    color: #333;
+}
+.ios-select-body-class {
+	overflow: hidden;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+.ios-select-widget-box.olay > div > .ios-select-loading-box {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,.5);
+    display: none;
+}
+.ios-select-widget-box.olay > div > .ios-select-loading-box > .ios-select-loading { 
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-top: -25px;
+	margin-left: -25px;
+	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo1OEMxMEI3NDI3MEIxMUU2ODVGMzhFNjYyMDIyOUFCMCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo1OEMxMEI3NTI3MEIxMUU2ODVGMzhFNjYyMDIyOUFCMCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjU4QzEwQjcyMjcwQjExRTY4NUYzOEU2NjIwMjI5QUIwIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU4QzEwQjczMjcwQjExRTY4NUYzOEU2NjIwMjI5QUIwIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+GeWqMwAAA+BJREFUeNrMmVlsTGEUx+9cXZQiLZWKklhbQSSlSMUWSxAiJGJ5aSQehOiDF7yI4EFILW99I3iRSJGUPkiILSKp2OuJVtHWkrRVapn2jv+R/ycnn5l27rQz10l+mWlyl/+c833nO+c0FIlEnATMBbPAIn5OBuPAENAKToC74BtoB59AG/D9spBPgaPBdrAFjJH7Fa66TkRuNe8gP8Bb8Ap8j/eFaXFelwv286WZfKG2WL9SX5cFCuntBvAc/OoPD64HJ8EI5Q3tmW7whl4pAl/AUfAEDKZnQ1HuFXGPQGOiAsW7x8A26wUhirgMLnGtfe3hGcO5NApARpRnSchrY0UhlkAJxxmw0npYBzgOKinSj6WDCfRyphWFJnAPdMUjUH71WbDKElcDykGL0zcbCEroVf389+CW7Uk3ygNk/azghYIHDoCN/SDO4W6+A55aAiUrzImWz7StA2WWuF2gIpEc1ovVgQeWyELm06gCc8ARJU44DM45yTPZII8tkXO5DP4RuI8iPYqr4YmQbJN8+E4JlA1abAuUBbtZeU526O4khDWW3QdhK9TZWmAZd6/x3inw0UmdSZJ/pgSKlilGoMvTwoiTw/20k3p7yTyovRgScTNAvgrvFSbkVJuE+LU6GiXEefJHqfKefF5zgrMGVRnJZ4HEerryXjdzU1DWbB2BI10mRuPBej+1WhKsi8vLeDDXZRllwtvoBG8davNmS4gHUZyTQIWSrM1iQpyZptafo4QGabp9+JNmOijMY9MTtGWpEHe5PDHMGsz/DwQOUwI7XVYUZheP1ZVEAJbOFsGswTYR+EKF2NWVRABWwHPYeLDFZWKOKJFLAhRYpMQJjS7rsWYlcjlTT6pNOr5pahfL5m12KaparUPpZTcEILCEjjGniCy9iMk3F9hImzCXcZqQKhOnLFShjbBX/psQP4Aq5UUpdfZEGXEkKzGvZf4zu/exOdV0T1LJCZTx4gK2msm2Uq494z1pS29Ea5ra2RPrrm4HpwvJsplgtTW/kXq0M1ZffF2F2uMNe+nJUD+HVWaLm8AAtXNrOXTqcfQh2fwQmKdST4TTgAp6ui+WTWFTrUpedu15Fs29Do/kuDsIZlsiW7njryZQ2MrAaD5Yqko88+w6zoPCfsdv5VwjnnXayA67zYmUdGM/e0i+E7nWivnDPUWEz6iyPedngLkY7ARDrQeb72GOz5roVY/eylMHvxflXjkpLoKHfZ2wmhJIkvcylUi9BAnTa9U9DD59CzQm/csaZv0cn0JbOeK4ye/xbfcE/w0hYZvElnU8GEXBGRQjeewzi5B6rtP6RGY9vwUYACMHTam1T1ebAAAAAElFTkSuQmCC) no-repeat 0 0;
+    background-size: contain;
+    -webkit-animation: loading-keyframe 1s infinite linear;
+            animation: loading-keyframe 1s infinite linear;
+}
+@-webkit-keyframes loading-keyframe {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@keyframes loading-keyframe {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="apply-notice">
+请务必认真填写您的资料，我们会尽快审核<br>谢谢您的合作！
+</div>
+<div class="store-joinin-apply">
+  <div class="main">
+  	<!--个人信息认证第一步 begin-->
+    <div id="apply_person_info" class="apply-company-info" style="display: block;">
+      <div class="note"><i></i>以下所需要上传的电子版资质文件仅支持JPG\GIF\PNG格式图片，大小请控制在4096K之内。</div>
+      <form id="form_person_info" name="form_person_info" action="apply.php" method="post" enctype="multipart/form-data" onsubmit="return supplier_person_Reg()">
+        <table border="0" cellpadding="0" cellspacing="0" class="all">
+          <thead>
+            <tr>
+              <th colspan="2" align="left">请按照提示填写本人真实的资料</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th><i>*</i>店铺名称：</th>
+              <td><input name="company_name" type="text" value="谁谁谁" class="w200">
+                <span></span></td>
+            </tr>
+            <tr>
+              <th><i>*</i>联系地址：</th>
+              <td><!--<select name="country" id="selCountries_1" onchange="region.changed(this, 1, 'selProvinces_1')">
+                  <option value="0">请选择</option>
+                  <option value="1" selected="">中国</option>
+                </select>
+                <select name="province" id="selProvinces_1" onchange="region.changed(this, 2, 'selCities_1')">
+                  <option value="0">请选择</option>
+                  <option value="2">北京</option>
+                  <option value="3">安徽</option>
+                  <option value="4">福建</option>
+                  <option value="5" selected="">甘肃</option>
+                  <option value="6">广东</option>
+                  <option value="7">广西</option>
+              
+                </select>
+                <select name="city" id="selCities_1" onchange="region.changed(this, 3, 'selDistricts_1')">
+                  <option value="0">请选择</option>
+                  <option value="62">兰州</option>
+       
+                  <option value="65" selected="">甘南</option>
+                  <option value="66">嘉峪关</option>
+                  <option value="67">金昌</option>
+
+                </select>
+                <select name="district" id="selDistricts_1">
+                  <option value="0">请选择</option>
+                  <option value="625" selected="">合作市</option>
+                  <option value="626">临潭县</option>
+        
+                </select>
+                <span></span> -->
+                
+                <div class="form-item item-line" id="select_contact">                 
+    <!--<label>点击更换地址</label>          -->        
+    <div class="pc-box">                     
+        <input type="hidden" name="contact_province_code" data-id="0001" id="contact_province_code" value="" data-province-name="">                     
+        <input type="hidden" name="contact_city_code" id="contact_city_code" value="" data-city-name=""><span data-city-code="510100" data-province-code="510000" data-district-code="510105" id="show_contact">点击选择联系地址</span> 
+    </div>             
+</div>
+                </td>
+            </tr>
+            <tr>
+              <th><i>*</i>详细地址：</th>
+              <td><input name="address" class="w200" type="text" value="所得税的所得税的">
+                <span></span></td>
+            </tr>
+            <tr>
+              <th><i>*</i>姓名：</th>
+              <td><input name="contacts_name" type="text" class="w200" value="谁谁谁">
+                <span></span></td>
+            </tr>
+            <tr>
+              <th><i>*</i>联系人电话：</th>
+              <td><input name="contacts_phone" type="text" class="w200" value="18820325562">
+                <span></span></td>
+            </tr>
+            <tr>
+              <th><i>*</i>电子邮箱：</th>
+              <td><input type="text" name="email" size="45" value="5566555@qq.com" class="w200">
+                <span></span></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="20">&nbsp;</td>
+            </tr>
+          </tfoot>
+        </table>
+        <table border="0" cellpadding="0" cellspacing="0" class="all">
+          <thead>
+            <tr>
+              <th colspan="20" align="left">身份证信息</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th><i>*</i>身份证号码：</th>
+              <td><input name="id_card_no" type="text" class="w200" value="411522198708252122">
+                <span></span></td>
+            </tr>
+            <tr>
+              <th><i>*</i>手持身份证照片：</th>
+              <td><input name="handheld_idcard" type="file">
+                <br>
+                <!--<img src="data/supplier/59_20161201pzurzm.jpg" width="80" height="80" id="handheld_idcard_id"> <br> -->
+                <span id="id-hand-s"></span></td>
+            </tr>
+            <tr>
+              <th><i>*</i>身份证正面：</th>
+              <td><input name="idcard_front" type="file">
+                <br>
+                <!--<img src="data/supplier/59_20161201mioeic.jpg" width="80" height="80" id="idcard_front_id"> <br> -->
+                <span id="id-front-s"></span></td>
+            </tr>
+            <tr>
+              <th><i>*</i>身份证反面：</th>
+              <td><input name="idcard_reverse" type="file">
+                <br>
+               <!-- <img src="data/supplier/59_20161201tduqdx.jpg" width="80" height="80" id="idcard_reverse_id"> <br> -->
+                <span id="id-back-s"></span></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="20">&nbsp;</td>
+            </tr>
+          </tfoot>
+        </table>
+        <table border="0" cellpadding="0" cellspacing="0" class="all">
+          <thead>
+            <tr>
+              <th colspan="20" align="left">开户银行信息</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th class="w150"><i>*</i>银行开户名：</th>
+              <td><input name="bank_account_name" id="bank_account_name" type="text" class="w200" value="高靖">
+                <span></span></td>
+            </tr>
+            <tr>
+              <th><i>*</i>个人银行账号：</th>
+              <td><input name="bank_account_number" id="bank_account_number" type="text" class="w200" value="">
+                <span></span></td>
+            </tr>
+            <tr>
+              <th><i>*</i>开户银行支行名称：</th>
+              <td><input name="bank_name" type="text" id="bank_name" class="w200" value="大幅度">
+                <span></span></td>
+            </tr>
+            <tr>
+              <th><i>*</i>支行联行号：</th>
+              <td><input name="bank_code" type="text" id="bank_code" class="w200" value="655">
+                <span></span></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="20">&nbsp;</td>
+            </tr>
+          </tfoot>
+        </table>
+        <input type="hidden" name="shownum" value="1">
+        <input type="hidden" name="do" value="1">
+        <input type="hidden" name="person" value="1">
+        <div class="bottom">
+          <!--<input type="button" value="上一步" class="btn" onclick="top.location.href='apply.php?shownum=0'"> -->
+         <input type="submit" value="确认提交" class="btn">
+         
+        </div>
+      </form>
+    </div>
+    <!--个人信息认证第一步 end-->
+    
+    <!--个人信息第三步  begin-->
+    <div class="explain"><i></i>入驻申请已经提交，请等待管理员审核</div>
+    <!--个人信息第三步  end-->
+    
+  </div>
+</div>
+
+
+<script src="../js/jquery-1.6.2.min.js"></script>
+<script src="../js/utils.js"></script>
+<!--<script src="../js/region.js"></script>
+<script src="../js/user.js"></script> -->
+
+<!--地区选择 iosselect -->
+<script src="js/iscroll.js"></script>
+<script src="js/areaData_v2.js"></script>
+<script src="js/iosSelect.js"></script>
+<script type="text/javascript">
+    var selectContactDom = $('#select_contact');
+    var showContactDom = $('#show_contact');
+    var contactProvinceCodeDom = $('#contact_province_code');
+    var contactCityCodeDom = $('#contact_city_code');
+    selectContactDom.bind('click', function () {
+        var sccode = showContactDom.attr('data-city-code');
+        var scname = showContactDom.attr('data-city-name');
+
+        var oneLevelId = showContactDom.attr('data-province-code');
+        var twoLevelId = showContactDom.attr('data-city-code');
+        var threeLevelId = showContactDom.attr('data-district-code');
+        var iosSelect = new IosSelect(3, 
+            [iosProvinces, iosCitys, iosCountys],
+            {
+                title: '地址选择',
+                itemHeight: 35,
+                relation: [1, 1, 0, 0],
+                oneLevelId: oneLevelId,
+                twoLevelId: twoLevelId,
+                threeLevelId: threeLevelId,
+                callback: function (selectOneObj, selectTwoObj, selectThreeObj) {
+                    contactProvinceCodeDom.val(selectOneObj.id); 
+                    contactProvinceCodeDom.attr('data-province-name', selectOneObj.value);
+                    contactCityCodeDom.val(selectTwoObj.id);
+                    contactCityCodeDom.attr('data-city-name', selectTwoObj.value);
+
+                    showContactDom.attr('data-province-code', selectOneObj.id);
+                    showContactDom.attr('data-city-code', selectTwoObj.id);
+                    showContactDom.attr('data-district-code', selectThreeObj.id);
+                    showContactDom.html(selectOneObj.value + ' ' + selectTwoObj.value + ' ' + selectThreeObj.value);
+                }
+        });
+    });
 </script>
+<!--地区选择 iosselect -->
+
+<script>
+function ispic(filepath){
+		
+	var extStart=filepath.lastIndexOf('.');
+	var ext=filepath.substring(extStart,filepath.length).toUpperCase();
+	if(ext!='.BMP'&&ext!='.PNG'&&ext!='.GIF'&&ext!='.JPG'&&ext!='.JPEG'){
+	  return false;
+	}
+	return true;
+}
+function supplier_person_Reg()
+{
+	var msg = '';
+	var frm = document.forms['form_person_info'];
+	var company_name =  frm.elements['company_name'] ? Utils.trim(frm.elements['company_name'].value) : '';
+	var country =  frm.elements['country'] ? Utils.trim(frm.elements['country'].value) : '0';
+	var province =  frm.elements['contact_province_code'] ? Utils.trim(frm.elements['contact_province_code'].value) : '0';
+	
+	var city =  frm.elements['contact_city_code'] ? Utils.trim(frm.elements['contact_city_code'].value) : '0';
+	var district =  frm.elements['district'] ? Utils.trim(frm.elements['district'].value) : '0';
+	var address =  frm.elements['address'] ? Utils.trim(frm.elements['address'].value) : '';
+
+	var contacts_name =  frm.elements['contacts_name'] ? Utils.trim(frm.elements['contacts_name'].value) : '';
+	var contacts_phone =  frm.elements['contacts_phone'] ? Utils.trim(frm.elements['contacts_phone'].value) : '';
+	var email = frm.elements['email'].value;
+	
+	var id_card_no =  frm.elements['id_card_no'] ? Utils.trim(frm.elements['id_card_no'].value) : '';
+	
+	var handheld_idcard = frm.elements['handheld_idcard'].value;
+	var handheld_idcard_id	    = document.getElementById("handheld_idcard_id");
+
+	var idcard_front = frm.elements['idcard_front'].value;
+	var idcard_front_id	    = document.getElementById("idcard_front_id");
+	
+	var idcard_reverse = frm.elements['idcard_reverse'].value;
+	var idcard_reverse_id	    = document.getElementById("idcard_reverse_id");
+
+	
+	var bank_account_name =  frm.elements['bank_account_name'] ? Utils.trim(frm.elements['bank_account_name'].value) : '';
+	var bank_account_number =  frm.elements['bank_account_number'] ? Utils.trim(frm.elements['bank_account_number'].value) : '';
+	var bank_name =  frm.elements['bank_name'] ? Utils.trim(frm.elements['bank_name'].value) : '';
+	var bank_code =  frm.elements['bank_code'] ? Utils.trim(frm.elements['bank_code'].value) : '';
+	
+	
+	if (company_name.length == 0)
+	{
+		msg += "店铺名称不能为空！" + '\n';
+	}
+
+	if (province.length==0 || city.length==0)
+	{
+		msg += "联系地址不完整！" + '\n';
+	}
+	
+	if (address.length == 0)
+	{
+		msg += "详细地址不能为空！" + '\n';
+	}
+	
+	if (contacts_name.length == 0)
+	{
+		msg += "姓名不能为空！" + '\n';
+	}
+
+	if (contacts_phone.length == 0)
+	{
+		msg += "联系人电话不能为空！" + '\n';
+	}
+	if (contacts_phone.length > 0){
+		var patrn=/^13[0-9]{1}[0-9]{8}$|15[0-9]{1}[0-9]{8}$|17[0-9]{1}[0-9]{8}$|18[0-9]{1}[0-9]{8}$/;
+		if (!patrn.exec(contacts_phone)){
+	　　     msg += "联系人电话不正确！" + '\n';
+	　　   }
+	}
+	
+	if (email.length == 0)
+	{
+		msg += "电子邮箱不能为空！" + '\n';
+	}
+	else
+	{
+		if ( ! (Utils.isEmail(email)))
+		{
+			msg += "电子邮箱格式错误！" + '\n';
+		}
+	}	
+
+	if (id_card_no.length == 0)
+	{
+		msg += "身份证号码不能为空！" + '\n';
+	}
+	if (id_card_no.length > 0){
+		var patrn=/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+		if (!patrn.exec(id_card_no)){
+	　　     msg += "身份证格式错误！" + '\n';
+	　　   }
+	}
+
+	if(ispic(handheld_idcard) == false && handheld_idcard_id == null){
+	   msg += "手持身份证照片！" + '\n';
+	}
+	if(ispic(idcard_front) == false && idcard_front_id == null){
+	   msg += "身份证正面照片！" + '\n';
+	}
+	if(ispic(idcard_reverse) == false && idcard_reverse_id == null){
+	   msg += "身份证反面照片！" + '\n';
+	}
+
+	if (bank_account_name.length == 0)
+	{
+		msg += "(开户)银行开户名不能为空！" + '\n';
+	}
+	if (bank_account_number.length == 0)
+	{
+		msg += "(开户)个人银行账号不能为空！" + '\n';
+	}
+	if (bank_name.length == 0)
+	{
+		msg += "(开户)开户银行支行不能为空！" + '\n';
+	}
+	if (bank_code.length == 0)
+	{
+		msg += "(开户)支行联行号不能为空！" + '\n';
+	}
+	
+	if (msg.length > 0)
+	{
+		alert(msg);
+		return false;
+	}
+	else
+	{
+		return true;
+		alert(company_name);
+	}
+}
+
+</script> 
+</body>
 </html>

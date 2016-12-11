@@ -88,10 +88,10 @@
             <div class="item-hd"><span class="bg1">待处理<em>{$task.total} 个</em></span></div>
             <div class="item-bd item-bd1">
                 <ul class="clearfix">
-                    <li>
+<!--                     <li>
                         <strong><a href="supplier_rebate.php?act=list&is_pay_ok=0">待处理佣金</a></strong>
                         <span>{$task.commission} 个</span>
-                    </li>
+                    </li> -->
                     <li class="li_even">
                         <!-- 代码修改_start  By  www.68ecshop.com -->
                         <!--
@@ -101,10 +101,10 @@
                         <!-- 代码修改_end  By  www.68ecshop.com -->
                         <span>{$task.goods} 个</span>
                     </li>
-                    <li>
+<!--                     <li>
                         <strong><a href="user_account.php?act=list&process_type=0&is_paid=0">会员充值</a></strong>
                         <span>{$task.deposit} 个</span>
-                    </li>
+                    </li> -->
                     <li class="li_even">
                         <strong><a href="user_account.php?act=list&process_type=1&is_paid=0">会员提现</a></strong>
                         <span>{$task.withdraw} 个</span>
@@ -156,14 +156,14 @@
                         <strong><a href="goods.php?act=list&amp;intro_type=is_hot">{$lang.hot_goods}</a></strong>
                         <span>{$goods.hot} 件</span>
                     </li>
-                    <li>
+<!--                     <li>
                         <strong><a href="goods.php?act=list&amp;intro_type=is_promote">{$lang.sales_count}</a></strong>
                         <span>{$goods.promote} 件</span>
                     </li>
                      <li class="li_even">
                         <strong><a href="goods.php?act=list&is_on_sale=0">已下架商品总数</a></strong>
                          <span>{$goods.deleted} 件</span>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>
@@ -195,14 +195,14 @@
                         <strong><a href="back.php?act=back_list&back_type=1&order_type=2">退货申请</a></strong>
                         <span>{$order.returns} 笔</span>
                     </li>
-                    <li>
+<!--                     <li>
                         <strong><a href="goods_booking.php?act=list_all">{$lang.new_booking}</a></strong>
                         <span>{$order.booking_goods} 笔</span>
                     </li>
                     <li class="li_even">
                         <strong><a href="order.php?act=list&composite_status={$status.finished}">{$lang.finished}</a></strong>
                         <span>{$order.finished} 笔</span>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>
