@@ -1,9 +1,4 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<div class="headerLayout">
-    <div class="headerCon ">
-      <h1 id="mallLogo"> <a href="index.php" class="header-logo"><img src="themes/68ecshopcom_360buy/images/ecshop_logo.png" /></a></h1>
-      <div class="header-extra">
-       	 <div class="panel-heading">
             <div class="more">
                 <div class="progress">
                     <div class="progress-wrap">
@@ -32,10 +27,6 @@
                     </div>
                 </div>
             </div>
-         </div>
-      </div>
-    </div>
-  </div>
 <div class="store-joinin-apply">
   <div class="main">
 	<div class="explain1"><i></i>您好，审核通过，您可以通过<a href="{$mydomain}supplier/" target="_blank" class="main-color">供货商管理中心</a>来登录供货商后台！</div>
@@ -344,16 +335,16 @@
           </tr>
           <tr>
             <th class="w150">手持身份证照片：</th>
-            <td>{if $supplier.handheld_idcard}<img src="../data/supplier/{$supplier.handheld_idcard}" width=50 height=50>&nbsp;&nbsp;
-              <input type="button" onclick="window.open('../data/supplier/{$supplier.handheld_idcard}');" value="查看原图">
+            <td>{if $supplier.handheld_idcard}<img src="../../data/supplier/{$supplier.handheld_idcard}" width=50 height=50>&nbsp;&nbsp;
+              <input type="button" onclick="window.open('../../data/supplier/{$supplier.handheld_idcard}');" value="查看原图">
               {/if}</td>
             <th class="w150">身份证正面：</th>
-            <td>{if $supplier.idcard_front}<img src="../data/supplier/{$supplier.idcard_front}" width=50 height=50>&nbsp;&nbsp;
-              <input type="button" onclick="window.open('../data/supplier/{$supplier.idcard_front}');" value="查看原图">
+            <td>{if $supplier.idcard_front}<img src="../../data/supplier/{$supplier.idcard_front}" width=50 height=50>&nbsp;&nbsp;
+              <input type="button" onclick="window.open('../../data/supplier/{$supplier.idcard_front}');" value="查看原图">
               {/if}</td>
             <th class="w150">身份证反面：</th>
-            <td>{if $supplier.idcard_reverse}<img src="../data/supplier/{$supplier.idcard_reverse}" width=50 height=50>&nbsp;&nbsp;
-              <input type="button" onclick="window.open('../data/supplier/{$supplier.idcard_reverse}');" value="查看原图">
+            <td>{if $supplier.idcard_reverse}<img src="../../data/supplier/{$supplier.idcard_reverse}" width=50 height=50>&nbsp;&nbsp;
+              <input type="button" onclick="window.open('../../data/supplier/{$supplier.idcard_reverse}');" value="查看原图">
               {/if}</td>
         </tbody>
       </table>
