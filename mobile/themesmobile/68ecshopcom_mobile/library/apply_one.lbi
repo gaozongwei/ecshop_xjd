@@ -1,9 +1,5 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
  <div class="headerLayout">
-    <div class="headerCon ">
-      <h1 id="mallLogo"> <a href="index.php" class="header-logo"><img src="themes/68ecshopcom_360buy/images/ecshop_logo.png" /></a></h1>
-      <div class="header-extra">
-       	 <div class="panel-heading">
             <div class="more">
                 <div class="progress">
                     <div class="progress-wrap">
@@ -32,10 +28,6 @@
                     </div>
                 </div>
             </div>
-         </div>
-      </div>
-    </div>
-  </div>
   <div class="store-joinin-apply">
     <div id="apply_agreement" class="apply-agreement">
       <h3>入驻协议</h3>

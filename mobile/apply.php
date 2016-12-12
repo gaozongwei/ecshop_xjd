@@ -130,7 +130,6 @@ if(isset($_POST['do']) && $_POST['do']){
 		if($_POST['person'])
 		{
 			$save['company_name'] = isset($_POST['company_name']) ? trim(addslashes(htmlspecialchars($_POST['company_name']))) : ''; 
-			$save['supplier_name'] = $save['company_name'];
 			$save['country'] = isset($_POST['country']) ? intval($_POST['country']) : 1; 
 			$save['province'] = isset($_POST['province']) ? intval($_POST['province']) : 1; 
 			$save['city'] = isset($_POST['city']) ? intval($_POST['city']) : 1; 
@@ -203,7 +202,7 @@ if(isset($_POST['do']) && $_POST['do']){
 				}
 			}
 			
-			$save['applynum'] = 3;//公司信息认证一
+			$save['applynum'] = 2;//公司信息认证一
 			$save['rank_id'] = 1;//公司信息认证一
 			
 			//必填项验证
@@ -213,7 +212,7 @@ if(isset($_POST['do']) && $_POST['do']){
 				show_message('请认真填写必填申请资料！', '返回', 'apply.php', 'wrong');
 			}
 			
-			 if ($db->autoExecute($ecs->table('supplier'), $save, 'INSERT', 'user_id='.$userid) !== false){
+			 if ($db->autoExecute($ecs->table('supplier'), $save, 'UPDATE', 'user_id='.$userid) !== false){
 				// echo "<pre>";
 				// var_dump($db);die();
 				header("location:apply.php");

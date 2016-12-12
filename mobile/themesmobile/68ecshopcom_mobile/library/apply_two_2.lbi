@@ -1,14 +1,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 {insert_scripts files='utils.js'}
 <div class="headerLayout">
-    <div class="headerCon ">
-      <h1 id="mallLogo"> <a href="index.php" class="header-logo"><img src="themes/68ecshopcom_360buy/images/ecshop_logo.png" /></a></h1>
-      <div class="header-extra">
-       	 <div class="panel-heading">
-            <div class="more">
+              <div class="more">
                 <div class="progress">
                     <div class="progress-wrap">
-                        <div class="progress-item passed">
+                        <div class="progress-item ongoing">
                             <div class="number">1</div>
                             <div class="progress-desc">入驻须知</div>
                         </div>
@@ -33,10 +29,7 @@
                     </div>
                 </div>
             </div>
-         </div>
-      </div>
-    </div>
-  </div>
+            
 <div class="store-joinin-apply">
   <div class="main">
 
