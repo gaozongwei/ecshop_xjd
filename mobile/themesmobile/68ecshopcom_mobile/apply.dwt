@@ -5,17 +5,44 @@
 <title>申请入驻</title>
 <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1">
 <link href="./themesmobile/68ecshopcom_mobile/css/store_joinin.css" type="text/css" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="themesmobile/68ecshopcom_mobile/css/public.css"/>
 <style>
-    /*压缩版本覆盖样式
-	.panel-heading{ padding:0; margin:10px auto; text-align:center;}
-	.panel-heading .more{ float:none; margin:0 auto; display:inline-block;}
-	.panel-heading .progress-wrap{ width:100px;}*/
+    /*压缩版本覆盖样式*/
+	body{ font-size:12px;}
+	body table{ font-size:12px;}
+	/*.progress{ padding-right:0; left:-10px;}
+	.progress .number{ margin-bottom:2px; left:-10px;}
+	.more{ width:320px; padding:0; margin:10px auto; text-align:center;}
+	.more .more{ float:none; margin:0 auto; display:inline-block;}
+	.more .progress-wrap{ display:inline-block; width:70px; float:none;}
+	.progress .progress-item{ margin-right:-5px; background-position:-10px 0;}
+	.progress .ongoing{ background-position:-10px -92px;} */
+	.progress .number i.tick{background: url(../images/apply/apply.png) no-repeat;}
+	.progress .number i.tick {
+	background-position: 0px -140px;
+	display:inline-block;
+	position:static;
+	width: 10px;
+	height: 8px;
+	top: 7px;
+	left: 55px;}
+	.more .progress{ display:-webkit-box; display:-moz-box; padding:0 10px;}
+	.more .progress .progress-wrap{ position:relative; -webkit-box-flex:1; -moz-box-flex:1; text-align:center; color:#fff; margin-right:-5px;}
+	.progress-wrap .progress-item:before{ position:absolute; top:7px; width:100%; height:5px; background-color:#ccc; display:block; content:''; border-radius:5px;}
+	/*.progress-wrap:nth-child(1) .progress-item:before{ border-top-left-radius:5px; border-bottom-left-radius:5px;} 
+	.progress-wrap:last-child .progress-item:before{ border-top-left-radius:5px; border-bottom-left-radius:5px;} */
+	.progress .ongoing:before{ background-color:#45a2e1; z-index:2;}
+	.progress .number{ display:inline-block; width:20px; height:20px; border-radius:50%; background-color:#ccc; position:relative; z-index:2;}
+	.progress .ongoing .number{ background-color:#45a2e1;}
+	.progress-desc{ color:#666;}
+	.progress .ongoing .progress-desc{ color:#45a2e1;}
 	.store-joinin-apply{ width:320px; overflow:hidden; margin:0 auto; padding:0;}
 	.store-joinin-apply .main,.main table.all{ width:auto;}
 	.main table.all tbody th{ white-space:nowrap; padding:8px 0;}
 	.main table.all .w200{ width:180px!important;}
 	@media screen and (min-width:600px) and (max-width:719px){	
-	.store-joinin-apply{ width:640px;}
+	.store-joinin-apply,.more{ width:640px;}
 	}
 	.apply-notice{ padding:10px; font-size:18px; text-align:center; line-height:22px; color:#f60;}
 /* layer begin */
@@ -240,6 +267,20 @@
 </head>
 
 <body>
+<!----------------------------------header----------------------------------->
+      <div class="tab_nav">
+        <div class="header">
+          <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+          <div class="h-mid">礼包套餐</div>
+          <div class="h-right">
+            <aside class="top_bar">
+              <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more" ><a href="javascript:;"></a> </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+       	<!-- #BeginLibraryItem "/library/up_menu.lbi" --><!-- #EndLibraryItem --> <!--弹出菜单-->
+
 {insert name='apply_supplier' id=$userid} 
 
 <script src="../js/jquery-1.6.2.min.js"></script>
