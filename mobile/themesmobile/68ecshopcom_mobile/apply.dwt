@@ -271,7 +271,7 @@
       <div class="tab_nav">
         <div class="header">
           <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
-          <div class="h-mid">礼包套餐</div>
+          <div class="h-mid">商家入驻</div>
           <div class="h-right">
             <aside class="top_bar">
               <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more" ><a href="javascript:;"></a> </div>

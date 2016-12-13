@@ -2,7 +2,7 @@
 <!---------提现----------->
 <!--{if $action eq "account_raply" || $action eq "account_log" || $action eq "account_deposit" || $action eq "account_detail"} -->
 
-<h2 class="vc_title">当前账户余额：<strong>{$user_info.user_money}</strong></h2>
+<h2 class="vc_title">当前账户积分：<strong>{$user_info.user_money}</strong></h2>
 
 <div class="recharge">
 <!-- {/if} --> 
