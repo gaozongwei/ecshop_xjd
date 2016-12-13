@@ -803,6 +803,20 @@ function update_menu($id=1){
 			}
 		}
 	}
+
+	// $button['matchrule'] = array(
+ //        "tag_id" => "2",
+ //        "sex"=> "1",
+ //        "country"=> "中国",
+ //        "province"=> "广东",
+ //        "city"=> "广州",
+ //        "client_platform_type"=> "2",
+ //        "language"=> "zh_CN"
+	// 	);
+
+
+
+
 	$res = $weixin->createMenu(array('button'=>$button));
 	if($res === false){
 		sys_msg ( '更新菜单出错：'.$weixin->errMsg, 1, $link );

@@ -3,9 +3,9 @@ require(dirname(__FILE__) . '/api.class.php');
 
 
 $user_id = $_SESSION['user_id'];
-if(!$user_id){   //未登录
-    show_message($_LANG['require_login'], array('登录', '返回首页'), array('user.php?act=login', $ecs->url()), 'error', false);
-}
+// if(!$user_id){   //未登录
+//     show_message($_LANG['require_login'], array('登录', '返回首页'), array('user.php?act=login', $ecs->url()), 'error', false);
+// }
 // else{
 //   $sql = "SELECT rank_points, vip_award FROM ".
 //                   $GLOBALS['ecs']->table('users') .
@@ -34,14 +34,14 @@ $actList = (array)$db->getAll ( "SELECT * FROM " . $GLOBALS['ecs']->table('weixi
 if(!$actList) exit("活动未设置奖项");
 $sql = "SELECT wa.*, u.user_name FROM " . 
 		$GLOBALS['ecs']->table('weixin_actlog') . " AS wa  left join " . 
-		$GLOBALS['ecs']->table('users') . " AS U on wa.uid = u.user_id 
+		$GLOBALS['ecs']->table('users') . " AS u on wa.uid = u.user_id 
 		where code!='' and aid=$aid order by lid desc limit 0,15";
 $award = $db->getAll ( $sql );
 
 // 我的中奖纪录
 $sql = "SELECT wa.*, u.user_name FROM " . 
 		$GLOBALS['ecs']->table('weixin_actlog') . " AS wa  left join " . 
-		$GLOBALS['ecs']->table('users') . " AS U on wa.uid = u.user_id 
+		$GLOBALS['ecs']->table('users') . " AS u on wa.uid = u.user_id 
 		where code!='' AND user_id = $_SESSION[user_id] and aid=$aid order by lid desc limit 0,15";
 $my_award = $db->getAll ( $sql );
 $uid = intval($_SESSION['user_id']);

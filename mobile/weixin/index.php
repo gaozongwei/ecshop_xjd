@@ -1,4 +1,8 @@
 <?php
+
+// error_log("======".print_r($_REQUEST,1)."=====\n". 3, "test.log");
+error_log(date("m-d H:i").print_r($_REQUEST,1)."\n", 3, "info.log");
+
 require(dirname(__FILE__) . '/api.class.php');
 require(dirname(__FILE__) . '/wechat.class.php');
 $weixinconfig = $db->getRow ( "SELECT * FROM " . $GLOBALS['ecs']->table('weixin_config') . " WHERE `id` = 1" );

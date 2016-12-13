@@ -85,7 +85,7 @@ a{ text-decoration:none; line-height:14px;}
 
 <body>
 <div class="clearfix">
-  <div class="welcome-hd">恭喜你成为第<span class="num">5555</span>位会员，您可以从以下礼包中任选一份</div>
+  <div class="welcome-hd">购买任意礼包即可升级为VIP</div>
   <section class="floor_body">
   {foreach from=$list item=val name=list}
     <div class="gift-box">
