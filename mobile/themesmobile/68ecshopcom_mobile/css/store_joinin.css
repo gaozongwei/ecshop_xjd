@@ -947,7 +947,10 @@ table.type tbody td input {
 .w200 {
 	width: 200px !important;
 }
-.progress .passed, .progress .ongoing, .progress .defeated, .progress .tobe, .progress .number i.tick, .main .explain i, .main .explain1 i, .main table.all tbody th i, .main .note i {
+/*.progress .passed, .progress .ongoing, .progress .defeated, .progress .tobe, .progress .number i.tick, .main .explain i, .main .explain1 i, .main table.all tbody th i, .main .note i {
+	background: url(../images/apply/apply.png) no-repeat;
+}*/
+.progress .passed, .progress .defeated, .progress .number i.tick, .main .explain i, .main .explain1 i, .main table.all tbody th i, .main .note i {
 	background: url(../images/apply/apply.png) no-repeat;
 }
 input[type="button"], input[type="submit"] {
@@ -993,7 +996,7 @@ input[type="text"] {
 .panel-heading .more {
 	float: right;
 }
-.progress {
+/*.progress {
 	clear: both;
 	overflow: hidden;
 	padding-top: 5px;
@@ -1030,7 +1033,7 @@ input[type="text"] {
 	color: #fff;
 	font-weight: bold;
 	position: relative;
-}
+}*/
 .progress .number i.tick {
 	background-position: 0px -140px;
 	position: absolute;
