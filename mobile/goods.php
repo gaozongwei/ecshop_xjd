@@ -380,8 +380,7 @@ if($_REQUEST['act']=='taocan'){
 /*------------------------------------------------------ */
 //-- PROCESSOR
 /*------------------------------------------------------ */
-echo "<pre>";
-var_dump($_CFG);die();
+
 $cache_id = $goods_id . '-' . $_SESSION['user_rank'].'-'.$_CFG['lang'];
 $cache_id = sprintf('%X', crc32($cache_id));
 if (!$smarty->is_cached('goods.dwt', $cache_id))
