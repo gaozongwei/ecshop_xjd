@@ -27,7 +27,7 @@
  * 		postXmlCurl(),以post方式提交xml到对应的接口url
  * 		postXmlSSLCurl(),使用证书，以post方式提交xml到对应的接口url
 */
-	include_once("SDKRuntimeException.php");
+	include_once("SDKRuntimeException.class.php");
 
 /**
  * 所有接口的基类
