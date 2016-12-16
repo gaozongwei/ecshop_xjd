@@ -20,6 +20,10 @@ if(isset($_GET['user_id']) && intval($_GET['user_id']) > 0)
 {
 	$user_id = intval($_GET['user_id']);
 }
+elseif($user_id = $_SESSION['user_id'])
+{
+
+}
 else
 {
 	 ecs_header("Location:./\n");

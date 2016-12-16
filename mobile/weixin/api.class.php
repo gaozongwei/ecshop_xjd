@@ -558,7 +558,8 @@ class weixinapi{
 				}else{
 					$url = "http://www.kuaidi100.com/applyurl?key=$kuaidi100key&nu={$o['invoice_no']}&com=".getKDname($o['shipping_name']);
 					$kdurl = file_get_contents($url);
-					$order[$k]['kuaidi']['context'] = "<a href='$kdurl'>网络异常，请点击这里查看详情</a>";
+					// $order[$k]['kuaidi']['context'] = "<a href='$kdurl'>请点击这里查看详情</a>";
+					$order[$k]['kuaidi']['context'] = "<a href='https://m.kuaidi100.com/index_all.html?type=$o[shipping_name]&postid=$o[invoice_no]'>请点击这里查看详情</a>";
 				}
 			}
 			return $order;
