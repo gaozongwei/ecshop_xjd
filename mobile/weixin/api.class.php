@@ -1,6 +1,7 @@
 <?php
 define('IN_ECS', true);
 require('../includes/init.php');
+require('../includes/lib_v_user.php');
 class weixinapi{
 	//搜索商品
 	function getGoodsByKey($key){
@@ -391,7 +392,7 @@ class weixinapi{
 	}
 	//统计剩余抽奖次数
 	function getAwardNum($aid){
-		// if(date("w") != 2 || date("w") != 5){
+		// if(local_date("w") != 2 || local_date("w") != 5){
 		// 	return 0;
 		// }
 		$act = self::checkAward($aid);
@@ -479,7 +480,10 @@ class weixinapi{
 
 					$GLOBALS['db']->query("update " . $GLOBALS['ecs']->table('weixin_actlist') . " set num2=num2+1 where lid={$v['lid']}");
 
-					$GLOBALS['db']->query("update " . $GLOBALS['ecs']->table('users') . " set vip_award=vip_award - $v[awardname], vip_points = vip_points  + $v[awardname] where user_id = {$_SESSION['user_id']}");
+					// log_account_change($_SESSION['user_id'], $v['awardname'], 0, 0, 0,'抽奖获得VIP积分');
+
+
+					insert_affiliate_log('0', $_SESSION['user_id'], $_SESSION['user_name'], $v['awardname'], '8', '抽奖获得VIP积分', 2);
 
 					$GLOBALS['db']->query("update " . $GLOBALS['ecs']->table('award_account') . " set member_done=member_done + 1, award_points = award_points  + $v[awardname] where time_end = ".strtotime(date("Y-m-d")));
 

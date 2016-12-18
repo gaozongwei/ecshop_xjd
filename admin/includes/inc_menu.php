@@ -61,7 +61,7 @@ $modules['03_promotion']['12_favourable'] = 'favourable.php?act=list';
 // $modules['03_promotion']['13_wholesale'] = 'wholesale.php?act=list';
 $modules['03_promotion']['14_package_list'] = 'package.php?act=list';
 // $modules['03_promotion']['ebao_commend'] = 'ebao_commend.php?act=list';
-// $modules['03_promotion']['15_exchange_goods'] = 'exchange_goods.php?act=list';
+$modules['03_promotion']['15_exchange_goods'] = 'exchange_goods.php?act=list';
 // $modules['03_promotion']['25_pre_sale_list'] = 'pre_sale.php?act=list'; // 预售
 // $modules['03_promotion']['16_takegoods_list'] = 'takegoods.php?act=list';
 // $modules['03_promotion']['16_takegoods_order'] = 'takegoods.php?act=order_list';

@@ -43,7 +43,7 @@ if (!file_exists(ROOT_PATH . '../data/install.lock') && !file_exists(ROOT_PATH .
 @ini_set('session.use_trans_sid', 0);
 @ini_set('session.use_cookies',   1);
 @ini_set('session.auto_start',    0);
-@ini_set('display_errors',        0);
+@ini_set('display_errors',        1);
 
 if (DIRECTORY_SEPARATOR == '\\')
 {
@@ -332,7 +332,7 @@ if (!empty($_CFG['stylename']))
 }
 
 // 抽奖汇总
-$week = date("w");
+$week = local_date("w");
 if($week == 2 || $week ==5){        // 暂时写死周二五抽奖
     // 获取上次抽奖信息
     $is_insert = 0;
@@ -400,9 +400,12 @@ if($week == 2 || $week ==5){        // 暂时写死周二五抽奖
             );
         // 更新抽奖配置
         foreach ($award_config as $key => $value) {
+            // echo $value['title'];
             $points = 0;
             if($value['num'] > 0){
                 $points = ($all_points * $award_percent * $value['award_percent'])/($value['num'] * 100 * 100);
+            }else{
+                $points = 1;
             }
             $points = round($points);
             // make_record($points, $value['num'], $value['title'], $value['randnum']);

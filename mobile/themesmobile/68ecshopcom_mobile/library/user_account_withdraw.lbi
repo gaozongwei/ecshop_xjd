@@ -2,7 +2,7 @@
 <!---------提现----------->
 <!--{if $action eq "account_raply" || $action eq "account_log" || $action eq "account_deposit" || $action eq "account_detail"} -->
 
-<h2 class="vc_title">当前账户积分：<strong>{$user_info.user_money}</strong></h2>
+<h2 class="vc_title">当前账户总积分：<strong>{$user_info.points_all}</strong></h2>
 
 <div class="recharge">
 <!-- {/if} --> 
@@ -11,6 +11,7 @@
 <dl class="re_one">
 <dt>{$lang.repay_money}:</dt>
  <dd><input type="text" name="amount" value="{$order.amount|escape}" class="inputBg" /><font style=" font-size:14px; color:#666"> 元</font></dd>
+ <font color="grey" size="1">注:提现扣除30%转入云豆并扣除5%税收到微信账号<font>
 </dl>
 <dl class="re_two">
 <dt>{$lang.process_notic}:</dt>

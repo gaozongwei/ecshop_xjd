@@ -21,6 +21,7 @@ if($order)
 		include_once('../includes/modules/payment/' . $payment['pay_code'] . '.php');
 		$pay_obj    = new $payment['pay_code'];
 		$code = $pay_obj->get_code($order, unserialize_config($payment['pay_config']));
+		error_log("=====.".print_r($code, 1)."=======\n", 3, "aaa.log");
 	}
 	else
 	{

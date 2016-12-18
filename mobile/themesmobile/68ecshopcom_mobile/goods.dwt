@@ -99,11 +99,11 @@ document.getElementById("share_form").submit();
     <dd><i>价格：<font>{$goods.shop_price_formated}</font></i> 
       
       <!-- {if $goods.give_integral eq '-1'} 购买此商品赠送积分--> 
-      <em>赠送积分: <span id="ECS_GOODS_AMOUNT_JF"></span></em> 
+      <em>赠送云豆: <span id="ECS_GOODS_AMOUNT_JF"></span></em> 
       <!-- {elseif $goods.give_integral > 0} --> 
-      <em>赠送积分: <span>{$goods.give_integral}</span></em> 
+      <em>赠送云豆: <span>{$goods.give_integral}</span></em> 
       <!-- {else} --> 
-      <em>赠送积分: <span>0</span></em> 
+      <em>赠送云豆: <span>0</span></em> 
       <!-- {/if} --> 
       <em id="IS_EXCLUSIVE" style="display:none">手机专享</em> 
       <!-- {if $goods.is_shipping} 为免运费商品则显示--><em>包邮</em><!-- {/if} --> 
@@ -114,11 +114,11 @@ document.getElementById("share_form").submit();
     </dt>
     <dd> <i>价格：<font>{$goods.market_price}</font></i> 
       <!-- {if $goods.give_integral eq '-1'} 购买此商品赠送积分--> 
-      <em>赠送积分: <span id="ECS_GOODS_AMOUNT_JF"></span></em> 
+      <em>赠送云豆: <span id="ECS_GOODS_AMOUNT_JF"></span></em> 
       <!-- {elseif $goods.give_integral > 0} --> 
-      <em>赠送积分: <span>{$goods.give_integral}</span></em> 
+      <em>赠送云豆: <span>{$goods.give_integral}</span></em> 
       <!-- {else} --> 
-      <em>赠送积分: <span>0</span></em> 
+      <em>赠送云豆: <span>0</span></em> 
       <!-- {/if} --> 
       <em id="IS_EXCLUSIVE" style="display:none">手机专享</em> </dd>
     {/if}
@@ -176,10 +176,10 @@ document.getElementById("share_form").submit();
 
 <!---自提点---->
 <!--{if $pups && $ppts}-->
-<section id="search_ka" class="goods_ziti">
+<!-- <section id="search_ka" class="goods_ziti">
 <a href="pocking.php?id={$goods.goods_id}"><span>查看自提点</span><i><img src="themesmobile/68ecshopcom_mobile/images/goods/ziti.png"></i></a>
 
-</section>
+</section> -->
 <!--{/if}-->
 
 <!---店铺信息---->
@@ -667,7 +667,7 @@ function selcartResponse(result){
 <div class="footer_nav">
  <ul> 
  <li class="bian"><a href="index.php"><em class="goods_nav1"></em><span>首页</span></a> </li>
- <li class="bian">{if $customers}<a href="javascript:chat_online();">{else}{if $goods.supplier_id}<a href="tel:{$servicephone}">{else}<a href="tel:{insert name='ecsmart_tel'}">{/if}{/if}<em class="goods_nav2"></em><span>客服</span></a> </li>
+<!--  <li class="bian">{if $customers}<a href="javascript:chat_online();">{else}{if $goods.supplier_id}<a href="tel:{$servicephone}">{else}<a href="tel:{insert name='ecsmart_tel'}">{/if}{/if}<em class="goods_nav2"></em><span>客服</span></a> </li> -->
  <li><a href="javascript:collect({$goods.goods_id})" id="favorite_add"><em class="goods_nav3"></em><span>收藏</span></a></li>
  </ul>
  <dl> 

@@ -1083,7 +1083,7 @@ function user_list ()
 		// $sql = "SELECT user_id, user_name, email, is_validated,
 		// validated,status,user_money, frozen_money, rank_points, pay_points,
 		// reg_time ".
-		$sql = "SELECT user_id, user_name, email, mobile_phone, is_validated, validated, user_money, frozen_money, rank_points, pay_points, status, reg_time, froms ".
+		$sql = "SELECT user_id, user_name, email, mobile_phone, is_validated, validated, user_money, frozen_money, rank_points, pay_points, status, reg_time, froms, vip_points ".
 		        /* 代码增加2014-12-23 by www.68ecshop.com  _end  */
                 " FROM " . $GLOBALS['ecs']->table('users') . $ex_where . " ORDER by " . $filter['sort_by'] . ' ' . $filter['sort_order'] . " LIMIT " . $filter['start'] . ',' . $filter['page_size'];
 		

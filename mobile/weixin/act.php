@@ -32,10 +32,11 @@ $act = $db->getRow ( "SELECT * FROM " . $GLOBALS['ecs']->table('weixin_act') . "
 if(!$act) exit("活动已经结束");
 $actList = (array)$db->getAll ( "SELECT * FROM " . $GLOBALS['ecs']->table('weixin_actlist') . " where aid=$aid and isopen=1" );
 if(!$actList) exit("活动未设置奖项");
-$sql = "SELECT wa.*, u.user_name FROM " . 
+$sql = "SELECT wa.*, u.user_name, wu.nickname FROM " . 
 		$GLOBALS['ecs']->table('weixin_actlog') . " AS wa  left join " . 
-		$GLOBALS['ecs']->table('users') . " AS u on wa.uid = u.user_id 
-		where code!='' and aid=$aid order by lid desc limit 0,15";
+		$GLOBALS['ecs']->table('users') . " AS u on wa.uid = u.user_id left join ". 
+		$GLOBALS['ecs']->table('weixin_user') . " AS wu on wu.ecuid = u.user_id ".
+		"where code!='' and aid=$aid order by lid desc limit 0,15";
 $award = $db->getAll ( $sql );
 
 // 我的中奖纪录

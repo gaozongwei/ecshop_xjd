@@ -185,7 +185,7 @@
         	<ul>
 
 				<?php foreach($award as $l){  ?>
-            	<li>恭喜<span><?php echo $l['user_name'] ?></span>抽中了<?php echo $l['title'].$l['class_name'] ?></li>
+            	<li>恭喜<span><?php echo $l['nickname'] ?></span>抽中了<?php echo $l['title'].$l['class_name'] ?></li>
                 <?php }?>
             </ul>
         </div>
@@ -229,10 +229,10 @@
 				foreach($award as $v){ 
 					$tt = 1;
 					?>
-				<li><?php echo $v['user_name'];?>---<?php echo $v['class_name'];?></li>
+				<li><?php echo $v['nickname'];?>---<?php echo $v['class_name'];?></li>
 				<?php }?>
             </ul>
-        	<?php  if($temp == 0){  ?>
+        	<?php  if($tt == 0){  ?>
             <!--中奖排行榜为空时 -->
             <div class="tips-no-data">
            		<p>暂无中奖纪录~</p>

@@ -118,7 +118,7 @@ function get_user_info($id=0)
         $id = $_SESSION['user_id'];
     }
     $time = date('Y-m-d');
-    $sql  = 'SELECT u.user_id, u.email, u.user_name, u.user_money, u.pay_points, u.reg_time'.
+    $sql  = 'SELECT u.user_id, u.email, u.user_name, u.user_money, u.vip_points, u.user_rank, u.pay_points, u.reg_time'.
             ' FROM ' .$GLOBALS['ecs']->table('users'). ' AS u ' .
             " WHERE u.user_id = '$id'";
     $user = $GLOBALS['db']->getRow($sql);

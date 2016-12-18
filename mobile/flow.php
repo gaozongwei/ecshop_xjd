@@ -1067,7 +1067,7 @@ elseif ($_REQUEST['step'] == 'checkout')
 
     /* 如果用户够买的是VIP或者VIP赠送的礼包，先删除购物车其他的商品 */
     $sql = "SELECT rec_id FROM" . 
-            $ecs->table('cart') . " WHERE user_id = '$_SESSION[user_id]' AND ((goods_id = 292 AND extension_code != 'package_buy') OR extension_code = 'package_buy')";
+            $ecs->table('cart') . " WHERE user_id = '$_SESSION[user_id]' AND ((extension_code != 'package_buy') OR extension_code = 'package_buy')";
     $rec_id = $db->getOne($sql);
     if($rec_id > 0){
         $smarty->assign('is_vip', 1);
@@ -2528,7 +2528,6 @@ elseif ($_REQUEST['step'] == 'done')
 
 	        );
 		$order['defaultbank'] = $_POST['www_68ecshop_com_bank'] ? trim($_POST['www_68ecshop_com_bank']) : "";
-	    
 
 		/*增值税发票_添加_START_www.68ecshop.com*/
     	/*发票信息*/
@@ -3035,7 +3034,8 @@ elseif ($_REQUEST['step'] == 'done')
                 $vip_times = floor($rank_points/1000);
                 log_account_change($order['user_id'], 0, 0, intval($rank_points*10000), 0, sprintf("订单 %s 购买VIP等级礼包", $order['order_sn']), ACT_OTHER, $vip_times, $rank_points);
 
-
+                $sql = "UPDATE " . $ecs->table('users') . " SET user_rank = 6 where user_id = ".$order['user_id'];
+                $db->query($sql);
                 // 分成
                 // $affiliate = unserialize($GLOBALS['_CFG']['affiliate_vip']);    
 
@@ -3328,9 +3328,9 @@ elseif ($_REQUEST['step'] == 'done')
     unset($_SESSION['flow_consignee']); // 清除session中保存的收货人信息
     unset($_SESSION['flow_order']);
     unset($_SESSION['direct_shopping']);
-    if(isset($is_vip)){
-        ecs_header("Location: package.php\n");
-    }
+    // if(isset($is_vip)){
+    //     ecs_header("Location: package.php\n");
+    // }
  
 }
 

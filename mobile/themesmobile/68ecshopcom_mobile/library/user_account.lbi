@@ -1,7 +1,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <div class="Funds">
-<h2><span>账户积分</span><em>{$user_info.user_money}</em></h2>
-<h3>云豆：{$user_info.user_points}</h3>
+<ul>
+    {if $user_info.user_rank eq 6}
+	<li style="border-bottom:1px solid #b17171"><h2><span>账户VIP积分</span><em>{$user_info.vip_points}</em></h2></li>
+	{/if}
+	<li style="border-bottom:1px solid #b17171"><h2><span>账户V积分</span><em>{$user_info.user_money}</em></h2></li>
+
+	<li><h3>云豆：{$user_info.user_points}</h3></li>
+</ul>
 </div>
 
 <div class="Funds_dom">

@@ -836,16 +836,9 @@ function insert_affiliate_log($oid, $uid, $username, $money, $separate_by,$chang
 {
     $time = gmtime();
     $sql = "INSERT INTO " . $GLOBALS['ecs']->table('affiliate_log') . "( order_id, user_id, user_name, time, money, separate_type,change_desc, type)".
-                                                              " VALUES ( '$oid', '$uid', '$username', '$time', '$money', '$separate_by','$change_desc', '$type')";
-    if($type ==1){
-    	$sql_user = "UPDATE " . $GLOBALS['ecs']->table('users') . " SET user_money = user_money + $money  WHERE user_id = $uid";
-    }else{
-    	$sql_user = "UPDATE " . $GLOBALS['ecs']->table('users') . " SET vip_points = vip_points + $money  WHERE user_id = $uid";
-    }
-    if ($oid)
-    {
-        $GLOBALS['db']->query($sql);
-        $GLOBALS['db']->query($sql_user);
-    }
+            " VALUES ( '$oid', '$uid', '$username', '$time', '$money', '$separate_by','$change_desc', '$type')";
+    $GLOBALS['db']->query($sql);
+
+	log_account_change($uid, $money, 0, 0, 0,$change_desc);
 }
 ?>

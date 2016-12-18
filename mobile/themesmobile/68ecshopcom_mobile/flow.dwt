@@ -1066,7 +1066,7 @@ function close_gift(suitId){
       <dl class="yueonlin" id="allow_user_surplus">
         <dt> <i>输入V积分：
           <input name="surplus" type="text" class="surplus" id="ECS_SURPLUS"  value="0" onblur="changeSurplus(this.value);" />
-          &nbsp;&nbsp;元</i> <span>您当前的可用V积分为:￥{$your_surplus|default:0}</span><span id="ECS_SURPLUS_NOTICE_{$key}" class="notice"></span> </dt>
+          &nbsp;&nbsp;元</i> <span>您当前的可用V积分为:{$your_surplus|default:0}</span><span id="ECS_SURPLUS_NOTICE_{$key}" class="notice"></span> </dt>
         <!-- <dd> {if $is_surplus_open eq 0}<span class="open_surplus">未开通余额安全支付,请在电脑端登录开通</span>{/if} </dd> -->
       </dl>
     </div>

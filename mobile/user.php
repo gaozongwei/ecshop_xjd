@@ -3557,7 +3557,10 @@ function action_affirm_received()
 	if(affirm_received($order_id, $user_id))
 	{
 		include_once (ROOT_PATH . 'includes/lib_v_user.php');
+
+		/* 购买VIP礼包分成 */
 		vip_order_affiliate($order_id);
+
 		if($GLOBALS['_CFG']['distrib_style'] == 0)
 		{
 			//确认收货，自动分成
@@ -3633,8 +3636,9 @@ function action_account_raply()
 	$db = $GLOBALS['db'];
 	$ecs = $GLOBALS['ecs'];
 	$user_id = $GLOBALS['user_id'];
-
-	$smarty->assign('user_info', get_user_info());
+	$user_info = get_user_info();
+	$user_info['points_all'] = number_format($user_info['user_money'] + $user_info['vip_points'],2);
+	$smarty->assign('user_info', $user_info);
 	$smarty->display('user_transaction.dwt');
 }
 

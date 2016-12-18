@@ -102,14 +102,14 @@ function write_affiliate_log($uid, $username, $money,$change_desc, $type=1)
     $sql = "INSERT INTO " . $GLOBALS['ecs']->table('affiliate_log') . "(user_id, user_name, time, money, separate_type,change_desc)".
                                                               " VALUES ('$uid', '$username', '$time', '$money', '4','$change_desc')";
 
-    if($type ==1){
-    	$sql_user = "UPDATE " . $GLOBALS['ecs']->table('users') . " SET user_money = user_money + $money  WHERE user_id = $uid";
-    }else{
-    	$sql_user = "UPDATE " . $GLOBALS['ecs']->table('users') . " SET vip_points = vip_points + $money  WHERE user_id = $uid";
-    }
+    // if($type ==1){
+    // 	$sql_user = "UPDATE " . $GLOBALS['ecs']->table('users') . " SET user_money = user_money + $money  WHERE user_id = $uid";
+    // }else{
+    // 	$sql_user = "UPDATE " . $GLOBALS['ecs']->table('users') . " SET vip_points = vip_points + $money  WHERE user_id = $uid";
+    // }
 
     $GLOBALS['db']->query($sql);
-    $GLOBALS['db']->query($sql_user);
+    // $GLOBALS['db']->query($sql_user);
 }
 
 ?>

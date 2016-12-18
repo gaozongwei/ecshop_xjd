@@ -7,8 +7,9 @@
 <li><a href="user.php?act=order_list&composite_status=105" {if $composite_status eq 105}class="on"{/if}>待收货({$order_count.await_receipt})</a></li>
 <li><a href="user.php?act=order_list&composite_status=102" {if $composite_status eq 102}class="on"{/if}>已完成({$order_count.finished})</a></li>
 </ul>
+<!--
 <div class="order_tishi">如果要退款、退货，请到电脑端操作。</div>
-
+-->
 <script type="text/javascript">
 var url = 'user.php?act=ajax_order_list';
 $(function(){

@@ -44,6 +44,7 @@
 				</th>
 				<!-- #代码增加2014-12-23 by www.68ecshop.com  _end -->
 				<th>{$lang.user_money}</th>
+				<th>{$lang.vip_point}</th>
 				<th>{$lang.frozen_money}</th>
 				<th>{$lang.rank_points}</th>
 				<th>{$lang.pay_points}</th>
@@ -63,13 +64,13 @@
 				</td>
 				<td class="first-cell">
 					<span style="margin-bottom: 2px; line-height: 14px; display: block;">{$user.user_name|escape}</span>
-					<span style="border: 1px #6DD26A solid; background-color: #6DD26A; padding: 1px 2px 0px 2px; color: white; display: inline; border-radius: 2px;">
+<!-- 					<span style="border: 1px #6DD26A solid; background-color: #6DD26A; padding: 1px 2px 0px 2px; color: white; display: inline; border-radius: 2px;"> -->
 						<!-- {if $user.froms == 'pc'} -->
-						PC会员
+						<!-- PC会员 -->
 						<!-- {elseif $user.froms == 'mobile'} -->
-						微商城会员
+						<!-- 微商城会员 -->
 						<!-- {elseif $user.froms == 'app'} -->
-						APP会员
+						<!-- APP会员 -->
 						<!-- {/if} -->
 					</span>
 					<!-- {if $user.rank_name != null} -->
@@ -93,6 +94,7 @@
 					<span onclick="listTable.edit(this, 'edit_mobile_phone', {$user.user_id})">{$user.mobile_phone}</span>
 				</td>
 				<td>{$user.user_money}</td>
+				<td>{$user.vip_points}</td>
 				<td>{$user.frozen_money}</td>
 				<td>{$user.rank_points}</td>
 				<td>{$user.pay_points}</td>

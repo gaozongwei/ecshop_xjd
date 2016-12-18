@@ -1407,7 +1407,6 @@ function doane(event)
 
 function addPackageToCart(packageId)
 {
-debugger;
   var package_info = new Object();
 
   var number       = 1;
