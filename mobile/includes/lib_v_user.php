@@ -839,6 +839,26 @@ function insert_affiliate_log($oid, $uid, $username, $money, $separate_by,$chang
             " VALUES ( '$oid', '$uid', '$username', '$time', '$money', '$separate_by','$change_desc', '$type')";
     $GLOBALS['db']->query($sql);
 
-	log_account_change($uid, $money, 0, 0, 0,$change_desc);
+}
+
+
+/**
+ * 记录积分变动
+ */
+function update_v_point($user_id, $money, $desc)
+{
+    /* 判断v积分 */
+    $v_points = get_user_points($user_id, 1);
+    // echo $v_points;die();
+    if($v_points < abs($money)){
+        $de_money = abs($money) - $v_points;
+        if($v_points > 0){
+            insert_affiliate_log('0', $user_id, $_SESSION['user_name'], -$v_points, 9,$desc, 1);
+        }
+        insert_affiliate_log('0', $user_id, $_SESSION['user_name'], -$de_money, 9,$desc, 2);
+    }else{
+        insert_affiliate_log('0', $user_id, $_SESSION['user_name'], $money, 9,$desc, 1);
+    }
+    /* 插入帐户变动记录 */
 }
 ?>

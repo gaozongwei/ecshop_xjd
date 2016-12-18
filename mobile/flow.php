@@ -2952,6 +2952,11 @@ elseif ($_REQUEST['step'] == 'done')
 	    if ($order['user_id'] > 0 && $order['surplus'] > 0)
 	    {
 	        log_account_change($order['user_id'], $order['surplus'] * (-1), 0, 0, 0, sprintf($_LANG['pay_order'], $order['order_sn']));
+
+            /* 更新V积分表 */
+            require_once (ROOT_PATH . 'includes/lib_v_user.php');
+            update_v_point($order['user_id'],$order['surplus'] * (-1), '商城消费');
+
 			//是否开启余额变动给客户发短信-用户消费
 			if($_CFG['sms_user_money_change'] == 1)
 			{

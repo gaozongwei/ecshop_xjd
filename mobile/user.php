@@ -3605,6 +3605,9 @@ function action_affirm_received()
 							$info = sprintf($_LANG['separate_info'], $order_sn, $setmoney, 0);
 							push_user_msg($up_uid,$order_sn,$setmoney);
 							insert_affiliate_log($order_id, $up_uid, $row['user_name'], $setmoney, $separate_by,$_LANG['order_separate']);
+
+							/* 更新账户总表 */
+							log_account_change($up_uid, $setmoney, 0, 0, 0,"分销获得v积分");
 						}
 						$sql = "UPDATE " . $GLOBALS['ecs']->table('order_info') .
 							   " SET is_separate = 1" .
@@ -3808,6 +3811,14 @@ function action_act_account()
 		$amount = '-' . $amount;
 		$surplus['payment'] = '';
 		$surplus['rec_id'] = insert_user_account($surplus, $amount);
+
+
+		include_once (ROOT_PATH . 'includes/lib_v_user.php');
+
+		// log_account_change($user_id, $amount, 0, 0, 0, '积分提现');
+
+		// /* 更新V积分表 */
+		// update_v_point($user_id, $amount, '积分提现');
 		
 		/* 如果成功提交 */
 		if($surplus['rec_id'] > 0)
@@ -4314,6 +4325,7 @@ function action_act_edit_surplus()
 	}
 	
 	include_once (ROOT_PATH . 'includes/lib_order.php');
+	require_once (ROOT_PATH . 'includes/lib_v_user.php');
 	
 	/* 取得订单 */
 	$order = order_info($order_id);
@@ -4401,7 +4413,9 @@ function action_act_edit_surplus()
 	/* 更新用户余额 */
 	$change_desc = sprintf($_LANG['pay_order_by_surplus'], $order['order_sn']);
 	log_account_change($user['user_id'], (- 1) * $surplus, 0, 0, 0, $change_desc);
-	
+
+	/* 更新V积分表 */
+	update_v_point($user['user_id'],(- 1) * $surplus, '商城消费');
 	/* 跳转 */
 	ecs_header('Location: user.php?act=order_detail&order_id=' . $order_id . "\n");
 	exit();
@@ -6264,6 +6278,9 @@ function vip_order_affiliate($order_id){
                     $info = sprintf($_LANG['separate_info'], $order_sn, $setmoney, 0);
                     push_user_msg($up_uid,$order_sn,$setmoney);
                     insert_affiliate_log($order_id, $up_uid, $row['user_name'], $setmoney, $separate_by,$_LANG['order_separate'], 2);
+							
+					/* 更新账户总表 */
+					log_account_change($up_uid, $setmoney, 0, 0, 0,"推荐获得vip积分");
                 }
                 $sql = "UPDATE " . $GLOBALS['ecs']->table('order_info') .
                        " SET is_separate = 1" .

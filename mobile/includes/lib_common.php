@@ -2136,6 +2136,17 @@ function log_account_change($user_id, $user_money = 0, $frozen_money = 0, $rank_
 
 
 /**
+*获取用户积分
+*/
+function get_user_points($user_id, $type){
+
+        $sql = "SELECT SUM(money) FROM " . $GLOBALS['ecs']->table('affiliate_log') . " WHERE user_id = '$user_id' AND type = $type";
+        $total_money = $GLOBALS['db']->getOne($sql);
+        return $total_money ? $total_money : 0;
+}
+
+
+/**
  * 获得指定分类下的子分类的数组
  *
  * @access  public
