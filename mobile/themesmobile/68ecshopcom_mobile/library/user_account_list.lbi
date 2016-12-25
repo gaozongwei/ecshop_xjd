@@ -8,7 +8,7 @@
 </script>
 <!-- {/if}--> 
 
-<div class="user_login_title"><h2><em>账户余额：</em><span>{$surplus_amount}</span></h2></div>
+<div class="user_login_title"><h2><em>账户积分：</em><span>{$surplus_amount}</span></h2></div>
 <!--{if $account_log}-->
 <!-- {if $action eq "account_detail"} -->
 <div style=" background:#FFF">

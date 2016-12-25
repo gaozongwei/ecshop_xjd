@@ -130,6 +130,8 @@ function get_user_info($id=0)
     $user['user_bonus']  = price_format($bonus['bonus_value'], false);
     $user['bonus_count'] = $bonus['bonus_count'];
 	$user['reg_time']	 = local_date('Y-m-d',$user['reg_time']);
+    $user['v_points'] = get_user_points($id, 1);
+    $user['vip_points'] = get_user_points($id, 2);
     return $user;
 }
 /**
