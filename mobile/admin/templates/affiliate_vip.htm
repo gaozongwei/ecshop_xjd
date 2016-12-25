@@ -17,15 +17,15 @@
 	<tr>
 		<th name="levels" ReadOnly="true" width="10%">{$lang.vip_levels}</th>
 		<th name="level_point" Type="TextBox">{$lang.vip_level_point}</th>
-    <th name="level_money" Type="TextBox">{$lang.level_money}</th>
-		<th Type="Button">{$lang.handler}</th>
+<!--     <th name="level_money" Type="TextBox">{$lang.level_money}</th>
+		<th Type="Button">{$lang.handler}</th> -->
 	</tr>
 {foreach from=$config.item item=val name=nav}
 <tr align="center">
 	<td>{$smarty.foreach.nav.iteration}</td>
 	<td><span onclick="listTable.edit(this, 'edit_vip_point', '{$smarty.foreach.nav.iteration}'); return false;">{$val.level_point}</span></td>
-  <td><span onclick="listTable.edit(this, 'edit_money', '{$smarty.foreach.nav.iteration}'); return false;">{$val.level_money}</span></td>
-	<td ><a href="javascript:confirm_redirect(lang_removeconfirm, 'affiliate_vip.php?act=del&id={$smarty.foreach.nav.iteration}')"><img style="border:0px;" src="images/no.gif" /></a></td>
+<!--   <td><span onclick="listTable.edit(this, 'edit_money', '{$smarty.foreach.nav.iteration}'); return false;">{$val.level_money}</span></td>
+	<td ><a href="javascript:confirm_redirect(lang_removeconfirm, 'affiliate_vip.php?act=del&id={$smarty.foreach.nav.iteration}')"><img style="border:0px;" src="images/no.gif" /></a></td> -->
 </tr>
 {/foreach}
 </table>

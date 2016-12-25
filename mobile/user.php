@@ -3551,7 +3551,7 @@ function action_affirm_received()
 
 	require_once(ROOT_PATH . '/includes/lib_order.php');
 	include_once (ROOT_PATH . 'includes/lib_transaction.php');
-	// $GLOBALS['_CFG']['distrib_style'];die();
+	// echo $GLOBALS['_CFG']['distrib_style'];die();
 	$order_id = isset($_GET['order_id']) ? intval($_GET['order_id']) : 0;
 	
 	if(affirm_received($order_id, $user_id))

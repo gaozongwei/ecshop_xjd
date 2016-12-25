@@ -358,6 +358,9 @@ elseif ($_REQUEST['act'] == 'action')
 
             //更新会员余额数量
             log_account_change($account['user_id'], $amount, 0, 0, 0, $_LANG['surplus_type_1'], ACT_DRAWING);
+
+            // insert_affiliate_log(0, $account['user_id'], $account['user_name'], $amount, 9,"积分提现", $type=1);
+            update_v_point($account['user_id'], $amount, "积分提现");
 			//是否开启余额变动给客户发短信 -提现
 			if($_CFG['sms_user_money_change'] == 1)
 			{

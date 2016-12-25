@@ -3141,6 +3141,56 @@ function log_account_change($user_id, $user_money = 0, $frozen_money = 0, $rank_
     $GLOBALS['db']->query($sql);
 }
 
+/**
+ * 记录积分变动
+ */
+function update_v_point($user_id, $money, $desc)
+{
+    /* 判断v积分 */
+    $v_points = get_user_points($user_id, 1);
+
+
+
+    $user_name = get_user_nick_name($user_id);
+    // echo $v_points;die();
+    if($v_points < abs($money)){
+        $de_money = abs($money) - $v_points;
+        if($v_points > 0){
+            insert_affiliate_log('0', $user_id, $user_name, -$v_points, 9,$desc, 1);
+        }
+        insert_affiliate_log('0', $user_id, $user_name, -$de_money, 9,$desc, 2);
+    }else{
+        insert_affiliate_log('0', $user_id, $user_name, $money, 9,$desc, 1);
+    }
+    /* 插入帐户变动记录 */
+}
+
+function insert_affiliate_log($oid, $uid, $username, $money, $separate_by,$change_desc, $type=1)
+{
+    $time = gmtime();
+    $sql = "INSERT INTO " . $GLOBALS['ecs']->table('affiliate_log') . "( order_id, user_id, user_name, time, money, separate_type,change_desc, type)".
+            " VALUES ( '$oid', '$uid', '$username', '$time', '$money', '$separate_by','$change_desc', '$type')";
+    $GLOBALS['db']->query($sql);
+
+}
+
+
+/**
+*获取用户积分
+*/
+function get_user_points($user_id, $type){
+
+        $sql = "SELECT SUM(money) FROM " . $GLOBALS['ecs']->table('affiliate_log') . " WHERE user_id = '$user_id' AND type = $type";
+        $total_money = $GLOBALS['db']->getOne($sql);
+        return $total_money ? $total_money : 0;
+}
+
+function get_user_nick_name($user_id){
+    $sql = "SELECT nickname FROM " . $GLOBALS['ecs']->table('weixin_user') . " WHERE ecuid = $user_id";
+    $user_name = $GLOBALS['db']->getOne($sql);
+    return $user_name;
+}
+
 
 /**
  * 获得指定分类下的子分类的数组

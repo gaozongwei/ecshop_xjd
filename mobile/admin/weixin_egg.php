@@ -123,7 +123,7 @@ function qcode_list(){
 	$filter = page_and_size($filter);
 	$filter['start'] = intval($filter['start']);
 	$filter['page_size'] = intval($filter['page_size']);
-	$user_list = $GLOBALS['db']->getAll("SELECT " . $GLOBALS['ecs']->table('weixin_actlog') . ".*," . $GLOBALS['ecs']->table('weixin_user') . ".nickname," . $GLOBALS['ecs']->table('weixin_act') . ".title,". $GLOBALS['ecs']->table('weixin_act') .".overymd FROM".$sql." limit {$filter['start']},{$filter['page_size']}");
+	$user_list = $GLOBALS['db']->getAll("SELECT " . $GLOBALS['ecs']->table('weixin_actlog') . ".*," . $GLOBALS['ecs']->table('weixin_user') . ".nickname," .  $GLOBALS['ecs']->table('weixin_act') .".overymd FROM".$sql." limit {$filter['start']},{$filter['page_size']}");
 	$arr = array('qcode_list' => $user_list, 'filter' => $filter,
 			'page_count' => $filter['page_count'], 'record_count' => $filter['record_count']);
 	return $arr;
