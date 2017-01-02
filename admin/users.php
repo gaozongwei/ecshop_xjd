@@ -67,6 +67,9 @@ function action_list ()
 	));
 	
 	$user_list = user_list();
+	foreach ($user_list as $key => $value) {
+		# code...
+	}
 	
 	$smarty->assign('user_list', $user_list['user_list']);
 	$smarty->assign('filter', $user_list['filter']);
@@ -353,6 +356,8 @@ function action_edit ()
 		$user['rank_points'] = $row['rank_points'];
 		$user['user_rank'] = $row['user_rank'];
 		$user['user_money'] = $row['user_money'];
+		$user['v_points'] = get_user_points($row['user_id'], 1);
+		$user['vip_points'] = get_user_points($row['user_id'], 2);
 		$user['frozen_money'] = $row['frozen_money'];
 		$user['credit_line'] = $row['credit_line'];
 		$user['formated_user_money'] = price_format($row['user_money']);
@@ -1106,7 +1111,8 @@ function user_list ()
 	for($i = 0; $i < $count; $i ++)
 	{
 		$user_list[$i]['reg_time'] = local_date($GLOBALS['_CFG']['date_format'], $user_list[$i]['reg_time']);
-		
+		$user_list[$i]['v_points'] = get_user_points($user_list[$i]['user_id'],1);
+		$user_list[$i]['vip_points'] = get_user_points($user_list[$i]['user_id'],2);;
 		for ($j = 0; $j < count($rank_list); $j ++)
 		{
 			$rank_id = $rank_list[$j]['rank_id'];

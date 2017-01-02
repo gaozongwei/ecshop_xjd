@@ -11,20 +11,28 @@
     <td>{if $form_action eq "update"}{$user.user_name}<input type="hidden" name="username" value="{$user.user_name}" />{else}<input type="text" name="username" maxlength="60" value="{$user.user_name}" />{$lang.require_field}{/if}</td>
   </tr>
   {if $form_action eq "update"}
-  <tr>
+<!--   <tr>
     <td class="label">{$lang.user_money}:</td>
     <td>{$user.formated_user_money} <a href="account_log.php?act=list&user_id={$user.user_id}&account_type=user_money">[ {$lang.view_detail_account} ]</a> </td>
+  </tr> -->
+  <tr>
+    <td class="label">{$lang.vip_point}:</td>
+    <td>{$user.vip_points}</td>
   </tr>
   <tr>
+    <td class="label">{$lang.v_point}:</td>
+    <td>{$user.v_points}</td>
+  </tr>
+<!--   <tr>
     <td class="label">{$lang.frozen_money}:</td>
     <td>{$user.formated_frozen_money} <a href="account_log.php?act=list&user_id={$user.user_id}&account_type=frozen_money">[ {$lang.view_detail_account} ]</a> </td>
   </tr>
   <tr>
     <td class="label"><a href="javascript:showNotice('noticeRankPoints');" title="{$lang.form_notice}"><img src="images/notice.gif" width="16" height="16" border="0" alt="{$lang.form_notice}"></a> {$lang.rank_points}:</td>
     <td>{$user.rank_points} <a href="account_log.php?act=list&user_id={$user.user_id}&account_type=rank_points">[ {$lang.view_detail_account} ]</a> <br /><span class="notice-span" {if $help_open}style="display:block" {else} style="display:none" {/if} id="noticeRankPoints">{$lang.notice_rank_points}</span></td>
-  </tr>
+  </tr> -->
   <tr>
-    <td class="label"><a href="javascript:showNotice('noticePayPoints');" title="{$lang.form_notice}"><img src="images/notice.gif" width="16" height="16" border="0" alt="{$lang.form_notice}" /></a> {$lang.pay_points}:</td>
+    <td class="label">{$lang.pay_points}:</td>
     <td>{$user.pay_points} <a href="account_log.php?act=list&user_id={$user.user_id}&account_type=pay_points">[ {$lang.view_detail_account} ]</a> <br />
         <span class="notice-span" {if $help_open}style="display:block" {else} style="display:none" {/if} id="noticePayPoints">{$lang.notice_pay_points}</span></td>
   </tr>
@@ -71,10 +79,7 @@
     <td class="label">{$lang.birthday}:</td>
     <td>{html_select_date field_order="YMD" prefix="birthday" time=$user.birthday start_year="-60" end_year="+1" display_days=true month_format="%m"}</td>
   </tr>
-  <tr>
-    <td class="label">{$lang.credit_line}:</td>
-    <td><input name="credit_line" type="text" id="credit_line" value="{$user.credit_line}" size="10" /></td>
-  </tr>
+
   {foreach from=$extend_info_list item=field}
   <!-- {if $field.reg_field_name != '验证手机'} -->
   <tr>

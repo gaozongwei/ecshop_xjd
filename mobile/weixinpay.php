@@ -21,7 +21,7 @@ if($order)
 		include_once('../includes/modules/payment/' . $payment['pay_code'] . '.php');
 		$pay_obj    = new $payment['pay_code'];
 		$code = $pay_obj->get_code($order, unserialize_config($payment['pay_config']));
-		error_log("=====.".print_r($code, 1)."=======\n", 3, "aaa.log");
+		error_log("=====.".print_r($payment['pay_code'], 1)."=======\n", 3, "aaa.log");
 	}
 	else
 	{
@@ -48,7 +48,7 @@ else
 					if(res.err_msg == "get_brand_wcpay_request:ok" ) {
 						window.location.href = "<?php echo return_url('weixin');?>";
 					} else {
-						alert("交易取消");
+						alert(res.err_msg);
 						window.location.href = "./index.php";
 					}
 				}

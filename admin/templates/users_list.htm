@@ -43,10 +43,11 @@
 					{$sort_mobile_phone}
 				</th>
 				<!-- #代码增加2014-12-23 by www.68ecshop.com  _end -->
-				<th>{$lang.user_money}</th>
+				<!-- <th>{$lang.user_money}</th> -->
+				<th>{$lang.v_point}</th>
 				<th>{$lang.vip_point}</th>
-				<th>{$lang.frozen_money}</th>
-				<th>{$lang.rank_points}</th>
+				<!-- <th>{$lang.frozen_money}</th> -->
+				<!-- <th>{$lang.rank_points}</th> -->
 				<th>{$lang.pay_points}</th>
 				<th>
 					<a href="javascript:listTable.sort('reg_time'); ">{$lang.reg_date}</a>
@@ -93,10 +94,8 @@
 					{/if}{/if}
 					<span onclick="listTable.edit(this, 'edit_mobile_phone', {$user.user_id})">{$user.mobile_phone}</span>
 				</td>
-				<td>{$user.user_money}</td>
+				<td>{$user.v_points}</td>
 				<td>{$user.vip_points}</td>
-				<td>{$user.frozen_money}</td>
-				<td>{$user.rank_points}</td>
 				<td>{$user.pay_points}</td>
 				<td align="center">{$user.reg_time}</td>
 				<!-- #代码增加2014-12-23 by www.68ecshop.com  _star -->
