@@ -11,11 +11,14 @@
 <dl class="re_one">
 <dt>{$lang.repay_money}:</dt>
  <dd><input type="text" name="amount" value="{$order.amount|escape}" class="inputBg" /><font style=" font-size:14px; color:#666"> 元</font></dd>
- <font color="grey" size="1">注:提现扣除30%转入云豆并扣除5%税收到微信账号<font>
+ <font color="grey" size="1">注:提现扣除扣除5%税收并扣除30%转入云豆<font>
 </dl>
 <dl class="re_two">
-<dt>{$lang.process_notic}:</dt>
-<dd><textarea name="user_note" cols="55" rows="6">{$order.user_note|escape}</textarea></dd>
+<dt>提现微信号:</dt>
+<dd>
+<input type="text" name="user_note" value="{$order.user_note}" placeholder="请输入当前账户微信号" class="inputBg" />
+	
+</dd>
 </dl>
 <span><input type="hidden" name="surplus_type" value="1" />
                   <input type="hidden" name="act" value="act_account" />

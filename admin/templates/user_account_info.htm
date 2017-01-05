@@ -20,7 +20,29 @@
           <span class="require-field">*</span>
         </td>
       </tr>
+
       <tr>
+        <td class="label">扣税：</td>
+        <td>
+          <input type="text" name="amount" value="{$user_surplus.tax}" size="20" readonly="true" />
+          <span class="require-field">*</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="label">转入云豆：</td>
+        <td>
+          <input type="text" name="amount" value="{$user_surplus.bean}" size="20" readonly="true" />
+          <span class="require-field">*</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="label">实际提现金额：</td>
+        <td>
+          <input type="text" name="amount" value="{$user_surplus.actual}" size="20" readonly="true" />
+          <span class="require-field">*</span>
+        </td>
+      </tr>
+<!--       <tr>
         <td class="label">{$lang.pay_mothed}：</td>
         <td>
           <select name="payment" {if $user_surplus.process_type eq 2 || $user_surplus.process_type eq 3}disabled="true" {/if}>
@@ -44,7 +66,7 @@
           {if $user_surplus.process_type eq 3|| $action eq "edit"} checked="true"{/if}{if $user_surplus.process_type eq 2 || $user_surplus.process_type eq 3} disabled="true"{/if} />{$lang.surplus_type_3}
           {/if}
         </td>
-      </tr>
+      </tr> -->
       <tr>
         <td class="label">{$lang.surplus_notic}：</td>
         <td>
@@ -52,7 +74,7 @@
         </td>
       </tr>
       <tr>
-        <td class="label">{$lang.surplus_desc}：</td>
+        <td class="label">会员微信号：</td>
         <td>
           <textarea name="user_note" cols="55" rows="3"{if $user_surplus.process_type eq 2 || $user_surplus.process_type eq 3} readonly="true" {/if}>{$user_surplus.user_note}</textarea>
         </td>

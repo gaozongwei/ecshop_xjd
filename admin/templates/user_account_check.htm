@@ -8,13 +8,19 @@
   </tr>
   <tr>
     <td colspan="2">
-    <strong>{$lang.user_id}：</strong>{$user_name} &nbsp;&nbsp;<strong>{$lang.surplus_amount}：</strong>{$surplus.amount} &nbsp;&nbsp;<strong>{$lang.add_date}：</strong>{$surplus.add_time}
-    &nbsp;&nbsp;<strong>{$lang.process_type}：</strong>{$process_type}
+    <strong>{$lang.user_id}：</strong>{$user_name} &nbsp;&nbsp;
+    <strong>{$lang.surplus_amount}：</strong>{$surplus.amount} &nbsp;&nbsp;
+    <strong>扣税：</strong>{$surplus.tax} &nbsp;&nbsp;
+    <strong>转入云豆：</strong>{$surplus.bean} &nbsp;&nbsp;
+    <strong>实际提现金额：</strong>{$surplus.actual} &nbsp;&nbsp;
+    <strong>{$lang.add_date}：</strong>{$surplus.add_time}&nbsp;&nbsp;
+    <!-- <strong>{$lang.process_type}：</strong>{$process_type} -->
+
     {if $surplus.pay_method}&nbsp;&nbsp;<strong>{$lang.pay_method}：</strong>{$surplus.payment}{/if}
     </td>
   </tr>
   <tr>
-    <td colspan="2"><strong>{$lang.surplus_desc}：</strong>{$surplus.user_note}<hr /></td>
+    <td colspan="2"><strong>提现微信号：</strong>{$surplus.user_note}<hr /></td>
   </tr>
   <tr>
     <th width="15%" valign="middle" align="right">{$lang.surplus_notic}：</th>

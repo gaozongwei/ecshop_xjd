@@ -277,6 +277,21 @@ elseif ($_REQUEST['act']=='update')
         $db->autoExecute($ecs->table('goods'), $good_info, 'UPDATE', "supplier_id = '" . $supplier_id . "'");
         //删除店铺所在的标签
         $db->query('delete FROM '.$ecs->table('supplier_tag_map').' WHERE supplier_id = '.$supplier_id);
+    }else{
+            // 审核通过，赠送店铺推荐人优惠券
+            // if($_CFG['bonus_reg_rand'])
+            // {
+            //     $sql_bonus_ext = " order by rand() limit 0,1";
+            // }
+            // $sql_b = "SELECT type_id FROM " . $ecs->table("bonus_type") . " WHERE send_type='" . SEND_BY_REGISTER . "'  AND send_start_date<=" . $now . " AND send_end_date>=" . $now . $sql_bonus_ext;
+            // $res_bonus = $db->query($sql_b);
+            // $kkk_bonus = 0;
+            // while($row_bonus = $db->fetchRow($res_bonus))
+            // {
+            //     $sql = "INSERT INTO " . $ecs->table('user_bonus') . "(bonus_type_id, bonus_sn, user_id, used_time, order_id, emailed)" . " VALUES('" . $row_bonus['type_id'] . "', 0, '" . $_SESSION['user_id'] . "', 0, 0, 0)";
+            //     $db->query($sql);
+            //     $kkk_bonus = $kkk_bonus + 1;
+            // }
     }
 
     //更新相关店铺的管理员状态

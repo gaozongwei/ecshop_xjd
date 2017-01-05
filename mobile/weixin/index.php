@@ -257,8 +257,8 @@ if ($event['event'] == "CLICK"){
 				{
 					$text .= "手机号码： {$reMsg['mobile_phone']}\r\n"; 
 				}
-				$text .= "余额：{$reMsg['user_money']}\r\n";
-				$text .= "积分：{$reMsg['pay_points']}\r\n";
+				$text .= "总积分：{$reMsg['user_money']}\r\n";
+				$text .= "云豆：{$reMsg['pay_points']}\r\n";
 				$text .="<a href='{$weburl}mobile/user.php'>查看详情</a>";
 			}
 			echo $weixin->text($text)->reply();exit;

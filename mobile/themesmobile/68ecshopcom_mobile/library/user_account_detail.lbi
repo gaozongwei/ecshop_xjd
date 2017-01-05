@@ -1,15 +1,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!---------申请记录----------->
-<div class="user_login_title" style=" margin-bottom:10px;"><h2><em>账户余额：</em><span>{$surplus_amount}</span></h2></div>
+<div class="user_login_title" style=" margin-bottom:10px;"><h2><em>账户总积分：</em><span>{$surplus_amount}</span></h2></div>
 
 <!--{if $account_log}-->
 <!--{foreach from=$account_log item=item}-->
 <div class="detail_m">
 <dl>
-<h2><span>{$item.type}</span><em>{$item.add_time}</em></h2>
+<h2><em>{$item.add_time}</em></h2>
 <dt><em>{$lang.money}：</em><span>{$item.amount}</span></dt>
 <dd>
-<p>{$lang.process_notic}：{$item.short_user_note}</p>
+<p>扣税：{$item.tax}</p>
+<p>转入云豆：{$item.bean}</p>
+<p>实际金额：{$item.actual}</p>
+<p>提现微信号：{$item.short_user_note}</p>
 <p>{$lang.admin_notic}：{$item.short_admin_note}</p>
 </dd>
 <dd>

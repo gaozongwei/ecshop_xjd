@@ -245,20 +245,18 @@
     <div class="tabs-bd" style="display:none;">
         <div class="block">
         	<div class="title">抽奖模式</div>
-        	<p>只有VIP才有资格抽奖</p>
-        	<p>每次每个VIP只有一次抽奖机会</p>
-        	<p>每周二周五进行一次抽奖活动</p>
+        	<p>VIP参与抽奖</p>
+        	<p>抽奖时间：每周二周五参与抽奖</p>
             <br>
 			<div class="title">奖项设置</div>
 
 			<ul>
-				<?php foreach($actList as $v){?>
  				<li class="tpl-prize-item">
+				<?php foreach($actList as $v){?>
 	                        <span class="prize-num tpl-prize-num"></span>
-	                        <span class="prize-name tpl-prize-name"><?php echo $v['title'];?>---<?php echo $v['awardname'];?>积分</span>
-	                        <span class="prize-number tpl-prize-number">奖品数量：<?php echo $v['num'] ? $v['num']: '不限';?></span>
-	                    </li> 
+	                        <span class="prize-name tpl-prize-name"><?php echo $v['title'];?></span>
 								<?php }?>
+	                    </li> 
 							
             </ul>
 

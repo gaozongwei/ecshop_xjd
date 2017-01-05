@@ -6,15 +6,6 @@
   <form action="javascript:searchUser()" name="searchForm">
     <img src="images/icon_search.gif" width="25" height="22" border="0" alt="SEARCH" />
     {$lang.user_id} <input type="text" name="keyword" size="10" />
-      <select name="process_type">
-        <option value="-1">{$lang.process_type}</option>
-        <option value="0" {$process_type_0}>{$lang.surplus_type_0}</option>
-        <option value="1" {$process_type_1}>{$lang.surplus_type_1}</option>
-      </select>
-      <select name="payment">
-      <option value="">{$lang.pay_mothed}</option>
-      {html_options options=$payment_list}
-      </select>
       <select name="is_paid">
         <option value="-1">{$lang.status}</option>
         <option value="0" {$is_paid_0}>{$lang.unconfirm}</option>

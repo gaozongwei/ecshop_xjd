@@ -46,6 +46,7 @@ $_LANG['send_by'][SEND_BY_ORDER] = '按订单金额发放';
 $_LANG['send_by'][SEND_BY_PRINT] = '线下发放的红包';
 $_LANG['send_by'][SEND_BY_REGISTER] = '按注册用户发放';  //代码增加   By  www.68ecshop.com
 $_LANG['send_by'][SEND_BY_ONLINE] = '线上发放的红包';
+$_LANG['send_by']['6'] = '按推荐商家发放';
 $_LANG['bonus_img'] = '线上发放的红包图片';
 $_LANG['user_bonus_max'] = '用户领取线上红包上限';
 

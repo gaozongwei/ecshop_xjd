@@ -105,6 +105,15 @@ elseif ($_REQUEST['act'] == 'add' || $_REQUEST['act'] == 'edit')
         // 如果是负数，去掉前面的符号
         $user_account['amount'] = str_replace('-', '', $user_account['amount']);
 
+        // 提现扣除5%税
+        $user_account['tax'] = number_format($user_account['amount']*5/100, 2);
+
+        //扣除30%转入云豆
+        $user_account['bean'] = number_format(($user_account['amount'] - $user_account['tax'])*30/100, 2);
+
+        // 剩余部分
+        $user_account['actual'] = $user_account['amount'] - $user_account['tax'] - $user_account['bean'];
+
         /* 取得会员名称 */
         $sql = "SELECT user_name FROM " .$ecs->table('users'). " WHERE user_id = '$user_account[user_id]'";
         $user_name = $db->getOne($sql);
@@ -284,7 +293,19 @@ elseif ($_REQUEST['act'] == 'check')
     }
     elseif ($account['process_type'] == 1)
     {
+        $account['amount'] = abs($account['amount']);
         $process_type = $_LANG['surplus_type_1'];
+        // 提现扣除5%税
+        $account['tax'] = number_format($account['amount']*5/100, 2);
+
+        //扣除30%转入云豆
+        $account['bean'] = number_format(($account['amount'] - $account['tax'])*30/100, 2);
+
+        // 剩余部分
+        $account['actual'] = $account['amount'] - $account['tax'] - $account['bean'];
+
+
+
     }
     elseif ($account['process_type'] == 2)
     {
@@ -358,7 +379,11 @@ elseif ($_REQUEST['act'] == 'action')
 
             //更新会员余额数量
             log_account_change($account['user_id'], $amount, 0, 0, 0, $_LANG['surplus_type_1'], ACT_DRAWING);
-
+            
+            //更新会员云豆数量
+            $bean = abs(number_format($amount*(1-0.05)*0.3, 2));
+            echo $bean;
+            log_account_change($account['user_id'], 0, 0, 0, $bean, "提现转入", ACT_SAVING);
             // insert_affiliate_log(0, $account['user_id'], $account['user_name'], $amount, 9,"积分提现", $type=1);
             update_v_point($account['user_id'], $amount, "积分提现");
 			//是否开启余额变动给客户发短信 -提现
@@ -381,6 +406,7 @@ elseif ($_REQUEST['act'] == 'action')
 
             //更新会员余额数量
             log_account_change($account['user_id'], $amount, 0, 0, 0, $_LANG['surplus_type_0'], ACT_SAVING);
+
 
         }
         elseif ($is_paid == '0')

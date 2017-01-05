@@ -273,7 +273,6 @@ function get_affiliate_ck()
 		$logdb[] = $rt;
 	}
     $arr = array('logdb' => $logdb, 'filter' => $filter, 'page_count' => $filter['page_count'], 'record_count' => $filter['record_count']);
-
     return $arr;
 }
 function write_affiliate_log($oid, $uid, $username, $money, $separate_by,$change_desc)
@@ -349,8 +348,11 @@ function get_all_affiliate_log($order_id)
 	$arr = array();
 	$str = '';
 	foreach($list as $val)
-	{
-		 $str .= sprintf($GLOBALS['_LANG']['separate_info2'], $val['user_id'], $val['user_name'], $val['money'])."<br />";
+	{   if($val['type'] == 1){
+            $str .= sprintf($GLOBALS['_LANG']['separate_infov'], $val['user_id'], $val['user_name'], $val['money'])."<br />";
+        }else{
+            $str .= sprintf($GLOBALS['_LANG']['separate_infovip'], $val['user_id'], $val['user_name'], $val['money'])."<br />";
+        }
 		 $arr['log_id'] = $val['log_id'];
 		 $arr['separate_type'] = $val['separate_type'];
 	}

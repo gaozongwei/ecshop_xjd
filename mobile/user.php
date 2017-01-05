@@ -3559,9 +3559,9 @@ function action_affirm_received()
 		include_once (ROOT_PATH . 'includes/lib_v_user.php');
 
 		/* 购买VIP礼包分成 */
-		vip_order_affiliate($order_id);
+		if(vip_order_affiliate($order_id)){
 
-		if($GLOBALS['_CFG']['distrib_style'] == 0)
+		}elseif($GLOBALS['_CFG']['distrib_style'] == 0)
 		{
 			//确认收货，自动分成
 			$affiliate = unserialize($GLOBALS['_CFG']['affiliate']);
@@ -3763,6 +3763,12 @@ function action_account_log()
 	
 	// 获取余额记录
 	$account_log = get_account_log($user_id, $pager['size'], $pager['start']);
+
+	foreach ($account_log as $key => $value) {
+		$account_log[$key]['tax'] = number_format($value['amount']*5/100, 2);
+		$account_log[$key]['bean'] = number_format(($value['amount']-$account_log[$key]['tax'])*30/100, 2);
+		$account_log[$key]['actual'] = number_format($value['amount'] - $account_log[$key]['tax'] - $account_log[$key]['bean'], 2);
+	}
 	
 	// 模板赋值
 	$smarty->assign('surplus_amount', price_format($surplus_amount, false));
@@ -6292,5 +6298,6 @@ function vip_order_affiliate($order_id){
             @file_get_contents($autoUrl."/weixin/auto_do.php?type=1&is_affiliate=1");
         } 
     }
+    return true;
 }
 ?>
