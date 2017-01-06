@@ -10,7 +10,7 @@ if ((DEBUG_MODE & 2) != 2)
 {
     $smarty->caching = true;
 }
-
+error_log(print_r($_REQUEST, 1), 3, "a.log");
 if($_CFG['is_distrib'] == 0)
 {
 	show_message('没有开启微信分销服务！','返回首页','index.php'); 

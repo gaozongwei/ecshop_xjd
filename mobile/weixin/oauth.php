@@ -18,6 +18,8 @@ if($id > 0){
 }
 $weixin = new core_lib_wechat($weixinconfig);
 if($_GET['code']){
+	$_SESSION['code'] = $_GET['code'];
+	error_log($_SESSION, 3, "ddd.log");
 	$json = $weixin->getOauthAccessToken();
 	if($json['openid']){
 		$ecuid = $GLOBALS['db']->getOne("select ecuid from " . $GLOBALS['ecs']->table('weixin_user') . " where fake_id='{$json['openid']}'");

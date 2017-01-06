@@ -247,7 +247,7 @@ elseif ($_REQUEST['act']=='update')
     /* 代码增加_start  By  supplier.68ecshop.com */
     /* 取得供货商信息 */
     //$sql = "SELECT * FROM " . $ecs->table('supplier') . " WHERE supplier_id = '" . $supplier_id ."' ";
-    $sql = "select s.supplier_id,s.add_time,s.status,u.* from " . $ecs->table('supplier') . " as s left join ". $ecs->table('users') .
+    $sql = "select s.supplier_id, s.user_id, s.add_time,s.status,u.* from " . $ecs->table('supplier') . " as s left join ". $ecs->table('users') .
         " as u on s.user_id=u.user_id where s.supplier_id=".$supplier_id;
     $supplier_old = $db->getRow($sql);
     if (empty($supplier_old['supplier_id']))
@@ -260,7 +260,7 @@ elseif ($_REQUEST['act']=='update')
     }
 
     //操作店铺商品与店铺街信息
-    if($supplier['status'] != $supplier_old['status'] && $supplier['status'] == -1){
+    if($supplier['status'] != $supplier_old['status'] && $supplier['status'] == -1){die('111');
         //审核不通过
         //店铺街信息失效
         $check_info = array(
@@ -278,20 +278,26 @@ elseif ($_REQUEST['act']=='update')
         //删除店铺所在的标签
         $db->query('delete FROM '.$ecs->table('supplier_tag_map').' WHERE supplier_id = '.$supplier_id);
     }else{
-            // 审核通过，赠送店铺推荐人优惠券
-            // if($_CFG['bonus_reg_rand'])
-            // {
-            //     $sql_bonus_ext = " order by rand() limit 0,1";
-            // }
-            // $sql_b = "SELECT type_id FROM " . $ecs->table("bonus_type") . " WHERE send_type='" . SEND_BY_REGISTER . "'  AND send_start_date<=" . $now . " AND send_end_date>=" . $now . $sql_bonus_ext;
-            // $res_bonus = $db->query($sql_b);
-            // $kkk_bonus = 0;
-            // while($row_bonus = $db->fetchRow($res_bonus))
-            // {
-            //     $sql = "INSERT INTO " . $ecs->table('user_bonus') . "(bonus_type_id, bonus_sn, user_id, used_time, order_id, emailed)" . " VALUES('" . $row_bonus['type_id'] . "', 0, '" . $_SESSION['user_id'] . "', 0, 0, 0)";
-            //     $db->query($sql);
-            //     $kkk_bonus = $kkk_bonus + 1;
-            // }
+        if($supplier['status'] == 1 && $supplier_old['status'] == 0){
+            $sql_parent_id = "SELECT parent_id FROM " . $ecs->table('users') . " WHERE user_id = $supplier_old[user_id] limit 0,1";
+            $parent_id = $db->getOne($sql_parent_id);
+
+            if($parent_id){
+                // 审核通过，赠送店铺推荐人优惠券
+                $now = gmtime();
+                $sql_bonus_ext = " order by rand() limit 0,1";
+
+                $sql_b = "SELECT type_id FROM " . $ecs->table("bonus_type") . " WHERE send_type='6'  AND send_start_date<=" . $now . " AND send_end_date>=" . $now . $sql_bonus_ext;
+                $res_bonus = $db->query($sql_b);
+                $kkk_bonus = 0;
+                while($row_bonus = $db->fetchRow($res_bonus))
+                {
+                    $sql = "INSERT INTO " . $ecs->table('user_bonus') . "(bonus_type_id, bonus_sn, user_id, used_time, order_id, emailed)" . " VALUES('" . $row_bonus['type_id'] . "', 0, '" . $parent_id . "', 0, 0, 0)";
+                    $db->query($sql);
+                    $kkk_bonus = $kkk_bonus + 1;
+                }
+            }
+        }
     }
 
     //更新相关店铺的管理员状态
