@@ -6,6 +6,7 @@ define('IN_ECS', true);
 require(dirname(__FILE__) . '/includes/init.php');
 require(dirname(__FILE__) . '/includes/lib_v_user.php');
 require(dirname(__FILE__) . '/weixin/wechat.class.php');
+require(dirname(__FILE__) . '/wxjs/jssdk.php');
 if ((DEBUG_MODE & 2) != 2)
 {
     $smarty->caching = true;
@@ -128,6 +129,10 @@ if (!$smarty->is_cached('v_user_erweima.dwt', $cache_id))
     assign_dynamic('v_user_erweima');
 }
 
+$wxjs = new JSSDK();
+$wx_package = $wxjs->getSignPackage();
+$smarty->assign('wx_package',$wx_package);
+var_dump($wx_package);die();
 $smarty->display('v_user_erweima.dwt', $cache_id);
 
 ?>

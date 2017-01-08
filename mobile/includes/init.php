@@ -361,7 +361,7 @@ if($week == 2 || $week ==5){        // 暂时写死周二五抽奖
         // 计算人数加权值
         $sql = "SELECT sum(vip_times) as member_all FROM " . $ecs->table('users') . " WHERE vip_award > 0";
         $member_all = $db->getOne($sql);
-        $award_percent = number_format(20, 2);
+        $award_percent = 20;
         $sql = "INSERT INTO " . $ecs->table('award_account') . "(time_begin, time_end, all_points, award_percent, member_all, week) VALUES( '$time_begin', '$time_end', '$all_points', '$award_percent', '$member_all', '$week')";
         $db->query($sql);
         // $id = $db->insert_id();

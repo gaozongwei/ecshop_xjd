@@ -37,22 +37,23 @@
 </div>
 </section>
 <script>
-// wx.config({
-//     debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-//     appId: 'wx67bd3728b7a85277', // 必填，公众号的唯一标识
-//     timestamp: '', // 必填，生成签名的时间戳
-//     nonceStr: 'Y3YgMjjfrHzlHS1v4xp2eEr0xOhuOI4xqnWzSiEKzyH', // 必填，生成签名的随机串
-//     signature: '',// 必填，签名，见附录1
-//     jsApiList: [] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-// });
+var url = window.location.href;
+wx.config({
+    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+    appId: 'wx67bd3728b7a85277', // 必填，公众号的唯一标识
+    timestamp: "{$wx_package.timestamp}", // 必填，生成签名的时间戳
+    nonceStr: "{$wx_package.nonceStr}", // 必填，生成签名的随机串
+    signature: "{$wx_package.signature}",// 必填，签名，见附录1
+    jsApiList: ['onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo', 'onMenuShareQZone'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+});
 
 
 
- var imgUrl = "http://www.vjifeng.com/mobile/data/afficheimg/1482139366925108407.jpg";  //图片LOGO注意必须是绝对路径
-       var lineLink = "http://www.vjifeng.com/mobile/v_user_erweima.php?u=67&user_id=";   //网站网址，必须是绝对路径
-       var descContent = '微积分商城'; //分享给朋友或朋友圈时的文字简介
-       var shareTitle = '微积分商城';  //分享title
-       var appid = 'wx67bd3728b7a85277'; //apiID，可留空
+ var imgUrl = "{$user_info.headimgurl}";  //图片LOGO注意必须是绝对路径
+       var lineLink = url;   //网站网址，必须是绝对路径
+       var descContent = '扫一扫下面的二维码，访问我的微店'; //分享给朋友或朋友圈时的文字简介
+       var shareTitle = '微店二维码';  //分享title
+       var appid = ''; //apiID，可留空
         
        function shareFriend() {
            WeixinJSBridge.invoke('sendAppMessage',{
