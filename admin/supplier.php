@@ -260,7 +260,7 @@ elseif ($_REQUEST['act']=='update')
     }
 
     //操作店铺商品与店铺街信息
-    if($supplier['status'] != $supplier_old['status'] && $supplier['status'] == -1){die('111');
+    if($supplier['status'] != $supplier_old['status'] && $supplier['status'] == -1){
         //审核不通过
         //店铺街信息失效
         $check_info = array(

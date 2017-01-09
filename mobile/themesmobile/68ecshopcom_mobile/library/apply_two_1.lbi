@@ -44,7 +44,7 @@
           <tbody>
             <tr>
               <th><i>*</i>店铺名称：</th>
-              <td><input name="company_name" type="text" value="谁谁谁" class="w200">
+              <td><input name="company_name" type="text" value="{$supplier.company_name}" class="w200">
                 <span></span></td>
             </tr>
             <tr>
@@ -91,22 +91,22 @@
             </tr>
             <tr>
               <th><i>*</i>详细地址：</th>
-              <td><input name="address" class="w200" type="text" value="所得税的所得税的">
+              <td><input name="address" class="w200" type="text" value="{$supplier.address}">
                 <span></span></td>
             </tr>
             <tr>
               <th><i>*</i>姓名：</th>
-              <td><input name="contacts_name" type="text" class="w200" value="谁谁谁">
+              <td><input name="contacts_name" type="text" class="w200" value="{$supplier.contacts_name}">
                 <span></span></td>
             </tr>
             <tr>
               <th><i>*</i>联系人电话：</th>
-              <td><input name="contacts_phone" type="text" class="w200" value="18820325562">
+              <td><input name="contacts_phone" type="text" class="w200" value="{$supplier.contacts_phone}">
                 <span></span></td>
             </tr>
             <tr>
               <th><i>*</i>电子邮箱：</th>
-              <td><input type="text" name="email" size="45" value="5566555@qq.com" class="w200">
+              <td><input type="text" name="email" size="45" value="{$supplier.email}" class="w200">
                 <span></span></td>
             </tr>
           </tbody>
@@ -125,28 +125,28 @@
           <tbody>
             <tr>
               <th><i>*</i>身份证号码：</th>
-              <td><input name="id_card_no" type="text" class="w200" value="411522198708252122">
+              <td><input name="id_card_no" type="text" class="w200" value="{$supplier.id_card_no}">
                 <span></span></td>
             </tr>
             <tr>
               <th><i>*</i>手持身份证照片：</th>
               <td><input name="handheld_idcard" type="file">
-                <br>
-                <!--<img src="data/supplier/59_20161201pzurzm.jpg" width="80" height="80" id="handheld_idcard_id"> <br> -->
+                {if $supplier.handheld_idcard}<br>
+                <img src="../../data/supplier/{$supplier.handheld_idcard}" width=80 height=80 id='handheld_idcard_id'> {/if} <br />
                 <span id="id-hand-s"></span></td>
             </tr>
             <tr>
               <th><i>*</i>身份证正面：</th>
               <td><input name="idcard_front" type="file">
-                <br>
-                <!--<img src="data/supplier/59_20161201mioeic.jpg" width="80" height="80" id="idcard_front_id"> <br> -->
+                {if $supplier.idcard_front}<br>
+                <img src="../../data/supplier/{$supplier.idcard_front}" width=80 height=80 id='idcard_front_id'>{/if} <br />
                 <span id="id-front-s"></span></td>
             </tr>
             <tr>
               <th><i>*</i>身份证反面：</th>
               <td><input name="idcard_reverse" type="file">
-                <br>
-               <!-- <img src="data/supplier/59_20161201tduqdx.jpg" width="80" height="80" id="idcard_reverse_id"> <br> -->
+                {if $supplier.idcard_reverse}<br>
+                <img src="../../data/supplier/{$supplier.idcard_reverse}" width=80 height=80 id='idcard_reverse_id'>{/if} <br />
                 <span id="id-back-s"></span></td>
             </tr>
           </tbody>
@@ -165,22 +165,22 @@
           <tbody>
             <tr>
               <th class="w150"><i>*</i>银行开户名：</th>
-              <td><input name="bank_account_name" id="bank_account_name" type="text" class="w200" value="高靖">
+              <td><input name="bank_account_name" id="bank_account_name" type="text" class="w200" value="{$supplier.bank_account_name}">
                 <span></span></td>
             </tr>
             <tr>
               <th><i>*</i>个人银行账号：</th>
-              <td><input name="bank_account_number" id="bank_account_number" type="text" class="w200" value="">
+              <td><input name="bank_account_number" id="bank_account_number" type="text" class="w200" value="{$supplier.bank_account_number}">
                 <span></span></td>
             </tr>
             <tr>
               <th><i>*</i>开户银行支行名称：</th>
-              <td><input name="bank_name" type="text" id="bank_name" class="w200" value="大幅度">
+              <td><input name="bank_name" type="text" id="bank_name" class="w200" value="{$supplier.bank_name}">
                 <span></span></td>
             </tr>
             <tr>
               <th><i>*</i>支行联行号：</th>
-              <td><input name="bank_code" type="text" id="bank_code" class="w200" value="655">
+              <td><input name="bank_code" type="text" id="bank_code" class="w200" value="{$supplier.bank_code}">
                 <span></span></td>
             </tr>
           </tbody>
@@ -194,8 +194,8 @@
         <input type="hidden" name="do" value="1">
         <input type="hidden" name="person" value="1">
         <div class="bottom">
-          <!--<input type="button" value="上一步" class="btn" onclick="top.location.href='apply.php?shownum=0'"> -->
-         <input type="submit" value="确认提交" class="btn">
+          <input type="button" value="上一步" class="btn" onclick="top.location.href='apply.php?shownum=0'">
+         <input type="submit" value="下一步" class="btn">
          
         </div>
       </form>

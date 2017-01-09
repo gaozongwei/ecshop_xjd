@@ -153,8 +153,8 @@
 		.cj-num .gray{ margin:0 3px;}
 		.cj-num .icon-laba{ font-size:18px; margin-right:8px;}
 		/*scroll-news*/
-		.scroll-news{ padding:0 20px 0 50px; position:relative; height:50px; overflow:hidden; background:rgba(0,0,0,0.3);}
-		.scroll-news li{ width:96%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; height:50px; line-height:50px; color:#fff; font-size:16px;}
+		.scroll-news{ padding:0 20px 0 50px; position:relative; height:70px; overflow:hidden; background:rgba(0,0,0,0.3);}
+		.scroll-news li{ width:96%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; height:35px; line-height:35px; color:#fff; font-size:16px;}
 		.scroll-news .icon-laba{ position:absolute; top:10px; left:20px; color:#fff; font-size:22px;}
 	</style>
 </head>
