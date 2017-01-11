@@ -21,3 +21,51 @@ Array
     [u] => 62
     [user_id] => 62
 )
+Array
+(
+    [ECS] => Array
+        (
+            [history] => 227,283,292,117,122
+            [username] => u180MZMA982
+            [user_id] => 54
+            [password] => e8952987179a06f187a70721c53b20c4
+        )
+
+    [ecshop_affiliate_uid] => 54
+    [username] => admin
+    [userpwd] => admin123
+    [ispwd] => 1
+    [ECS_ID] => 48202e8024c2832b3b1804189e56c63a6100b857
+    [user_id] => 54
+)
+Array
+(
+    [ECS] => Array
+        (
+            [history] => 227,283,292,117,122
+            [username] => u180MZMA982
+            [user_id] => 54
+            [password] => e8952987179a06f187a70721c53b20c4
+        )
+
+    [ecshop_affiliate_uid] => 54
+    [username] => admin
+    [userpwd] => admin123
+    [ispwd] => 1
+    [ECS_ID] => 48202e8024c2832b3b1804189e56c63a6100b857
+    [u] => 54
+    [user_id] => 54
+)
+Array
+(
+    [ECS] => Array
+        (
+            [history] => 227,283,292,117,122
+            [username] => u180MZMA982
+        )
+
+    [ecshop_affiliate_uid] => 54
+    [username] => admin
+    [userpwd] => admin123
+    [ispwd] => 1
+)

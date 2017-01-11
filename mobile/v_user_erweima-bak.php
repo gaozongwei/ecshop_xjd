@@ -6,12 +6,11 @@ define('IN_ECS', true);
 require(dirname(__FILE__) . '/includes/init.php');
 require(dirname(__FILE__) . '/includes/lib_v_user.php');
 require(dirname(__FILE__) . '/weixin/wechat.class.php');
-require(dirname(__FILE__) . '/wxjs/jssdk.php');
 if ((DEBUG_MODE & 2) != 2)
 {
     $smarty->caching = true;
 }
-error_log(print_r($_REQUEST, 1), 3, "a.log");
+
 if($_CFG['is_distrib'] == 0)
 {
 	show_message('没有开启微信分销服务！','返回首页','index.php'); 
@@ -24,9 +23,9 @@ if(isset($_GET['user_id']) && intval($_GET['user_id']) > 0)
 elseif($user_id = $_SESSION['user_id'])
 {
 
-}elseif($user_id = $_GET['u']){
-
-}else{
+}
+else
+{
 	 ecs_header("Location:./\n");
 	 exit;
 }
@@ -129,10 +128,6 @@ if (!$smarty->is_cached('v_user_erweima.dwt', $cache_id))
     assign_dynamic('v_user_erweima');
 }
 
-$wxjs = new JSSDK();
-$wx_package = $wxjs->getSignPackage();
-$smarty->assign('wx_package',$wx_package);
-// var_dump($wx_package);die();
 $smarty->display('v_user_erweima.dwt', $cache_id);
 
 ?>

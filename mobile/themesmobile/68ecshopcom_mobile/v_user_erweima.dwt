@@ -51,7 +51,7 @@ wx.config({
 
  var imgUrl = "{$user_info.headimgurl}";  //图片LOGO注意必须是绝对路径
        var lineLink = url;   //网站网址，必须是绝对路径
-       var descContent = '扫一扫下面的二维码，访问我的微店'; //分享给朋友或朋友圈时的文字简介
+       var descContent = '扫一扫下面的二维码，送送送！买买买！百万现金大赠送'; //分享给朋友或朋友圈时的文字简介
        var shareTitle = '微店二维码';  //分享title
        var appid = ''; //apiID，可留空
         
@@ -136,6 +136,5 @@ document.body.style.overflow='';
 
 </script>
 <!-----底部悬浮菜单---->
-<!-- #BeginLibraryItem "/library/vshop_footer.lbi" --><!-- #EndLibraryItem --> 
 </body>
 </html>
