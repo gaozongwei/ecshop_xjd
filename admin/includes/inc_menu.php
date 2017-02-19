@@ -210,7 +210,7 @@ $modules['02_supplier']['05_supplier_rank'] = 'supplier_rank.php?act=list';
 $modules['02_supplier']['01_supplier_reg'] = 'supplier.php?act=list';
 $modules['02_supplier']['02_supplier_list'] = 'supplier.php?act=list&status=1';
 $modules['02_supplier']['03_rebate_nopay'] = 'supplier_rebate.php?act=list';
-//$modules['02_supplier']['03_rebate_pay'] = 'supplier_rebate.php?act=list&is_pay_ok=1';
+$modules['02_supplier']['03_rebate_pay'] = 'supplier_rebate.php?act=list&is_pay_ok=1';
 $modules['02_supplier']['04_shop_category'] = 'supplier_street_category.php?act=list';
 $modules['02_supplier']['05_shop_street'] = 'supplier_street.php?act=list';
 /* 代码增加_end By www.68ecshop.com */

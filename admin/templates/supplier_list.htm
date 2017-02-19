@@ -56,8 +56,8 @@
                 <td align="center">{$supplier.supplier_remark}</td>
                 <td align="center">{$supplier.status_name}</td>
                 <td align="center">
-                    <a href="supplier.php?act=edit&id={$supplier.supplier_id}&status={$status}" title="{$lang.view}">{$lang.view}</a>{if $supplier.status > 0 && $supplier.open > 0}&nbsp;&nbsp;<a href="../supplier.php?suppId={$supplier.supplier_id}" target="_blank">查看店铺</a>&nbsp;&nbsp;
-                    <!--<a href="supplier.php?act=view&id={$supplier.supplier_id}" title="查看佣金">查看佣金</a>-->{else}&nbsp;&nbsp;{/if}&nbsp;&nbsp;<a href="javascript:del_supplier({$supplier.supplier_id})" title="删除店铺">删除店铺</a></td>
+                    <a href="supplier.php?act=edit&id={$supplier.supplier_id}&status={$status}" title="{$lang.view}">{$lang.view}</a>{if $supplier.status > 0 && $supplier.open > 0}&nbsp;&nbsp;<!-- <a href="../supplier.php?suppId={$supplier.supplier_id}" target="_blank">查看店铺</a> -->&nbsp;&nbsp;
+                    <a href="supplier.php?act=view&id={$supplier.supplier_id}" title="查看佣金">查看佣金</a>{else}&nbsp;&nbsp;{/if}&nbsp;&nbsp;<a href="javascript:del_supplier({$supplier.supplier_id})" title="删除店铺">删除店铺</a></td>
             </tr>
             {foreachelse}
             <tr><td class="no-records" colspan="10">{$lang.no_records}</td></tr>
