@@ -333,7 +333,7 @@ if (!empty($_CFG['stylename']))
 
 // 抽奖汇总
 $week = local_date("w");
-if($week == 2 || $week ==5){        // 暂时写死周二五抽奖
+if($week == 1){        // 暂时写死周二五抽奖
     // 获取上次抽奖信息
     $is_insert = 0;
     $time_end = strtotime(date("y-m-d"));

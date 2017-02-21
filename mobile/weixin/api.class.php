@@ -399,8 +399,10 @@ class weixinapi{
 		if(!$act) return 0;
 		$uid = $_SESSION['user_id'];
 		if($act['type'] == 1){
-			$ymd = date('Y-m-d');
-			$sql = "SELECT count(1) FROM " . $GLOBALS['ecs']->table('weixin_actlog') . " WHERE `uid` = '$uid' and aid = '$aid' and createymd='$ymd'";
+			// $ymd = date('Y-m-d');
+			// $sql = "SELECT count(1) FROM " . $GLOBALS['ecs']->table('weixin_actlog') . " WHERE `uid` = '$uid' and aid = '$aid' and createymd='$ymd'";
+			$yw = date('YW');
+			$sql = "SELECT count(1) FROM " . $GLOBALS['ecs']->table('weixin_actlog') . " WHERE `uid` = '$uid' and aid = '$aid' and createyw='$yw'";
 		}else{
 			$sql = "SELECT count(1) FROM " . $GLOBALS['ecs']->table('weixin_actlog') . " WHERE `uid` = '$uid' and aid = '$aid'";
 		}
@@ -430,6 +432,7 @@ class weixinapi{
 		//$awardNum = $awardNum-1;
 		$time = time();
 		$ymd = date('Y-m-d',$time);
+		$yw = date('YW');
 		$res = $this->randAward($aid);
 		$class_name = '';$code = '';$msg = 0;
 		$uid = $_SESSION['user_id'];
@@ -460,8 +463,8 @@ class weixinapi{
 					break;
 			}
 		}
-		$GLOBALS['db']->query("INSERT INTO ".$GLOBALS['ecs']->table('weixin_actlog')." (uid,aid,class_name,createymd,createtime,code,issend, title) 
-		value ($uid,$aid,'$class_name','$ymd','$time','$code',0, '$title')");
+		$GLOBALS['db']->query("INSERT INTO ".$GLOBALS['ecs']->table('weixin_actlog')." (uid,aid,class_name,createymd,createyw,createtime,code,issend, title) 
+		value ($uid,$aid,'$class_name','$ymd','$yw','$time','$code',0, '$title')");
 		$class_name = $class_name ? $class_name : "非常遗憾没有中奖！";
 		
 		return array('num'=>$awardNum,'msg'=>$msg,'prize'=>$class_name,'prize_code'=>$code,'r'=>$r);
