@@ -95,7 +95,7 @@ a{ text-decoration:none; line-height:14px;}
       {foreach from=$val.goods_list item=goods name=val_goods_list}
         <li>
           <div class="index_pro">
-            <div class="products_kuang"> <a href="javascript:void(0)" title="{$goods.goods_name|escape:html}"><img src="./../{$goods.goods_thumb}"  alt="{$goods.goods_name|escape:html}"></a></div>
+            <div class="products_kuang"> <a href="goods.php?id={$goods.goods_id}" title="{$goods.goods_name|escape:html}"><img src="./../{$goods.goods_thumb}"  alt="{$goods.goods_name|escape:html}"></a></div>
             <div class="goods_name"> <a href="javascript:void(0)" title="{$goods.goods_name|escape:html}">{$goods.goods_name}</a></div>
           </div>
         </li>

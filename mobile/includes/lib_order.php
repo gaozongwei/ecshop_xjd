@@ -1013,8 +1013,8 @@ function update_order($order_id, $order)
 		$db->query($sql);
 
 		//入驻商绑定的会员帐户日志变动
-		$change_desc = "订单:".$order_sn."返入驻商会员可用资金";
-		log_account_change($supplier_user_id, $result_money, 0, 0, 0, $change_desc, ACT_ADJUSTING);
+		// $change_desc = "订单:".$order_sn."返入驻商会员可用资金";
+		// log_account_change($supplier_user_id, $result_money, 0, 0, 0, $change_desc, ACT_ADJUSTING);
 	}
 	return true;
  }

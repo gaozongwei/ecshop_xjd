@@ -17,7 +17,7 @@ $modules['02_cat_and_goods']['04_category_list']		  = 'category.php?act=list';
 $modules['02_cat_and_goods']['05_order_comment']   = 'order_comment.php?act=list';
 
 $modules['02_rebate_manage']['03_rebate_nopay']       = 'supplier_rebate.php?act=list&is_pay_ok=0'; 
-$modules['02_rebate_manage']['03_rebate_pay']       = 'supplier_rebate.php?act=list&is_pay_ok=1';
+// $modules['02_rebate_manage']['03_rebate_pay']       = 'supplier_rebate.php?act=list&is_pay_ok=1';
 
 $modules['03_promotion']['04_bonustype_list']       = 'bonus.php?act=list';
 //$modules['03_promotion']['08_group_buy']            = 'group_buy.php?act=list';

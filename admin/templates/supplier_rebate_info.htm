@@ -23,14 +23,14 @@
         </td>
       </tr>
       <tr>
-        <td width="9%" align="right">支付方式：</td>
+<!--         <td width="9%" align="right">支付方式：</td>
         <td width="15%">
         	<select class="chzn-select" name='payid' id="payid" style='width:123px;'>
     			<option value='0' selected='selected'>全部</option>
 				{foreach from=$payinfo item=pay}
     			<option value='{$pay.pay_id}'>{$pay.pay_name}</option>
 				{/foreach}
-    		</select></td>
+    		</select></td> -->
         <td width="67%">
 			<select class="chzn-select" data-placeholder="商家订单号" style="width:350px;" name="orderid"> 
 				<option value=""></option>
@@ -51,6 +51,7 @@
 </div>
 <div class="list-div" id="listDiv">
 {/if}
+	<form action="supplier_rebate.php" name="settlement" method="post">
   <table cellpadding="3" cellspacing="1">
     <tr>
       <th><a href="javascript:listTable.sort('sr.add_time'); ">账户变动时间</a></th>
@@ -58,8 +59,10 @@
       <th>订单金额（元）</th>
       <th>平台扣除佣金（元）</th>
 	  <th>商家实际收入金额（元）</th>
-      <th>支付方式</th>
-      <th>备注</th>
+      <th>结算状态</th>
+      <th>结算时间</th>
+<!--       <th>支付方式</th>
+      <th>备注</th> -->
     </tr>
 	{foreach from=$supplier_list item=supplier}
     <tr>
@@ -68,14 +71,28 @@
       <td align="center">{$supplier.all_money}</td>
       <td align="center">-{$supplier.rebate_money}</td>
       <td align="center" class="add">+{$supplier.result_money}</td>
-      <td align="center">{$supplier.pay_name}</td>
-	  <td align="center">{$supplier.texts}</td>
+      <td align="center">{if $supplier.settle_status eq 0 }未结算{else}已结算{/if}</td>
+      <td align="center">{$supplier.settlement_time}</td>
+<!--       <td align="center">{$supplier.pay_name}</td>
+	  <td align="center">{$supplier.texts}</td> -->
     </tr>
 	{/foreach}
 	<!--没有佣金记录的显示-->
     <!--<tr><td class="no-records" colspan="7">{$lang.no_records}</td></tr>-->
 
+<tr>
+		<td>未结算金额共计</td>
+		<td>{$un_pay|default:0}</td>
+		<td colspan=4>
+  			<input type="hidden" name="suppid" value="{$smarty.request.suppid}">
+			<input name="start_time" type="hidden" value="{$filter.start_time}"/>
+	        <input name="end_time" type="hidden" value="{$filter.end_time}"/>
+  			<input type="hidden" name="act" value="post_settlement">
+		</td>
+		<td><input type="submit" name="result" value="结算全部"></td>
+</tr>
   </table>
+	</form>
 <table id="page-table" cellspacing="0">
   <tr>
     <td>&nbsp;</td>
@@ -84,7 +101,9 @@
     </td>
   </tr>
 </table>
+<table>
 
+</table>
 {if $full_page}
 </div>
 {literal}
