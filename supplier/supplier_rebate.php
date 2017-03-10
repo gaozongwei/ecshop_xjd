@@ -184,6 +184,7 @@ function supplier_rebate_info_list()
     while ($row = $GLOBALS['db']->fetchRow($res))
 	{
 		$row['add_time'] = local_date('Y-m-d H:i:s', $row['add_time']);
+        $row['settlement_time'] = local_date('Y-m-d H:i:s', $row['settlement_time']);
 		$list[]=$row;
 	}
     $arr = array('result' => $list, 'filter' => $filter, 'page_count' => $filter['page_count'], 'record_count' => $filter['record_count']);

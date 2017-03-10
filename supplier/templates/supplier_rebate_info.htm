@@ -55,8 +55,8 @@
       <th>订单金额（元）</th>
       <th>平台扣除佣金（元）</th>
 	  <th>商家实际收入金额（元）</th>
-      <th>支付方式</th>
-      <th>备注</th>
+      <th>结算状态</th>
+      <th>结算时间</th>
     </tr>
 	{foreach from=$supplier_list item=supplier}
     <tr>
@@ -65,8 +65,8 @@
       <td align="center">{$supplier.all_money}</td>
       <td align="center">-{$supplier.rebate_money}</td>
       <td align="center" class="add">+{$supplier.result_money}</td>
-      <td align="center">{$supplier.pay_name}</td>
-	  <td align="center">{$supplier.texts}</td>
+      <td align="center">{if $supplier.settle_status eq 0 }未结算{else}已结算{/if}</td>
+      <td align="center">{$supplier.settlement_time}</td>
     </tr>
 	{/foreach}
 	<!--没有佣金记录的显示-->

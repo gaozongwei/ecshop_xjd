@@ -664,17 +664,19 @@ function selcartResponse(result){
 </script>
 </form>  
 <div style=" height:55px;"></div>
-<div class="footer_nav">
- <ul> 
- <li class="bian"><a href="index.php"><em class="goods_nav1"></em><span>首页</span></a> </li>
+  {if $is_on_sale eq 1}
+  <div class="footer_nav">
+    <ul> 
+        <li class="bian"><a href="index.php"><em class="goods_nav1"></em><span>首页</span></a> </li>
 <!--  <li class="bian">{if $customers}<a href="javascript:chat_online();">{else}{if $goods.supplier_id}<a href="tel:{$servicephone}">{else}<a href="tel:{insert name='ecsmart_tel'}">{/if}{/if}<em class="goods_nav2"></em><span>客服</span></a> </li> -->
- <li><a href="javascript:collect({$goods.goods_id})" id="favorite_add"><em class="goods_nav3"></em><span>收藏</span></a></li>
- </ul>
- <dl> 
- <dd class="flow" id="ECS_ADD_TO_CART"><a class="button active_button" onClick="choose_attr(0)">加入购物车</a> </dd>
- <dd class="goumai" id="ECS_ONE_STEP_BUY"><a style="display:block;" onClick="choose_attr(1)">立即购买</a> </dd>
- <span class="daohuo" id="ECS_DAOHUO"> <a onClick="tell_me({$goods.goods_id})"/>到货通知</a></span>
- </dl>                
-</div>  
+        <li><a href="javascript:collect({$goods.goods_id})" id="favorite_add"><em class="goods_nav3"></em><span>收藏</span></a></li>
+    </ul>
+    <dl> 
+        <dd class="flow" id="ECS_ADD_TO_CART"><a class="button active_button" onClick="choose_attr(0)">加入购物车</a> </dd>
+        <dd class="goumai" id="ECS_ONE_STEP_BUY"><a style="display:block;" onClick="choose_attr(1)">立即购买</a> </dd>
+        <span class="daohuo" id="ECS_DAOHUO"> <a onClick="tell_me({$goods.goods_id})"/>到货通知</a></span>
+    </dl>                
+  </div>  
+  {/if}
 </body>  
 </html>

@@ -29,6 +29,7 @@ $_LANG['log_action']['batch_trash'] = '批量回收';
 $_LANG['log_action']['batch_restore'] = '批量还原';
 $_LANG['log_action']['batch_upload'] = '批量上传';
 $_LANG['log_action']['batch_edit'] = '批量编辑';
+$_LANG['log_action']['settle'] = '结算';
 
 /*------------------------------------------------------ */
 //-- 操作内容
@@ -88,4 +89,6 @@ $_LANG['log_action']['exchange_goods'] = '积分可兑换的商品';
 $_LANG['log_action']['suppliers'] = '供货商管理';
 
 $_LANG['log_action']['reg_fields'] = '会员注册项';
+
+$_LANG['log_action']['suppliers_money'] = '供货商佣金';
 ?>

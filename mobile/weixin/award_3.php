@@ -246,7 +246,7 @@
         <div class="block">
         	<div class="title">抽奖模式</div>
         	<p>VIP参与抽奖</p>
-        	<p>抽奖时间：每周二周五参与抽奖</p>
+        	<p>抽奖时间：每周参与抽奖</p>
             <br>
 			<div class="title">奖项设置</div>
 

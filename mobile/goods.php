@@ -1,6 +1,6 @@
 <?php
 
-header('Location: mobile/index.php');
+// header('Location: mobile/index.php');
 /**
  * ECSHOP 商品详情
  * ============================================================================
@@ -697,6 +697,12 @@ else
 /* 更新点击次数 */
 $db->query('UPDATE ' . $ecs->table('goods') . " SET click_count = click_count + 1 WHERE goods_id = '$_REQUEST[id]'");
 $smarty->assign('now_time',  gmtime());           // 当前系统时间
+
+/* 是否下架 */
+$sql_sale = "SELECT is_on_sale FROM " . $ecs->table('goods') . " WHERE goods_id = $goods_id";
+$is_on_sale = $db->getOne($sql_sale);
+$smarty->assign('is_on_sale',  $is_on_sale);         
+
 $smarty->display('goods.dwt',      $cache_id);
 
 /*------------------------------------------------------ */

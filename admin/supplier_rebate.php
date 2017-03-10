@@ -127,6 +127,7 @@ elseif ($_REQUEST['act'] == 'view')
     $smarty->assign('filter',       $result['filter']);
     $smarty->assign('record_count', $result['record_count']);
     $smarty->assign('page_count',   $result['page_count']);
+    $smarty->assign('un_pay',   $result['un_pay']);
 
 	$smarty->assign('full_page',        1); // 翻页参数
 	$smarty->assign('payinfo',$rebate_pay);
@@ -154,6 +155,7 @@ elseif ($_REQUEST['act'] == 'search_supp_query')
     $smarty->assign('filter',       $result['filter']);
     $smarty->assign('record_count', $result['record_count']);
     $smarty->assign('page_count',   $result['page_count']);
+    $smarty->assign('un_pay',   $result['un_pay']);
 
 	/* 排序标记 */
     $sort_flag  = sort_flag($result['filter']);
@@ -187,6 +189,50 @@ elseif ($_REQUEST['act'] == 'export_goods')
     {
         echo $export. "\t";
     }
+}
+
+
+//结算
+elseif ($_REQUEST['act'] == 'post_settlement')
+{
+    admin_priv('supplier_rebate');
+    
+    $filter['suppid'] = intval($_POST['suppid']);
+
+    $filter['start_time']  = empty($_POST['start_time']) ? '' : $_POST['start_time'];
+    $filter['end_time']    = empty($_POST['end_time']) ? '' : $_POST['end_time'];
+    if($filter['suppid']){
+
+        $time = time();
+        $where = ' WHERE settle_status = 0 AND supplier_id='.$filter['suppid'] ;
+
+        if ($filter['start_time'])
+        {
+            $where .= " and add_time >= '" . $filter['start_time']."' ";
+        }
+
+        if ($filter['end_time'])
+        {
+            $where .= " and add_time <= '" . $filter['end_time']."' ";;
+        }
+        $sql = "SELECT sum(result_money) as result_money FROM " . $ecs->table('supplier_rebate_log') . " $where";
+        $result_money = $db->getOne($sql);
+        $result_money = $result_money ? $result_money : 0;
+
+        $sql = "UPDATE " . $ecs->table('supplier_rebate_log') . " set settle_status = 1, settlement_time = $time $where";
+        $db->query($sql);
+
+        $sql = "SELECT supplier_name FROM " . $ecs->table('supplier') . " WHERE supplier_id = " . $filter['suppid'];
+        $supplier_name = $db->getOne($sql);
+
+        admin_log("$supplier_name--$result_money", 'settle', 'suppliers_money'); // 记录日志
+        sys_msg("处理成功", 1);
+    }else{
+        
+        sys_msg("处理失败", 0);
+    }
+
+
 }
 
 /**
@@ -340,10 +386,20 @@ function supplier_rebate_info_list()
     while ($row = $GLOBALS['db']->fetchRow($res))
 	{
 		$row['add_time'] = local_date('Y-m-d H:i:s', $row['add_time']);
+        $row['settlement_time'] = local_date('Y-m-d H:i:s', $row['settlement_time']);
 		$list[]=$row;
 	}
     $arr = array('result' => $list, 'filter' => $filter, 'page_count' => $filter['page_count'], 'record_count' => $filter['record_count']);
 
+    // 未结算金额
+    $where .= " AND sr.settle_status = 0 ";
+    $sql = "SELECT sum(sr.result_money) as result_money ".
+            "FROM " . $GLOBALS['ecs']->table("supplier_rebate_log") . " AS  sr left join " .$GLOBALS['ecs']->table("supplier") .  " AS s on sr.supplier_id=s.supplier_id 
+            $where
+            ORDER BY " . $filter['sort_by'] . " " . $filter['sort_order'];
+    $un_pay = $GLOBALS['db']->getOne($sql);
+    echo $result_money;
+    $arr['un_pay'] = $un_pay;
     return $arr;
 }
 //平台方当前的金额明细
@@ -365,7 +421,7 @@ function get_all_supplier_order()
 {
 	global $db,$ecs;
 	$suppid = intval($_REQUEST['suppid']);
-	$sql = "select order_id,order_sn from ".$ecs->table('supplier_rebate_log')." where supplier_id=".$suppid;
+	$sql = "select order_id,order_sn, settle_status from ".$ecs->table('supplier_rebate_log')." where supplier_id=".$suppid;
 	return $db->getAll($sql);
 }
 //当前入驻商详细信息中的支付方式
