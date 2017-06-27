@@ -1189,18 +1189,21 @@ function create_shop_settiongs()
 	if($num>0){
 		return;
 	}else{
+        $sql = "SELECT * FROM " . $ecs->table('supplier') . " WHERE supplier_id=".$_SESSION['supplier_id'];
+        $supplier = $db->getRow($sql);
+
 		$insql = "INSERT INTO ". $ecs->table('supplier_shop_config') ." (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`, `supplier_id`) VALUES
 				(1, 0, 'shop_info', 'group', '', '', '', 1, ".$_SESSION['supplier_id']."),
 				(2, 0, 'hidden', 'hidden', '', '', '', 1, ".$_SESSION['supplier_id']."),
 				(8, 0, 'sms', 'group', '', '', '', 1, ".$_SESSION['supplier_id']."),
-				(101, 1, 'shop_name', 'text', '', '', '商家店铺名称', 1, ".$_SESSION['supplier_id']."),
+				(101, 1, 'shop_name', 'text', '', '', '".$supplier['supplier_name']."', 1, ".$_SESSION['supplier_id']."),
 				(102, 1, 'shop_title', 'text', '', '', '商家店铺标题', 1, ".$_SESSION['supplier_id']."),
 				(103, 1, 'shop_desc', 'hidden', '', '', '商家店铺描述', 1, ".$_SESSION['supplier_id']."),
 				(104, 1, 'shop_keywords', 'text', '', '', '商家店铺关键字', 1, ".$_SESSION['supplier_id']."),
-				(105, 1, 'shop_country', 'manual', '', '', '1', 1, ".$_SESSION['supplier_id']."),
-				(106, 1, 'shop_province', 'manual', '', '', '0', 1, ".$_SESSION['supplier_id']."),
-				(107, 1, 'shop_city', 'manual', '', '', '0', 1, ".$_SESSION['supplier_id']."),
-				(108, 1, 'shop_address', 'text', '', '', '', 1, ".$_SESSION['supplier_id']."),
+				(105, 1, 'shop_country', 'manual', '', '', '".$supplier['country']."', 1, ".$_SESSION['supplier_id']."),
+				(106, 1, 'shop_province', 'manual', '', '', '".$supplier['province']."', 1, ".$_SESSION['supplier_id']."),
+				(107, 1, 'shop_city', 'manual', '', '', '".$supplier['city']."', 1, ".$_SESSION['supplier_id']."),
+				(108, 1, 'shop_address', 'text', '', '', '".$supplier['address']."', 1, ".$_SESSION['supplier_id']."),
 				(109, 1, 'qq', 'text', '', '', '', 1, ".$_SESSION['supplier_id']."),
 				(110, 1, 'ww', 'text', '', '', '', 1, ".$_SESSION['supplier_id']."),
 				(111, 1, 'skype', 'hidden', '', '', '', 1, ".$_SESSION['supplier_id']."),
