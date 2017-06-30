@@ -68,14 +68,14 @@
               <select name="value[{$var.id}]" id="selProvinces" onchange="region.changed(this, 2, 'selCities')">
                 <option value=''>{$lang.select_please}</option>
                 {foreach from=$provinces item=region}
-                  <option value="{$region.region_id}" {if $region.region_id eq $cfg.shop_province}selected{/if}>{$region.region_name}</option>
+                  <option value="{$region.region_id}" {if $region.region_id eq $var.value}selected{/if}>{$region.region_name}</option>
                 {/foreach}
               </select>
             {elseif $var.code eq "shop_city"}
               <select name="value[{$var.id}]" id="selCities">
                 <option value=''>{$lang.select_please}</option>
                 {foreach from=$cities item=region}
-                  <option value="{$region.region_id}" {if $region.region_id eq $cfg.shop_city}selected{/if}>{$region.region_name}</option>
+                  <option value="{$region.region_id}" {if $region.region_id eq $var.value}selected{/if}>{$region.region_name}</option>
                 {/foreach}
               </select>
 	 <div style="width:850px;margin:auto;">   

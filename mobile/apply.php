@@ -45,8 +45,8 @@ if(isset($_POST['do']) && $_POST['do']){
 		{
 	    $save['company_name'] = isset($_POST['company_name']) ? trim(addslashes(htmlspecialchars($_POST['company_name']))) : ''; 
 		$save['country'] = isset($_POST['country']) ? intval($_POST['country']) : 1; 
-		$save['province'] = isset($_POST['contact_province_code']) ? intval($_POST['contact_province_code']) : 1; 
-		$save['city'] = isset($_POST['contact_city_code']) ? intval($_POST['contact_city_code']) : 1; 
+		$save['province'] = isset($_POST['province']) ? intval($_POST['province']) : 1; 
+		$save['city'] = isset($_POST['city']) ? intval($_POST['city']) : 1; 
 		$save['district'] = isset($_POST['district']) ? intval($_POST['district']) : 1; 
 		$save['address'] = isset($_POST['address']) ? trim(addslashes(htmlspecialchars($_POST['address']))) : '';
 		$save['tel'] = isset($_POST['tel']) ? trim(addslashes(htmlspecialchars($_POST['tel']))) : '';
@@ -131,8 +131,8 @@ if(isset($_POST['do']) && $_POST['do']){
 		{
 			$save['company_name'] = isset($_POST['company_name']) ? trim(addslashes(htmlspecialchars($_POST['company_name']))) : ''; 
 			$save['country'] = isset($_POST['country']) ? intval($_POST['country']) : 1; 
-			$save['province'] = isset($_POST['contact_province_code']) ? intval($_POST['contact_province_code']) : 1; 
-			$save['city'] = isset($_POST['contact_city_code']) ? intval($_POST['contact_city_code']) : 1; 
+			$save['province'] = isset($_POST['province']) ? intval($_POST['province']) : 1; 
+			$save['city'] = isset($_POST['city']) ? intval($_POST['city']) : 1; 
 			$save['district'] = isset($_POST['district']) ? intval($_POST['district']) : 1; 
 			$save['address'] = isset($_POST['address']) ? trim(addslashes(htmlspecialchars($_POST['address']))) : '';
 			

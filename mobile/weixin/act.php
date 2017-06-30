@@ -29,7 +29,7 @@ $user_id = $_SESSION['user_id'];
 
 $aid = intval($_GET['aid']);
 $act = $db->getRow ( "SELECT * FROM " . $GLOBALS['ecs']->table('weixin_act') . " WHERE `aid` = $aid and isopen=1" );
-if(!$act) exit("活动已经结束");
+if(!$act) exit("抽奖活动已经关闭");
 $actList = (array)$db->getAll ( "SELECT * FROM " . $GLOBALS['ecs']->table('weixin_actlist') . " where aid=$aid and isopen=1" );
 if(!$actList) exit("活动未设置奖项");
 $sql = "SELECT wa.*, u.user_name, wu.nickname FROM " . 

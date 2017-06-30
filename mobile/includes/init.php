@@ -398,14 +398,26 @@ if($week == 1){        // 暂时写死周二五抽奖
                         'randnum' => '40'
                     )
             );
+        $sql = "SELECT award_type FROM " . $ecs->table('weixin_act') . " WHERE aid = 3";
+        $award_type = $db->getOne($sql);
         // 更新抽奖配置
         foreach ($award_config as $key => $value) {
             // echo $value['title'];
             $points = 0;
-            if($value['num'] > 0){
-                $points = ($all_points * $award_percent * $value['award_percent'])/($value['num'] * 100 * 100);
+            if($award_type == 1){
+
+                if($value['num'] > 0){
+                    $points = ($all_points * $award_percent * $value['award_percent'])/($value['num'] * 100 * 100);
+                }else{
+                    $points = 1;
+                }
+
             }else{
-                $points = 1;
+
+                if($member_all > 0){
+                    $points = $all_points * $award_percent/($member_all * 100);
+                }
+
             }
             $points = round($points);
             // make_record($points, $value['num'], $value['title'], $value['randnum']);

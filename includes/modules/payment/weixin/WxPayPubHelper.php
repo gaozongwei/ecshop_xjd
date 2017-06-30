@@ -169,7 +169,7 @@ class Common_util_pub
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
 		//运行curl
         $data = curl_exec($ch);
-		file_put_contents('77.txt',var_export($data,true));
+		// file_put_contents('77.txt',var_export($data,true));
 		//curl_close($ch);
 		//返回结果
 		if($data)

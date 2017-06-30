@@ -5,7 +5,7 @@
 <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
 <title>专属二维码</title>
 <!--v_shop.css-->
-<link href="themesmobile/68ecshopcom_mobile/css/v_user.css" type="text/css" rel="stylesheet">
+<link href="themesmobile/68ecshopcom_mobile/css/v_user.css?v=001" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.js"></script>
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 </head>

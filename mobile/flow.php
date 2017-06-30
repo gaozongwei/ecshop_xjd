@@ -2306,13 +2306,15 @@ elseif ($_REQUEST['step'] == 'done')
 	        $order['extension_code'] = '';
 	        $order['extension_id'] = 0;
 	    }
-		/*检查配送方式是否选择*/
+		// /*检查配送方式是否选择*/
             // 如果是虚拟商品不需要选择配送方式
+            // $_POST['pay_ship'][$ckey] = 3;
         if( $_SESSION['extension_code'] != 'virtual_good'){
 	    if(!isset($_POST['pay_ship'][$ckey])){
 	    	show_message('请选择各个商家的配送方式！');
 	    }else{
 	    	$shipid = $db->getOne("select shipping_id from ".$ecs->table('shipping')." where shipping_id=".$_POST['pay_ship'][$ckey]." and supplier_id=".$ckey);
+            // $shipid = $db->getOne("select shipping_id from ".$ecs->table('shipping')." where shipping_id=".$_POST['pay_ship'][$ckey]);
 	    	if($shipid){
 	    		$order['shipping_id'] = intval($shipid);
 	    	}else{

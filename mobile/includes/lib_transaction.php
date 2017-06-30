@@ -350,7 +350,7 @@ function get_user_orders($user_id, $num = 10, $start = 0)
             {
                 if ($row['pay_status'] == PS_UNPAYED)
                 {
-                    @$row['handler'] = "<a href=\"user.php?act=order_detail&order_id=" .$row['order_id']. '">' .$GLOBALS['_LANG']['pay_money']. '</a>';
+                    // @$row['handler'] = "<a href=\"user.php?act=order_detail&order_id=" .$row['order_id']. '">' .$GLOBALS['_LANG']['pay_money']. '</a>';
                 }
                 else
                 {
@@ -406,7 +406,7 @@ function get_user_orders_ajax($user_id, $limit,$where='')
             if(in_array($row['pay_id'],payment_id_list(true))){
                 @$row['handler'] = '<span>'.$GLOBALS['_LANG']['cod'].'</span>';
             }else{
-                @$row['handler'] = "<a style='background:#E71F19; color:#fff; border:1px solid #E71F19' href=\"user.php?act=order_detail&order_id=" .$row['order_id']. '">' .$GLOBALS['_LANG']['pay_money']. '</a>';
+                // @$row['handler'] = "<a style='background:#E71F19; color:#fff; border:1px solid #E71F19' href=\"user.php?act=order_detail&order_id=" .$row['order_id']. '">' .$GLOBALS['_LANG']['pay_money']. '</a>';
             }
             @$row['handler'] .= " <a href=\"user.php?act=cancel_order&order_id=" .$row['order_id']. "\" onclick=\"if (!confirm('".$GLOBALS['_LANG']['confirm_cancel']."')) return false;\">".$GLOBALS['_LANG']['cancel']."</a>";
         }
@@ -446,7 +446,7 @@ function get_user_orders_ajax($user_id, $limit,$where='')
             {
                 if ($row['pay_status'] == PS_UNPAYED && in_array($row['pay_id'],payment_id_list(false)))
                 {
-                    @$row['handler'] = "<a style='background:#E71F19; color:#fff; border:1px solid #E71F19'  href=\"user.php?act=order_detail&order_id=" .$row['order_id']. '">' .$GLOBALS['_LANG']['pay_money']. '</a>';
+                    // @$row['handler'] = "<a style='background:#E71F19; color:#fff; border:1px solid #E71F19'  href=\"user.php?act=order_detail&order_id=" .$row['order_id']. '">' .$GLOBALS['_LANG']['pay_money']. '</a>';
                 }
                 else
                 {

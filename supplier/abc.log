@@ -15,3 +15,138 @@ Array
 )
 
 111111111111111111
+2222222222222222
+Array
+(
+    [ECSCP] => Array
+        (
+            [supplier_id] => 8
+            [supplier_user_id] => 7
+            [supplier_pass] => b32870fdaaa146da1012435a89c12732
+        )
+
+    [hd_sid] => hMGDND
+    [hd_uid] => 0
+    [ECS] => Array
+        (
+            [username] => wx_062759807
+            [user_id] => 21
+            [password] => 90969cff5464c4fbd04e3e5afe1509ea
+            [display] => grid
+        )
+
+    [one_step_buy] => 1
+    [ECSCP_ID] => c3fa92a80d717754fcbe1c4a79f44188156c2656
+    [ECS_ID] => 751ab666d633168089ab19aa8e957c1bb3f97aee
+    [ecshop_affiliate_uid] => 21
+)
+
+222222222222
+2222222222222222
+Array
+(
+    [ECSCP] => Array
+        (
+            [supplier_id] => 6
+            [supplier_user_id] => 5
+            [supplier_pass] => 99bf33a3e9b344c3f2f2eb54ffb9481d
+        )
+
+    [ECS_LastCheckOrder] => Wed, 28 Jun 2017 10:06:33 GMT
+    [hd_sid] => hMGDND
+    [hd_uid] => 0
+    [ECS] => Array
+        (
+            [username] => wx_062759807
+            [user_id] => 21
+            [password] => 90969cff5464c4fbd04e3e5afe1509ea
+            [display] => grid
+        )
+
+    [one_step_buy] => 1
+    [ECS_ID] => 751ab666d633168089ab19aa8e957c1bb3f97aee
+    [ecshop_affiliate_uid] => 21
+    [ECSCP_ID] => 39f1ac9e20109f2f5d04321c5b78ee7d3694651f
+)
+
+222222222222
+2222222222222222
+Array
+(
+    [ECS_LastCheckOrder] => Wed, 28 Jun 2017 10:09:52 GMT
+    [ECSCP] => Array
+        (
+            [supplier_id] => 6
+            [supplier_user_id] => 5
+            [supplier_pass] => a3413aa70680c208186902b2333b9b05
+        )
+
+    [hd_sid] => hMGDND
+    [hd_uid] => 0
+    [ECS] => Array
+        (
+            [username] => wx_062759807
+            [user_id] => 21
+            [password] => 90969cff5464c4fbd04e3e5afe1509ea
+            [display] => grid
+        )
+
+    [ecshop_affiliate_uid] => 21
+    [ECS_ID] => 1feedddacfc3910226c18453deb4971754fd397b
+    [one_step_buy] => 1
+    [ECSCP_ID] => cea72ecd18e656262af3abd522536b6afec2336c
+)
+
+222222222222
+2222222222222222
+Array
+(
+    [ECSCP] => Array
+        (
+            [supplier_id] => 6
+            [supplier_user_id] => 5
+            [supplier_pass] => 16878cd7a98be21c531449f587dae2bc
+        )
+
+    [hd_sid] => hMGDND
+    [hd_uid] => 0
+    [ECS] => Array
+        (
+            [username] => wx_062759807
+            [user_id] => 21
+            [password] => 90969cff5464c4fbd04e3e5afe1509ea
+            [display] => grid
+        )
+
+    [ECSCP_ID] => 08c4751667d05e6d8086d520ba92ef35ff2bb087
+    [ECS_ID] => 7a26de62965047c0d620584f3e921635f6efaa66
+    [ecshop_affiliate_uid] => 21
+)
+
+222222222222
+2222222222222222
+Array
+(
+    [ECSCP] => Array
+        (
+            [supplier_id] => 6
+            [supplier_user_id] => 5
+            [supplier_pass] => cd79f71b8974fb74ab8c1e651176648e
+        )
+
+    [hd_sid] => hMGDND
+    [hd_uid] => 0
+    [ECS] => Array
+        (
+            [username] => wx_062759807
+            [user_id] => 21
+            [password] => 90969cff5464c4fbd04e3e5afe1509ea
+            [display] => grid
+        )
+
+    [ECSCP_ID] => 08c4751667d05e6d8086d520ba92ef35ff2bb087
+    [ecshop_affiliate_uid] => 21
+    [ECS_ID] => 8855ea82a5292743a874ebb549a626928c85ea5b
+)
+
+222222222222
