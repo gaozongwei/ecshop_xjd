@@ -159,7 +159,7 @@ $modules['10_priv_admin']['admin_role'] = 'role.php?act=list';
 $modules['11_system']['01_shop_config'] = 'shop_config.php?act=list_edit';
 // $modules['11_system']['02_payment_list'] = 'payment.php?act=list';
 $modules['11_system']['03_shipping_list'] = 'shipping.php?act=list';
-// $modules['11_system']['04_mail_settings'] = 'shop_config.php?act=mail_settings';
+$modules['11_system']['04_mail_settings'] = 'shop_config.php?act=mail_settings';
 $modules['11_system']['05_area_list'] = 'area_manage.php?act=list';
 // $modules['11_system']['06_plugins'] = 'plugins.php?act=list';
 $modules['11_system']['07_cron_schcron'] = 'cron.php?act=list';

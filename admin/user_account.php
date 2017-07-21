@@ -61,7 +61,7 @@ if ($_REQUEST['act'] == 'list')
     $smarty->assign('ur_here',       $_LANG['09_user_account']);
     $smarty->assign('id',            $user_id);
     $smarty->assign('payment_list',  $payment);
-    $smarty->assign('action_link',   array('text' => $_LANG['surplus_add'], 'href'=>'user_account.php?act=add'));
+    // $smarty->assign('action_link',   array('text' => $_LANG['surplus_add'], 'href'=>'user_account.php?act=add'));
 
     $list = account_list();
     $smarty->assign('list',         $list['list']);
@@ -381,8 +381,8 @@ elseif ($_REQUEST['act'] == 'action')
             log_account_change($account['user_id'], $amount, 0, 0, 0, $_LANG['surplus_type_1'], ACT_DRAWING);
             
             //更新会员云豆数量
-            $bean = abs(number_format($amount*(1-0.05)*0.3, 2));
-            echo $bean;
+            $bean = abs($amount*(1-0.05)*0.3*(int)$_CFG['tixian']);
+
             log_account_change($account['user_id'], 0, 0, 0, $bean, "提现转入", ACT_SAVING);
             // insert_affiliate_log(0, $account['user_id'], $account['user_name'], $amount, 9,"积分提现", $type=1);
             update_v_point($account['user_id'], $amount, "积分提现");

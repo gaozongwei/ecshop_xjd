@@ -23,7 +23,7 @@
       <td class="first-cell"><span onclick="listTable.edit(this, 'edit_type_name', {$type.type_id})">{$type.type_name|escape:html}</span></td>
       <td>{$type.send_by}</td>
       <td align="center"><span onclick="listTable.edit(this, 'edit_type_money', {$type.type_id})">{$type.type_money}</span></td>
-      <td align="center">{if $type.send_type eq 5 }<span>--{else}<span onclick="listTable.edit(this, 'edit_min_amount', {$type.type_id})">{$type.min_amount}{/if}</span></td>
+      <td align="center"><span onclick="listTable.edit(this, 'edit_min_amount', {$type.type_id})">{$type.min_amount}</span></td>
       <td align="center"><span>{$type.send_count}</span></td>
       <td align="center">{$type.use_count}</td>
       <td align="center">

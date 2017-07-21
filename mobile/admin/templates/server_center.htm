@@ -1,0 +1,30 @@
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+<div class="list-div" id="listDiv">
+<form name="theForm" method="post" action="server_center.php?act=update">
+  <table width="100%">
+  <tbody>
+ <tr>
+    <td class="label">购买vip商品下限 :</td>
+    <td><input type="text" name="vip_moeny_all" value="{$record.vip_moeny_all}"/></td>
+  </tr>
+  <tr>
+    <td class="label">VIP商品提成 :</td>
+    <td><input type="text" name="vip_goods_commission" size="6" value="{$record.vip_goods_commission}"/>%</td>
+  </tr>
+  <tr>
+    <td class="label">普通商品提成 :</td>
+    <td><input type="text" name="ordinary_goods_commission" size="6" value="{$record.ordinary_goods_commission}"/>%</td>
+  </tr>
+
+  <tr>
+    <td colspan="2" align="center">
+      <input type="submit" value="{$lang.button_submit}" class="button" />
+    <input type="reset" value="{$lang.button_reset}" class="button" />
+    </td>
+  </tr>
+
+</tbody></table>
+</form>
+</div>
+{include file="pagefooter.htm"}

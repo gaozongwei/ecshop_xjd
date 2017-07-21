@@ -20,11 +20,11 @@ if($_CFG['is_distrib'] == 0)
 if(isset($_GET['user_id']) && intval($_GET['user_id']) > 0)
 {
 	$user_id = intval($_GET['user_id']);
+}elseif($user_id = $_GET['u']){
+
 }
 elseif($user_id = $_SESSION['user_id'])
 {
-
-}elseif($user_id = $_GET['u']){
 
 }else{
 	 ecs_header("Location:./\n");

@@ -121,6 +121,7 @@ if(isset($_POST['do']) && $_POST['do']){
 			show_message('请认真填写必填申请资料！', '返回', 'apply.php', 'wrong');
 			}
 			 if ($db->autoExecute($ecs->table('supplier'), $save, 'UPDATE', 'user_id='.$userid) !== false){
+			 	$db->autoExecute($ecs->table('users'), array('email' => $save['email'], 'mobile_phone' => $save['contacts_phone']), 'UPDATE', 'user_id='.$userid);
 				header("location:apply.php");
 				exit;
 			 }else{
@@ -213,6 +214,7 @@ if(isset($_POST['do']) && $_POST['do']){
 			}
 			
 			 if ($db->autoExecute($ecs->table('supplier'), $save, 'UPDATE', 'user_id='.$userid) !== false){
+			 	$db->autoExecute($ecs->table('users'), array('email' => $save['email'], 'mobile_phone' => $save['contacts_phone']), 'UPDATE', 'user_id='.$userid);
 				// echo "<pre>";
 				// var_dump($db);die();
 				header("location:apply.php");

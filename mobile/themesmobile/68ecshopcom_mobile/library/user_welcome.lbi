@@ -4,7 +4,7 @@
     <div class="innercontent1" >
       <form method="post" action="user.php" id="edit_profile">
         <div class="name"><span>用户名</span>
-          <input type="text" name="user_name" value="{$profile.user_name}" placeholder="*用户名" class="c-f-text">
+          <input type="text" name="user_name" value="{$profile.user_name}" placeholder="*用户名" disabled="disabled" class="c-f-text">
         </div>
         <div class="name"> <span>{$lang.birthday}</span> {html_select_date field_order=YMD prefix=birthday start_year=-60 end_year=+1 display_days=true month_format=%m day_value_format=%02d time=$profile.birthday}</div>
         <div class="name1"> <span>{$lang.sex}</span>

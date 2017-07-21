@@ -182,7 +182,29 @@ function order_paid($log_id, $pay_status = PS_PAYED, $note = '')
 	
 	                /* 记录订单操作记录 */
 	                order_action($order_sn, OS_CONFIRMED, SS_UNSHIPPED, $pay_status, $note, $GLOBALS['_LANG']['buyer']);
-	
+	               
+                    /* vip礼包处理 */
+                    $sql = "SELECT (goods_price * goods_number) as goods_money FROM ".
+                           $GLOBALS['ecs']->table('order_goods') .
+                            " WHERE extension_code = 'package_buy' ".
+                            " AND order_id = '$order_id'";
+                    $rank_points = $GLOBALS['db']->getOne($sql);
+                    if ($rank_points){
+                        $order_id = $order_id;
+                        // $rank_points = $rank_points*60000;
+                        /* 更新用户信息 */
+                        $sql = "UPDATE " . $GLOBALS['ecs']->table('users') .
+                                " SET rank_points = rank_points + ('$rank_points')," .
+                                " vip_times = floor(rank_points/1000)" .
+                                " WHERE user_id = '$order[user_id]' LIMIT 1";
+                        $GLOBALS['db']->query($sql);
+
+
+                    }
+
+
+
+
 	                /* 如果需要，发短信 */
 //	               include_once(ROOT_PATH.'send.php');
                        include_once(ROOT_PATH. 'sms/sms.php');

@@ -143,7 +143,7 @@ document.getElementById("share_form").submit();
       {elseif $volume_price_list} 
       <!--{foreach from=$volume_price_list item=price_list key=price_key name=name}--> 
       <!-- {if $smarty.foreach.name.iteration < 2}--> 
-      <i>惠</i><span>购买{$price_list.number}件&nbsp;优惠价：{$price_list.format_price}</span> 
+      <i>惠</i><span>购买{$price_list.number}件&nbsp;优惠单价：{$price_list.format_price}</span> 
       <!-- {/if}--> 
       <!--{/foreach}--> 
       {elseif $goods.give_integral > 0} <i>惠</i><span>{$lang.goods_give_integral} {$goods.give_integral}{$points_name}</span> 
@@ -155,7 +155,7 @@ document.getElementById("share_form").submit();
 <!---{if $rank_prices}------>
 <div class="goods_hd">   
   <dl>
-    <dt onClick="choose_attrstr(0)" >会员等级价格</dt>
+    <dt onClick="choose_attrstr(0)" >会员价格</dt>
   </dl>
    </div>
 <!---{/if}--->
@@ -367,7 +367,7 @@ function changePriceResponse(res)
 <!--购买优惠 {if $volume_price_list}-->     
 {foreach from=$volume_price_list item=price_list key=price_key}
 <li><i>购</i>
-<span>购买{$price_list.number}件&nbsp;优惠价：{$price_list.format_price}</span></li>{/foreach}
+<span>购买{$price_list.number}件&nbsp;优惠单价：{$price_list.format_price}</span></li>{/foreach}
  <!-- {/if} -->
  <!-- {if $goods.bonus_money} 红包-->
 <li>

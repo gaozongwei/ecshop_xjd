@@ -19,7 +19,7 @@
       <div class="tab_nav">
         <div class="header">
           <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
-          <div class="h-mid">积分商城</div>
+          <div class="h-mid">云豆商城</div>
           <div class="h-right">
             <aside class="top_bar">
               <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more" ><a href="javascript:;"></a> </div>
@@ -41,7 +41,7 @@ $(function(){
 	<div class="tab">
 		<ul>
           <a href="exchange.php?{foreach from=$pager.search key=key item=item}{if $key neq "sort" and $key neq "order"}{$key}={$item}&{/if}{/foreach}page={$pager.page}&sort=goods_id&order={if $pager.search.order eq 'DESC'}ASC{else}DESC{/if}#list"><li  class=<!-- {if $pager.search.sort == 'goods_id'} -->curr<!-- {/if} -->>上架<b class="br"></b></li></a>
-          <a href="exchange.php?display={$pager.display}&brand={$brand_id}&price_min={$price_min}&price_max={$price_max}&filter_attr={$filter_attr}&page={$pager.page}&sort=exchange_integral&order=<!-- {if $pager.sort == 'exchange_integral' && $pager.order == 'DESC'} -->ASC<!-- {else} -->DESC<!-- {/if} -->#goods_list"><li  class=<!-- {if $pager.search.sort == 'exchange_integral'} -->curr<!-- {/if} -->>积分<b class="br"></b></li></a>
+          <a href="exchange.php?display={$pager.display}&brand={$brand_id}&price_min={$price_min}&price_max={$price_max}&filter_attr={$filter_attr}&page={$pager.page}&sort=exchange_integral&order=<!-- {if $pager.sort == 'exchange_integral' && $pager.order == 'DESC'} -->ASC<!-- {else} -->DESC<!-- {/if} -->#goods_list"><li  class=<!-- {if $pager.search.sort == 'exchange_integral'} -->curr<!-- {/if} -->>云豆<b class="br"></b></li></a>
           <a href="exchange.php?{foreach from=$pager.search key=key item=item}{if $key neq "sort" and $key neq "order"}{$key}={$item}&{/if}{/foreach}page={$pager.page}&sort=last_update&order={if $pager.search.order eq 'DESC'}ASC{else}DESC{/if}#list"> <li class=<!-- {if $pager.search.sort == 'last_update'} -->curr<!-- {/if} -->>更新<b class="br"></b></li></a>
           <a href="exchange.php?category={$category}&display={$pager.display}&brand={$brand_id}&price_min={$price_min}&price_max={$price_max}&filter_attr={$filter_attr}&page={$pager.page}&sort=click_count&order=<!-- {if $pager.sort == 'click_count' && $pager.order == 'DESC'} -->ASC<!-- {else} -->DESC<!-- {/if} -->#goods_list" ><li style=" border:0px;" class=<!-- {if $pager.search.sort == 'click_count'} -->curr<!-- {/if} -->>人气</li></a>
         </ul>

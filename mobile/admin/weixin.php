@@ -512,7 +512,7 @@ switch ($act){
 		break;
 	case "newslist":
 		$smarty->assign('action_link',  array('text' => "消息推送", 'href'=>'weixin.php?act=news'));
-		$ret = $db->getAll("select * from " . $GLOBALS['ecs']->table('weixin_corn') . " where sendtype=1 and issend in (0,1)");
+		$ret = $db->getAll("select * from " . $GLOBALS['ecs']->table('weixin_corn') . " where sendtype=1 and issend in (0,1,2)");
 		if($ret){
 			foreach ($ret as $k=>$v){
 				$ret[$k]['sendymd'] = date("Y-m-d H:i:s",$v['sendtime']);

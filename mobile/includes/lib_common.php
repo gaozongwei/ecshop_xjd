@@ -2128,7 +2128,8 @@ function log_account_change($user_id, $user_money = 0, $frozen_money = 0, $rank_
             " frozen_money = frozen_money + ('$frozen_money')," .
             " rank_points = rank_points + ('$rank_points')," .
             " pay_points = pay_points + ('$pay_points')," .
-            " vip_times = vip_times + ('$vip_times')," .
+            " vip_times = floor(rank_points/1000)," .
+            " vip_points = vip_points + ('$vip_award')," .
             " vip_award = vip_award + ('$vip_award')" .
             " WHERE user_id = '$user_id' LIMIT 1";
     $GLOBALS['db']->query($sql);

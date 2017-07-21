@@ -288,7 +288,7 @@ width:auto;
             {$lang.require_field}</td>
           </tr>
 		  <!-- 手机专享价格  app  jx -->
-		   <tr>
+		   <tr style="display:none">
             <td class="label">手机专享价：</td>
             <td><input type="text" name="exclusive" value="{$goods.exclusive}" size="20" />
 			 <br />
@@ -377,7 +377,7 @@ width:auto;
               <input name="buymax_start_date" type="text" id="buymax_start_date" size="12" value='{$goods.buymax_start_date}' readonly="readonly" /><input name="selbtn3" type="button" id="selbtn3" onclick="return showCalendar('buymax_start_date', '%Y-%m-%d', false, false, 'selbtn3');" value="{$lang.btn_select}" class="button" {if $goods.is_buy eq 0} disabled="disabled"{/if}/> - <input name="buymax_end_date" type="text" id="buymax_end_date" size="12" value='{$goods.buymax_end_date}' readonly="readonly" /><input name="selbtn4" type="button" id="selbtn4" onclick="return showCalendar('buymax_end_date', '%Y-%m-%d', false, false, 'selbtn4');" value="{$lang.btn_select}" class="button" {if $goods.is_buy eq 0} disabled="disabled"{/if}/>
             </td>
           </tr>
-          <tr>
+          <tr style="display:none">
               <td class="label" id="promote_5">{$lang.lab_cost_price}</td>
               <td id="promote_7">
                   <input type="text" id="promote_1" name="cost_price" value="{$goods.cost_price|default:0.00}" size="20" />
