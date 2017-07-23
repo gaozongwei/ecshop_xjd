@@ -65,7 +65,7 @@ function showtime()
 
   if (dateLeft > 0)
   {
-    Temp = dateLeft + ":" + hourZero + hourLeft + ":" + minuteZero + minuteLeft + ":" + secondZero + secondLeft;
+    Temp = dateLeft + "天" + hourZero + hourLeft + "时" + minuteZero + minuteLeft + "分" + secondZero + secondLeft;
   }
   else
   {

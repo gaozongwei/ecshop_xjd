@@ -1,0 +1,12 @@
+
+sssssssssss
+INSERT INTO `xjd5`.`ecs_user_bonus`(bonus_type_id, bonus_sn, user_id, used_time, order_id, emailed) VALUES('1', 0, '49', 0, 0, 0)
+ssssssssss
+
+sssssssssss
+-4
+ssssssssss
+
+sssssssssss
+INSERT INTO `xjd5`.`ecs_user_bonus`(bonus_type_id, bonus_sn, user_id, used_time, order_id, emailed) VALUES('1', 0, '50', 0, 0, 0)
+ssssssssss

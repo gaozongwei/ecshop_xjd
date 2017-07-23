@@ -105,5 +105,5 @@
 </body>
 </html>
 <script type="text/javascript">
-  window.location.href = "weixin_login.php";
+  // window.location.href = "weixin_login.php";
 </script>

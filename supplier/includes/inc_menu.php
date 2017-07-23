@@ -27,9 +27,9 @@ $modules['03_promotion']['12_favourable']           = 'favourable.php?act=list';
 
 $modules['04_order']['01_order_list']               = 'order.php?act=list';
 $modules['04_order']['03_order_query']              = 'order.php?act=order_query';
-$modules['04_order']['04_merge_order']              = 'order.php?act=merge';
-$modules['04_order']['05_edit_order_print']         = 'order.php?act=templates';
-$modules['04_order']['06_undispose_booking']        = 'goods_booking.php?act=list_all';
+// $modules['04_order']['04_merge_order']              = 'order.php?act=merge';
+// $modules['04_order']['05_edit_order_print']         = 'order.php?act=templates';
+// $modules['04_order']['06_undispose_booking']        = 'goods_booking.php?act=list_all';
 $modules['04_order']['09_delivery_order']           = 'order.php?act=delivery_list';
 //$modules['04_order']['10_back_order']               = 'order.php?act=back_list';
 $modules['04_order']['10_back_order']               = 'back.php?act=back_list';  //代码修改 By www.68ecshop.com
@@ -49,7 +49,7 @@ $modules['05_dianpu_manage']['01_base']               	= 	'shop_config.php?act=l
 // $modules['05_dianpu_manage']['04_article']              = 	'article.php?act=list';
 // $modules['05_dianpu_manage']['05_header']               = 	'shop_header.php?act=list_edit';
 // $modules['05_dianpu_manage']['06_templates']            = 	'template.php?act=list';
-$modules['05_dianpu_manage']['07_street']				= 	'street.php?act=info';
+// $modules['05_dianpu_manage']['07_street']				= 	'street.php?act=info';
 $modules['05_dianpu_manage']['08_shipping_list']           = 'shipping.php?act=list';
 
 // $modules['06_pickup_point_manage']['pickup_point_list']       = 'pickup_point.php?act=list';

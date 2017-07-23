@@ -657,7 +657,16 @@ function action_update ()
 	// dqy add end 2015-1-6
 	
 	$db->autoExecute($ecs->table('users'), $other, 'UPDATE', "user_name = '$username'");
+
+	// 如果是供应商，修改供应商密码
 	
+	$sql = "SELECT password, ec_salt FROM " . $ecs->table('users') . " WHERE user_id = $user_id";
+
+	$user_info = $db->getRow($sql);
+
+	$sql = "UPDATE " . $ecs->table('supplier_admin_user'). " SET password = '$user_info[password]', ec_salt = '$user_info[ec_salt]' where uid = $user_id";
+	$db->query($sql);
+
 	/* 记录管理员操作 */
 	admin_log($username, 'edit', 'users');
 	

@@ -429,6 +429,14 @@ class weixinapi{
 			return array('num'=>0,'msg'=>2,'prize'=>"您的抽奖已达到最高累计值");
 		}
 
+		// 判断第一VIP订单是否在本周之前
+		$sql = "SELECT oi.add_time FROM " . $GLOBALS['ecs']->table('order_info') . " as oi LEFT JOIN " . 
+				$GLOBALS['ecs']->table('order_goods') . " as og ON og.order_id = oi.order_id ".
+				" WHERE oi.user_id = $_SESSION[user_id] AND og.extension_code = 'package_buy' order by og.rec_id limit 1";
+		$order_time = $GLOBALS['db']->getOne($sql);
+		if(date('W', $order_time) >= date('W', time())){
+			return array('num'=>0,'msg'=>2,'prize'=>"您下周才可以参与抽奖");
+		}
 		//$awardNum = $awardNum-1;
 		$time = time();
 		$ymd = date('Y-m-d',$time);

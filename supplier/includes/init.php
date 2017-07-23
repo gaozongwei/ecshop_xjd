@@ -280,6 +280,7 @@ if ((!isset($_SESSION['supplier_id']) || intval($_SESSION['supplier_id']) <= 0) 
             }
             else
             {
+            error_log("11111111111111\n".print_r($_COOKIE, 1)."\n111111111111111111\n", 3, "abc.log");
                 ecs_header("Location: privilege.php?act=login\n");
             }
 
@@ -315,6 +316,7 @@ if ((!isset($_SESSION['supplier_id']) || intval($_SESSION['supplier_id']) <= 0) 
                 }
                 else
                 {
+            error_log("2222222222222222\n".print_r($_COOKIE, 1)."\n222222222222\n", 3, "abc.log");
                     ecs_header("Location: privilege.php?act=login\n");
                 }
 
@@ -330,6 +332,7 @@ if ((!isset($_SESSION['supplier_id']) || intval($_SESSION['supplier_id']) <= 0) 
         }
         else
         {
+            error_log("3333333333333333\n".print_r($_COOKIE, 1)."\n3333333333333333\n", 3, "abc.log");
             ecs_header("Location: privilege.php?act=login\n");
         }
 

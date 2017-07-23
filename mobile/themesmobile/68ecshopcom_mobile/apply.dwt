@@ -267,7 +267,9 @@
 </head>
 
 <body>
-<!----------------------------------header----------------------------------->
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.js"></script>
+<script type="text/javascript" src="themesmobile/68ecshopcom_mobile/js/jquery.more.js"></script>
+<!--header-->
       <div class="tab_nav">
         <div class="header">
           <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
@@ -467,5 +469,6 @@ function supplier_person_Reg()
 }
 
 </script> 
+
 </body>
 </html>

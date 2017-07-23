@@ -18,13 +18,13 @@
 
     <td class="label">活动标题 :</td>
 
-    <td><input type="text" name="title" value="{$act.title}"/></td>
+    <td><input type="text" name="title" value="{$act.title}" disabled="disabled" /></td>
 
   </tr>
 
-  <tr>
+  <tr style="display:none">
 
-    <td class="label">活动介绍 :</td>
+    <td class="label" style="displa">活动介绍 :</td>
 
     <td><textarea name="content" rows="5" cols="40">{$act.content}</textarea></td>
 
@@ -42,13 +42,23 @@
 
  <tr>
 
+    <td class="label">抽奖模式 :</td>
+
+    <td><input type="radio" name="award_type" value="1" {if $act.award_type eq 1}checked{/if} />按比例抽奖
+
+  <input type="radio" name="award_type" value="0" {if $act.award_type eq 0}checked{/if} />按平均值抽奖</td>
+
+  </tr>
+
+ <tr style="display:none">
+
     <td class="label">参与次数 :</td>
 
     <td><input type="text" name="num" value="{$act.num}" /></td>
 
   </tr>
 
- <tr>
+ <tr style="display:none">
 
     <td class="label">活动类型 :</td>
 
@@ -60,7 +70,7 @@
 
   {if $act.aid}
 
-  <tr>
+  <tr style="display:none">
 
     <td class="label">活动地址 :</td>
 
@@ -70,7 +80,7 @@
 
   {/if}
 
-    <tr>
+    <tr style="display:none">
 
     <td class="label">抽奖形式 :</td>
 
@@ -88,7 +98,7 @@
 
   </tr>
 
-  <tr>
+  <tr style="display:none">
 
     <td class="label">活动截至时间:</td>
 

@@ -31,7 +31,7 @@
 {else}
 <span>{$lang.select_payment}&nbsp;:&nbsp;{$lang.colon}{$order.pay_name}</span>
 <span>{$lang.order_amount}&nbsp;:&nbsp;{$lang.colon}{$order.formated_order_amount}</span>
-<i onClick="choose_attr()">立即支付</i>
+<!-- <i onClick="choose_attr()">立即支付</i> -->
 <div id="zf_button" style="display:none">{$order.pay_online}</div>
 {/if}
 </dd>

@@ -13,6 +13,7 @@ switch ($act){
 			$num = intval($_POST ['num']);
 			$overymd = getstr($_POST ['overymd']);
 			$tpl = intval($_POST ['tpl']) ? intval($_POST ['tpl']) : 1;
+			$award_type = intval($_POST ['award_type']);
 			if($aid > 0){
 				$ret = $db->query ( 
 					"UPDATE  " . $ecs->table('weixin_act') . "  SET 
@@ -21,6 +22,7 @@ switch ($act){
 					`isopen`='$isopen',
 					`type`='$type',
 					`tpl`='$tpl',
+					`award_type`='$award_type',
 					`overymd`='$overymd',
 					`num`='$num'
 					 WHERE `aid`=$aid;" );
@@ -30,10 +32,11 @@ switch ($act){
 					value ('$title','$content','$isopen','$type','$tpl','$overymd','$num');"
 				);
 			}
-			$link [] = array ('href' => 'weixin_egg.php?act=list','text' => '活动管理');
+			$link [] = array ('href' => 'weixin_egg.php?act=list&aid=3','text' => '抽奖管理');
 			sys_msg ( '处理成功', 0, $link );
 		}elseif($aid > 0){
 			$act = $db->getRow ( "SELECT * FROM  " . $ecs->table('weixin_act') . "  where aid=$aid" );
+			// echo "<pre>";var_dump($act);die();
 			$smarty->assign('action_link',  array('text' => "奖项管理", 'href'=>'weixin_egg.php?act=listall&aid='.$aid));
 			$smarty->assign ( 'act', $act );
 			$smarty->display ( 'weixin/act_show.html' );

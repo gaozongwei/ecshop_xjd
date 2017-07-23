@@ -130,19 +130,50 @@ if ($event['event'] == "subscribe") { //用户关注
 				 {
 				 	$weixinconfig['followmsg'] .= "\r\n您已成为[".$distribor."]的一级会员 \r\n";
 				 }
+
+			// 给推荐人发红包
+				$sql_bonus_ext = " order by rand() limit 0,1";
+				$sql_b = "SELECT type_id FROM " . $ecs->table("bonus_type") . " WHERE send_type= '7'  AND send_start_date<=" . $now . " AND send_end_date>=" . $now . $sql_bonus_ext;
+				$res_bonus = $db->query($sql_b);
+				$kkk_bonus = 0;
+				while($row_bonus = $db->fetchRow($res_bonus))
+				{
+					$sql = "INSERT INTO " . $ecs->table('user_bonus') . "(bonus_type_id, bonus_sn, user_id, used_time, order_id, emailed)" . " VALUES('" . $row_bonus['type_id'] . "', 0, '" . $uid . "', 0, 0, 0)";
+					$db->query($sql);
+					$kkk_bonus = $kkk_bonus + 1;
+				}
 			}
 		}
-		if($weixinconfig['bonustype'] > 0){
-			$api->sendBonus($wxid,$weixinconfig['bonustype']);
+		// if($weixinconfig['bonustype'] > 0){
+		// 	$api->sendBonus($wxid,$weixinconfig['bonustype']);
+		// }
+	}
+
+	//取消关注再重新关注不送红包
+	if(!$followInfo){
+		// $bonus_sn = $api->sendBonus('',$weixinconfig['bonustype2']);
+		$now = gmtime();
+		if($_CFG['bonus_reg_rand'])
+		{
+			$sql_bonus_ext = " order by rand() limit 0,1";
+		}
+		$sql_b = "SELECT type_id FROM " . $ecs->table("bonus_type") . " WHERE send_type='" . SEND_BY_REGISTER . "'  AND send_start_date<=" . $now . " AND send_end_date>=" . $now . $sql_bonus_ext;
+		$res_bonus = $db->query($sql_b);
+		$kkk_bonus = 0;
+		while($row_bonus = $db->fetchRow($res_bonus))
+		{
+			$sql = "INSERT INTO " . $ecs->table('user_bonus') . "(bonus_type_id, bonus_sn, user_id, used_time, order_id, emailed)" . " VALUES('" . $row_bonus['type_id'] . "', 0, '" . $_SESSION['user_id'] . "', 0, 0, 0)";
+			$db->query($sql);
+			$kkk_bonus = $kkk_bonus + 1;
+			error_log("\nsssssssssss\n".$sql."\nssssssssss\n", 3, "abc.log");
+			$bonus_msg =  "\r\n恭喜您获得红包一个：(可在购买商品时使用)";
+	
+			echo $weixin->text($weixinconfig['followmsg'].$bonus_msg)->reply();//发送欢迎信息
 		}
 	}
-	//取消关注再重新关注不送红包
-	if(!$followInfo && $weixinconfig['bonustype2'] > 0){
-		$bonus_sn = $api->sendBonus('',$weixinconfig['bonustype2']);
-	}
-	$bonus_msg =  $bonus_sn ? "\r\n恭喜您获得红包一个：{$bonus_sn}(可在购买商品时使用)" : "";
+	// $bonus_msg =  $bonus_sn ? "\r\n恭喜您获得红包一个：{$bonus_sn}(可在购买商品时使用)" : "";
 	
-	echo $weixin->text($weixinconfig['followmsg'].$bonus_msg)->reply();//发送欢迎信息
+	// echo $weixin->text($weixinconfig['followmsg'].$bonus_msg)->reply();//发送欢迎信息
 	exit;
 }
 if ($event['event'] == "unsubscribe"){ // 用户主动删除
@@ -219,11 +250,12 @@ if ($event['event'] == "CLICK"){
 				$ps = array(0=>'未付款',1=>'部分支付',2=>'已付款');
 				$ss = array(0=>'未发货',1=>'已发货',2=>'确认收货',3=>'配货中',4=>'已发货(部分商品)');
 				foreach ($reMsg as $v){
-					$text .= "订单编号：<a href='{$weburl}mobile/user.php?act=order_detail"."%26"."order_id={$v[order_id]}'>{$v['order_sn']}</a>\r\n";
+					$text .= "订单编号：{$v['order_sn']}\r\n";
 					$text .= "订单金额：{$v['order_amount']}\r\n";
 					$text .= "订单状态：{$os[$v['order_status']]}\r\n";
 					$text .= "付款状态：{$ps[$v['pay_status']]}\r\n";
 					$text .= "发货状态：{$ss[$v['shipping_status']]}\r\n";
+					$text .= "<a href='{$weburl}mobile/user.php?act=order_detail"."%26"."order_id={$v[order_id]}'>查看</a>";
 				}
 			}
 			$text = $text ? $text : "您还没有购买任何商品！";

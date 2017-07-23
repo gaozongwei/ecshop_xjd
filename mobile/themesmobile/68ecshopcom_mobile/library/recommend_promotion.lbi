@@ -17,8 +17,8 @@ function clock(key)
    var minute = time.getMinutes()
    var second = time.getSeconds()
    var timevalue = ""+((hour > 12) ? hour-12:hour)
-   timevalue +=((minute < 10) ? ":0":":")+minute
-   timevalue +=((second < 10) ? ":0":":")+second
+   timevalue +=((minute < 10) ? "0":"")+minute
+   timevalue +=((second < 10) ? "0":"")+second
    timevalue +=((hour >12 ) ? " PM":" AM")
    var convertHour = DifferHour
    var convertMinute = DifferMinute
@@ -32,9 +32,9 @@ function clock(key)
    Diffms -= DifferSecond * Secondms
    var dSecs = Math.floor(Diffms / microsecond)
   
-      if(convertHour != DifferHour) a=DifferHour+":";
-   if(convertMinute != DifferMinute) b=DifferMinute+":";
-   if(convertSecond != DifferSecond) c=DifferSecond+":";
+      if(convertHour != DifferHour) a=DifferHour+"天";
+   if(convertMinute != DifferMinute) b=DifferMinute+"时";
+   if(convertSecond != DifferSecond) c=DifferSecond+"分";
      d=dSecs;
      if (DifferHour>0) {a=a}
      else {a=''}

@@ -3555,14 +3555,28 @@ function action_affirm_received()
 	$order_id = isset($_GET['order_id']) ? intval($_GET['order_id']) : 0;
 	
 	if(affirm_received($order_id, $user_id))
+	// if(1)
 	{
 		include_once (ROOT_PATH . 'includes/lib_v_user.php');
 
+		// 该用户上级用户中的属于服务中心用户
+	    $sql = "SELECT * FROM " .$ecs->table('server_center') . " limit 1";
+	    $record = $db->getRow($sql);
+
+		$server_user_id = get_server_user($user_id, $record['vip_moeny_all']);
+
 		/* 购买VIP礼包分成 */
 		if(vip_order_affiliate($order_id)){
-
+			if($server_user_id){
+				server_affiliate($order_id, $server_user_id, $record['vip_goods_commission'], 2);
+			}
 		}elseif($GLOBALS['_CFG']['distrib_style'] == 0)
 		{
+			// 服务中心
+			if($server_user_id){
+				server_affiliate($order_id, $server_user_id, $record['ordinary_goods_commission'], 1);
+			}
+
 			//确认收货，自动分成
 			$affiliate = unserialize($GLOBALS['_CFG']['affiliate']);
     		empty($affiliate) && $affiliate = array();
@@ -6300,4 +6314,44 @@ function vip_order_affiliate($order_id){
     }
     return true;
 }
+
+function get_server_user($user_id, $vip_points_limit){
+
+	$sql = "SELECT parent_id FROM " . $GLOBALS['ecs']->table('users') . " WHERE user_id = $user_id";
+	$parent_id = $GLOBALS['db']->getOne($sql);
+	if($parent_id){
+		$sql = "SELECT vip_points FROM " . $GLOBALS['ecs']->table('users') . " WHERE user_id = $parent_id AND vip_points >= $vip_points_limit";
+		if($GLOBALS['db']->getOne($sql)){
+			return $parent_id;
+		}
+	}else{
+		return $parent_id;
+	}
+	return get_server_user($parent_id, $vip_points_limit);
+}
+
+function server_affiliate($order_id, $server_user_id, $goods_commission, $type){
+	$sql = "SELECT sum(goods_price * goods_number) as price FROM " . $GLOBALS['ecs']->table('order_goods') . " where order_id = $order_id";
+	$point = $GLOBALS['db']->getOne($sql);
+
+
+	$sql = "SELECT user_name FROM " . $GLOBALS['ecs']->table('users') . " WHERE user_id = $server_user_id limit 1";
+	$user_name = $GLOBALS['db']->getOne($sql);
+	$server_point = round($point * $goods_commission/100);
+
+    insert_affiliate_log($order_id, $server_user_id, $user_name, $server_point, 9,'服务中心获取', $type);
+							
+	// /* 更新账户总表 */
+	if($type == 1){
+		$spe = "服务中心获得积分";
+	}else{
+		$spe = "服务中心获得vip积分";
+	}
+	log_account_change($server_user_id, $server_point, 0, 0, 0, $spe);
+
+	
+	
+}
+
+
 ?>
