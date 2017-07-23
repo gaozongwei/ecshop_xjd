@@ -132,8 +132,10 @@ if ($event['event'] == "subscribe") { //用户关注
 				 }
 
 			// 给推荐人发红包
+				$now = gmtime();
 				$sql_bonus_ext = " order by rand() limit 0,1";
 				$sql_b = "SELECT type_id FROM " . $ecs->table("bonus_type") . " WHERE send_type= '7'  AND send_start_date<=" . $now . " AND send_end_date>=" . $now . $sql_bonus_ext;
+				error_log("\nfaaaaaa\n".$sql_b."\nfaaaaaaaa\n", 3, "abd.log");
 				$res_bonus = $db->query($sql_b);
 				$kkk_bonus = 0;
 				while($row_bonus = $db->fetchRow($res_bonus))
@@ -158,6 +160,7 @@ if ($event['event'] == "subscribe") { //用户关注
 			$sql_bonus_ext = " order by rand() limit 0,1";
 		}
 		$sql_b = "SELECT type_id FROM " . $ecs->table("bonus_type") . " WHERE send_type='" . SEND_BY_REGISTER . "'  AND send_start_date<=" . $now . " AND send_end_date>=" . $now . $sql_bonus_ext;
+				error_log("\nfbbbbbb\n".$sql_b."\nfbbbbbbb\n", 3, "abd.log");
 		$res_bonus = $db->query($sql_b);
 		$kkk_bonus = 0;
 		while($row_bonus = $db->fetchRow($res_bonus))
@@ -165,15 +168,14 @@ if ($event['event'] == "subscribe") { //用户关注
 			$sql = "INSERT INTO " . $ecs->table('user_bonus') . "(bonus_type_id, bonus_sn, user_id, used_time, order_id, emailed)" . " VALUES('" . $row_bonus['type_id'] . "', 0, '" . $_SESSION['user_id'] . "', 0, 0, 0)";
 			$db->query($sql);
 			$kkk_bonus = $kkk_bonus + 1;
-			error_log("\nsssssssssss\n".$sql."\nssssssssss\n", 3, "abc.log");
 			$bonus_msg =  "\r\n恭喜您获得红包一个：(可在购买商品时使用)";
 	
 			echo $weixin->text($weixinconfig['followmsg'].$bonus_msg)->reply();//发送欢迎信息
 		}
 	}
-	// $bonus_msg =  $bonus_sn ? "\r\n恭喜您获得红包一个：{$bonus_sn}(可在购买商品时使用)" : "";
+	$bonus_msg =  $bonus_sn ? "\r\n恭喜您获得红包一个：{$bonus_sn}(可在购买商品时使用)" : "";
 	
-	// echo $weixin->text($weixinconfig['followmsg'].$bonus_msg)->reply();//发送欢迎信息
+	echo $weixin->text($weixinconfig['followmsg'].$bonus_msg)->reply();//发送欢迎信息
 	exit;
 }
 if ($event['event'] == "unsubscribe"){ // 用户主动删除

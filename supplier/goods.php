@@ -266,9 +266,9 @@ elseif ($_REQUEST['act'] == 'add' || $_REQUEST['act'] == 'edit' || $_REQUEST['ac
             'promote_start_date' => local_date('Y-m-d'),
             'promote_end_date'   => local_date('Y-m-d', local_strtotime('+1 month')),
             'goods_weight'  => 0,
-            'give_integral' => -1,
+            'give_integral' => 0,
 			'exclusive' => -1,//手机专享价格   app  jx   
-            'rank_integral' => -1
+            'rank_integral' => 0
         );
 
         if ($code != '')
@@ -352,9 +352,9 @@ elseif ($_REQUEST['act'] == 'add' || $_REQUEST['act'] == 'edit' || $_REQUEST['ac
                 'promote_start_date' => local_date('Y-m-d'),
                 'promote_end_date'   => local_date('Y-m-d', gmstr2tome('+1 month')),
                 'goods_weight'  => 0,
-                'give_integral' => -1,
+                'give_integral' => 0,
 				'exclusive' => -1,//手机专享价格   app  jx  
-                'rank_integral' => -1
+                'rank_integral' => 0
             );
         }
 
@@ -1015,8 +1015,8 @@ elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
     $goods_number = isset($_POST['goods_number']) ? $_POST['goods_number'] : 0;
     $warn_number = isset($_POST['warn_number']) ? $_POST['warn_number'] : 0;
     $goods_type = isset($_POST['goods_type']) ? $_POST['goods_type'] : 0;
-    $give_integral = isset($_POST['give_integral']) ? intval($_POST['give_integral']) : '-1';
-    $rank_integral = isset($_POST['rank_integral']) ? intval($_POST['rank_integral']) : '-1';
+    $give_integral = isset($_POST['give_integral']) ? intval($_POST['give_integral']) : '0';
+    $rank_integral = isset($_POST['rank_integral']) ? intval($_POST['rank_integral']) : '0';
     $suppliers_id = isset($_POST['suppliers_id']) ? intval($_POST['suppliers_id']) : '0';
 	$supplier_id = isset($_SESSION['supplier_id']) ? intval($_SESSION['supplier_id']) : $_COOKIE['ECSCP']['supplier_id'];
 

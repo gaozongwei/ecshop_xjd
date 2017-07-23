@@ -210,9 +210,9 @@ elseif ($_REQUEST['act'] == 'add' || $_REQUEST['act'] == 'edit' || $_REQUEST['ac
             /* 代码修改 By  www.68ecshop.com 促销商品时间精确到时分 End */
 
             'goods_weight'  => 0,
-            'give_integral' => -1,
+            'give_integral' => 0,
 			'exclusive' => -1,//手机专享价格   app  jx   
-            'rank_integral' => -1
+            'rank_integral' => 0
         );
 
         if ($code != '')
@@ -295,9 +295,9 @@ elseif ($_REQUEST['act'] == 'add' || $_REQUEST['act'] == 'edit' || $_REQUEST['ac
                 'promote_end_date'   => local_date('Y-m-d H:i', gmstr2tome('+1 month')),
                 /* 代码修改 By  www.68ecshop.com 促销商品时间精确到时分 End */
                 'goods_weight'  => 0,
-                'give_integral' => -1,
+                'give_integral' => 0,
 				'exclusive' => -1,//手机专享价格   app  jx  
-                'rank_integral' => -1
+                'rank_integral' => 0
             );
         }
 
@@ -902,8 +902,8 @@ elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
     $goods_number = isset($_POST['goods_number']) ? $_POST['goods_number'] : 0;
     $warn_number = isset($_POST['warn_number']) ? $_POST['warn_number'] : 0;
     $goods_type = isset($_POST['goods_type']) ? $_POST['goods_type'] : 0;
-    $give_integral = isset($_POST['give_integral']) ? intval($_POST['give_integral']) : '-1';
-    $rank_integral = isset($_POST['rank_integral']) ? intval($_POST['rank_integral']) : '-1';
+    $give_integral = isset($_POST['give_integral']) ? intval($_POST['give_integral']) : '0';
+    $rank_integral = isset($_POST['rank_integral']) ? intval($_POST['rank_integral']) : '0';
     $suppliers_id = isset($_POST['suppliers_id']) ? intval($_POST['suppliers_id']) : '0';
     $ghost_count = isset($_POST['ghost_count']) ? intval($_POST['ghost_count']) : '0';
 

@@ -31,7 +31,7 @@ h1, h2, h3, h4, h5, h6 {
 a{ text-decoration:none; line-height:14px;}
 .floor_body { width:100%; overflow:hidden; margin-top:10px; background:#FFF; }
 .floor_body h4{ width:100%; height:25px; padding-top:8px; padding-bottom:8px;border-bottom:1px solid #eeeeee;}
-.floor_body h4 span{ display:block; float:left; font-size:14px; line-height:25px; width:40%; color:#E71F19; text-indent:10px; border-left:2px solid #E71F19;}
+.floor_body h4 span{ display:block; float:left; font-size:14px; line-height:25px; width:48%; color:#E71F19; text-indent:10px; border-left:2px solid #E71F19;}
 .floor_body h4 i{ display:block; float:right;line-height:25px;  padding-right:15px; margin-right:10px; background:url(../images/index_r.png) no-repeat right 40%;background-size: auto 25px;}
 .floor_body h4 i a{font-style:normal;font-size:14px; line-height:25px; color:#999; font-weight:normal; }
 .floor_body ul { width:96%; overflow:hidden; margin:auto; margin-top:5px; padding-top:8px; padding-left:2%; padding-right:2%; background:#FFF}

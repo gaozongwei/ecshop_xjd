@@ -381,7 +381,7 @@ elseif ($_REQUEST['act'] == 'action')
             log_account_change($account['user_id'], $amount, 0, 0, 0, $_LANG['surplus_type_1'], ACT_DRAWING);
             
             //更新会员云豆数量
-            $bean = abs($amount*(1-0.05)*0.3*(int)$_CFG['tixian']);
+            $bean = abs($amount*(1-0.05)*0.3*(float)$_CFG['tixian']);
 
             log_account_change($account['user_id'], 0, 0, 0, $bean, "提现转入", ACT_SAVING);
             // insert_affiliate_log(0, $account['user_id'], $account['user_name'], $amount, 9,"积分提现", $type=1);
