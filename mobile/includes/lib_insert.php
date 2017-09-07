@@ -263,7 +263,7 @@ function insert_ads($arr)
                 'LEFT JOIN ' . $GLOBALS['ecs']->table('ecsmart_ad_position') . ' AS p ON a.position_id = p.position_id ' .
                 "WHERE enabled = 1 AND start_time <= '" . $time . "' AND end_time >= '" . $time . "' ".
                     "AND a.position_id = '" . $arr['id'] . "' " .
-                'ORDER BY rnd LIMIT ' . $arr['num'];
+                'ORDER BY a.ad_id LIMIT ' . $arr['num'];
         $res = $GLOBALS['db']->GetAll($sql);
     }
     else

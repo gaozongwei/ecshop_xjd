@@ -503,7 +503,9 @@ $_LANG['cfg_name']['delback_time'] = '退货/维修买家发货期限（单位�
 $_LANG['cfg_desc']['delback_time'] = '例如：设置7，则自卖家同意协议后7天内，买家如果没有补充物流信息，则该申请自动取消，该申请关闭';
 $_LANG['cfg_name']['weixiu_time']  = '申请维修期限（确认收货后第几天止）';
 $_LANG['cfg_desc']['weixiu_time']  = '例如：设置30，则自确认收货起30天内买家可以申请维修';
-$_LANG['cfg_name']['tixian']  = '提现转入云豆比例';
+$_LANG['cfg_name']['tixian']  = '提现转入云豆倍数';
+$_LANG['cfg_name']['tixian_tax']  = '提现扣税百分比';
+$_LANG['cfg_name']['tixian_bean']  = '提现转入云豆百分比';
 
 /*增值税发票_添加_START_www.68ecshop.com*/
 $_LANG['normal_invoice'] = '普通发票';

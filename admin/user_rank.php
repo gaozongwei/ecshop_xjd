@@ -30,7 +30,7 @@ if ($_REQUEST['act'] == 'list')
     $ranks = $db->getAll("SELECT * FROM " .$ecs->table('user_rank'));
 
     $smarty->assign('ur_here',      $_LANG['05_user_rank_list']);
-    $smarty->assign('action_link',  array('text' => $_LANG['add_user_rank'], 'href'=>'user_rank.php?act=add'));
+    // $smarty->assign('action_link',  array('text' => $_LANG['add_user_rank'], 'href'=>'user_rank.php?act=add'));
     $smarty->assign('full_page',    1);
 
     $smarty->assign('user_ranks',   $ranks);

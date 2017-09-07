@@ -143,7 +143,7 @@ $modules['08_members']['04_users_export'] = 'users_export.php'; // 代码增加
                                                                             // www.68ecshop.com
 
 $modules['08_members']['04_users_add'] = 'users.php?act=add';
-// $modules['08_members']['05_user_rank_list'] = 'user_rank.php?act=list';
+$modules['08_members']['05_user_rank_list'] = 'user_rank.php?act=list';
 // $modules['08_members']['06_list_integrate'] = 'integrate.php?act=list';
 $modules['08_members']['08_unreply_msg'] = 'user_msg.php?act=list_all';
 $modules['08_members']['09_user_account'] = 'user_account.php?act=list';

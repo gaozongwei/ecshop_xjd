@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 /**
  * ECSHOP 商品详情

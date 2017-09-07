@@ -295,11 +295,11 @@ elseif ($_REQUEST['act'] == 'check')
     {
         $account['amount'] = abs($account['amount']);
         $process_type = $_LANG['surplus_type_1'];
-        // 提现扣除5%税
-        $account['tax'] = number_format($account['amount']*5/100, 2);
+        // 提现扣除税
+        $account['tax'] = number_format($account['amount']*$_CFG['tixian_tax']/100, 2);
 
         //扣除30%转入云豆
-        $account['bean'] = number_format(($account['amount'] - $account['tax'])*30/100, 2);
+        $account['bean'] = number_format(($account['amount'] - $account['tax'])*$_CFG['tixian_bean']/100, 2);
 
         // 剩余部分
         $account['actual'] = $account['amount'] - $account['tax'] - $account['bean'];
@@ -381,7 +381,7 @@ elseif ($_REQUEST['act'] == 'action')
             log_account_change($account['user_id'], $amount, 0, 0, 0, $_LANG['surplus_type_1'], ACT_DRAWING);
             
             //更新会员云豆数量
-            $bean = abs($amount*(1-0.05)*0.3*(float)$_CFG['tixian']);
+            $bean = abs($amount*(1-($_CFG['tixian_tax']/100))*($_CFG['tixian_bean']/100)*(float)$_CFG['tixian']);
 
             log_account_change($account['user_id'], 0, 0, 0, $bean, "提现转入", ACT_SAVING);
             // insert_affiliate_log(0, $account['user_id'], $account['user_name'], $amount, 9,"积分提现", $type=1);

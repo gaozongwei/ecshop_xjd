@@ -3648,6 +3648,12 @@ function action_account_raply()
 {
 	$user = $GLOBALS['user'];
 	$_CFG = $GLOBALS['_CFG'];
+
+	$tixian = array(
+			"tixian" => $_CFG['tixian'],
+			"tixian_tax" => $_CFG['tixian_tax'],
+			"tixian_bean" => $_CFG['tixian_bean']
+		);
 	$_LANG = $GLOBALS['_LANG'];
 	$smarty = $GLOBALS['smarty'];
 	$db = $GLOBALS['db'];
@@ -3655,6 +3661,7 @@ function action_account_raply()
 	$user_id = $GLOBALS['user_id'];
 	$user_info = get_user_info();
 	$user_info['points_all'] = number_format($user_info['user_money'] + $user_info['vip_points'],2);
+	$smarty->assign('tixian', $tixian);
 	$smarty->assign('user_info', $user_info);
 	$smarty->display('user_transaction.dwt');
 }

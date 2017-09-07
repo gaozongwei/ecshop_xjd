@@ -523,3 +523,95 @@ Array
 )
 
 222222222222
+2222222222222222
+Array
+(
+    [ECSCP] => Array
+        (
+            [supplier_id] => 14
+            [supplier_user_id] => 8
+            [supplier_pass] => 33e158919fba8914a13830722e3d3ea3
+        )
+
+)
+
+222222222222
+2222222222222222
+Array
+(
+    [ECSCP] => Array
+        (
+            [supplier_id] => 14
+            [supplier_user_id] => 8
+            [supplier_pass] => 7ec8705de4106728ac199d8dfa68f57d
+        )
+
+    [hd_sid] => hMGDND
+    [hd_uid] => 0
+    [ECS] => Array
+        (
+            [username] => 高宗卫
+        )
+
+    [ECSCP_ID] => 7d3e396354c511bdb5c5c29649a26b7bb233a98a
+    [ECS_ID] => 2f5ba208d0866c20b482e4581a77940f1b6a4e2f
+)
+
+222222222222
+2222222222222222
+Array
+(
+    [ECSCP] => Array
+        (
+            [supplier_id] => 19
+            [supplier_user_id] => 12
+            [supplier_pass] => a2efd4a304f1680dd13cb1d337e7af05
+        )
+
+    [hd_sid] => hMGDND
+    [hd_uid] => 0
+    [ECS] => Array
+        (
+            [username] => 高宗卫
+        )
+
+    [ECSCP_ID] => 7d3e396354c511bdb5c5c29649a26b7bb233a98a
+    [ECS_ID] => 2f5ba208d0866c20b482e4581a77940f1b6a4e2f
+)
+
+222222222222
+2222222222222222
+Array
+(
+    [ECSCP] => Array
+        (
+            [supplier_id] => 19
+            [supplier_user_id] => 12
+            [supplier_pass] => a2efd4a304f1680dd13cb1d337e7af05
+        )
+
+    [hd_sid] => hMGDND
+    [hd_uid] => 0
+    [ECS] => Array
+        (
+            [username] => 高宗卫
+        )
+
+    [ECSCP_ID] => 7d3e396354c511bdb5c5c29649a26b7bb233a98a
+    [ECS_ID] => 2f5ba208d0866c20b482e4581a77940f1b6a4e2f
+)
+
+222222222222
+2222222222222222
+Array
+(
+    [ECSCP] => Array
+        (
+            [supplier_id] => 6
+            [supplier_user_id] => 5
+            [supplier_pass] => 05cac956722a440f0079b63851d6097d
+        )
+
+)
+
+222222222222

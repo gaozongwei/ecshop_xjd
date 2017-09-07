@@ -10,7 +10,7 @@
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 </head>
 <body style=" background:#f5f5f5">
-
+{insert name='share'}
 {insert name='add_url_uid'}
 
 <!--header-->
@@ -37,105 +37,6 @@
 <span onclick="close_choose_attr();"><img src="themesmobile/68ecshopcom_mobile/images/v-shop/tishi.png" /></span>
 </div>
 </section>
-<script>
-var url = window.location.href;
-wx.config({
-    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-    appId: 'wx67bd3728b7a85277', // 必填，公众号的唯一标识
-    timestamp: "{$wx_package.timestamp}", // 必填，生成签名的时间戳
-    nonceStr: "{$wx_package.nonceStr}", // 必填，生成签名的随机串
-    signature: "{$wx_package.signature}",// 必填，签名，见附录1
-    jsApiList: ['onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo', 'onMenuShareQZone'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-});
-
-
-
- var imgUrl = "{$user_info.headimgurl}";  //图片LOGO注意必须是绝对路径
-       var lineLink = url;   //网站网址，必须是绝对路径
-       var descContent = '扫一扫下面的二维码，送送送！买买买！百万现金大赠送'; //分享给朋友或朋友圈时的文字简介
-       var shareTitle = 'V积分商城';  //分享title
-       var appid = ''; //apiID，可留空
-        
-       function shareFriend() {
-           WeixinJSBridge.invoke('sendAppMessage',{
-               "appid": appid,
-               "img_url": imgUrl,
-               "img_width": "200",
-               "img_height": "200",
-               "link": lineLink,
-               "desc": descContent,
-               "title": shareTitle
-           }, function(res) {
-               //_report('send_msg', res.err_msg);
-           })
-       }
-       function shareTimeline() {
-           WeixinJSBridge.invoke('shareTimeline',{
-               "img_url": imgUrl,
-               "img_width": "200",
-               "img_height": "200",
-               "link": lineLink,
-               "desc": descContent,
-               "title": shareTitle
-           }, function(res) {
-                  //_report('timeline', res.err_msg);
-           });
-       }
-       function shareWeibo() {
-           WeixinJSBridge.invoke('shareWeibo',{
-               "content": descContent,
-               "url": lineLink,
-           }, function(res) {
-               //_report('weibo', res.err_msg);
-           });
-       }
-       // 当微信内置浏览器完成内部初始化后会触发WeixinJSBridgeReady事件。
-       document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
-           // 发送给好友
-           WeixinJSBridge.on('menu:share:appmessage', function(argv){
-               shareFriend();
-           });
-           // 分享到朋友圈
-           WeixinJSBridge.on('menu:share:timeline', function(argv){
-               shareTimeline();
-           });
-           // 分享到微博
-           WeixinJSBridge.on('menu:share:weibo', function(argv){
-               shareWeibo();
-           });
-       }, false);
-
-
-
-function choose_attr(num){
-	document.body.style.overflow='hidden';
-	$("#choose_attr").animate({height:'100%'},[10000]);
-
-		var total=0,h=$(window).height(),
-        top =$('.f_title_attr').height()||0,
-		bottom =$('#choose_attr .erweimaimg').height()||0,
-        con = $('.goods_shut');
-		total = 0.8*h;
-		con.height(total-top-bottom+'px');
-	$(".f_mask").show();
-        if(num == 0){
-            var actionForm = document.getElementById('purchase_form');  
-            actionForm.action = "javascript:addToCart({$goods.goods_id}),close_choose_attr()";
-        }
-        if(num == 1){
-            var actionForm = document.getElementById('purchase_form');  
-            actionForm.action = "javascript:addToCart1({$goods.goods_id}),close_choose_attr()";
-        }
-
-}
-function close_choose_attr(){	
-document.body.style.overflow='';
-	$(".f_mask").hide();	
-	$('#choose_attr').animate({height:'0'},[10000]);
-}
-
-
-</script>
 <!-----底部悬浮菜单---->
 </body>
 </html>
