@@ -126,6 +126,84 @@
 			text-align: center;
 		}
 
+
+
+
+
+
+		#dialog-1{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			height: 100px;
+			width: 276px;
+			margin-left: -150px;
+			margin-top: -50px;
+
+			border: 2px solid #306931;
+			padding: 10px;
+			background-color: #fff;
+			display: none;
+			z-index: 6;
+			font-weight: bold;
+			font-size: 20px;
+		}
+
+		#dialog-1.no{ color: #333;}
+		#dialog-1.no button{ display: block;}
+		#content-1{
+			text-align: center;
+		}
+
+		#dialog-1 a{
+			text-decoration:none;
+			display: none;
+			font-size: 14px;
+			position: absolute;
+			bottom: 10px;
+			left: 25%;
+			height: 30px;
+			width: 80px;
+			line-height: 30px;
+			margin-left: -20px;
+			font-weight: normal;
+			background-color: #2C6C4E;
+			border: none;
+			color: #fff;
+			text-align: center;
+		}
+
+		#dialog-1 button{
+			display: none;
+			font-size: 14px;
+			position: absolute;
+			bottom: 10px;
+			right: 25%;
+			height: 30px;
+			width: 80px;
+			line-height: 30px;
+			margin-right: -20px;
+			background-color: #2C6C4E;
+			border: none;
+			color: #fff;
+			text-align: center;
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		li{ list-style: none; font-size: 14px; line-height: 30px;}
 
 		.jilu{ height: 30px; width: 100%; overflow: hidden; background-color: #eee; }
@@ -197,7 +275,7 @@
     <div class="tabs-bd" style="display:none;">
     	<div class="gift-hd">
         	<ul>
-            	<li class="current">我的中奖</li>
+            	<li class="current">中奖记录</li>
                 <li>中奖排行榜</li>
             </ul>
         </div>
@@ -302,6 +380,12 @@
 		<a href="javascript:location.reload()">确定</a>
 		<button id="close">关闭</button>
 	</div>
+
+	<div id="dialog-1" class="no">
+		<div id="content-1"></div>
+		<a href="/mobile/package.php">升级</a>
+		<button id="close-1">关闭</button>
+	</div>
 	
 </body>
 </html>
@@ -331,6 +415,11 @@
                 if(json.msg == 2){
                     $("#content").html(json.prize);
                     $("#dialog").attr("class",'no').show();
+                }else if(json.msg == 3){
+                    $("#content-1").html(json.prize);
+                    $("#dialog-1").attr("class",'no').show();
+                    $("#dialog-1 a").show();
+                    $("#dialog-1 button").show();
                 }else{
 					var r = 1440 + 30*(json.r-1);
 					var style ;
@@ -364,9 +453,14 @@
         $("#mask").on('click',function() {
             $(this).hide();
             $("#dialog").hide();
+            $("#dialog-1").hide();
         });
 
         $("#close").click(function() {
+            $("#mask").trigger('click');
+        });
+
+        $("#close-1").click(function() {
             $("#mask").trigger('click');
         });
     });

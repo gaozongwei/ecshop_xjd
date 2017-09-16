@@ -159,7 +159,7 @@ if ($event['event'] == "subscribe") { //用户关注
 		{
 			$sql_bonus_ext = " order by rand() limit 0,1";
 		}
-		$sql_b = "SELECT type_id FROM " . $ecs->table("bonus_type") . " WHERE send_type='" . SEND_BY_REGISTER . "'  AND send_start_date<=" . $now . " AND send_end_date>=" . $now . $sql_bonus_ext;
+		$sql_b = "SELECT type_id FROM " . $ecs->table("bonus_type") . " WHERE send_type='" . SEND_BY_REGISTER . "'". $sql_bonus_ext;
 				error_log("\nfbbbbbb\n".$sql_b."\nfbbbbbbb\n", 3, "abd.log");
 		$res_bonus = $db->query($sql_b);
 		$kkk_bonus = 0;

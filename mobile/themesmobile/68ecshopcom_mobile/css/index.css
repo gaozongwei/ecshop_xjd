@@ -163,8 +163,8 @@ html.mm-opening .mm-page, html.mm-opening #mm-blocker, html.mm-opening .mm-fixed
 .floor_img{ width:100%; overflow:hidden; margin:auto; background:#FFF;}
 .floor_img img{display:block; width:100% !important; height:auto !important}
 .floor_img h2{ width:100%; overflow:hidden; margin:auto}
-.floor_img ul{ width:100%; overflow:hidden; border-top:1px solid #eeeeee}
-.floor_img ul li{ width:50%; float:left; overflow:hidden;}
+.floor_img ul{ width:100%; overflow:hidden;}
+/*.floor_img ul li{ width:50%; float:left; overflow:hidden;}*/
 .floor_img dl{ width:100%; overflow:hidden;}
 .floor_img dl dt{ width:50%; float:left; overflow:hidden ;border-right:1px solid #eeeeee; margin-left:-1px;}
 .floor_img dl dd{ width:50%; float:left; overflow:hidden}

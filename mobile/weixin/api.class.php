@@ -423,7 +423,7 @@ class weixinapi{
 			return array('num'=>0,'msg'=>2,'prize'=>"请先登录");
 		}
 		if($user['vip_times'] == 0){
-			return array('num'=>0,'msg'=>2,'prize'=>"请先升级VIP");
+			return array('num'=>0,'msg'=>3,'prize'=>"请先升级VIP");
 		}
 		if($user['vip_award'] == 0){
 			return array('num'=>0,'msg'=>2,'prize'=>"您的抽奖已达到最高累计值");

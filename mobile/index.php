@@ -123,6 +123,7 @@ if (!$smarty->is_cached('index.dwt', $cache_id))
 	
 	$smarty->assign('wap_index_icon',get_wap_advlist('wap端首页8个图标', 8));  //wap首页幻灯广告位
     $smarty->assign('wap_index_img',get_wap_advlist('手机端首页精品推荐广告', 5));  //wap首页幻灯广告位
+    $smarty->assign('wap_index_img_1_2',get_wap_advlist('手机端首页广告1-2', 5));  //wap首页幻灯广告位
 
 	 
 	 $smarty->assign('menu_list',get_menu());
