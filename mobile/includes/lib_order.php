@@ -745,7 +745,7 @@ function order_fee($order, $goods, $consignee)
     $total['shipping_insure_formated'] = price_format($total['shipping_insure'], false);*/
 
 	/* 代码增加_start  By  www.68ecshop.com */	
-	if (count($order['shipping_pay']) > 0 && $total['real_goods_count'] > 0){
+	if ($total['real_goods_count'] > 0){
 
 		
 

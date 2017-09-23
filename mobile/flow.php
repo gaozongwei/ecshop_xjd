@@ -979,8 +979,8 @@ elseif ($_REQUEST['step'] == 'checkout')
     /*------------------------------------------------------ */
     /* 如果用户够买的是VIP或者VIP赠送的礼包，先删除购物车其他的商品 */
     $sql = "SELECT rec_id FROM" . 
-            $ecs->table('cart') . " WHERE user_id = '$_SESSION[user_id]' AND ((extension_code != 'package_buy') OR extension_code = 'package_buy')";
-    $rec_id = $db->getOne($sql);
+            $ecs->table('cart') . " WHERE user_id = '$_SESSION[user_id]' AND ( extension_code = 'package_buy')";
+    $rec_id = $db->getOne($sql);echo $rec_id;
     if($rec_id > 0){
         $smarty->assign('is_vip', 1);
         $sql = "DELETE FROM " . $ecs->table('cart') . " WHERE user_id = '$_SESSION[user_id]' AND rec_id <> $rec_id";
