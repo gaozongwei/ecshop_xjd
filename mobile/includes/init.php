@@ -13,6 +13,14 @@
  * $Id: init.php 17217 2011-01-19 06:29:08Z derek $
 */
 
+
+if($_SERVER['HTTP_HOST'] == "yungou.vjifeng.com"){
+    header("Location:../supplier/");
+}
+
+if($_SERVER['HTTP_HOST'] == "yungou.admin.vjifeng.com"){
+    header("Location:../admin/");
+}
 if (!defined('IN_ECS'))
 {
     die('Hacking attempt');

@@ -138,6 +138,7 @@ function check_money($log_id, $money)
  */
 function order_paid($log_id, $pay_status = PS_PAYED, $note = '')
 {
+                            error_log("\n*************start********************\n", 3, 'includes/000.log');
     /* 取得支付编号 */
     $log_id = intval($log_id);
     if ($log_id > 0)
@@ -188,17 +189,29 @@ function order_paid($log_id, $pay_status = PS_PAYED, $note = '')
                            $GLOBALS['ecs']->table('order_goods') .
                             " WHERE extension_code = 'package_buy' ".
                             " AND order_id = '$order_id'";
+                            error_log("**************\n".print_r($sql, 1)."*******************\n", 3, 'includes/000.log');
                     $rank_points = $GLOBALS['db']->getOne($sql);
-                    if ($rank_points){
-                        $order_id = $order_id;
-                        // $rank_points = $rank_points*60000;
-                        /* 更新用户信息 */
-                        $sql = "UPDATE " . $GLOBALS['ecs']->table('users') .
-                                " SET rank_points = rank_points + ('$rank_points')," .
-                                " vip_times = floor(rank_points/1000)" .
-                                " WHERE user_id = '$order[user_id]' LIMIT 1";
-                        $GLOBALS['db']->query($sql);
+                    // if ($rank_points){
+                    //     $order_id = $order_id;
+                    //     // $rank_points = $rank_points*60000;
+                    //     /* 更新用户信息 */
+                    //     $sql = "UPDATE " . $GLOBALS['ecs']->table('users') .
+                    //             " SET rank_points = rank_points + ('$rank_points')," .
+                    //             " vip_times = floor(rank_points/1000)" .
+                    //             " WHERE user_id = '$order[user_id]' LIMIT 1";
+                    //         error_log("####################\n".print_r($sql, 1)."#########################\n", 3, 'includes/000.log');
+                    //     $GLOBALS['db']->query($sql);
 
+
+                    // }
+                    if ($rank_points){
+                        $order_id = $order['order_id'];
+                        $is_vip = 1;
+                        $vip_times = floor($rank_points/1000);
+                        log_account_change($order['user_id'], 0, 0, intval($rank_points), 0, sprintf("订单 %s 购买VIP等级礼包", $order['order_sn']), ACT_OTHER, $vip_times, $rank_points);
+                        $sql = "UPDATE " . $ecs->table('users') . " SET user_rank = 6 where user_id = ".$order['user_id'];
+                            error_log("####################\n".print_r($sql, 1)."#########################\n", 3, 'includes/000.log');
+                        $GLOBALS['db']->query($sql);
 
                     }
 

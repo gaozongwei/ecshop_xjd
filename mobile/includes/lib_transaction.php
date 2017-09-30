@@ -489,6 +489,7 @@ function get_user_orders_ajax($user_id, $limit,$where='')
 		}
 
 		$arr[$row['order_id']] = array('order_id'       => $row['order_id'],
+                        'row_time'       => $row_time,
 						'order_sn'       => $row['order_sn'],
 						'shopname'       => $row['shopname'],
                         'extension_code' => $row['extension_code'],

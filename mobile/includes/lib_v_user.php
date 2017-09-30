@@ -122,7 +122,7 @@ function get_distrib_user_info($user_id,$level)
 	if($count)
 	{
 		 $sql = "SELECT user_id, user_name, email, is_validated, user_money, frozen_money, rank_points, pay_points, reg_time ".
-                    " FROM " . $GLOBALS['ecs']->table('users') . " WHERE user_id IN($up_uid)";
+                    " FROM " . $GLOBALS['ecs']->table('users') . " WHERE user_id IN($up_uid) order by user_id";
 		 $list = $GLOBALS['db']->getAll($sql);
 		 $arr = array();
 		 foreach($list as $key => $val)

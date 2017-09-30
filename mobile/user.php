@@ -2420,6 +2420,9 @@ function action_ajax_order_list(){
                 /* 获取即时通讯客服信息 */
         include_once ("includes/lib_chat.php");
         foreach($orders as $key=>$val){
+        	if($val['row_time'] != '' && $val['row_time']<=0){
+				action_affirm_received($val['order_id']);
+        	}
             $GLOBALS['smarty']->assign('order',$val);
             $result[]['info']  = $GLOBALS['smarty']->fetch('library/user_order_list.lbi');
         }
@@ -3539,7 +3542,7 @@ function action_act_del_booking()
 }
 
 /* 确认收货 */
-function action_affirm_received()
+function action_affirm_received($order_id = '')
 {
 	$user = $GLOBALS['user'];
 	$_CFG = $GLOBALS['_CFG'];
@@ -3552,7 +3555,7 @@ function action_affirm_received()
 	require_once(ROOT_PATH . '/includes/lib_order.php');
 	include_once (ROOT_PATH . 'includes/lib_transaction.php');
 	// echo $GLOBALS['_CFG']['distrib_style'];die();
-	$order_id = isset($_GET['order_id']) ? intval($_GET['order_id']) : 0;
+	$order_id = $order_id ? $order_id : (isset($_GET['order_id']) ? intval($_GET['order_id']) : 0);
 	
 	if(affirm_received($order_id, $user_id))
 	// if(1)

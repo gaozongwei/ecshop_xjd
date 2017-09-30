@@ -3116,7 +3116,32 @@ function formated_weight($weight)
  * @param   int     $change_type    变动类型：参见常量文件
  * @return  void
  */
-function log_account_change($user_id, $user_money = 0, $frozen_money = 0, $rank_points = 0, $pay_points = 0, $change_desc = '', $change_type = ACT_OTHER)
+// function log_account_change($user_id, $user_money = 0, $frozen_money = 0, $rank_points = 0, $pay_points = 0, $change_desc = '', $change_type = ACT_OTHER)
+// {
+//     /* 插入帐户变动记录 */
+//     $account_log = array(
+//         'user_id'       => $user_id,
+//         'user_money'    => $user_money,
+//         'frozen_money'  => $frozen_money,
+//         'rank_points'   => $rank_points,
+//         'pay_points'    => $pay_points,
+//         'change_time'   => gmtime(),
+//         'change_desc'   => $change_desc,
+//         'change_type'   => $change_type
+//     );
+//     $GLOBALS['db']->autoExecute($GLOBALS['ecs']->table('account_log'), $account_log, 'INSERT');
+
+//     /* 更新用户信息 */
+//     $sql = "UPDATE " . $GLOBALS['ecs']->table('users') .
+//             " SET user_money = user_money + ('$user_money')," .
+//             " frozen_money = frozen_money + ('$frozen_money')," .
+//             " rank_points = rank_points + ('$rank_points')," .
+//             " pay_points = pay_points + ('$pay_points')" .
+//             " WHERE user_id = '$user_id' LIMIT 1";
+//     $GLOBALS['db']->query($sql);
+// }
+
+function log_account_change($user_id, $user_money = 0, $frozen_money = 0, $rank_points = 0, $pay_points = 0, $change_desc = '', $change_type = ACT_OTHER, $vip_times = 0, $vip_award = 0)
 {
     /* 插入帐户变动记录 */
     $account_log = array(
@@ -3136,7 +3161,10 @@ function log_account_change($user_id, $user_money = 0, $frozen_money = 0, $rank_
             " SET user_money = user_money + ('$user_money')," .
             " frozen_money = frozen_money + ('$frozen_money')," .
             " rank_points = rank_points + ('$rank_points')," .
-            " pay_points = pay_points + ('$pay_points')" .
+            " pay_points = pay_points + ('$pay_points')," .
+            " vip_times = floor(rank_points/1000)," .
+            " vip_points = vip_points + ('$vip_award')," .
+            " vip_award = vip_award + ('$vip_award')" .
             " WHERE user_id = '$user_id' LIMIT 1";
     $GLOBALS['db']->query($sql);
 }
