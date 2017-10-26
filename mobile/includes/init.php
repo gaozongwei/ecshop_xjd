@@ -341,15 +341,15 @@ if (!empty($_CFG['stylename']))
 
 // 抽奖汇总
 $week = local_date("w");
-if($week == 1){        // 暂时写死周二五抽奖
+if($week == 1){        // 暂时写死周一抽奖
     // 获取上次抽奖信息
     $is_insert = 0;
-    $time_end = strtotime(date("y-m-d"));
+    $time_end = strtotime(local_date("y-m-d"));
     $sql = "SELECT * FROM " . $ecs->table('award_account') . " order by id desc limit 0,1";
     $data = $db->GetRow($sql);
 
     if($data){
-        if($data['time_end'] != strtotime(date("y-m-d"))){
+        if($data['time_end'] != strtotime(local_date("y-m-d"))){
             $time_begin = $data['time_end'];
             $is_insert = 1;
         }

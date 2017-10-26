@@ -1,7 +1,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <div class="Funds">
 <ul>
-    {if $user_info.user_rank eq 6}
+    {if $smarty.session.user_rank eq 6}
 	<li style="border-bottom:1px solid #b17171"><h2><span>账户VIP积分</span><em>{$user_info.vip_points|default:0}</em></h2></li>
 	{/if}
 	<li style="border-bottom:1px solid #b17171"><h2><span>账户V积分</span><em>{$user_info.v_points|default:0}</em></h2></li>

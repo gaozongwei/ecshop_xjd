@@ -85,7 +85,7 @@ if ($act == 'cat_rec')
 //-- 判断是否存在缓存，如果存在则调用缓存，反之读取相应内容
 /*------------------------------------------------------ */
 /* 缓存编号 */
-$cache_id = sprintf('%X', crc32($_SESSION['user_rank'] . '-' . $_CFG['lang']));
+$cache_id = 5;
 
 if (!$smarty->is_cached('index.dwt', $cache_id))
 {
@@ -99,6 +99,8 @@ if (!$smarty->is_cached('index.dwt', $cache_id))
     $smarty->assign('keywords',        htmlspecialchars($_CFG['shop_keywords']));
     $smarty->assign('description',     htmlspecialchars($_CFG['shop_desc']));
     $smarty->assign('flash_theme',     $_CFG['flash_theme']);  // Flash轮播图片模板
+
+    $smarty->assign('notic',     array('long' => $_CFG['user_notice'], 'shot' => mb_substr($_CFG['user_notice'], 0, 25, 'utf8')."..."));  // 公告
 
     $smarty->assign('feed_url',        ($_CFG['rewrite'] == 1) ? 'feed.xml' : 'feed.php'); // RSS URL
 

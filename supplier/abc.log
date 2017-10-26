@@ -615,3 +615,51 @@ Array
 )
 
 222222222222
+3333333333333333
+Array
+(
+    [tu] => ee6e6f58ac2e8f28d8b244902706e5fb
+    [ECSCP] => Array
+        (
+            [admin_id] => 1
+            [admin_pass] => d12cf69d84d2ef23c28dbcd52eac8802
+        )
+
+    [ECS] => Array
+        (
+            [username] => wx_072143146
+            [user_id] => 61
+            [password] => 7b6486aeffa6c21ba85b91769d64333c
+        )
+
+    [ECSCP_ID] => fe6a31db3f1828e1a0478c0d865a93a1dc70bf26
+    [ecshop_affiliate_uid] => 61
+)
+
+3333333333333333
+2222222222222222
+Array
+(
+    [ECSCP] => Array
+        (
+            [supplier_id] => 6
+            [supplier_user_id] => 5
+            [supplier_pass] => 14da8de23c34c86b4075daa5326a38ac
+            [admin_id] => 1
+            [admin_pass] => d12cf69d84d2ef23c28dbcd52eac8802
+        )
+
+    [ECS_LastCheckOrder] => Tue, 17 Oct 2017 06:59:08 GMT
+    [tu] => ee6e6f58ac2e8f28d8b244902706e5fb
+    [ECS] => Array
+        (
+            [username] => wx_072143146
+            [user_id] => 61
+            [password] => 7b6486aeffa6c21ba85b91769d64333c
+        )
+
+    [ecshop_affiliate_uid] => 61
+    [ECSCP_ID] => 6482d3aae5ae469f5dfefe642962a721066f2954
+)
+
+222222222222

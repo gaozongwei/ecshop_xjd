@@ -408,6 +408,15 @@ class weixinapi{
 		}
 		$useNum = $GLOBALS['db']->getOne ( $sql );
 		$num = $act['num']>$useNum ? $act['num']-$useNum : 0;
+
+		$user = $this->getUserInfoById($_SESSION['user_id']);
+		if(!$user){
+			$num = 0;
+		}
+		if($user['vip_times'] == 0){
+			$num = 0;
+		}
+
 		return $num;
 	}
 	//抽奖
@@ -415,15 +424,15 @@ class weixinapi{
 		$act = self::checkAward($aid);
 		if(!$act) return array('num'=>0,'msg'=>2,'prize'=>"活动不存在！");;
 		$awardNum =$this->getAwardNum($aid);
-		if($awardNum<=0){
-			return array('num'=>0,'msg'=>2,'prize'=>"您的抽奖机会已经用完！");
-		}
 		$user = $this->getUserInfoById($_SESSION['user_id']);
 		if(!$user){
 			return array('num'=>0,'msg'=>2,'prize'=>"请先登录");
 		}
 		if($user['vip_times'] == 0){
 			return array('num'=>0,'msg'=>3,'prize'=>"请先升级VIP");
+		}
+		if($awardNum<=0){
+			return array('num'=>0,'msg'=>2,'prize'=>"您的抽奖机会已经用完！");
 		}
 		if($user['vip_award'] == 0){
 			return array('num'=>0,'msg'=>2,'prize'=>"您的抽奖已达到最高累计值");

@@ -237,7 +237,7 @@ function insert_cart_info()
  * @return type
  */
 function insert_ecsmart_tel(){
-    $sql = "select value from ".$GLOBALS['ecs']->table('ecsmart_shop_config')." where code = 'service_phone'";
+    $sql = "select value from ".$GLOBALS['ecs']->table('shop_config')." where code = 'service_phone'";
     $tel = $GLOBALS['db']->getOne($sql);
     return $tel;
 }

@@ -3663,7 +3663,7 @@ function action_account_raply()
 	$ecs = $GLOBALS['ecs'];
 	$user_id = $GLOBALS['user_id'];
 	$user_info = get_user_info();
-	$user_info['points_all'] = number_format($user_info['user_money'] + $user_info['vip_points'],2);
+	$user_info['points_all'] = number_format($user_info['user_money'] + $user_info['v_points'],2);
 	$smarty->assign('tixian', $tixian);
 	$smarty->assign('user_info', $user_info);
 	$smarty->display('user_transaction.dwt');
