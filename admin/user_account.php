@@ -375,6 +375,23 @@ elseif ($_REQUEST['act'] == 'action')
                 sys_msg($_LANG['surplus_amount_error'], 0, $link);
             }
 
+            // 在线打款给用户
+            require(ROOT_PATH . ADMIN_PATH . '/includes/lib_wxpay.php');
+
+            $merchPay = new MerchPay();
+        
+            $sql = "SELECT fake_id FROM " . $ecs->table('weixin_user') . " where ecuid = $account[user_id]";
+            $openid = $db->getOne($sql);
+
+            $trade_no = date('YmdHis').mt_rand(1000,9999);
+
+            $res = $merchPay->pay($openid,$trade_no,1,'提现');
+            if($res['status'] && ($res['status'] == '1')){
+                $link[] = array('text' => $_LANG['go_back'], 'href'=>'javascript:history.back(-1)');
+                sys_msg($res[0]?$res[0]:$res['msg'], 0, $link);
+            }
+
+
             update_user_account($id, $amount, $admin_note, $is_paid);
 
             //更新会员余额数量
