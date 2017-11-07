@@ -87,7 +87,7 @@
           <input type="radio" name="is_paid" value="1"
           {if $user_surplus.is_paid eq 1} checked="true" {/if} {if $user_surplus.process_type eq 2 || $user_surplus.process_type eq 3 ||$action eq "edit"} disabled="true"{/if}/>{$lang.confirm}
           <input type="radio" name="is_paid" value="2"
-          {if $user_surplus.is_paid eq 2} checked="true" {/if} {if $user_surplus.process_type eq 2 || $user_surplus.process_type eq 3 ||$action eq "edit"} disabled="true"{/if}/>{$lang.cancel}
+          {if $user_surplus.is_paid eq 2} checked="true" {/if} {if $user_surplus.process_type eq 2 || $user_surplus.process_type eq 3 ||$action eq "edit"} disabled="true"{/if}/>拒绝
         </td>
       </tr>
       <tr>

@@ -529,7 +529,7 @@ function get_account_log($user_id, $num, $start)
             $rows['short_admin_note'] = ($rows['admin_note'] > '') ? sub_str($rows['admin_note'], 30) : 'N/A';
             $rows['user_note']        = nl2br(htmlspecialchars($rows['user_note']));
             $rows['short_user_note']  = ($rows['user_note'] > '') ? sub_str($rows['user_note'], 30) : 'N/A';
-            $rows['pay_status']       = ($rows['is_paid'] == 0) ? $GLOBALS['_LANG']['un_confirm'] : $GLOBALS['_LANG']['is_confirm'];
+            $rows['pay_status']       = ($rows['is_paid'] == 0) ? $GLOBALS['_LANG']['un_confirm'] : (($rows['is_paid'] == 1) ? $GLOBALS['_LANG']['is_confirm'] : '拒绝');
             $rows['amount']           = price_format(abs($rows['amount']), false);
 
             /* 会员的操作类型： 冲值，提现 */
@@ -588,7 +588,7 @@ function del_user_account($rec_id, $user_id)
  */
 function get_user_surplus($user_id)
 {
-    $sql = "SELECT SUM(user_money) FROM " .$GLOBALS['ecs']->table('account_log').
+    $sql = "SELECT user_money FROM " .$GLOBALS['ecs']->table('users').
            " WHERE user_id = '$user_id'";
 
     return $GLOBALS['db']->getOne($sql);

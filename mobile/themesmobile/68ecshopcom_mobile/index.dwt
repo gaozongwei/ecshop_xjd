@@ -25,15 +25,15 @@
 </div>
 <!-- #BeginLibraryItem "/library/index_icon.lbi" --><!-- #EndLibraryItem --> 
 <div onClick="javascript:alert('{$notic.long}')">
-<span style="content: '';
+<!-- <span style="content: '';
     width: 25px;
     height: 25px;
     position: absolute;
     background-image: url(themesmobile/68ecshopcom_mobile/img/icon.png);
     background-position: -50px 0;
     left: 3px;
-    margin: auto;"></span>
-    <!-- <img src="themesmobile/68ecshopcom_mobile/img/notice.gif" width="26px"> -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    margin: auto;"></span> -->
+    &nbsp;<img src="themesmobile/68ecshopcom_mobile/img/notice.png" width="15px">&nbsp;
     <span style="font-size:12px; color:red"><marquee align="right" height="20px" width="320px">{$notic.long}</marquee></span></div>
 
 <!---商城热点-->

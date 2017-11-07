@@ -15,7 +15,7 @@
 define('IN_ECS', true);
 
 require (dirname(__FILE__) . '/includes/init.php');
-
+recive();
 /* 载入语言文件 */
 require_once (ROOT_PATH . 'languages/' . $_CFG['lang'] . '/user.php');
 
@@ -3734,12 +3734,12 @@ function action_account_detail()
 	{
 		$row['change_time'] = local_date($_CFG['date_format'], $row['change_time']);
 		$row['type'] = $row[$account_type] > 0 ? $_LANG['account_inc'] : $_LANG['account_dec'];
-		$row['user_money'] = price_format(abs($row['user_money']), false);
-		$row['frozen_money'] = price_format(abs($row['frozen_money']), false);
+		$row['user_money'] = price_format($row['user_money'], false);
+		$row['frozen_money'] = price_format($row['frozen_money'], false);
 		$row['rank_points'] = abs($row['rank_points']);
 		$row['pay_points'] = abs($row['pay_points']);
 		$row['short_change_desc'] = sub_str($row['change_desc'], 60);
-		$row['amount'] = $row[$account_type];
+		$row['amount'] = $row[$account_type] > 0 ? '+'.$row[$account_type]:$row[$account_type];
 		$account_log[] = $row;
 	}
 	
@@ -3789,8 +3789,8 @@ function action_account_log()
 	$account_log = get_account_log($user_id, $pager['size'], $pager['start']);
 
 	foreach ($account_log as $key => $value) {
-		$account_log[$key]['tax'] = number_format($value['amount']*5/100, 2);
-		$account_log[$key]['bean'] = number_format(($value['amount']-$account_log[$key]['tax'])*30/100, 2);
+		$account_log[$key]['tax'] = number_format($value['amount']*$_CFG['tixian_tax']/100, 2);
+		$account_log[$key]['bean'] = number_format(($value['amount']-$account_log[$key]['tax'])*$_CFG['tixian_bean']/100, 2);
 		$account_log[$key]['actual'] = number_format($value['amount'] - $account_log[$key]['tax'] - $account_log[$key]['bean'], 2);
 	}
 	
@@ -6363,5 +6363,109 @@ function server_affiliate($order_id, $server_user_id, $goods_commission, $type){
 	
 }
 
+
+function recive(){
+
+	$_CFG = $GLOBALS['_CFG'];
+	$db = $GLOBALS['db'];
+	$ecs = $GLOBALS['ecs'];
+
+    include_once (ROOT_PATH . 'includes/lib_order.php');
+		include_once (ROOT_PATH . 'includes/lib_transaction.php');
+    @$okgoods_time = $db->getOne("select value from " . $ecs->table('shop_config') . " where code='okgoods_time'");
+    $time_temp = gmtime() - $okgoods_time*24*3600;
+        /* 待收货的订单　*/
+    $order_await_receipt = $db->GetAll("SELECT order_id, user_id FROM " . $ecs->table('order_info') . " WHERE shipping_time < $time_temp $ex_where " . order_query_sql('await_receipt'));
+    // echo "<pre>";var_dump($order_await_receipt);die();
+    foreach ($order_await_receipt as $key => $value) {
+
+    	$order_id = $value['order_id'];
+    	$user_id = $value['user_id'];
+
+    	if(affirm_received($order_id, $user_id))
+		// if(1)
+		{
+			include_once (ROOT_PATH . 'includes/lib_v_user.php');
+
+			// 该用户上级用户中的属于服务中心用户
+		    $sql = "SELECT * FROM " .$ecs->table('server_center') . " limit 1";
+		    $record = $db->getRow($sql);
+
+			$server_user_id = get_server_user($user_id, $record['vip_moeny_all']);
+
+			/* 购买VIP礼包分成 */
+			if(vip_order_affiliate($order_id)){
+				if($server_user_id){
+					server_affiliate($order_id, $server_user_id, $record['vip_goods_commission'], 2);
+				}
+			}elseif($GLOBALS['_CFG']['distrib_style'] == 0)
+			{
+				// 服务中心
+				if($server_user_id){
+					server_affiliate($order_id, $server_user_id, $record['ordinary_goods_commission'], 1);
+				}
+
+				//确认收货，自动分成
+				$affiliate = unserialize($GLOBALS['_CFG']['affiliate']);
+	    		empty($affiliate) && $affiliate = array();
+				$separate_by = $affiliate['config']['separate_by'];
+				//获取订单分成金额
+				$split_money = get_split_money_by_orderid($order_id);
+				$row = $GLOBALS['db']->getRow("SELECT o.order_sn,u.parent_id, o.is_separate,(o.goods_amount - o.discount) AS goods_amount, o.user_id,o.supplier_id  FROM " . $GLOBALS['ecs']->table('order_info') . " o"." LEFT JOIN " . $GLOBALS['ecs']->table('users') . " u ON o.user_id = u.user_id"." WHERE order_id = '$order_id'");
+	    		$order_sn = $row['order_sn'];
+				if($row['supplier_id'] == 0 || $GLOBALS['_CFG']['is_add_distrib'] == 1)
+				{
+					if($split_money > 0)
+					{
+						$num = count($affiliate['item']);
+						for ($i=0; $i < $num; $i++)
+						{
+							$affiliate['item'][$i]['level_money'] = (float)$affiliate['item'][$i]['level_money'];
+							if($affiliate['config']['level_money_all']==100 )
+							{
+								$setmoney = $split_money;
+							}
+							else 
+							{
+								if ($affiliate['item'][$i]['level_money'])
+								{
+									$affiliate['item'][$i]['level_money'] /= 100;
+								}
+								$setmoney = round($split_money * $affiliate['item'][$i]['level_money'], 2);
+							}
+							$row = $GLOBALS['db']->getRow("SELECT o.parent_id as user_id,u.user_name FROM " . $GLOBALS['ecs']->table('users') . " o" .
+											" LEFT JOIN" . $GLOBALS['ecs']->table('users') . " u ON o.parent_id = u.user_id".
+											" WHERE o.user_id = '$row[user_id]'"
+									);
+							$up_uid = $row['user_id'];
+							if (empty($up_uid) || empty($row['user_name']))
+							{
+								break;
+							}
+							else
+							{
+								$info = sprintf($_LANG['separate_info'], $order_sn, $setmoney, 0);
+								push_user_msg($up_uid,$order_sn,$setmoney);
+								insert_affiliate_log($order_id, $up_uid, $row['user_name'], $setmoney, $separate_by,$_LANG['order_separate']);
+
+								/* 更新账户总表 */
+								log_account_change($up_uid, $setmoney, 0, 0, 0,"分销获得v积分");
+							}
+							$sql = "UPDATE " . $GLOBALS['ecs']->table('order_info') .
+								   " SET is_separate = 1" .
+								   " WHERE order_id = '$order_id'";
+							$db->query($sql);
+						}
+						$_SERVER['REQUEST_URI'] = $_SERVER['REQUEST_URI'] ? $_SERVER['REQUEST_URI'] : "/mobile/";
+						$autoUrl = str_replace($_SERVER['REQUEST_URI'],"",$GLOBALS['ecs']->url());
+						@file_get_contents($autoUrl."/weixin/auto_do.php?type=1&is_affiliate=1");
+					} 
+				}
+			}
+
+		}
+    }
+
+}
 
 ?>

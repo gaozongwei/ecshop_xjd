@@ -12,12 +12,11 @@
 <p>扣税：{$item.tax}</p>
 <p>转入云豆：{$item.bean}</p>
 <p>实际金额：{$item.actual}</p>
-<p>提现微信号：{$item.short_user_note}</p>
 <p>{$lang.admin_notic}：{$item.short_admin_note}</p>
 </dd>
 <dd>
 <span>{$lang.is_paid}：{$item.pay_status}</span>
- <!-- {if ($item.is_paid eq 0 && $item.process_type eq 1) || $item.handle} --> 
+ <!-- {if (($item.is_paid eq 0 || $item.is_paid eq 2) && $item.process_type eq 1) || $item.handle} --> 
 <a href="user.php?act=cancel&id={$item.id}" onclick="if (!confirm('{$lang.confirm_remove_account}')) return false;" style="color:#666">{$lang.is_cancel}</a>{/if}
 </dd>
 </dl>

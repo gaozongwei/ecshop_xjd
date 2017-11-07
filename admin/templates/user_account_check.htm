@@ -20,9 +20,6 @@
     </td>
   </tr>
   <tr>
-    <td colspan="2"><strong>提现微信号：</strong>{$surplus.user_note}<hr /></td>
-  </tr>
-  <tr>
     <th width="15%" valign="middle" align="right">{$lang.surplus_notic}：</th>
     <td width="85%">
       <textarea name="admin_note" cols="55" rows="5">{$surplus.admin_note}</textarea><span class="require-field">*</span>
@@ -33,6 +30,7 @@
     <td>
       <input type="radio" name="is_paid" value="0" checked="true" />{$lang.unconfirm}
       <input type="radio" name="is_paid" value="1" />{$lang.confirm}
+      <input type="radio" name="is_paid" value="2" />拒绝
     </td>
   </tr>
   <tr>

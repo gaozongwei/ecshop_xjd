@@ -209,7 +209,7 @@ if ($event['event'] == "CLICK"){
 					$newsData[$k]['Description'] = strip_tags($v['name']);
 					$newsData[$k]['PicUrl'] = (strpos($v['thumb'],'http://') !== false ? $v['thumb'] : $baseurl.$v['thumb']);
 					$newsData[$k]['Url'] = $weburl."mobile/".$v['url'];
-					if($k == 9)
+					if($k == 6)
 					{
 						break; 
 					}

@@ -38,7 +38,7 @@
     <td align="center">{$item.process_type_name}</td>
     <td align="right">{$item.surplus_amount}</td>
     <td>{if $item.payment}{$item.payment}{else}N/A{/if}</td>
-    <td align="center">{if $item.is_paid}{$lang.confirm}{else}{$lang.unconfirm}{/if}</td>
+    <td align="center">{if $item.is_paid eq 1}{$lang.confirm}{elseif $item.is_paid eq 0}{$lang.unconfirm}{elseif $item.is_paid eq 2}已拒绝{/if}</td>
     <td align="center">{$item.admin_user}
     <td align="center">
     {if $item.is_paid}

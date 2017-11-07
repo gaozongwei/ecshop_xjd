@@ -425,7 +425,7 @@ function get_all_supplier_order()
 	return $db->getAll($sql);
 }
 //当前入驻商详细信息中的支付方式
-function get_rebate_pay($suppid)
+function get_rebate_pay()
 {
 	global $db,$ecs;
 	$suppid = intval($_REQUEST['suppid']);

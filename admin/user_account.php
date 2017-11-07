@@ -106,10 +106,10 @@ elseif ($_REQUEST['act'] == 'add' || $_REQUEST['act'] == 'edit')
         $user_account['amount'] = str_replace('-', '', $user_account['amount']);
 
         // 提现扣除5%税
-        $user_account['tax'] = number_format($user_account['amount']*5/100, 2);
+        $user_account['tax'] = number_format($user_account['amount']*$_CFG['tixian_tax']/100, 2);
 
         //扣除30%转入云豆
-        $user_account['bean'] = number_format(($user_account['amount'] - $user_account['tax'])*30/100, 2);
+        $user_account['bean'] = number_format(($user_account['amount'] - $user_account['tax'])*$_CFG['tixian_bean']/100, 2);
 
         // 剩余部分
         $user_account['actual'] = $user_account['amount'] - $user_account['tax'] - $user_account['bean'];
@@ -385,7 +385,18 @@ elseif ($_REQUEST['act'] == 'action')
 
             $trade_no = date('YmdHis').mt_rand(1000,9999);
 
-            $res = $merchPay->pay($openid,$trade_no,1,'提现');
+
+            // 提现扣除税
+            $account['tax'] = number_format($account['amount']*$_CFG['tixian_tax']/100, 2);
+
+            //扣除30%转入云豆
+            $account['bean'] = number_format(($account['amount'] - $account['tax'])*$_CFG['tixian_bean']/100, 2);
+
+            // 剩余部分
+            $account['actual'] = abs($account['amount'] - $account['tax'] - $account['bean']);
+
+
+            $res = $merchPay->pay($openid,$trade_no,$account['actual'],'提现');
             if($res['status'] && ($res['status'] == '1')){
                 $link[] = array('text' => $_LANG['go_back'], 'href'=>'javascript:history.back(-1)');
                 sys_msg($res[0]?$res[0]:$res['msg'], 0, $link);
@@ -433,6 +444,13 @@ elseif ($_REQUEST['act'] == 'action')
                    "admin_user    = '$_SESSION[admin_name]', ".
                    "admin_note    = '$admin_note', ".
                    "is_paid       = 0 WHERE id = '$id'";
+            $db->query($sql);
+        }elseif($is_paid == '2'){
+            /* 否则更新信息 */
+            $sql = "UPDATE " .$ecs->table('user_account'). " SET ".
+                   "admin_user    = '$_SESSION[admin_name]', ".
+                   "admin_note    = '$admin_note', ".
+                   "is_paid       = 2 WHERE id = '$id'";
             $db->query($sql);
         }
 

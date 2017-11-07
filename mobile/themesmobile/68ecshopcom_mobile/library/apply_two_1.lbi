@@ -221,9 +221,9 @@
               <td><input name="bank_name" type="text" id="bank_name" class="w200" value="{$supplier.bank_name}">
                 <span></span></td>
             </tr>
-            <tr>
+            <tr style="display:none">
               <th><i>*</i>支行联行号：</th>
-              <td><input name="bank_code" type="text" id="bank_code" class="w200" value="{$supplier.bank_code}">
+              <td><input name="bank_code" type="text" id="bank_code" class="w200" value="00000000">
                 <span></span></td>
             </tr>
           </tbody>
